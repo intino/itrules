@@ -1,0 +1,14 @@
+:Class
+<class name="$Name" type="$Type">
+	$superclass+Superclass
+	$interface+Interface...[$NL]
+
+</class>
+
+
+:String+Superclass
+<superclass name="$value" />
+
+:String+Interface
+<interface name="$value" />
+
