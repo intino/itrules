@@ -2,10 +2,14 @@ parser grammar TemplationParser;
 options { tokenVocab=TemplationLexer; }
 
 
-root: text EOF;
-text: (OTHER | mark | expression | block )*;
+root: block* EOF;
 
-mark: MARK ID;
+block: BLOCK_BEGIN filter? WS* NL blockBody;
+blockBody: (text | mark | expression)*;
+expression: LEFT_SQ (text | MARK | expression)* text? RIGHT_SQ;
 
-expression: LEFT_SQUARE (OTHER | mark | expression)* OTHER? RIGHT_SQUARE;
-block: NL BLOCK ID NL text NL BLOCK_END;
+filter: IF ID+;
+text: TEXT | SCAPED_CHAR;
+mark : MARK (LIST separator)?;
+
+separator : LEFT_SQ (text | NL_SEP) RIGHT_SQ

@@ -1,20 +1,66 @@
 lexer grammar TemplationLexer;
 
-LEFT_SQ:'[';
-RIGHT_SQ:']';
+@lexer::members{
+	int lastMode = 0;
 
-NL: ('\r'? '\n' | '\n');
-MARK_ID: MARK_KEY (ID | STRING | DOUBLE | INTEGER);
-TEXT:.* (BLOCK_KEY | MARK_KEY | LEFT_SQ | RIGHT_SQ);
-STRING: 'String';
-DOUBLE: 'Double';
-INTEGER: 'Integer';
-ID: LETTER (DIGIT | LETTER)*;
-MARK_KEY: '$';
-BLOCK_KEY:':';
-TAG:'+';
-LIST:'...';
-NL_SEP: '$NL';
-LETTER: 'a'..'z' | 'A'..'Z';
+	private void setLastMode(int i) {
+		lastMode = i;
+	}
+
+	public int getLastMode() {
+        return lastMode;
+    }
+
+    public boolean markHasParameters() {
+        char c = this.getInputStream().toString().charAt(getCharIndex());
+        return c == '+';
+    }
+
+    public void setMode(int newMode) {
+        _mode = newMode;
+    }
+
+    public void exitMark() {
+        if(!markHasParameters()) {
+			setMode(lastMode);
+			setLastMode(MARK);
+        }
+    }
+}
+
+BLOCK_KEY: ':'                  {setMode(BLOCK_SIGNATURE); setLastMode(DEFAULT_MODE);};
+TEXT: ~(':')*;
+
+mode MARK;
+	LIST:'...';
+	TAG:'+';
+	MARK_NAME: LETTER(DIGIT|LETTER)*                   { exitMark();};
+	SEPARATOR:'[' ~(']')*                              { setMode(lastMode); setLastMode(MARK);};
+
+mode BLOCK_SIGNATURE;
+	BLOCK_NAME: (BLOCK_ID | STRING| INTEGER | DOUBLE);
+	STRING: 'String';
+	DOUBLE: 'Double';
+	INTEGER: 'Integer';
+	NOT:'!';
+    IF: 'if';
+	BLOCK_ID: LETTER(DIGIT|LETTER)*;
+	NL: (' '|'\t')* ('\r'? '\n' | '\n')             {setLastMode(BLOCK_SIGNATURE);} -> mode(BLOCK_BODY);
+
+mode BLOCK_BODY;
+	MARK_KEY: '$'                       {setMode(MARK); setLastMode(BLOCK_BODY);};
+	LEFT_SQ: '['                        {setMode(EXPRESION); setLastMode(BLOCK_BODY);};
+	END: ('\r'? '\n' | '\n') ':'        {setMode(DEFAULT_MODE); setLastMode(BLOCK_BODY);};
+	BLOCK_TEXT: ~('$'| '[')*            {setType(TEXT);};
+
+mode EXPRESION;
+	SCAPED_CHAR: '$$' | '$[' | '$]';
+	INSIDE_MARK: '$'                    {setType(MARK_KEY); setLastMode(EXPRESION);} -> mode(MARK);
+	RIGHT_SQ: ']'                       {setLastMode(EXPRESION);} -> mode(BLOCK_BODY);
+	EXPRESSION_TEXT: ~('$'| '[' | ']')* {setType(TEXT);};
+
+fragment
 DIGIT :[0-9];
+fragment
+LETTER: 'a'..'z' | 'A'..'Z';
 

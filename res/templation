@@ -1,0 +1,88 @@
+root:{
+ 	Class
+	name: "Customer"
+	final: "final"
+	interface: ["Person","Gay"]
+	attribute: [
+		{
+			Attribute,ReadOnly
+			name: "Name"
+			type: "String"
+		}
+		{
+			Attribute,ReadOnly
+			name: "FamilyName"
+			type: "String"
+		}
+		{
+			Attribute,Const
+			name: "MaxAge"
+			type: "Integer"
+			default: 100
+		}
+	]
+}
+
+
+-------------------------------------------------------------------------
+:Class
+<class name="$Name" type="$Type">
+	$superclass+Superclass
+	$interface+Interface...[$NL]
+
+</class>
+
+
+:String+Superclass
+<superclass name="$value" />
+
+:String+Interface
+<interface name="$value" />
+
+
+-------------------------------------------------------------------------
+:Class
+public class [$static ][$final ]$Name [extends $Superclass ][implements $Interface...[, ]]{
+	$attribute+Const...[$NL]
+	$attribute+Field...[$NL]
+
+	$attribute+Getter...[$NL]
+
+	public $Name($attribute+Injection...[,]) {
+		$attribute:Initialize...[$NL]
+	}
+}
+
+
+:Attribute+Const if Const
+public static final $type $NAME = $default;
+
+:Attribute+Field if ReadOnly
+private final $type $name[ = $default];
+
+:Attribute+Field if !ReadOnly
+private $type $name[ = $default];
+
+:Attribute+Getter
+public $type get$Name() {
+	return $name;
+}
+
+:Attribute+Setter if !ReadOnly
+public void set$Name($type value) {
+	$name = value;
+}
+
+:Attribute+Injection if ReadOnly
+$type $name
+
+:Attribute+Initialize if ReadOnly
+this.$name = $name;
+
+
+$$
+$CR $NL
+$TAB
+$~
+$[
+$]

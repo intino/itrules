@@ -18,27 +18,17 @@ public class ParserTest {
 	@Test
 	public void templateTest() {
 		TemplationParser parser = init(
-			"public class $name [extends $superclass] [implements $interface[, $interface]] {\n" +
+			":Class\n" +
+				"public class [$static ][$final ]$Name [extends $Superclass ][implements $Interface...[, ]]{\n" +
+				"\t$attribute+Const...[$NL]\n" +
+				"\t$attribute+Field...[$NL]\n" +
 				"\n" +
-				"#attribute\n" +
-				"  $type $name;\n" +
-				"#end\n" +
+				"\t$attribute+Getter...[$NL]\n" +
 				"\n" +
-				"#attribute\n" +
-				"  public $type get$Name() {\n" +
-				"      return #name;\n" +
-				"  }\n" +
-				"\n" +
-				"#end\n" +
-				"\n" +
-				"#attribute\n" +
-				"  public void set$Name($type $name) {\n" +
-				"      this.$name = $name;\n" +
-				"  }\n" +
-				"\n" +
-				"#end\n" +
-				"\n" +
-				"}\n"
+				"\tpublic $Name($attribute+Injection...[,]) {\n" +
+				"\t\t$attribute:Initialize...[$NL]\n" +
+				"\t}\n" +
+				"}"
 		);
 		Assert.assertTrue(parse(parser));
 	}

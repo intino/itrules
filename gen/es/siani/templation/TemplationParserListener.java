@@ -19,6 +19,16 @@ public interface TemplationParserListener extends ParseTreeListener {
 	 */
 	void exitExpression(@NotNull TemplationParser.ExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TemplationParser#text}.
+	 * @param ctx the parse tree
+	 */
+	void enterText(@NotNull TemplationParser.TextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TemplationParser#text}.
+	 * @param ctx the parse tree
+	 */
+	void exitText(@NotNull TemplationParser.TextContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TemplationParser#root}.
 	 * @param ctx the parse tree
 	 */
@@ -38,44 +48,4 @@ public interface TemplationParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBlock(@NotNull TemplationParser.BlockContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TemplationParser#blockID}.
-	 * @param ctx the parse tree
-	 */
-	void enterBlockID(@NotNull TemplationParser.BlockIDContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TemplationParser#blockID}.
-	 * @param ctx the parse tree
-	 */
-	void exitBlockID(@NotNull TemplationParser.BlockIDContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TemplationParser#mark}.
-	 * @param ctx the parse tree
-	 */
-	void enterMark(@NotNull TemplationParser.MarkContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TemplationParser#mark}.
-	 * @param ctx the parse tree
-	 */
-	void exitMark(@NotNull TemplationParser.MarkContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TemplationParser#separator}.
-	 * @param ctx the parse tree
-	 */
-	void enterSeparator(@NotNull TemplationParser.SeparatorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TemplationParser#separator}.
-	 * @param ctx the parse tree
-	 */
-	void exitSeparator(@NotNull TemplationParser.SeparatorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TemplationParser#blockBody}.
-	 * @param ctx the parse tree
-	 */
-	void enterBlockBody(@NotNull TemplationParser.BlockBodyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TemplationParser#blockBody}.
-	 * @param ctx the parse tree
-	 */
-	void exitBlockBody(@NotNull TemplationParser.BlockBodyContext ctx);
 }
