@@ -52,6 +52,17 @@ public class LexerTest {
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
+
+	@Test
+	public void classWithMarks() {
+		String[] expectedTypes = new String[]{"BLOCK_KEY", "BLOCK_NAME", "BLOCK_FILTER", "BLOCK_NAME", "WS", "IF", "WS",
+			"BLOCK_NAME", "NL", "TEXT", "MARK_KEY", "MARK_NAME", "TEXT", "MARK_KEY", "MARK_NAME", "TEXT"};
+		String[] receivedTypes = lexerTest(
+			":Class+Const if Const\npublic class $attri alalasda $other "
+		);
+		assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
 	@Test
 	public void markWithModifiers() {
 		String[] expectedTypes = new String[]{"BLOCK_KEY", "BLOCK_NAME", "NL", "TEXT",
@@ -70,6 +81,18 @@ public class LexerTest {
 	}
 
 	@Test
+	public void twoBlocks() {
+		String[] expectedTypes = new String[]{"BLOCK_KEY", "BLOCK_NAME", "NL", "TEXT",
+			"LEFT_SQ", "MARK_KEY", "MARK_NAME", "TEXT", "RIGHT_SQ", "TEXT", "BLOCK_KEY", "BLOCK_NAME", "NL", "TEXT",
+			"LEFT_SQ", "MARK_KEY", "MARK_NAME", "TEXT", "RIGHT_SQ",};
+		String[] receivedTypes = lexerTest(":Class\n" +
+			"public class [$static ]\n" +
+			":class2\n" +
+			"\tpublic class [$static ]");
+		assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
+	@Test
 	public void littleBigTest() {
 		String[] expectedTypes = new String[]{"BLOCK_KEY", "BLOCK_NAME", "NL", "TEXT",
 			"LEFT_SQ", "MARK_KEY", "MARK_NAME", "TEXT", "RIGHT_SQ", "LEFT_SQ", "MARK_KEY", "MARK_NAME", "TEXT",
@@ -83,12 +106,73 @@ public class LexerTest {
 			"\t$attribute+Getter...[$NL]\n" +
 			"\n" +
 			"\tpublic $Name($attribute+Injection...[,]) {\n" +
-			"\t\t$attribute:Initialize...[$NL]\n" +
+			"\t\t$attribute+Initialize...[$NL]\n" +
 			"\t}\n" +
 			"}");
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
+	@Test
+	public void xmlTaraTest() {
+		String[] expectedTypes = new String[]{"BLOCK_KEY", "BLOCK_NAME", "NL",
+			"TEXT", "MARK_KEY", "MARK_NAME", "LIST", "SEPARATOR", "TEXT",
+			"BLOCK_KEY", "BLOCK_NAME", "NL",
+			"TEXT", "MARK_KEY", "MARK_NAME", "TEXT", "MARK_KEY", "MARK_NAME", "TEXT",
+			"MARK_KEY", "MARK_NAME", "LIST", "SEPARATOR", "TEXT",
+		};
+		String[] receivedTypes = lexerTest(
+			":Theasurus\n" +
+				"<thesaurus>\n" +
+				"\t$terms...[$NL]\n" +
+				"</thesaurus>\n" +
+				"\n" +
+				":Term\n" +
+				"<term code=\"$code\" value=\"$value\">\n" +
+				"\t$terms...[$NL]\n" +
+				"</term>");
+		assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
+	@Test
+	public void xmlSmallTest() {
+		String[] expectedTypes = new String[]{"BLOCK_KEY", "BLOCK_NAME", "NL",
+			"TEXT", "MARK_KEY", "MARK_NAME",
+			"TEXT", "MARK_KEY", "MARK_NAME",
+			"TEXT", "MARK_KEY", "MARK_NAME","TAG", "MARK_NAME",
+			"TEXT", "MARK_KEY", "MARK_NAME", "TAG", "MARK_NAME","LIST", "SEPARATOR","TEXT",
+			"BLOCK_KEY", "BLOCK_NAME", "BLOCK_FILTER","BLOCK_NAME","NL",
+			"TEXT", "MARK_KEY", "MARK_NAME","TEXT"
+			};
+		String[] receivedTypes = lexerTest(
+			":Class\n" +
+				"<class name=\"$Name\" type=\"$Type\">\n" +
+				"\t$superclass+Superclass\n" +
+				"\t$interface+Interface...[$NL]\n" +
+				":String+Interface\n" +
+				"<interface name=\"$value\" />");
+		assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
+	@Test
+	public void xmlCompleteTest() {
+		String[] expectedTypes = new String[]{"BLOCK_KEY", "BLOCK_NAME", "NL", "TEXT",
+			"LEFT_SQ", "MARK_KEY", "MARK_NAME", "TEXT", "RIGHT_SQ", "TEXT", "BLOCK_KEY", "BLOCK_NAME", "NL", "TEXT",
+			"LEFT_SQ", "MARK_KEY", "MARK_NAME", "TEXT", "RIGHT_SQ",};
+		String[] receivedTypes = lexerTest(":Class\n" +
+			"<class name=\"$Name\" type=\"$Type\">\n" +
+			"\t$superclass+Superclass\n" +
+			"\t$interface+Interface...[$NL]\n" +
+			"\n" +
+			"</class>\n" +
+			"\n" +
+			"\n" +
+			":String+Superclass\n" +
+			"<superclass name=\"$value\" />\n" +
+			"\n" +
+			":String+Interface\n" +
+			"<interface name=\"$value\" />");
+		assertArrayEquals(expectedTypes, receivedTypes);
+	}
 
 	public static void setRulesNameList(String[] list) {
 		ruleNamesList = list;

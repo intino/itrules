@@ -41,6 +41,18 @@ public class TemplationParserBaseListener implements TemplationParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBlockSignature(@NotNull TemplationParser.BlockSignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockSignature(@NotNull TemplationParser.BlockSignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterRoot(@NotNull TemplationParser.RootContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -60,6 +72,42 @@ public class TemplationParserBaseListener implements TemplationParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBlock(@NotNull TemplationParser.BlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMark(@NotNull TemplationParser.MarkContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMark(@NotNull TemplationParser.MarkContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFilter(@NotNull TemplationParser.FilterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFilter(@NotNull TemplationParser.FilterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlockBody(@NotNull TemplationParser.BlockBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlockBody(@NotNull TemplationParser.BlockBodyContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

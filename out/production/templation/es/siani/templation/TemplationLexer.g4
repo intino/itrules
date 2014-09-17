@@ -13,7 +13,10 @@ lexer grammar TemplationLexer;
 
     public boolean markHasParameters() {
         char c = this.getInputStream().toString().charAt(getCharIndex());
-        return c != ' ' && c != '\n' && c != '~';
+        String list = "";
+        if (getCharIndex() + 3 < getInputStream().toString().length())
+            list = this.getInputStream().toString().substring(getCharIndex(), getCharIndex() + 3);
+        return c == '+' || list.equals("...");
     }
 
     public void setMode(int newMode) {
@@ -28,37 +31,39 @@ lexer grammar TemplationLexer;
     }
 }
 
-BLOCK_KEY: ':'                  {setMode(BLOCK_SIGNATURE); setLastMode(DEFAULT_MODE);};
+BLOCK_KEY: ':'                                          {setMode(BLOCK_SIGNATURE); setLastMode(DEFAULT_MODE);};
 TEXT: ~(':')*;
 
 mode MARK;
 	LIST:'...';
 	TAG:'+';
-	MARK_NAME: LETTER(DIGIT|LETTER)*                   { exitMark();};
-	SEPARATOR:'[' ~(']')*                              { setMode(lastMode); setLastMode(MARK);};
-
+	SCAPED_CHAR: '$' | '[' | ']'| ':';
+	MARK_NAME: LETTER(DIGIT|LETTER)*                    { exitMark();};
+	SEPARATOR:'[' ~(']')*                               { setMode(lastMode); setLastMode(MARK);};
+	MARK_ERROR:.;
 mode BLOCK_SIGNATURE;
-	BLOCK_NAME: (BLOCK_ID | STRING| INTEGER | DOUBLE);
+    IF: 'if';
+	BLOCK_FILTER : '+';
+	WS:' ';
+	BLOCK_NAME: (NAME | STRING| INTEGER | DOUBLE);
 	STRING: 'String';
 	DOUBLE: 'Double';
 	INTEGER: 'Integer';
 	NOT:'!';
-    IF: 'if';
-	BLOCK_ID: LETTER(DIGIT|LETTER)*;
-	NL: (' '|'\t')* ('\r'? '\n' | '\n')             {setLastMode(BLOCK_SIGNATURE);} -> mode(BLOCK_BODY);
+	NL: (' '|'\t')* ('\r'? '\n' | '\n')                 {setLastMode(BLOCK_SIGNATURE);} -> mode(BLOCK_BODY);
+	NAME: LETTER(DIGIT|LETTER)*;
+	BLOCK_ERROR:.;
 
 mode BLOCK_BODY;
-	MARK_KEY: '$'                       {setMode(MARK); setLastMode(BLOCK_BODY);};
-	LEFT_SQ: '['                        {setMode(EXPRESION); setLastMode(BLOCK_BODY);};
-	END: ('\r'? '\n' | '\n') ':'        {setMode(DEFAULT_MODE); setLastMode(BLOCK_BODY);};
-	BLOCK_TEXT: ~('$'| '[')*            {setType(TEXT);};
-
+	MARK_KEY: '$'                                       {setMode(MARK); setLastMode(BLOCK_BODY);};
+	LEFT_SQ: '['                                        {setMode(EXPRESION); setLastMode(BLOCK_BODY);};
+	END: ':'                                            {setType(BLOCK_KEY);setMode(BLOCK_SIGNATURE); setLastMode(BLOCK_BODY);};
+	BLOCK_TEXT: ~('$'| '[' |':')*                       {setType(TEXT);};
 mode EXPRESION;
-	SCAPED_CHAR: '$$' | '$[' | '$]';
-	INSIDE_MARK: '$'                    {setType(MARK_KEY); setLastMode(EXPRESION);} -> mode(MARK);
-	RIGHT_SQ: ']'                       {setLastMode(EXPRESION);} -> mode(BLOCK_BODY);
-	EXPRESSION_TEXT: ~('$'| '[' | ']')* {setType(TEXT);};
 
+	EXPRESSION_MARK: '$'                                {setType(MARK_KEY); setLastMode(EXPRESION);} -> mode(MARK);
+	RIGHT_SQ: ']'                                       {setLastMode(EXPRESION);} -> mode(BLOCK_BODY);
+	EXPRESSION_TEXT: ~('$'| '[' | ']')*                 {setType(TEXT);};
 fragment
 DIGIT :[0-9];
 fragment

@@ -29,6 +29,16 @@ public interface TemplationParserListener extends ParseTreeListener {
 	 */
 	void exitText(@NotNull TemplationParser.TextContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TemplationParser#blockSignature}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockSignature(@NotNull TemplationParser.BlockSignatureContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TemplationParser#blockSignature}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockSignature(@NotNull TemplationParser.BlockSignatureContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TemplationParser#root}.
 	 * @param ctx the parse tree
 	 */
@@ -48,4 +58,34 @@ public interface TemplationParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBlock(@NotNull TemplationParser.BlockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TemplationParser#mark}.
+	 * @param ctx the parse tree
+	 */
+	void enterMark(@NotNull TemplationParser.MarkContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TemplationParser#mark}.
+	 * @param ctx the parse tree
+	 */
+	void exitMark(@NotNull TemplationParser.MarkContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TemplationParser#filter}.
+	 * @param ctx the parse tree
+	 */
+	void enterFilter(@NotNull TemplationParser.FilterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TemplationParser#filter}.
+	 * @param ctx the parse tree
+	 */
+	void exitFilter(@NotNull TemplationParser.FilterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TemplationParser#blockBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlockBody(@NotNull TemplationParser.BlockBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TemplationParser#blockBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlockBody(@NotNull TemplationParser.BlockBodyContext ctx);
 }

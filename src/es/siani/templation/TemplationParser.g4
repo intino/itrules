@@ -1,15 +1,13 @@
 parser grammar TemplationParser;
 options { tokenVocab=TemplationLexer; }
 
+root: text? block* EOF;
 
-root: block* EOF;
-
-block: BLOCK_BEGIN filter? WS* NL blockBody;
+block: blockSignature blockBody;
+blockSignature: BLOCK_KEY BLOCK_NAME (BLOCK_FILTER BLOCK_NAME)? (WS+ IF WS+ NOT? BLOCK_NAME)? NL;
 blockBody: (text | mark | expression)*;
-expression: LEFT_SQ (text | MARK | expression)* text? RIGHT_SQ;
+expression: LEFT_SQ (text | mark | expression)* RIGHT_SQ;
 
-filter: IF ID+;
+filter: IF MARK_NAME+;
 text: TEXT | SCAPED_CHAR;
-mark : MARK (LIST separator)?;
-
-separator : LEFT_SQ (text | NL_SEP) RIGHT_SQ
+mark : MARK_KEY MARK_NAME (TAG MARK_NAME)? (LIST SEPARATOR)?;
