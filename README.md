@@ -11,7 +11,7 @@ Root:Person
   Name:String="Pau Gasol"
   Birthday:Date=06/07/1980
   Country:String="Spain"
-  Team:String="Barcelona","Lakers"
+  Team:String="Spain","Lakers"
 ```
 
 Rules are the elementary representations to define the template. It might be seen as the knowledge for generating documents. Thus, the engine is like an expert system that provides the reasoning mechanism to execute rules in order to achieve the document generation. Rules are defined for a data type and consist of two parts: a sensory precondition and an action, the desired output for the data type and preconditions defined in the rule. If a rule's precondition matches the data source, the production is triggered and its action is executed. The precondition is optional, so the rule is triggered whenever the data type is present
@@ -28,7 +28,7 @@ Rule type(Date) id(Birthday) format(yyyy)
 $Value
 ^
 
-Rule type(Date) case(DayMonth) format(dd/mm)
+Rule type(Date) class(DayMonth) format(dd/mm)
 $Value
 ^
 ```
@@ -53,4 +53,3 @@ Do it through our [Issue Tracker](http://bitbucket.org/siani/itrules/issues)
 * José Évora-Gómez (SIANI. University of Las Palmas. SPAIN)
 * Mario Caballero Ramírez (SIANI. University of Las Palmas. SPAIN)
 * Octavio Roncal Andrés (SIANI. University of Las Palmas. SPAIN)
-
