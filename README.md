@@ -5,7 +5,7 @@ ITrules is a rule-based template engine. ITrules can generate HTML, XML, SQL, JS
 ITrules defines a programming language that allows to define frames and production rules. The engine is able to interpret this language and generate a document.
 
 ## Frame and rules ##
-Frames are the elementary representations to define the data source. It might be understood as facts that represent the document. A frame can be represented as simple type (String, Integer, Float, Date) or as a complex type, that is, a set of attributes. Attributes can be just a single frame or multiple frames (list). Any data source contains a *Root Frame*.
+Frames are the elementary representations to define the data source. It might be understood as facts that represent the document. A frame can be represented as simple type (String, Integer, Float, Date) or as a complex type, that is, a set of attributes. Any data source contains a *Root Frame*.
 
 ```
 #!python
