@@ -18,6 +18,7 @@ Rules are the elementary representations to define the template. It might be see
 Since, only one action can be taken, the engine provides a mechanism for prioritizing rules when more than one is triggered. 
 
 ```
+:::text
 Rule type(Person)
 $Name was born in $Country on $Birthday.
 His birthday is on $Birthday(DayMonth).
