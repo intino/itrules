@@ -39,6 +39,8 @@ Default rules for primitive types rendered these triggers, producing the followi
 Pau Gasol was born in Spain on 06/07/1980.
 ```
 
+Read the [reference guide](referenceguide) to learn how rules can be defined
+
 ## Java API ##
 Once frames and rules have been defined, the document can be generated
 ```
