@@ -52,7 +52,7 @@ Once frames and rules have been defined, the document can be generated
 ```
 #!java
 Document document = new Document();
-Frame data = new Frame(source);
+Frame data = new Frame(dataSource);
 RuleEngine ruleEngine = new RuleEngine(rules);
 ruleEngine.render(data, document);
 ```
