@@ -7,12 +7,16 @@ It defines a programming language that allows to define production rules and fra
 Frames are the elementary representations to define the data source. It might be understood as facts that represent the document. A frame can be represented as simple type (String, Integer, Float, Date) or as a complex type, that is, a set of attributes. Attributes can be just a single frame or multiple frames (list). Any data source contains a Root frame.
 
 ```
-Root(String)=Hello world!
-Root(Date)=10/04/2010
+Root="Hello world!"
+Root(String)
+  value="Hello world!"
+Root=on 10/04/2010
+Root(Date)
+  value=10/04/2010
 Root(Person)
-  Name(String)=Pau Gasol
+  Name="Pau Gasol"
   Birthday(Date)=06/07/1980
-  Country(String)=Spain
+  Country="Spain"
 ```
 
 Rules are the elementary representations to define the template. It might be seen as the knowledge for generating documents. Thus, the engine is like an expert system that provides the reasoning mechanism to execute rules in order to achieve the document generation. Rules are defined for a data type and consist of two parts: a sensory precondition and an action, the desired output for the data type and preconditions defined in the rule. If a rule's precondition matches the data source, the production is triggered and its action is executed. The precondition is optional, so the rule is triggered whenever the data type is present
