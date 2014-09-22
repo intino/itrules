@@ -26,7 +26,12 @@ $Name was born in $Country on $Birthday
 $~
 ```
 
-The `$~` mark indicates the end of the output.
+* `is(Person)` is a condition that checks that a frame type is `Person`. 
+* `$Name was born in $Country on $Birthday` is the output
+* `$~` mark indicates the end of the output. 
+
+In the [reference guide](referenceguide) you can learn more about rule definition.
+
 
 ## Triggering rules ##
 
@@ -41,8 +46,6 @@ Default rules for primitive types rendered these triggers, producing the followi
 ```
 Pau Gasol was born in Spain on 06/07/1980.
 ```
-
-Read the [reference guide](referenceguide) to learn how rules can be defined
 
 ## Java API ##
 Once frames and rules have been defined, the document can be generated
