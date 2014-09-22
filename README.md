@@ -8,6 +8,7 @@ Frames are the elementary representations to define the data source. It might be
 
 ```
 Root:String="Hello world!"
+
 Root:Person
   Name:String="Pau Gasol"
   Birthday:Date=06/07/1980
