@@ -44,8 +44,23 @@ Once frames and rules have been defined, the document can be generated
 ```
 #!java
 Document document = new Document();
-Frame data = new Frame(*source*);
-RuleEngine ruleEngine = new RuleEngine(*source*);
+Frame data = new Frame(source);
+RuleEngine ruleEngine = new RuleEngine(rules);
 ruleEngine.render(data, document);
-
 ```
+
+# Download #
+All the stable releases are available at [downloads](http://bitbucket.org/siani/itrules/downloads)
+
+# License #
+ITrules is licensed under the [LGPL](http://www.gnu.org/licenses/lgpl.html) v2.1. The LGPL guarantees that this library will stay open source, protecting your work.
+
+# Getting help #
+Do you have a question, a problem, some feedback, or suggestions for ITrules?
+Do it through our [Issue Tracker](http://bitbucket.org/siani/itrules/issues)
+
+# Team #
+* José Juan Hernández-Cabrera (SIANI. University of Las Palmas. SPAIN)
+* José Évora-Gómez (SIANI. University of Las Palmas. SPAIN)
+* Mario Caballero Ramírez (SIANI. University of Las Palmas. SPAIN)
+* Octavio Roncal Andrés (SIANI. University of Las Palmas. SPAIN)
