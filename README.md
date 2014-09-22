@@ -34,7 +34,7 @@ The *Root Frame* is the initial trigger. When a trigger matches the condition of
 
 Since, only one action can be taken, the engine provides a mechanism for prioritizing rules when more than one can be triggered. 
 
-Rule output marks create new triggers from the corresponding attributes in the current frame. `Name`, `Country` and `Birthday` marks in this output will create triggers for the corresponding attributes in the *Person Frame*. 
+Output marks create new triggers. In this case `Name`, `Country` and `Birthday` marks create triggers using the corresponding attributes from the triggering frame. 
 
 Default rules for primitive types rendered these triggers, producing the following output:
 
