@@ -20,10 +20,13 @@ Rules are the elementary representations to define the template. It might be see
 Rules consist of two parts: a condition and an output. Conditions are expressed as a set of boolean functions. Output can contain marks($) and expressions.
 
 ```
-#!powershell
-When is(Person) #condition
-$Name was born in $Country on $Birthday  #output
+#!Dylan
+if is(Person)
+$Name was born in $Country on $Birthday
+$~
 ```
+
+The `$~` mark indicates the end of the output.
 
 ## Triggering rules ##
 
