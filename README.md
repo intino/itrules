@@ -4,8 +4,6 @@ ITrules is a rule-based template engine. ITrules can generate HTML, XML, SQL, JS
 # How it works? #
 It defines a programming language that allows to define production rules and frames. The engine is able to interpret this language for document generation.
 
-Rules are the elementary representations to define the template. It might be seen as the knowledge for generating documents. Thus, the engine is like an expert system that provides the reasoning mechanism to execute rules in order to achieve the document generation. Rules consist of sensory precondition and an action. If a rule's precondition matches the data source, the production is triggered and its action is executed. Since, only one action can be taken, the engine provides a mechanism for prioritizing rules when more than one is triggered. 
-
 Frames are the elementary representations to define the data source. It might be understood as facts that represent the document. A frame can be represented as simple type (String, Integer, Float, Date) or as a complex type, that is, a set of attributes. Attributes can be just a single frame or multiple frames (list). Any data source contains a Root frame.
 
 ```
@@ -15,6 +13,21 @@ Root(Person)
   Name(String)=Pau Gasol
   Birthday(Date)=06/07/1980
   Country(String)=Spain
+```
+
+Rules are the elementary representations to define the template. It might be seen as the knowledge for generating documents. Thus, the engine is like an expert system that provides the reasoning mechanism to execute rules in order to achieve the document generation. Rules are defined for a data type and consist of two parts: a sensory precondition and an action, the desired output for the data type and preconditions defined in the rule. If a rule's precondition matches the data source, the production is triggered and its action is executed. The precondition is optional, so the rule is triggered whenever the data type is present
+
+
+ Since, only one action can be taken, the engine provides a mechanism for prioritizing rules when more than one is triggered. 
+
+```
+Rule:Person
+>$Name was born in $Country on $Birthday
+
+
+Rule:Date 
+if Birthday
+>$Birthday
 ```
 
 
