@@ -24,9 +24,10 @@ $Name was born in $Country on $Birthday
 ~
 ```
 
+* `defrule` keyword indicates that a new rule will be defined
 * `type(Person)` is the condition. It checks that a frame type is `Person`. 
 * `$Name was born in $Country on $Birthday` is the output
-* `~` mark indicates the end of the output. 
+* `endrule` keywords indicates the end of the rule
 
 In the [reference guide](referenceguide) you can learn more about rule definition.
 
