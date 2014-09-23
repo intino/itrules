@@ -21,7 +21,7 @@ Rules consist of two parts: a condition and an output. Conditions are expressed 
 
 ```
 #!Dylan
-if is(Person)
+when is(Person)
 $Name was born in $Country on $Birthday
 $~
 ```
