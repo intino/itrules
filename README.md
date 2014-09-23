@@ -23,12 +23,12 @@ Rules consist of two parts: a condition and an output. Conditions are expressed 
 #!Dylan
 defrule type(Person)
 $Name was born in $Country on $Birthday
-$~
+~
 ```
 
 * `type(Person)` is the condition. It checks that a frame type is `Person`. 
 * `$Name was born in $Country on $Birthday` is the output
-* `$~` mark indicates the end of the output. 
+* `~` mark indicates the end of the output. 
 
 In the [reference guide](referenceguide) you can learn more about rule definition.
 
