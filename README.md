@@ -21,7 +21,7 @@ Rules are the elementary representations to define the template. It might be see
 #!Dylan
 defrule type(Person)
 $Name was born in $Country on $Birthday
-~
+endrule
 ```
 
 * `defrule` keyword indicates that a new rule will be defined
