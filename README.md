@@ -60,6 +60,7 @@ ruleEngine.render(data, document);
 All the stable releases are available at [downloads](http://bitbucket.org/siani/it-rules/downloads)
 
 # More examples #
+1. [Roster](examples/roster.md)
 
 
 # License #
