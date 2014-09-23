@@ -2,7 +2,7 @@
 it-rules is a rule-based template engine. it-rules can generate HTML, XML, SQL, JSON or any other documents from templates. Documents are generated from a structured data source (frames) and a set of production rules that define the template. It can be used either as a library for JAVA or as a command-line tool. 
 
 # How it works? #
-it-rules defines a programming language that allows to define frames and production rules. The engine is able to interpret this language and generate a document.
+The it-rules engine is like an expert system that provides the reasoning mechanism to execute rules in order to generate the document. It provides a programming language that allows to define frames and production rules. The engine is able to interpret this language and generate a document.
 
 ## Frame and rules ##
 Frames are the elementary representations to define the data source. It might be understood as facts that represent the document. A frame can be represented as simple type (String, Integer, Float, Date) or as a complex type, that is, a set of attributes. Any data source contains a *Root Frame*.
@@ -15,9 +15,7 @@ Root:Person
   Country:String="Spain"
 ```
 
-Rules are the elementary representations to define the template. It might be seen as the knowledge for generating documents. Thus, the engine is like an expert system that provides the reasoning mechanism to execute rules in order to generate the document. 
-
-Rules consist of two parts: a condition and an output. Conditions are expressed as a set of boolean functions. Output can contain marks($) and expressions.
+Rules are the elementary representations to define the template. It might be seen as the knowledge for generating documents. Rules consist of two parts: a condition and an output. Conditions are expressed as a set of boolean functions. Output can contain marks($) and expressions.
 
 ```
 #!Dylan
