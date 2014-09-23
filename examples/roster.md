@@ -1,6 +1,6 @@
 [Home](../README.md)
 
-# Roster. XML #
+# Roster #
 
 ## Frame ##
 ```
