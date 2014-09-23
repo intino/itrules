@@ -1,8 +1,8 @@
-# What is ITrules? #
-ITrules is a rule-based template engine. ITrules can generate HTML, XML, SQL, JSON or any other documents from templates. Documents are generated from a structured data source (frames) and a set of production rules that define the template. It can be used either as a library for JAVA or as a command-line tool. 
+# What is it-rules? #
+it-rules is a rule-based template engine. it-rules can generate HTML, XML, SQL, JSON or any other documents from templates. Documents are generated from a structured data source (frames) and a set of production rules that define the template. It can be used either as a library for JAVA or as a command-line tool. 
 
 # How it works? #
-ITrules defines a programming language that allows to define frames and production rules. The engine is able to interpret this language and generate a document.
+it-rules defines a programming language that allows to define frames and production rules. The engine is able to interpret this language and generate a document.
 
 ## Frame and rules ##
 Frames are the elementary representations to define the data source. It might be understood as facts that represent the document. A frame can be represented as simple type (String, Integer, Float, Date) or as a complex type, that is, a set of attributes. Any data source contains a *Root Frame*.
@@ -58,14 +58,14 @@ ruleEngine.render(data, document);
 ```
 
 # Download #
-All the stable releases are available at [downloads](http://bitbucket.org/siani/itrules/downloads)
+All the stable releases are available at [downloads](http://bitbucket.org/siani/it-rules/downloads)
 
 # License #
-ITrules is licensed under the [LGPL](http://www.gnu.org/licenses/lgpl.html) v2.1. The LGPL guarantees that this library will stay open source, protecting your work.
+it-rules is licensed under the [LGPL](http://www.gnu.org/licenses/lgpl.html) v2.1. The LGPL guarantees that this library will stay open source, protecting your work.
 
 # Getting help #
-Do you have a question, a problem, some feedback, or suggestions for ITrules?
-Do it through our [Issue Tracker](http://bitbucket.org/siani/itrules/issues)
+Do you have a question, a problem, some feedback, or suggestions for it-rules?
+Do it through our [Issue Tracker](http://bitbucket.org/siani/it-rules/issues)
 
 # Team #
 * José Juan Hernández-Cabrera (SIANI. University of Las Palmas. SPAIN)
