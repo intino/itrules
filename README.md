@@ -26,7 +26,7 @@ $Name was born in $Country on $Birthday
 $~
 ```
 
-* `is(Person)` is a condition that checks that a frame type is `Person`. 
+* `is(Person)` is the condition. It checks that a frame type is `Person`. 
 * `$Name was born in $Country on $Birthday` is the output
 * `$~` mark indicates the end of the output. 
 
