@@ -1,21 +1,30 @@
+root: {
+	_type: "String"
+	value: "Hola mundo";
+}
+
 root:{
- 	Class
+ 	_type: "Class"
 	name: "Customer"
 	final: "final"
+	superclass:"Super"
 	interface: ["Person","Gay"]
 	attribute: [
 		{
-			Attribute,ReadOnly
-			name: "Name"
+			_type: "Attribute",
+			readOnly: true,
+			name: "Name",
 			type: "String"
 		}
 		{
-			Attribute,ReadOnly
+			_type: "Attribute"
+			_tags: ["ReadOnly"]
 			name: "FamilyName"
 			type: "String"
 		}
 		{
-			Attribute,Const
+			_type: "Attribute"
+			_tags: ["Const"]
 			name: "MaxAge"
 			type: "Integer"
 			default: 100
@@ -23,26 +32,28 @@ root:{
 	]
 }
 
+.itr
 
 -------------------------------------------------------------------------
-:Class
-<class name="$Name" type="$Type">
+rule:Class
+<class name="$name" type="$type">
 	$superclass+Superclass
 	$interface+Interface...[$NL]
 
 </class>
+:end
 
-
-:String+Superclass
+rule:String +Superclass
 <superclass name="$value" />
+:end
 
-:String+Interface
+rule:String +Interface
 <interface name="$value" />
-
+:end
 
 -------------------------------------------------------------------------
-:Class
-public class [$static ][$final ]$Name [extends $Superclass ][implements $Interface...[, ]]{
+:rule Class
+public class [$static ][$final ]$Name [extends $SuperClass ][implements $Interface...[, ]]{
 	$attribute+Const...[$NL]
 	$attribute+Field...[$NL]
 
@@ -52,33 +63,43 @@ public class [$static ][$final ]$Name [extends $Superclass ][implements $Interfa
 		$attribute:Initialize...[$NL]
 	}
 }
+:end
 
+rule:Attribute +Const $const
+public static final $type $name+UC = $default;
+end
 
-:Attribute+Const if Const
-public static final $type $NAME = $default;
+rule:String +UC use UpperCase
+$value
+end
 
-:Attribute+Field if ReadOnly
+rule:Attribute +Field !$const $readonly
 private final $type $name[ = $default];
+end
 
-:Attribute+Field if !ReadOnly
+rule:Attribute +Field !$const !$readOnly
 private $type $name[ = $default];
+end
 
-:Attribute+Getter
+rule:Attribute +Getter !$const
 public $type get$Name() {
 	return $name;
 }
+end
 
-:Attribute+Setter if !ReadOnly
+rule:Attribute +Setter !$const
 public void set$Name($type value) {
 	$name = value;
 }
+end
 
-:Attribute+Injection if ReadOnly
+rule:Attribute +Injection $readOnly
 $type $name
+end
 
-:Attribute+Initialize if ReadOnly
+rule:Attribute +Initialize $readOnly
 this.$name = $name;
-
+end
 
 $$
 $CR $NL

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/templation.iml" filepath="$PROJECT_DIR$/templation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/itrules.iml" filepath="$PROJECT_DIR$/itrules.iml" />
     </modules>
   </component>
 </project>

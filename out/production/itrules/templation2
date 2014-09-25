@@ -1,0 +1,51 @@
+root: {
+	Thesaurus
+	terms: [
+		{
+			Term
+			code: "1"
+			value: "LP"
+			terms: [
+				{
+					Term
+					code:"1.1"
+					value: "Telde"
+				}
+				{
+					Term
+					code:"1.2"
+					value: "Valsequillo"
+				}
+			]
+		}
+		{
+			Term
+			code: "2"
+			value: "TF"
+			terms: [
+				{
+					Term
+					code:"2.1"
+					value: "Icod"
+				}
+				{
+					Term
+					code:"2.2"
+					value: "La Laguna"
+				}
+			]
+		}
+	]
+}	
+
+
+
+:Theasurus
+<thesaurus>
+	$terms...[$NL]
+</thesaurus>
+
+:Term
+<term code="$code" value="$value">
+	$terms...[$NL]
+</term>
