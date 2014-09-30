@@ -39,4 +39,13 @@ public class Frame implements AbstractFrame {
 	public Object value() {
 		return null;
 	}
+
+	@Override
+	public AbstractFrame findProperty(String path) {
+		String name = path.substring(0, path.indexOf("."));
+		if (!properties.containsKey(name)) return null;
+		List<AbstractFrame> property = properties.get(name);
+		return name.length() >= path.length() ? property.get(0) :
+			property.get(0).findProperty(path.substring(path.indexOf(".")));
+	}
 }

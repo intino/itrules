@@ -27,7 +27,6 @@ final class Interpreter extends ITRulesParserBaseListener {
 
 	@Override
 	public void enterSignature(@NotNull SignatureContext ctx) {
-		if (ctx.ruleType().isEmpty()) throwError(ctx.getText());
 		currentRule = new Rule();
 		currentRule.addAll(makeTypeFunctions(ctx.ruleType()));
 		if (!ctx.trigger().isEmpty())
@@ -35,7 +34,19 @@ final class Interpreter extends ITRulesParserBaseListener {
 		if (!ctx.attr().isEmpty())
 			for (AttrContext attrContext : ctx.attr())
 				currentRule.add(new Condition(Function.ATTR, attrContext.getText(), false));
+		if (!ctx.eval().isEmpty())
+			for (EvalContext eval : ctx.eval())
+				currentRule.add(new Condition(Function.EVAL, composeEvalExpression(eval.evalExpression()), false));
 		rules.add(currentRule);
+	}
+
+	private String composeEvalExpression(EvalExpressionContext evalExpressionContext) {
+		final String AT = "@";
+		String result = "";
+		for (ParseTree child : evalExpressionContext.children) {
+			result += AT + child.getText();
+		}
+		return result.substring(1);
 	}
 
 	private List<Condition> makeTypeFunctions(List<RuleTypeContext> ruleTypes) {

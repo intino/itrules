@@ -29,7 +29,7 @@ public class InMiddleEarth {
 	}
 
 	public InputStream getRules() {
-		return FrameTest.class.getResourceAsStream("/in_middle_earth.itr");
+		return Eval.class.getResourceAsStream("/in_middle_earth.itr");
 	}
 
 }

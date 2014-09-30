@@ -5,7 +5,6 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Token;
 import org.junit.Test;
-import org.siani.itrules.lang.ITRulesLexer;
 
 import java.util.ArrayList;
 
@@ -105,6 +104,17 @@ public class LexerTest {
 			"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
 			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(TWO_RULES);
+		assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
+	@Test
+	public void ruleWithEval() {
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P",
+			"EVAL", "LEFT_P", "ID","OPERATOR","STRING", "RIGHT_P", "NL", "TEXT",
+			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END",
+			"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
+			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END"};
+		String[] receivedTypes = lexerTest(RULE_WITH_EVAL);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
 

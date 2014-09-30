@@ -25,9 +25,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="antlr-4.4-complete" level="project" />
-    <orderEntry type="library" name="JUnitParams" level="application" />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
 

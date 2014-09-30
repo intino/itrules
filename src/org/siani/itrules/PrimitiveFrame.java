@@ -28,4 +28,9 @@ class PrimitiveFrame implements AbstractFrame {
 	public Object value() {
 		return value;
 	}
+
+	@Override
+	public AbstractFrame findProperty(String path) {
+		return path.equalsIgnoreCase("value") ? this : null;
+	}
 }

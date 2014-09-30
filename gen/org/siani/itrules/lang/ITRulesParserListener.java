@@ -59,15 +59,35 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 */
 	void exitRoot(@NotNull ITRulesParser.RootContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#attr}.
+	 * Enter a parse tree produced by {@link ITRulesParser#evalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterAttr(@NotNull ITRulesParser.AttrContext ctx);
+	void enterEvalExpression(@NotNull ITRulesParser.EvalExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#attr}.
+	 * Exit a parse tree produced by {@link ITRulesParser#evalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitAttr(@NotNull ITRulesParser.AttrContext ctx);
+	void exitEvalExpression(@NotNull ITRulesParser.EvalExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ITRulesParser#eval}.
+	 * @param ctx the parse tree
+	 */
+	void enterEval(@NotNull ITRulesParser.EvalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ITRulesParser#eval}.
+	 * @param ctx the parse tree
+	 */
+	void exitEval(@NotNull ITRulesParser.EvalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ITRulesParser#composedID}.
+	 * @param ctx the parse tree
+	 */
+	void enterComposedID(@NotNull ITRulesParser.ComposedIDContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ITRulesParser#composedID}.
+	 * @param ctx the parse tree
+	 */
+	void exitComposedID(@NotNull ITRulesParser.ComposedIDContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#mark}.
 	 * @param ctx the parse tree
@@ -78,6 +98,16 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMark(@NotNull ITRulesParser.MarkContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ITRulesParser#attr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttr(@NotNull ITRulesParser.AttrContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ITRulesParser#attr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttr(@NotNull ITRulesParser.AttrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#ruleType}.
 	 * @param ctx the parse tree

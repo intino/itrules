@@ -1,9 +1,9 @@
 defrule type(Roster)
 <roster>
-  $Coach
-  <players>
-    $Player...[$NL]
-  </players>
+    $Coach
+	<players>
+		$Player...[$NL]
+    </players>
 </roster>
 endrule
 

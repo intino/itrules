@@ -18,6 +18,10 @@ public class TestSources {
 		"public class [$static ]\n" + "~\n" +
 		"defrule type(class2)\n" +
 		"\tpublic class [$static ]\n" + "~";
+	public static final String RULE_WITH_EVAL = "defrule type(Class) eval(Class == 'sasa')\n" +
+		"public class [$static ]\n" + "~\n" +
+		"defrule type(class2)\n" +
+		"\tpublic class [$static ]\n" + "~";
 	public static final String LITTLE_BIG_TEST = "" +
 		"defrule type(Class)\n" +
 		"public class [$static ][$final ]$name [extends $SuperClass ][implements $Interface...[, ]]{\n" +

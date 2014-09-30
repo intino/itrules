@@ -12,5 +12,5 @@ public interface AbstractFrame {
 
 	public Object value();
 
-
+	public AbstractFrame findProperty(String path);
 }

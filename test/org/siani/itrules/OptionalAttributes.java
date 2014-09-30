@@ -45,7 +45,7 @@ public class OptionalAttributes {
 	}
 
 	public InputStream getRules() {
-		return FrameTest.class.getResourceAsStream("/optional_attributes.itr");
+		return Eval.class.getResourceAsStream("/optional_attributes.itr");
 	}
 
 }

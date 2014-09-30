@@ -34,7 +34,7 @@ public class Formatting {
 
 
 	public InputStream getRules() {
-		return FrameTest.class.getResourceAsStream("/formatting.itr");
+		return Eval.class.getResourceAsStream("/formatting.itr");
 	}
 
 }

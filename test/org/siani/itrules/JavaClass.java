@@ -47,7 +47,7 @@ public class JavaClass {
 			"\tpublic String getFamilyName() {\n" +
 			"\t\treturn familyName;\n" +
 			"\t}\n" +
-			"\t\n" +
+			"\n" +
 			"\tpublic Integer getMaxAge() {\n" +
 			"\t\treturn maxAge;\n" +
 			"\t}\n" +
@@ -60,6 +60,6 @@ public class JavaClass {
 	}
 
 	public InputStream getClassRules() {
-		return FrameTest.class.getResourceAsStream("/java_class.itr");
+		return Eval.class.getResourceAsStream("/java_class.itr");
 	}
 }

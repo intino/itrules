@@ -34,16 +34,16 @@ public class NestedFrames {
 		Document document = new Document();
 		new RuleEngine(getRules()).render(frame, document);
 		assertEquals("<roster>\n" +
-			"  <coach name=\"Juan Antonio Orenga\" year=\"1966\" country=\"Spain\"/>\n" +
-			"  <players>\n" +
-			"    <player name=\"Pau Gasol\" year=\"1980\" country=\"Spain\"/>\n" +
-			"    <player name=\"Rudy Fernandez\" year=\"1985\" country=\"Spain\"/>\n" +
-			"    <player name=\"Juan Carlos Navarro\" year=\"1980\" country=\"Spain\"/>\n" +
-			"  </players>\n" +
+			"    <coach name=\"Juan Antonio Orenga\" year=\"1966\" country=\"Spain\"/>\n" +
+			"\t<players>\n" +
+			"\t\t<player name=\"Pau Gasol\" year=\"1980\" country=\"Spain\"/>\n" +
+			"\t\t<player name=\"Rudy Fernandez\" year=\"1985\" country=\"Spain\"/>\n" +
+			"\t\t<player name=\"Juan Carlos Navarro\" year=\"1980\" country=\"Spain\"/>\n" +
+			"    </players>\n" +
 			"</roster>", document.content());
 	}
 
 	public InputStream getRules() {
-		return FrameTest.class.getResourceAsStream("/nested_frames.itr");
+		return Eval.class.getResourceAsStream("/nested_frames.itr");
 	}
 }

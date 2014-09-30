@@ -1,6 +1,6 @@
 lexer grammar ITRulesLexer;
 
-@lexer::members{
+@lexer::members {
 	int lastMode = 0;
 	private void setLastMode(int i) {
 		lastMode = i;
@@ -44,12 +44,23 @@ mode RULE_SIGNATURE;
 	TYPE            : 'type';
 	TRIGGER         : 'trigger';
 	ATTR            : 'attr';
+	EVAL            : 'eval'                                    { setMode(EVAL_MODE); setLastMode(RULE_SIGNATURE);};
 	NOT             : '!';
 	RULE_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID);};
 	NL              : (' '|'\t')* ('\r'? '\n' | '\n')           { setLastMode(RULE_SIGNATURE);} -> mode(RULE_BODY);
 	WS              : SP+                                       -> skip ;
 	RULE_ERROR      : .;
 
+mode EVAL_MODE;
+	EVAL_LEFT_P     : '('                                       { setType(LEFT_P);};
+    EVAL_RIGHT_P    : ')'                                       { setType(RIGHT_P); setMode(RULE_SIGNATURE); setLastMode(EVAL);};
+	EVAL_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID);};
+	DOT             : '.';
+	NUMBER          : DIGIT+;
+	STRING          : '\'' (~'\'')* '\'';
+	OPERATOR        : '>' | '<' | '==' | '!=';
+	E_WS            : SP+                                       -> skip ;
+	EVAL_ERROR      : .;
 mode MARK;
 	LIST            : '...';
 	MARK_OPTION     : '+'                                       { setType(OPTION);};
@@ -72,12 +83,12 @@ mode EXPRESION;
 	EXPRESSION_TEXT : ~('$'| '[' | ']')*                        {setType(TEXT);};
 
 fragment
-   	LN          : ('\r'? '\n' | '\n');
+   	LN              : ('\r'? '\n' | '\n');
 fragment
-	SP: (' ' | '\t');
+	SP              : (' ' | '\t');
 fragment
-	DIGIT :[0-9];
+	DIGIT           :[0-9];
 fragment
-	LETTER: 'a'..'z' | 'A'..'Z';
+	LETTER          : 'a'..'z' | 'A'..'Z';
 
 

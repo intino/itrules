@@ -27,7 +27,18 @@ class Buffer {
 	}
 
 	public void write(String text) {
-		content += text.replace(NEW_LINE, NEW_LINE + indentation.peek());
+		content += putIndents(text);
+	}
+
+	private String putIndents(String text) {
+		String result = "";
+		char[] chars = text.toCharArray();
+		for (int i = 0; i < chars.length; i++) {
+			result += chars[i];
+			if (chars[i] == '\n' &&((i + 1) == chars.length || ((i + 1) < chars.length && chars[i + 1] != '\n')))
+				result += indentation.peek();
+		}
+		return result;
 	}
 
 	public void indent(String indent) {
