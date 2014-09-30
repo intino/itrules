@@ -3,6 +3,7 @@ package org.siani.itrules.lang;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.siani.itrules.Function;
 import org.siani.itrules.ITRulesLogger;
 import org.siani.itrules.lang.model.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static org.siani.itrules.lang.ITRulesParser.*;
 
-public class Interpreter extends ITRulesParserBaseListener {
+final class Interpreter extends ITRulesParserBaseListener {
 
 	private static String NL_SEPARATOR = "\\$NL";
 	private static String TAB_SEPARATOR = "\\$TAB";
@@ -30,18 +31,18 @@ public class Interpreter extends ITRulesParserBaseListener {
 		currentRule = new Rule();
 		currentRule.addAll(makeTypeFunctions(ctx.ruleType()));
 		if (!ctx.trigger().isEmpty())
-			currentRule.add(new Function(Function.TRIGGER, ctx.trigger(0).triggerValue().getText(), true));
+			currentRule.add(new Condition(Function.TRIGGER, ctx.trigger(0).triggerValue().getText(), false));
 		if (!ctx.attr().isEmpty())
 			for (AttrContext attrContext : ctx.attr())
-				currentRule.add(new Function(Function.ATTR, attrContext.getText(), true));
+				currentRule.add(new Condition(Function.ATTR, attrContext.getText(), false));
 		rules.add(currentRule);
 	}
 
-	private List<Function> makeTypeFunctions(List<RuleTypeContext> ruleTypes) {
-		List<Function> functions = new ArrayList<>();
+	private List<Condition> makeTypeFunctions(List<RuleTypeContext> ruleTypes) {
+		List<Condition> conditions = new ArrayList<>();
 		for (RuleTypeContext ruleType : ruleTypes)
-			functions.add(new Function(Function.TYPE, ruleType.value().ID().getText(), ruleType.NOT() == null));
-		return functions;
+			conditions.add(new Condition(Function.TYPE, ruleType.value().ID().getText(), ruleType.NOT() != null));
+		return conditions;
 	}
 
 	@Override
@@ -61,17 +62,19 @@ public class Interpreter extends ITRulesParserBaseListener {
 		currentRule.add(expression);
 	}
 
-	private Mark processAsMark(MarkContext child) {
-		String option = child.ID().size() > 1 ? child.OPTION().getText() + child.ID(1).getText() : "";
+	private AbstractMark processAsMark(MarkContext child) {
+		String[] options = getOptions(child.option());
 		String separator = (child.SEPARATOR() != null) ? child.SEPARATOR().getText() : null;
 		if (separator != null) separator = format(separator);
-		Mark mark = new Mark(child.ID(0).getText() + option, child.LIST() != null, separator);
-		if (child.format() != null) {
-			String format = child.format().FORMAT_REGEX() != null ?
-				child.format().FORMAT_REGEX().getText() : child.format().ID().getText();
-			mark.setFormat(format);
+		return new Mark(child.ID().getText(), options, child.LIST() != null, separator);
+	}
+
+	private String[] getOptions(List<OptionContext> option) {
+		List<String> list = new ArrayList<>();
+		for (OptionContext optionContext : option) {
+			list.add(optionContext.getText().substring(1));
 		}
-		return mark;
+		return list.toArray(new String[list.size()]);
 	}
 
 	private String format(String separator) {

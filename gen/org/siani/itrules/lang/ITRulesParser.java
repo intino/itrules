@@ -17,27 +17,25 @@ public class ITRulesParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		RULE_ID=12, MARK_ID=23, MARK_ERROR=24, OPTION=5, RULE_BEGIN=1, SCAPED_CHAR=25, 
-		TRIGGER=9, RIGHT_P=7, RULE_ERROR=15, MARK_RIGHT_P=20, SEPARATOR=21, RULE_TEXT=29, 
-		NOT=11, TEXT=4, ID=3, LIST=16, EXPRESSION_TEXT=33, EXP_SCAPED_CHAR=31, 
-		MARK_KEY=26, TYPE=8, WS=14, RULE_END=28, MARK_LEFT_P=19, WL=2, EXPRESSION_MARK=32, 
-		NL=13, FORMAT=18, LEFT_SQ=27, RIGHT_SQ=30, MARK_OPTION=17, FORMAT_REGEX=22, 
-		ATTR=10, LEFT_P=6;
+		RULE_ID=12, MARK_ID=20, MARK_ERROR=21, OPTION=5, RULE_BEGIN=1, SCAPED_CHAR=22, 
+		TRIGGER=9, RIGHT_P=7, RULE_ERROR=15, SEPARATOR=19, RULE_TEXT=26, NOT=11, 
+		TEXT=4, ID=3, LIST=16, EXPRESSION_TEXT=30, EXP_SCAPED_CHAR=28, MARK_KEY=23, 
+		TYPE=8, WS=14, RULE_END=25, WL=2, EXPRESSION_MARK=29, NL=13, LEFT_SQ=24, 
+		END=18, RIGHT_SQ=27, MARK_OPTION=17, ATTR=10, LEFT_P=6;
 	public static final String[] tokenNames = {
-		"<INVALID>", "'defrule'", "WL", "ID", "'text'", "OPTION", "LEFT_P", "RIGHT_P", 
+		"<INVALID>", "'defrule'", "WL", "ID", "'text'", "OPTION", "'('", "')'", 
 		"'type'", "'trigger'", "'attr'", "'!'", "RULE_ID", "NL", "WS", "RULE_ERROR", 
-		"'...'", "MARK_OPTION", "'format'", "MARK_LEFT_P", "MARK_RIGHT_P", "SEPARATOR", 
-		"FORMAT_REGEX", "MARK_ID", "MARK_ERROR", "SCAPED_CHAR", "'$'", "'['", 
-		"'~'", "RULE_TEXT", "RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", 
-		"EXPRESSION_TEXT"
+		"'...'", "MARK_OPTION", "'$~'", "SEPARATOR", "MARK_ID", "MARK_ERROR", 
+		"SCAPED_CHAR", "'$'", "'['", "'~'", "RULE_TEXT", "RIGHT_SQ", "EXP_SCAPED_CHAR", 
+		"EXPRESSION_MARK", "EXPRESSION_TEXT"
 	};
 	public static final int
 		RULE_root = 0, RULE_itrule = 1, RULE_signature = 2, RULE_ruleType = 3, 
 		RULE_value = 4, RULE_trigger = 5, RULE_triggerValue = 6, RULE_attr = 7, 
-		RULE_body = 8, RULE_expression = 9, RULE_text = 10, RULE_mark = 11, RULE_format = 12;
+		RULE_body = 8, RULE_expression = 9, RULE_text = 10, RULE_mark = 11, RULE_option = 12;
 	public static final String[] ruleNames = {
 		"root", "itrule", "signature", "ruleType", "value", "trigger", "triggerValue", 
-		"attr", "body", "expression", "text", "mark", "format"
+		"attr", "body", "expression", "text", "mark", "option"
 	};
 
 	@Override
@@ -700,16 +698,15 @@ public class ITRulesParser extends Parser {
 
 	public static class MarkContext extends ParserRuleContext {
 		public TerminalNode MARK_KEY() { return getToken(ITRulesParser.MARK_KEY, 0); }
-		public List<TerminalNode> ID() { return getTokens(ITRulesParser.ID); }
+		public List<OptionContext> option() {
+			return getRuleContexts(OptionContext.class);
+		}
+		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
 		public TerminalNode SEPARATOR() { return getToken(ITRulesParser.SEPARATOR, 0); }
-		public TerminalNode OPTION() { return getToken(ITRulesParser.OPTION, 0); }
-		public FormatContext format() {
-			return getRuleContext(FormatContext.class,0);
+		public OptionContext option(int i) {
+			return getRuleContext(OptionContext.class,i);
 		}
 		public TerminalNode LIST() { return getToken(ITRulesParser.LIST, 0); }
-		public TerminalNode ID(int i) {
-			return getToken(ITRulesParser.ID, i);
-		}
 		public MarkContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -733,35 +730,25 @@ public class ITRulesParser extends Parser {
 			{
 			setState(97); match(MARK_KEY);
 			setState(98); match(ID);
-			setState(104);
+			setState(102);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==OPTION) {
+			while (_la==OPTION) {
 				{
-				setState(99); match(OPTION);
-				setState(102);
-				switch (_input.LA(1)) {
-				case ID:
-					{
-					setState(100); match(ID);
-					}
-					break;
-				case FORMAT:
-					{
-					setState(101); format();
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				setState(99); option();
 				}
 				}
+				setState(104);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
 			}
-
-			setState(108);
+			setState(107);
 			_la = _input.LA(1);
 			if (_la==LIST) {
 				{
-				setState(106); match(LIST);
-				setState(107); match(SEPARATOR);
+				setState(105); match(LIST);
+				setState(106); match(SEPARATOR);
 				}
 			}
 
@@ -778,42 +765,31 @@ public class ITRulesParser extends Parser {
 		return _localctx;
 	}
 
-	public static class FormatContext extends ParserRuleContext {
-		public TerminalNode FORMAT() { return getToken(ITRulesParser.FORMAT, 0); }
-		public TerminalNode LEFT_P() { return getToken(ITRulesParser.LEFT_P, 0); }
-		public TerminalNode RIGHT_P() { return getToken(ITRulesParser.RIGHT_P, 0); }
+	public static class OptionContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
-		public TerminalNode FORMAT_REGEX() { return getToken(ITRulesParser.FORMAT_REGEX, 0); }
-		public FormatContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode OPTION() { return getToken(ITRulesParser.OPTION, 0); }
+		public OptionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_format; }
+		@Override public int getRuleIndex() { return RULE_option; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ITRulesParserListener ) ((ITRulesParserListener)listener).enterFormat(this);
+			if ( listener instanceof ITRulesParserListener ) ((ITRulesParserListener)listener).enterOption(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ITRulesParserListener ) ((ITRulesParserListener)listener).exitFormat(this);
+			if ( listener instanceof ITRulesParserListener ) ((ITRulesParserListener)listener).exitOption(this);
 		}
 	}
 
-	public final FormatContext format() throws RecognitionException {
-		FormatContext _localctx = new FormatContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_format);
-		int _la;
+	public final OptionContext option() throws RecognitionException {
+		OptionContext _localctx = new OptionContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_option);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110); match(FORMAT);
-			setState(111); match(LEFT_P);
-			setState(112);
-			_la = _input.LA(1);
-			if ( !(_la==ID || _la==FORMAT_REGEX) ) {
-			_errHandler.recoverInline(this);
-			}
-			consume();
-			setState(113); match(RIGHT_P);
+			setState(109); match(OPTION);
+			setState(110); match(ID);
 			}
 		}
 		catch (RecognitionException re) {
@@ -828,35 +804,34 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3#v\4\2\t\2\4\3\t\3"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3 s\4\2\t\2\4\3\t\3"+
 		"\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f"+
 		"\t\f\4\r\t\r\4\16\t\16\3\2\7\2\36\n\2\f\2\16\2!\13\2\3\2\3\2\3\3\3\3\3"+
 		"\3\3\3\3\4\3\4\3\4\3\4\6\4-\n\4\r\4\16\4.\3\4\3\4\3\5\5\5\64\n\5\3\5\3"+
 		"\5\3\5\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\5\bE\n\b\3\t\3"+
 		"\t\3\t\5\tJ\n\t\3\t\3\t\3\t\3\n\3\n\3\n\7\nR\n\n\f\n\16\nU\13\n\3\13\3"+
 		"\13\3\13\3\13\7\13[\n\13\f\13\16\13^\13\13\3\13\3\13\3\f\3\f\3\r\3\r\3"+
-		"\r\3\r\3\r\5\ri\n\r\5\rk\n\r\3\r\3\r\5\ro\n\r\3\16\3\16\3\16\3\16\3\16"+
-		"\3\16\2\2\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\4\2\6\6\33\33\4\2\5"+
-		"\5\30\30x\2\37\3\2\2\2\4$\3\2\2\2\6(\3\2\2\2\b\63\3\2\2\2\n8\3\2\2\2\f"+
-		"<\3\2\2\2\16A\3\2\2\2\20F\3\2\2\2\22S\3\2\2\2\24V\3\2\2\2\26a\3\2\2\2"+
-		"\30c\3\2\2\2\32p\3\2\2\2\34\36\5\4\3\2\35\34\3\2\2\2\36!\3\2\2\2\37\35"+
-		"\3\2\2\2\37 \3\2\2\2 \"\3\2\2\2!\37\3\2\2\2\"#\7\2\2\3#\3\3\2\2\2$%\5"+
-		"\6\4\2%&\5\22\n\2&\'\7\36\2\2\'\5\3\2\2\2(,\7\3\2\2)-\5\b\5\2*-\5\f\7"+
-		"\2+-\5\20\t\2,)\3\2\2\2,*\3\2\2\2,+\3\2\2\2-.\3\2\2\2.,\3\2\2\2./\3\2"+
-		"\2\2/\60\3\2\2\2\60\61\7\17\2\2\61\7\3\2\2\2\62\64\7\r\2\2\63\62\3\2\2"+
-		"\2\63\64\3\2\2\2\64\65\3\2\2\2\65\66\7\n\2\2\66\67\5\n\6\2\67\t\3\2\2"+
-		"\289\7\b\2\29:\7\5\2\2:;\7\t\2\2;\13\3\2\2\2<=\7\13\2\2=>\7\b\2\2>?\5"+
-		"\16\b\2?@\7\t\2\2@\r\3\2\2\2AD\7\5\2\2BC\7\7\2\2CE\7\5\2\2DB\3\2\2\2D"+
-		"E\3\2\2\2E\17\3\2\2\2FG\7\f\2\2GI\7\b\2\2HJ\7\r\2\2IH\3\2\2\2IJ\3\2\2"+
-		"\2JK\3\2\2\2KL\7\5\2\2LM\7\t\2\2M\21\3\2\2\2NR\5\26\f\2OR\5\30\r\2PR\5"+
-		"\24\13\2QN\3\2\2\2QO\3\2\2\2QP\3\2\2\2RU\3\2\2\2SQ\3\2\2\2ST\3\2\2\2T"+
-		"\23\3\2\2\2US\3\2\2\2V\\\7\35\2\2W[\5\26\f\2X[\5\30\r\2Y[\5\24\13\2ZW"+
-		"\3\2\2\2ZX\3\2\2\2ZY\3\2\2\2[^\3\2\2\2\\Z\3\2\2\2\\]\3\2\2\2]_\3\2\2\2"+
-		"^\\\3\2\2\2_`\7 \2\2`\25\3\2\2\2ab\t\2\2\2b\27\3\2\2\2cd\7\34\2\2dj\7"+
-		"\5\2\2eh\7\7\2\2fi\7\5\2\2gi\5\32\16\2hf\3\2\2\2hg\3\2\2\2ik\3\2\2\2j"+
-		"e\3\2\2\2jk\3\2\2\2kn\3\2\2\2lm\7\22\2\2mo\7\27\2\2nl\3\2\2\2no\3\2\2"+
-		"\2o\31\3\2\2\2pq\7\24\2\2qr\7\b\2\2rs\t\3\2\2st\7\t\2\2t\33\3\2\2\2\17"+
-		"\37,.\63DIQSZ\\hjn";
+		"\r\7\rg\n\r\f\r\16\rj\13\r\3\r\3\r\5\rn\n\r\3\16\3\16\3\16\3\16\2\2\17"+
+		"\2\4\6\b\n\f\16\20\22\24\26\30\32\2\3\4\2\6\6\30\30t\2\37\3\2\2\2\4$\3"+
+		"\2\2\2\6(\3\2\2\2\b\63\3\2\2\2\n8\3\2\2\2\f<\3\2\2\2\16A\3\2\2\2\20F\3"+
+		"\2\2\2\22S\3\2\2\2\24V\3\2\2\2\26a\3\2\2\2\30c\3\2\2\2\32o\3\2\2\2\34"+
+		"\36\5\4\3\2\35\34\3\2\2\2\36!\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \"\3\2"+
+		"\2\2!\37\3\2\2\2\"#\7\2\2\3#\3\3\2\2\2$%\5\6\4\2%&\5\22\n\2&\'\7\33\2"+
+		"\2\'\5\3\2\2\2(,\7\3\2\2)-\5\b\5\2*-\5\f\7\2+-\5\20\t\2,)\3\2\2\2,*\3"+
+		"\2\2\2,+\3\2\2\2-.\3\2\2\2.,\3\2\2\2./\3\2\2\2/\60\3\2\2\2\60\61\7\17"+
+		"\2\2\61\7\3\2\2\2\62\64\7\r\2\2\63\62\3\2\2\2\63\64\3\2\2\2\64\65\3\2"+
+		"\2\2\65\66\7\n\2\2\66\67\5\n\6\2\67\t\3\2\2\289\7\b\2\29:\7\5\2\2:;\7"+
+		"\t\2\2;\13\3\2\2\2<=\7\13\2\2=>\7\b\2\2>?\5\16\b\2?@\7\t\2\2@\r\3\2\2"+
+		"\2AD\7\5\2\2BC\7\7\2\2CE\7\5\2\2DB\3\2\2\2DE\3\2\2\2E\17\3\2\2\2FG\7\f"+
+		"\2\2GI\7\b\2\2HJ\7\r\2\2IH\3\2\2\2IJ\3\2\2\2JK\3\2\2\2KL\7\5\2\2LM\7\t"+
+		"\2\2M\21\3\2\2\2NR\5\26\f\2OR\5\30\r\2PR\5\24\13\2QN\3\2\2\2QO\3\2\2\2"+
+		"QP\3\2\2\2RU\3\2\2\2SQ\3\2\2\2ST\3\2\2\2T\23\3\2\2\2US\3\2\2\2V\\\7\32"+
+		"\2\2W[\5\26\f\2X[\5\30\r\2Y[\5\24\13\2ZW\3\2\2\2ZX\3\2\2\2ZY\3\2\2\2["+
+		"^\3\2\2\2\\Z\3\2\2\2\\]\3\2\2\2]_\3\2\2\2^\\\3\2\2\2_`\7\35\2\2`\25\3"+
+		"\2\2\2ab\t\2\2\2b\27\3\2\2\2cd\7\31\2\2dh\7\5\2\2eg\5\32\16\2fe\3\2\2"+
+		"\2gj\3\2\2\2hf\3\2\2\2hi\3\2\2\2im\3\2\2\2jh\3\2\2\2kl\7\22\2\2ln\7\25"+
+		"\2\2mk\3\2\2\2mn\3\2\2\2n\31\3\2\2\2op\7\7\2\2pq\7\5\2\2q\33\3\2\2\2\16"+
+		"\37,.\63DIQSZ\\hm";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

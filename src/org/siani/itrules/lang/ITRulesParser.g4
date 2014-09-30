@@ -17,5 +17,5 @@ body        : (text | mark | expression)*;
 
 expression  : LEFT_SQ (text | mark | expression)* RIGHT_SQ;
 text        : TEXT | SCAPED_CHAR;
-mark        : MARK_KEY ID (OPTION (ID | format))? (LIST SEPARATOR)?;
-format      : FORMAT LEFT_P (FORMAT_REGEX | ID) RIGHT_P;
+mark        : MARK_KEY ID option* (LIST SEPARATOR)?;
+option      : OPTION ID;

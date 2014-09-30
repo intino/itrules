@@ -12,7 +12,7 @@ public class Expression extends Token implements Iterable<Token> {
 	}
 
 	public boolean add(Token token) {
-		if (Mark.class.isInstance(token) || Literal.class.isInstance(token))
+		if (AbstractMark.class.isInstance(token) || Literal.class.isInstance(token))
 			return tokens.add(token);
 		return false;
 	}

@@ -8,31 +8,34 @@ import java.util.List;
 public class Rule extends Token {
 
 	private List<Token> tokens;
-	private List<Function> functions;
+	private List<Condition> conditions;
 
 	public Rule() {
 		tokens = new ArrayList<>();
-		functions = new ArrayList<>();
+		conditions = new ArrayList<>();
 	}
 
 	public void add(Token token) {
-		if (Expression.class.isInstance(token) || Mark.class.isInstance(token) || Literal.class.isInstance(token))
+		if (Expression.class.isInstance(token) || AbstractMark.class.isInstance(token) || Literal.class.isInstance(token)) {
+			if (!tokens.isEmpty())
+				token.prevToken(tokens.get(tokens.size() - 1));
 			tokens.add(token);
+		}
 	}
 
-	public void add(Function function) {
-		this.functions.add(function);
+	public void add(Condition condition) {
+		this.conditions.add(condition);
 	}
 
-	public boolean addAll(Collection<? extends Function> c) {
-		return functions.addAll(c);
+	public boolean addAll(Collection<? extends Condition> c) {
+		return conditions.addAll(c);
 	}
 
 	public Iterable<Token> getTokens() {
 		return tokens;
 	}
 
-	public Iterable<Function> getFunctions() {
-		return functions;
+	public Iterable<Condition> getConditions() {
+		return conditions;
 	}
 }

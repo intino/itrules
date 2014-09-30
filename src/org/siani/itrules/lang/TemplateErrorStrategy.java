@@ -2,7 +2,7 @@ package org.siani.itrules.lang;
 
 import org.antlr.v4.runtime.*;
 
-public class TemplateErrorStrategy extends DefaultErrorStrategy {
+class TemplateErrorStrategy extends DefaultErrorStrategy {
 
 	private void printParameters(Parser recognizer) {
 		Token token = recognizer.getCurrentToken();

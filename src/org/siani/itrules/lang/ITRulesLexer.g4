@@ -2,7 +2,6 @@ lexer grammar ITRulesLexer;
 
 @lexer::members{
 	int lastMode = 0;
-	boolean informat = false;
 	private void setLastMode(int i) {
 		lastMode = i;
 	}
@@ -14,10 +13,10 @@ lexer grammar ITRulesLexer;
     public boolean markHasParameters() {
         if (getCharIndex() == this.getInputStream().toString().length()) return false;
         char c = this.getInputStream().toString().charAt(getCharIndex());
-        String list = "";
+        String next = "";
         if (getCharIndex() + 3 < getInputStream().toString().length())
-            list = this.getInputStream().toString().substring(getCharIndex(), getCharIndex() + 3);
-        return (informat || c == '+' || list.equals("..."));
+            next = this.getInputStream().toString().substring(getCharIndex(), getCharIndex() + 3);
+        return (c == '+' || next.equals("...") || (next.length() >= 2 && next.substring(0,2).equals("$~")));
     }
 
     public void setMode(int newMode) {
@@ -49,16 +48,13 @@ mode RULE_SIGNATURE;
 	RULE_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID);};
 	NL              : (' '|'\t')* ('\r'? '\n' | '\n')           { setLastMode(RULE_SIGNATURE);} -> mode(RULE_BODY);
 	WS              : SP+                                       -> skip ;
-	RULE_ERROR      :.;
+	RULE_ERROR      : .;
 
 mode MARK;
 	LIST            : '...';
 	MARK_OPTION     : '+'                                       { setType(OPTION);};
-	FORMAT          : 'format'                                  { informat = true;};
-	MARK_LEFT_P     : '('                                       { setType(LEFT_P);};
-    MARK_RIGHT_P    : ')'                                       { informat = false; setType(RIGHT_P); setMode(lastMode); setLastMode(MARK);};
+    END             : '$~'                                      { setMode(lastMode); setLastMode(MARK);};
 	SEPARATOR       : '[' (~']')* ']'                           { setMode(lastMode); setLastMode(MARK);};
-	FORMAT_REGEX    :'\'' (~'\'')* '\'';
 	MARK_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID); exitMark();};
 	MARK_ERROR      : .;
 

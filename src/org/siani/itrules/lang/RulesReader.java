@@ -4,8 +4,8 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.siani.itrules.ITRulesException;
 import org.siani.itrules.ITRulesLogger;
+import org.siani.itrules.ITRulesSyntaxError;
 import org.siani.itrules.lang.model.Rule;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RulesReader {
+public final class RulesReader {
 
 	private ANTLRInputStream input;
 	private final ITRulesLogger logger;
@@ -29,7 +29,7 @@ public class RulesReader {
 		}
 	}
 
-	public Rule[] readAll() {
+	public List<Rule> readAll() {
 		try {
 			ITRulesLexer lexer = new ITRulesLexer(input);
 			lexer.reset();
@@ -37,21 +37,21 @@ public class RulesReader {
 			ITRulesParser.RootContext root = parse(new ITRulesParser(new CommonTokenStream(lexer)));
 			ParseTreeWalker walker = new ParseTreeWalker();
 			walker.walk(new Interpreter(rules, logger), root);
-			return rules.toArray(new Rule[rules.size()]);
-		} catch (ITRulesException e) {
+			return rules;
+		} catch (ITRulesSyntaxError e) {
 			e.printStackTrace();
-			return new Rule[0];
+			return new ArrayList<>();
 		}
 	}
 
-	private ITRulesParser.RootContext parse(ITRulesParser parser) throws ITRulesException {
+	private ITRulesParser.RootContext parse(ITRulesParser parser) throws ITRulesSyntaxError {
 		try {
 			return parser.root();
 		} catch (RecognitionException e) {
 			org.antlr.v4.runtime.Token token = ((org.antlr.v4.runtime.Parser) e.getRecognizer()).getCurrentToken();
 			logger.debug("Rules not well formed. Error in: " + token.getLine() + ": " + token.getCharPositionInLine());
 			logger.debug(e.getMessage());
-			throw new ITRulesException("Template not well formed.");
+			throw new ITRulesSyntaxError("Template not well formed.");
 		}
 	}
 

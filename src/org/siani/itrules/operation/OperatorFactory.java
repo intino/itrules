@@ -1,19 +1,14 @@
 package org.siani.itrules.operation;
 
-import org.siani.itrules.ITRulesException;
-import org.siani.itrules.Operator;
-import org.siani.itrules.lang.model.Function;
+import org.siani.itrules.Function;
+import org.siani.itrules.lang.model.Condition;
 
 public final class OperatorFactory {
 
-	private static final String TYPE_OP = "type";
-	private static final String TRIGGER_OP = "trigger";
-	private static final String ATTRIBUTE_OP = "attr";
-
-	public static Operator get(Function function) throws ITRulesException {
-		if (function.name().equals(TYPE_OP)) return new TypeOperator(function.getParameter());
-		if (function.name().equals(TRIGGER_OP)) return new TriggerOperator(function.getParameter());
-		if (function.name().equals(ATTRIBUTE_OP)) return new AttributeOperator(function.getParameter());
-		throw new ITRulesException("No operation found");
+	public static Function get(Condition condition) {
+		if (condition.name().equals(Function.TYPE)) return new TypeFunction(condition.getParameter());
+		if (condition.name().equals(Function.TRIGGER)) return new TriggerFunction(condition.getParameter());
+		if (condition.name().equals(Function.ATTR)) return new AttributeFunction(condition.getParameter());
+		return null;
 	}
 }

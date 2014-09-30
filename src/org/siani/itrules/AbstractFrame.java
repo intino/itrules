@@ -1,21 +1,16 @@
 package org.siani.itrules;
 
+import java.util.Iterator;
+
 public interface AbstractFrame {
 
 	public boolean is(String type);
 
-	public Attribute[] attributes(String attribute);
+	public boolean isPrimitive();
 
-	public boolean has(String attribute);
+	public Iterator<AbstractFrame> property(String property);
 
-	public interface Attribute {
+	public Object value();
 
-		public boolean isFrame();
-
-		public AbstractFrame asFrame();
-
-		public Object value();
-
-	}
 
 }

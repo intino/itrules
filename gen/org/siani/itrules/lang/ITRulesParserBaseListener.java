@@ -29,18 +29,6 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBody(@NotNull ITRulesParser.BodyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBody(@NotNull ITRulesParser.BodyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterTrigger(@NotNull ITRulesParser.TriggerContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -53,13 +41,13 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRuleType(@NotNull ITRulesParser.RuleTypeContext ctx) { }
+	@Override public void enterBody(@NotNull ITRulesParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRuleType(@NotNull ITRulesParser.RuleTypeContext ctx) { }
+	@Override public void exitBody(@NotNull ITRulesParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -77,18 +65,6 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterRoot(@NotNull ITRulesParser.RootContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -96,30 +72,6 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRoot(@NotNull ITRulesParser.RootContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterValue(@NotNull ITRulesParser.ValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitValue(@NotNull ITRulesParser.ValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMark(@NotNull ITRulesParser.MarkContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMark(@NotNull ITRulesParser.MarkContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -137,25 +89,61 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFormat(@NotNull ITRulesParser.FormatContext ctx) { }
+	@Override public void enterMark(@NotNull ITRulesParser.MarkContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFormat(@NotNull ITRulesParser.FormatContext ctx) { }
+	@Override public void exitMark(@NotNull ITRulesParser.MarkContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSignature(@NotNull ITRulesParser.SignatureContext ctx) { }
+	@Override public void enterRuleType(@NotNull ITRulesParser.RuleTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSignature(@NotNull ITRulesParser.SignatureContext ctx) { }
+	@Override public void exitRuleType(@NotNull ITRulesParser.RuleTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValue(@NotNull ITRulesParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValue(@NotNull ITRulesParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOption(@NotNull ITRulesParser.OptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOption(@NotNull ITRulesParser.OptionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -168,6 +156,18 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitItrule(@NotNull ITRulesParser.ItruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSignature(@NotNull ITRulesParser.SignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSignature(@NotNull ITRulesParser.SignatureContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,16 +1,13 @@
 package org.siani.itrules;
 
-import org.siani.itrules.lang.model.Mark;
+import org.siani.itrules.lang.model.AbstractMark;
 
 public final class Trigger {
 	private final AbstractFrame frame;
-	private Mark mark;
+	private AbstractMark mark;
 
-	public Trigger(AbstractFrame frame) {
-		this.frame = frame;
-	}
 
-	public Trigger(AbstractFrame frame, Mark mark) {
+	public Trigger(AbstractFrame frame, AbstractMark mark) {
 		this.frame = frame;
 		this.mark = mark;
 	}
@@ -24,7 +21,7 @@ public final class Trigger {
 		return frame;
 	}
 
-	public Mark mark() {
+	public AbstractMark mark() {
 		return mark;
 	}
 }

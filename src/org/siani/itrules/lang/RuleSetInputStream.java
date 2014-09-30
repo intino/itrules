@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-public class RuleSetInputStream extends InputStream {
+final class RuleSetInputStream extends InputStream {
 
 	private static final String ENDRULE_FOR_USER = "\nendrule";
 	private static final String ENDRULE_FOR_LEXER = "~";

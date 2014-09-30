@@ -2,69 +2,37 @@ package org.siani.itrules;
 
 import java.util.*;
 
-public class Frame implements AbstractFrame, AbstractFrame.Attribute {
+public class Frame implements AbstractFrame {
 
 	private final List<String> types;
-	private final Map<String, List<Attribute>> attributes;
+	private final Map<String, List<AbstractFrame>> properties;
 
 	public Frame(String... types) {
-		this.attributes = new LinkedHashMap<>();
+		this.properties = new LinkedHashMap<>();
 		this.types = new ArrayList<>();
-		Collections.addAll(this.types, types);
+		for (String type : types)
+			this.types.add(type.toLowerCase());
 	}
-
 
 	@Override
 	public boolean is(String type) {
-		return this.types.contains(type);
+		return this.types.contains(type.toLowerCase());
 	}
 
 	@Override
-	public Attribute[] attributes(String attribute) {
-		if (!attributes.containsKey(attribute)) return new Attribute[0];
-		List<Attribute> attributeList = attributes.get(attribute);
-		return attributeList.toArray(new Attribute[attributeList.size()]);
+	public boolean isPrimitive() {
+		return false;
 	}
 
 	@Override
-	public boolean has(String attribute) {
-		return attributes.containsKey(attribute);
+	public Iterator<AbstractFrame> property(String property) {
+		return (properties.get(property) != null) ? properties.get(property).iterator() : null;
 	}
 
-
-	public void attribute(String attribute, Object value) {
-		if (!attributes.containsKey(attribute))
-			attributes.put(attribute, new ArrayList<Attribute>());
-		attributes.get(attribute).add((value instanceof Frame) ? (Frame) value : createAttribute(value));
-	}
-
-	private Attribute createAttribute(final Object value) {
-		return new Attribute() {
-			@Override
-			public boolean isFrame() {
-				return false;
-			}
-
-			@Override
-			public AbstractFrame asFrame() {
-				return null;
-			}
-
-			@Override
-			public Object value() {
-				return value;
-			}
-		};
-	}
-
-	@Override
-	public boolean isFrame() {
-		return true;
-	}
-
-	@Override
-	public AbstractFrame asFrame() {
-		return this;
+	public void property(String property, Object value) {
+		if (!properties.containsKey(property))
+			properties.put(property, new ArrayList<AbstractFrame>());
+		properties.get(property).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
 	}
 
 	@Override

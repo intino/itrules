@@ -19,16 +19,6 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 */
 	void exitExpression(@NotNull ITRulesParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#body}.
-	 * @param ctx the parse tree
-	 */
-	void enterBody(@NotNull ITRulesParser.BodyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#body}.
-	 * @param ctx the parse tree
-	 */
-	void exitBody(@NotNull ITRulesParser.BodyContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#trigger}.
 	 * @param ctx the parse tree
 	 */
@@ -39,15 +29,15 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 */
 	void exitTrigger(@NotNull ITRulesParser.TriggerContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#ruleType}.
+	 * Enter a parse tree produced by {@link ITRulesParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void enterRuleType(@NotNull ITRulesParser.RuleTypeContext ctx);
+	void enterBody(@NotNull ITRulesParser.BodyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#ruleType}.
+	 * Exit a parse tree produced by {@link ITRulesParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void exitRuleType(@NotNull ITRulesParser.RuleTypeContext ctx);
+	void exitBody(@NotNull ITRulesParser.BodyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#text}.
 	 * @param ctx the parse tree
@@ -59,16 +49,6 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 */
 	void exitText(@NotNull ITRulesParser.TextContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#triggerValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#triggerValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#root}.
 	 * @param ctx the parse tree
 	 */
@@ -78,26 +58,6 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRoot(@NotNull ITRulesParser.RootContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#value}.
-	 * @param ctx the parse tree
-	 */
-	void enterValue(@NotNull ITRulesParser.ValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#value}.
-	 * @param ctx the parse tree
-	 */
-	void exitValue(@NotNull ITRulesParser.ValueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#mark}.
-	 * @param ctx the parse tree
-	 */
-	void enterMark(@NotNull ITRulesParser.MarkContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#mark}.
-	 * @param ctx the parse tree
-	 */
-	void exitMark(@NotNull ITRulesParser.MarkContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#attr}.
 	 * @param ctx the parse tree
@@ -109,25 +69,55 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 */
 	void exitAttr(@NotNull ITRulesParser.AttrContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#format}.
+	 * Enter a parse tree produced by {@link ITRulesParser#mark}.
 	 * @param ctx the parse tree
 	 */
-	void enterFormat(@NotNull ITRulesParser.FormatContext ctx);
+	void enterMark(@NotNull ITRulesParser.MarkContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#format}.
+	 * Exit a parse tree produced by {@link ITRulesParser#mark}.
 	 * @param ctx the parse tree
 	 */
-	void exitFormat(@NotNull ITRulesParser.FormatContext ctx);
+	void exitMark(@NotNull ITRulesParser.MarkContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#signature}.
+	 * Enter a parse tree produced by {@link ITRulesParser#ruleType}.
 	 * @param ctx the parse tree
 	 */
-	void enterSignature(@NotNull ITRulesParser.SignatureContext ctx);
+	void enterRuleType(@NotNull ITRulesParser.RuleTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#signature}.
+	 * Exit a parse tree produced by {@link ITRulesParser#ruleType}.
 	 * @param ctx the parse tree
 	 */
-	void exitSignature(@NotNull ITRulesParser.SignatureContext ctx);
+	void exitRuleType(@NotNull ITRulesParser.RuleTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ITRulesParser#triggerValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ITRulesParser#triggerValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ITRulesParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void enterValue(@NotNull ITRulesParser.ValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ITRulesParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void exitValue(@NotNull ITRulesParser.ValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ITRulesParser#option}.
+	 * @param ctx the parse tree
+	 */
+	void enterOption(@NotNull ITRulesParser.OptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ITRulesParser#option}.
+	 * @param ctx the parse tree
+	 */
+	void exitOption(@NotNull ITRulesParser.OptionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#itrule}.
 	 * @param ctx the parse tree
@@ -138,4 +128,14 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitItrule(@NotNull ITRulesParser.ItruleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ITRulesParser#signature}.
+	 * @param ctx the parse tree
+	 */
+	void enterSignature(@NotNull ITRulesParser.SignatureContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ITRulesParser#signature}.
+	 * @param ctx the parse tree
+	 */
+	void exitSignature(@NotNull ITRulesParser.SignatureContext ctx);
 }
