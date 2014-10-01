@@ -29,10 +29,11 @@ public class Frame implements AbstractFrame {
 		return (properties.get(property) != null) ? properties.get(property).iterator() : null;
 	}
 
-	public void property(String property, Object value) {
+	public void property(String property, Object... values) {
 		if (!properties.containsKey(property))
 			properties.put(property, new ArrayList<AbstractFrame>());
-		properties.get(property).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
+		for (Object value : values)
+			properties.get(property).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
 	}
 
 	@Override

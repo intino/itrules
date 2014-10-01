@@ -58,8 +58,12 @@ final class Interpreter extends ITRulesParserBaseListener {
 
 	@Override
 	public void enterText(@NotNull TextContext ctx) {
-		if (BodyContext.class.isInstance(ctx.getParent()))
-			currentRule.add(new Literal(ctx.getText()));
+		if (BodyContext.class.isInstance(ctx.getParent())) {
+			if (ctx.SCAPED_CHAR() != null) {
+				currentRule.add(new Literal(ctx.getText().substring(1)));
+			} else
+				currentRule.add(new Literal(ctx.getText()));
+		}
 	}
 
 	@Override
@@ -107,6 +111,6 @@ final class Interpreter extends ITRulesParserBaseListener {
 	}
 
 	private void throwError(String textNode) {
-		logger.debug("Error reading template. Template not well formed. Node: " + textNode);
+		logger.debug("Error reading template. Template not well formed: " + textNode.replace("~", "endrule"));
 	}
 }

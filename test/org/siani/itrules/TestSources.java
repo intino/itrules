@@ -3,7 +3,7 @@ package org.siani.itrules;
 public class TestSources {
 
 	public static final String NULL_FILE = "\n\n    \n\n";
-	public static final String MARK = "defrule type(Class) \t \t   \t\t\n$mark \n~";
+	public static final String MARK = "defrule type(Class) \t \t   \t\t\n$mark ññ\n~";
 	public static final String MARK_WITH_FORMAT = "defrule type(Attribute) trigger(attribute+Const) type(Const)\n" +
 		"public static final $name+UPPERCASE;\n" + "~";
 	public static final String OTHER_WITH_MARK = "defrule type(Class)\npublic class $attri alalasda $other \n" + "~";

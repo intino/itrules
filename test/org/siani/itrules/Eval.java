@@ -32,7 +32,7 @@ public class Eval {
 			"\n" +
 			"declara adoptar a\n" +
 			"\n" +
-			"El perro con chip X204512, de la especie Caniche, de 1 año\n" +
+			"El perro con chip X204512, de la especie Caniche, de 2 años\n" +
 			"\n" +
 			"\n" +
 			"\n" +

@@ -70,7 +70,8 @@ mode MARK;
 	MARK_ERROR      : .;
 
 mode RULE_BODY;
-	SCAPED_CHAR     : '$$'| '$[' | '$]' | '$~';
+	NULL_CHAR       :'$~'                                       -> skip;
+	SCAPED_CHAR     : '$$'| '$[' | '$]';
 	MARK_KEY        : '$'                                       {setMode(MARK); setLastMode(RULE_BODY);};
 	LEFT_SQ         : '['                                       {setMode(EXPRESION); setLastMode(RULE_BODY);};
 	RULE_END        : '~'                                       {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};

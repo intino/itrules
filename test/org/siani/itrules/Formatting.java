@@ -2,6 +2,7 @@ package org.siani.itrules;
 
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
@@ -32,6 +33,23 @@ public class Formatting {
 			"Time: 00:00", document.content());
 	}
 
+
+	@Test
+	public void testFormatting2() throws Exception {
+		Frame frame = new Frame("Person");
+		frame.property("Name", "Pau Gasol");
+		frame.property("Height", 213);
+		frame.property("Salary", 19201402);
+		frame.property("Club", "Barcelona","Lakers");
+		Document document = new Document();
+		new RuleEngine(toInputStream("defrule type(Person)\n$Name is $Height+Letters+Title cm tall, earns $$$Salary+Separators and has" +
+			" played in $Club+Count basket clubs\nendrule")).render(frame, document);
+		assertEquals("Pau Gasol is two hundred and thirteen cm tall, earns $19,201,402 and has played in BarcelonaLakers basket clubs", document.content());
+	}
+
+	private ByteArrayInputStream toInputStream(String rules) {
+		return new ByteArrayInputStream(rules.getBytes());
+	}
 
 	public InputStream getRules() {
 		return Eval.class.getResourceAsStream("/formatting.itr");

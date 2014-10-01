@@ -1,5 +1,7 @@
 package org.siani.itrules;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -20,6 +22,10 @@ final class FormatterFactory {
 		formatters.put("fulldate", fullDate());
 		formatters.put("dayofweek", dayOfWeek());
 		formatters.put("time", time());
+		formatters.put("letters", letters());
+		formatters.put("separators", separators());
+		formatters.put("count", count());
+		formatters.put("twodecimals", twoDecimals());
 	}
 
 	private static Formatter upperCase() {
@@ -39,6 +45,7 @@ final class FormatterFactory {
 			}
 		};
 	}
+
 
 	private static Formatter camelCase() {
 		return new Formatter() {
@@ -93,7 +100,6 @@ final class FormatterFactory {
 		};
 	}
 
-
 	private static Formatter year() {
 		return new Formatter() {
 			@Override
@@ -121,6 +127,7 @@ final class FormatterFactory {
 		};
 	}
 
+
 	private static Formatter fullDate() {
 		return new Formatter() {
 			@Override
@@ -144,6 +151,61 @@ final class FormatterFactory {
 			@Override
 			public Object format(Object value) {
 				return new SimpleDateFormat("HH:mm", Locale.ENGLISH).format((Date) value);
+			}
+		};
+	}
+
+	private static Formatter letters() {
+		return new Formatter() {
+			@Override
+			public Object format(Object value) {
+				int n = (Integer) value;
+				return (words(n / 1000000, " million " + and(n % 1000000)) +
+					words((n % 1000000) / 1000, " thousand " + and(n % 1000)) + words(n % 1000, "")).replace("  ", " ").trim();
+			}
+
+			private String words(int n, String ending) {
+				String[] first = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+					"eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+				String[] tenSet = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+				return (n == 0) ? "" : ((n >= 100) ? first[n / 100] + " hundred" + and(n % 100) : "") +
+					(((n % 100) >= 20) ? tenSet[(n % 100) / 10] + " " + first[n % 10] : first[n % 20]) + ending;
+			}
+
+			private String and(int number) {
+				return ((number > 0) && (number < 100)) ? " and " : "";
+
+			}
+
+		};
+	}
+
+	private static Formatter count() {
+		return new Formatter() {
+			@Override
+			public Object format(Object value) {
+				return value;
+			}
+		};
+	}
+
+	private static Formatter twoDecimals() {
+		return new Formatter() {
+			@Override
+			public Object format(Object value) {
+				return String.format("%.2f", (Double) value);
+			}
+		};
+	}
+
+	private static Formatter separators() {
+		return new Formatter() {
+			@Override
+			public Object format(Object value) {
+				DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+				df.setGroupingUsed(true);
+				df.setGroupingSize(3);
+				return df.format(value);
 			}
 		};
 	}
