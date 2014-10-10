@@ -39,7 +39,6 @@ public class Eval {
 			"\n" +
 			"Firmado\n" +
 			"Tere Galvez, con DNI 4050321, con domicilio en la calle Pico Viento 51, Las Palmas", document.content());
-
 	}
 
 	public InputStream getRules() {

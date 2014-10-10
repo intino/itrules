@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/itrules_jar</output-path>
     <root id="archive" name="itrules.jar">
       <element id="module-output" name="itrules" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/antlr-4.4-complete.jar" path-in-jar="/" />
+      <element id="library" level="project" name="antlr-runtime-4.4" />
     </root>
   </artifact>
 </component>
