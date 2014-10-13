@@ -1,6 +1,6 @@
 package org.siani.itrules;
 
-public interface ITRulesLogger {
+public interface Logger {
   
   public void debug(String message, Object... args);
 

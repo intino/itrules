@@ -1,13 +1,14 @@
-// Generated from /Users/oroncal/workspace/sandbox/itrules/src/org/siani/itrules/lang/ITRulesParser.g4 by ANTLR 4.4.1-dev
 package org.siani.itrules.lang;
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ITRulesParser extends Parser {
@@ -17,20 +18,21 @@ public class ITRulesParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		MARK_ERROR=31, MARK_ID=30, RULE_ID=13, OPTION=5, RULE_BEGIN=1, SCAPED_CHAR=32, 
+		MARK_ERROR=31, MARK_ID=30, RULE_ID=13, OPTION=5, RULE_BEGIN=1, SCAPED_CHAR=33, 
 		OPERATOR=23, TRIGGER=9, EVAL_ID=19, NUMBER=21, RIGHT_P=7, RULE_ERROR=16, 
-		SEPARATOR=29, RULE_TEXT=36, NOT=12, EVAL_RIGHT_P=18, TEXT=4, ID=3, LIST=26, 
-		EXPRESSION_TEXT=40, EXP_SCAPED_CHAR=38, MARK_KEY=33, TYPE=8, EVAL_ERROR=25, 
-		WS=15, EVAL=11, RULE_END=35, WL=2, EXPRESSION_MARK=39, NL=14, LEFT_SQ=34, 
-		E_WS=24, END=28, DOT=20, RIGHT_SQ=37, MARK_OPTION=27, EVAL_LEFT_P=17, 
-		ATTR=10, LEFT_P=6, STRING=22;
+		SEPARATOR=29, RULE_TEXT=37, NOT=12, EVAL_RIGHT_P=18, TEXT=4, ID=3, LIST=26, 
+		EXPRESSION_TEXT=41, EXP_SCAPED_CHAR=39, MARK_KEY=34, TYPE=8, EVAL_ERROR=25, 
+		WS=15, EVAL=11, RULE_END=36, WL=2, EXPRESSION_MARK=40, NL=14, LEFT_SQ=35, 
+		E_WS=24, END=28, DOT=20, RIGHT_SQ=38, MARK_OPTION=27, EVAL_LEFT_P=17, 
+		ATTR=10, LEFT_P=6, NULL_CHAR=32, STRING=22;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'defrule'", "WL", "ID", "'text'", "OPTION", "LEFT_P", "RIGHT_P", 
 		"'type'", "'trigger'", "'attr'", "'eval'", "'!'", "RULE_ID", "NL", "WS", 
 		"RULE_ERROR", "EVAL_LEFT_P", "EVAL_RIGHT_P", "EVAL_ID", "'.'", "NUMBER", 
-		"STRING", "OPERATOR", "E_WS", "EVAL_ERROR", "'...'", "MARK_OPTION", "'$~'", 
-		"SEPARATOR", "MARK_ID", "MARK_ERROR", "SCAPED_CHAR", "'$'", "'['", "'~'", 
-		"RULE_TEXT", "RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", "EXPRESSION_TEXT"
+		"STRING", "OPERATOR", "E_WS", "EVAL_ERROR", "'...'", "MARK_OPTION", "END", 
+		"SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CHAR", "SCAPED_CHAR", "'$'", 
+		"'['", "'~'", "RULE_TEXT", "RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", 
+		"EXPRESSION_TEXT"
 	};
 	public static final int
 		RULE_root = 0, RULE_itrule = 1, RULE_signature = 2, RULE_ruleType = 3, 
@@ -1004,7 +1006,7 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3*\u008f\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3+\u008f\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\3\2\7\2$\n"+
 		"\2\f\2\16\2\'\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\6\4\64"+
@@ -1015,32 +1017,32 @@ public class ITRulesParser extends Parser {
 		"\3\16\3\16\7\16w\n\16\f\16\16\16z\13\16\3\16\3\16\3\17\3\17\3\20\3\20"+
 		"\3\20\7\20\u0083\n\20\f\20\16\20\u0086\13\20\3\20\3\20\5\20\u008a\n\20"+
 		"\3\21\3\21\3\21\3\21\2\2\22\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \2"+
-		"\3\4\2\6\6\"\"\u0093\2%\3\2\2\2\4*\3\2\2\2\6.\3\2\2\2\b:\3\2\2\2\n?\3"+
-		"\2\2\2\fC\3\2\2\2\16K\3\2\2\2\20S\3\2\2\2\22X\3\2\2\2\24]\3\2\2\2\26b"+
-		"\3\2\2\2\30o\3\2\2\2\32r\3\2\2\2\34}\3\2\2\2\36\177\3\2\2\2 \u008b\3\2"+
-		"\2\2\"$\5\4\3\2#\"\3\2\2\2$\'\3\2\2\2%#\3\2\2\2%&\3\2\2\2&(\3\2\2\2\'"+
-		"%\3\2\2\2()\7\2\2\3)\3\3\2\2\2*+\5\6\4\2+,\5\30\r\2,-\7%\2\2-\5\3\2\2"+
-		"\2.\63\7\3\2\2/\64\5\b\5\2\60\64\5\22\n\2\61\64\5\26\f\2\62\64\5\f\7\2"+
-		"\63/\3\2\2\2\63\60\3\2\2\2\63\61\3\2\2\2\63\62\3\2\2\2\64\65\3\2\2\2\65"+
-		"\63\3\2\2\2\65\66\3\2\2\2\66\67\3\2\2\2\678\7\20\2\28\7\3\2\2\29;\7\16"+
-		"\2\2:9\3\2\2\2:;\3\2\2\2;<\3\2\2\2<=\7\n\2\2=>\5\n\6\2>\t\3\2\2\2?@\7"+
-		"\b\2\2@A\7\5\2\2AB\7\t\2\2B\13\3\2\2\2CD\7\r\2\2DE\7\b\2\2EF\5\16\b\2"+
-		"FG\7\t\2\2G\r\3\2\2\2HL\5\20\t\2IL\7\30\2\2JL\7\27\2\2KH\3\2\2\2KI\3\2"+
-		"\2\2KJ\3\2\2\2LM\3\2\2\2MQ\7\31\2\2NR\5\20\t\2OR\7\30\2\2PR\7\27\2\2Q"+
-		"N\3\2\2\2QO\3\2\2\2QP\3\2\2\2R\17\3\2\2\2SV\7\5\2\2TU\7\26\2\2UW\7\5\2"+
-		"\2VT\3\2\2\2VW\3\2\2\2W\21\3\2\2\2XY\7\13\2\2YZ\7\b\2\2Z[\5\24\13\2[\\"+
-		"\7\t\2\2\\\23\3\2\2\2]`\7\5\2\2^_\7\7\2\2_a\7\5\2\2`^\3\2\2\2`a\3\2\2"+
-		"\2a\25\3\2\2\2bc\7\f\2\2ce\7\b\2\2df\7\16\2\2ed\3\2\2\2ef\3\2\2\2fg\3"+
-		"\2\2\2gh\7\5\2\2hi\7\t\2\2i\27\3\2\2\2jn\5\34\17\2kn\5\36\20\2ln\5\32"+
-		"\16\2mj\3\2\2\2mk\3\2\2\2ml\3\2\2\2nq\3\2\2\2om\3\2\2\2op\3\2\2\2p\31"+
-		"\3\2\2\2qo\3\2\2\2rx\7$\2\2sw\5\34\17\2tw\5\36\20\2uw\5\32\16\2vs\3\2"+
-		"\2\2vt\3\2\2\2vu\3\2\2\2wz\3\2\2\2xv\3\2\2\2xy\3\2\2\2y{\3\2\2\2zx\3\2"+
-		"\2\2{|\7\'\2\2|\33\3\2\2\2}~\t\2\2\2~\35\3\2\2\2\177\u0080\7#\2\2\u0080"+
-		"\u0084\7\5\2\2\u0081\u0083\5 \21\2\u0082\u0081\3\2\2\2\u0083\u0086\3\2"+
-		"\2\2\u0084\u0082\3\2\2\2\u0084\u0085\3\2\2\2\u0085\u0089\3\2\2\2\u0086"+
-		"\u0084\3\2\2\2\u0087\u0088\7\34\2\2\u0088\u008a\7\37\2\2\u0089\u0087\3"+
-		"\2\2\2\u0089\u008a\3\2\2\2\u008a\37\3\2\2\2\u008b\u008c\7\7\2\2\u008c"+
-		"\u008d\7\5\2\2\u008d!\3\2\2\2\21%\63\65:KQV`emovx\u0084\u0089";
+		"\3\4\2\6\6##\u0093\2%\3\2\2\2\4*\3\2\2\2\6.\3\2\2\2\b:\3\2\2\2\n?\3\2"+
+		"\2\2\fC\3\2\2\2\16K\3\2\2\2\20S\3\2\2\2\22X\3\2\2\2\24]\3\2\2\2\26b\3"+
+		"\2\2\2\30o\3\2\2\2\32r\3\2\2\2\34}\3\2\2\2\36\177\3\2\2\2 \u008b\3\2\2"+
+		"\2\"$\5\4\3\2#\"\3\2\2\2$\'\3\2\2\2%#\3\2\2\2%&\3\2\2\2&(\3\2\2\2\'%\3"+
+		"\2\2\2()\7\2\2\3)\3\3\2\2\2*+\5\6\4\2+,\5\30\r\2,-\7&\2\2-\5\3\2\2\2."+
+		"\63\7\3\2\2/\64\5\b\5\2\60\64\5\22\n\2\61\64\5\26\f\2\62\64\5\f\7\2\63"+
+		"/\3\2\2\2\63\60\3\2\2\2\63\61\3\2\2\2\63\62\3\2\2\2\64\65\3\2\2\2\65\63"+
+		"\3\2\2\2\65\66\3\2\2\2\66\67\3\2\2\2\678\7\20\2\28\7\3\2\2\29;\7\16\2"+
+		"\2:9\3\2\2\2:;\3\2\2\2;<\3\2\2\2<=\7\n\2\2=>\5\n\6\2>\t\3\2\2\2?@\7\b"+
+		"\2\2@A\7\5\2\2AB\7\t\2\2B\13\3\2\2\2CD\7\r\2\2DE\7\b\2\2EF\5\16\b\2FG"+
+		"\7\t\2\2G\r\3\2\2\2HL\5\20\t\2IL\7\30\2\2JL\7\27\2\2KH\3\2\2\2KI\3\2\2"+
+		"\2KJ\3\2\2\2LM\3\2\2\2MQ\7\31\2\2NR\5\20\t\2OR\7\30\2\2PR\7\27\2\2QN\3"+
+		"\2\2\2QO\3\2\2\2QP\3\2\2\2R\17\3\2\2\2SV\7\5\2\2TU\7\26\2\2UW\7\5\2\2"+
+		"VT\3\2\2\2VW\3\2\2\2W\21\3\2\2\2XY\7\13\2\2YZ\7\b\2\2Z[\5\24\13\2[\\\7"+
+		"\t\2\2\\\23\3\2\2\2]`\7\5\2\2^_\7\7\2\2_a\7\5\2\2`^\3\2\2\2`a\3\2\2\2"+
+		"a\25\3\2\2\2bc\7\f\2\2ce\7\b\2\2df\7\16\2\2ed\3\2\2\2ef\3\2\2\2fg\3\2"+
+		"\2\2gh\7\5\2\2hi\7\t\2\2i\27\3\2\2\2jn\5\34\17\2kn\5\36\20\2ln\5\32\16"+
+		"\2mj\3\2\2\2mk\3\2\2\2ml\3\2\2\2nq\3\2\2\2om\3\2\2\2op\3\2\2\2p\31\3\2"+
+		"\2\2qo\3\2\2\2rx\7%\2\2sw\5\34\17\2tw\5\36\20\2uw\5\32\16\2vs\3\2\2\2"+
+		"vt\3\2\2\2vu\3\2\2\2wz\3\2\2\2xv\3\2\2\2xy\3\2\2\2y{\3\2\2\2zx\3\2\2\2"+
+		"{|\7(\2\2|\33\3\2\2\2}~\t\2\2\2~\35\3\2\2\2\177\u0080\7$\2\2\u0080\u0084"+
+		"\7\5\2\2\u0081\u0083\5 \21\2\u0082\u0081\3\2\2\2\u0083\u0086\3\2\2\2\u0084"+
+		"\u0082\3\2\2\2\u0084\u0085\3\2\2\2\u0085\u0089\3\2\2\2\u0086\u0084\3\2"+
+		"\2\2\u0087\u0088\7\34\2\2\u0088\u008a\7\37\2\2\u0089\u0087\3\2\2\2\u0089"+
+		"\u008a\3\2\2\2\u008a\37\3\2\2\2\u008b\u008c\7\7\2\2\u008c\u008d\7\5\2"+
+		"\2\u008d!\3\2\2\2\21%\63\65:KQV`emovx\u0084\u0089";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

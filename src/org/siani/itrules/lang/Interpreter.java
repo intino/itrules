@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.siani.itrules.Function;
-import org.siani.itrules.ITRulesLogger;
+import org.siani.itrules.Logger;
 import org.siani.itrules.lang.model.*;
 
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ final class Interpreter extends ITRulesParserBaseListener {
 	private static String TAB_SEPARATOR = "\\$TAB";
 	private List<Rule> rules;
 	private Rule currentRule;
-	private final ITRulesLogger logger;
+	private final Logger logger;
 
-	public Interpreter(List<Rule> rules, ITRulesLogger logger) {
+	public Interpreter(List<Rule> rules, Logger logger) {
 		this.rules = rules;
 		this.logger = logger;
 	}

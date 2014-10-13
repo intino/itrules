@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.siani.itrules.ITRulesLogger;
+import org.siani.itrules.Logger;
 import org.siani.itrules.ITRulesSyntaxError;
 import org.siani.itrules.lang.model.Rule;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public final class RulesReader {
 
 	private ANTLRInputStream input;
-	private final ITRulesLogger logger;
+	private final Logger logger;
 	private final List<Rule> rules;
 
 	public RulesReader(InputStream template) {
@@ -55,7 +55,7 @@ public final class RulesReader {
 		}
 	}
 
-	public static class Log implements ITRulesLogger {
+	public static class Log implements Logger {
 		@Override
 		public void debug(String message, Object... args) {
 			System.out.printf(message, args);
