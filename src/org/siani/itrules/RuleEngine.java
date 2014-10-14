@@ -34,7 +34,6 @@ public final class RuleEngine {
 	private boolean execute(Trigger trigger) {
 		Rule rule = ruleSet.match(trigger);
 		if (rule == null) return false;
-		buffer().indent(trigger.mark().getIndentation());
 		boolean execute = execute(trigger, rule);
 		buffer().dedent();
 		return execute;
@@ -114,7 +113,9 @@ public final class RuleEngine {
 	}
 
 	private void pushBuffer(String indentation) {
-		buffers.push(new Buffer());
+		Buffer newBuffer = new Buffer();
+		for (String indent : buffer().getIndentation()) newBuffer.indent(indent);
+		buffers.push(newBuffer);
 		buffer().indent(indentation);
 	}
 
