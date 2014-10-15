@@ -11,25 +11,25 @@ public class NestedFrames {
 	@Test
 	public void testNestedFrames() throws Exception {
 		Frame frame = new Frame("Roster");
-		frame.property("Coach", new Frame("Person") {{
-			property("Name", "Juan Antonio Orenga");
-			property("Birthday", new DateTime("29/07/1966"));
-			property("Country", "Spain");
+		frame.addSlot("Coach", new Frame("Person") {{
+			addSlot("Name", "Juan Antonio Orenga");
+			addSlot("Birthday", new DateTime("29/07/1966"));
+			addSlot("Country", "Spain");
 		}});
-		frame.property("Player", new Frame("Person") {{
-			property("Name", "Pau Gasol");
-			property("Birthday", new DateTime("06/07/1980"));
-			property("Country", "Spain");
+		frame.addSlot("Player", new Frame("Person") {{
+			addSlot("Name", "Pau Gasol");
+			addSlot("Birthday", new DateTime("06/07/1980"));
+			addSlot("Country", "Spain");
 		}});
-		frame.property("Player", new Frame("Person") {{
-			property("Name", "Rudy Fernandez");
-			property("Birthday", new DateTime("04/04/1985"));
-			property("Country", "Spain");
+		frame.addSlot("Player", new Frame("Person") {{
+			addSlot("Name", "Rudy Fernandez");
+			addSlot("Birthday", new DateTime("04/04/1985"));
+			addSlot("Country", "Spain");
 		}});
-		frame.property("Player", new Frame("Person") {{
-			property("Name", "Juan Carlos Navarro");
-			property("Birthday", new DateTime("17/06/1980"));
-			property("Country", "Spain");
+		frame.addSlot("Player", new Frame("Person") {{
+			addSlot("Name", "Juan Carlos Navarro");
+			addSlot("Birthday", new DateTime("17/06/1980"));
+			addSlot("Country", "Spain");
 		}});
 		Document document = new Document();
 		new RuleEngine(getRules()).render(frame, document);

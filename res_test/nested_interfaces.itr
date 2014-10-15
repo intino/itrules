@@ -1,15 +1,13 @@
-defrule type(interface)
+defrule type(class)
 package $package;
 
-public interface $name+UpperCamelCase [extends $parent+UpperCamelCase ]{
+$concept...[$NL$NL]
 
-    $sub...[$NL$NL]
-}
 endrule
 
-defrule type(sub) trigger(sub)
+defrule type(concept) slot-type(action, deep) trigger(concept)
 public interface $name+UpperCamelCase [extends $parent+UpperCamelCase ]{
 
-    $sub...[$NL$NL]
+    $concept...[$NL]
 }
 endrule

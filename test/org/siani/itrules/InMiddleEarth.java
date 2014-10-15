@@ -11,12 +11,12 @@ public class InMiddleEarth {
 	@Test
 	public void testInMiddleEarth() throws Exception {
 		Frame frame = new Frame("Message");
-		frame.property("From", "frodo@hobbiton.me");
-		frame.property("To", "gandalf@elrond.me");
-		frame.property("To", "bilbo@hobbiton.me");
-		frame.property("Subject", "The ring");
-		frame.property("Text", "I wish the Ring had never come to me.");
-		frame.property("Text", "I wish none of this had happened.");
+		frame.addSlot("From", "frodo@hobbiton.me");
+		frame.addSlot("To", "gandalf@elrond.me");
+		frame.addSlot("To", "bilbo@hobbiton.me");
+		frame.addSlot("Subject", "The ring");
+		frame.addSlot("Text", "I wish the Ring had never come to me.");
+		frame.addSlot("Text", "I wish none of this had happened.");
 		Document document = new Document();
 		new RuleEngine(getRules()).render(frame, document);
 		assertEquals("" +

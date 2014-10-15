@@ -11,7 +11,6 @@ import java.util.List;
 
 final class RuleSet {
 
-
 	private final List<Rule> rules;
 
 	public RuleSet(InputStream rulesStream) {
@@ -21,7 +20,7 @@ final class RuleSet {
 
 	private Rule createDefaultRule() {
 		Rule rule = new Rule();
-		rule.add(new Condition(Function.ATTR, "value", false));
+		rule.add(new Condition(Function.SLOT_NAME, new String[]{"value"}, false));
 		rule.add(new Mark("value"));
 		return rule;
 	}

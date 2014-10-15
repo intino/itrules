@@ -84,7 +84,7 @@ public final class RuleEngine {
 	}
 
 	private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
-		Iterator<AbstractFrame> frames = frame.property(mark.getName());
+		Iterator<AbstractFrame> frames = frame.getSlots(mark.getName());
 		boolean rendered = false;
 		while (frames != null && frames.hasNext()) {
 			pushBuffer(mark.getIndentation());

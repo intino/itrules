@@ -1,3 +1,4 @@
+// Generated from /Users/oroncal/workspace/itrules/src/org/siani/itrules/lang/ITRulesParser.g4 by ANTLR 4.4.1-dev
 package org.siani.itrules.lang;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -28,18 +29,6 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrigger(@NotNull ITRulesParser.TriggerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTrigger(@NotNull ITRulesParser.TriggerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterBody(@NotNull ITRulesParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -47,6 +36,18 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBody(@NotNull ITRulesParser.BodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrigger(@NotNull ITRulesParser.TriggerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrigger(@NotNull ITRulesParser.TriggerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -124,13 +125,13 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAttr(@NotNull ITRulesParser.AttrContext ctx) { }
+	@Override public void enterSlotType(@NotNull ITRulesParser.SlotTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAttr(@NotNull ITRulesParser.AttrContext ctx) { }
+	@Override public void exitSlotType(@NotNull ITRulesParser.SlotTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -155,6 +156,18 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSlotParm(@NotNull ITRulesParser.SlotParmContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSlotParm(@NotNull ITRulesParser.SlotParmContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -203,6 +216,18 @@ public class ITRulesParserBaseListener implements ITRulesParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSignature(@NotNull ITRulesParser.SignatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSlotName(@NotNull ITRulesParser.SlotNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSlotName(@NotNull ITRulesParser.SlotNameContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

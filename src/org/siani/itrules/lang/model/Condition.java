@@ -3,13 +3,12 @@ package org.siani.itrules.lang.model;
 public class Condition {
 
 	private final String name;
-	private final String parameter;
+	private String[] parameters;
 	private final boolean negated;
 
-
-	public Condition(String name, String parameter, boolean negated) {
+	public Condition(String name, String[] parameters, boolean negated) {
 		this.name = name;
-		this.parameter = parameter;
+		this.parameters = parameters;
 		this.negated = negated;
 	}
 
@@ -21,7 +20,7 @@ public class Condition {
 		return this.negated;
 	}
 
-	public String getParameter() {
-		return parameter;
+	public String[] getParameters() {
+		return parameters;
 	}
 }

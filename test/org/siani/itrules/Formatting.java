@@ -12,9 +12,9 @@ public class Formatting {
 	@Test
 	public void testFormatting() throws Exception {
 		Frame frame = new Frame("Person");
-		frame.property("Name", "Pau Gasol");
-		frame.property("Birthday", new DateTime("06/07/1980"));
-		frame.property("Country", "Spain");
+		frame.addSlot("Name", "Pau Gasol");
+		frame.addSlot("Birthday", new DateTime("06/07/1980"));
+		frame.addSlot("Country", "Spain");
 		Document document = new Document();
 		new RuleEngine(getRules()).render(frame, document);
 		assertEquals("" +
@@ -37,10 +37,10 @@ public class Formatting {
 	@Test
 	public void testFormatting2() throws Exception {
 		Frame frame = new Frame("Person");
-		frame.property("Name", "Pau Gasol");
-		frame.property("Height", 213);
-		frame.property("Salary", 19201402);
-		frame.property("Club", "Barcelona","Lakers");
+		frame.addSlot("Name", "Pau Gasol");
+		frame.addSlot("Height", 213);
+		frame.addSlot("Salary", 19201402);
+		frame.addSlot("Club", "Barcelona", "Lakers");
 		Document document = new Document();
 		new RuleEngine(toInputStream("defrule type(Person)\n$Name is $Height+Letters+Title cm tall, earns $$$Salary+Separators and has" +
 			" played in $Club+Count basket clubs\nendrule")).render(frame, document);

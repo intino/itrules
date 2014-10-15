@@ -11,9 +11,9 @@ public class PauGasol {
 	@Test
 	public void testPauGasol() throws Exception {
 		Frame frame = new Frame("Person");
-		frame.property("Name", "Pau Gasol");
-		frame.property("Birthday", "06/07/1980");
-		frame.property("Country", "Spain");
+		frame.addSlot("Name", "Pau Gasol");
+		frame.addSlot("Birthday", "06/07/1980");
+		frame.addSlot("Country", "Spain");
 		String rule = "" +
 			"defrule type(Person)\n" +
 			"$Name was born in $Country on $Birthday\n" +

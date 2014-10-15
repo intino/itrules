@@ -11,18 +11,18 @@ public class Eval {
 	@Test
 	public void testEval() throws Exception {
 		Frame frame = new Frame("Contract");
-		frame.property("Owner", new Frame("Person") {{
-			property("Name", "Tere Galvez");
-			property("Address", "Pico Viento 51");
-			property("City", "Las Palmas");
-			property("IdCard", "4050321");
+		frame.addSlot("Owner", new Frame("Person") {{
+			addSlot("Name", "Tere Galvez");
+			addSlot("Address", "Pico Viento 51");
+			addSlot("City", "Las Palmas");
+			addSlot("IdCard", "4050321");
 		}});
-		frame.property("Pet", new Frame("Dog") {{
-			property("Chip", "X204512");
-			property("Especie", "Caniche");
-			property("Age", "2");
+		frame.addSlot("Pet", new Frame("Dog") {{
+			addSlot("Chip", "X204512");
+			addSlot("Especie", "Caniche");
+			addSlot("Age", "2");
 		}});
-		frame.property("Date", new DateTime("27/09/2014"));
+		frame.addSlot("Date", new DateTime("27/09/2014"));
 		Document document = new Document();
 		RuleEngine ruleEngine = new RuleEngine(getRules());
 		ruleEngine.render(frame, document);

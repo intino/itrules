@@ -3,6 +3,7 @@ package org.siani.itrules;
 import java.util.Iterator;
 
 class PrimitiveFrame implements AbstractFrame {
+	private static final String VALUE = "value";
 	private final Object value;
 
 	public PrimitiveFrame(Object value) {
@@ -20,7 +21,7 @@ class PrimitiveFrame implements AbstractFrame {
 	}
 
 	@Override
-	public Iterator<AbstractFrame> property(String property) {
+	public Iterator<AbstractFrame> getSlots(String slot) {
 		return null;
 	}
 
@@ -30,7 +31,17 @@ class PrimitiveFrame implements AbstractFrame {
 	}
 
 	@Override
-	public AbstractFrame findProperty(String path) {
-		return path.equalsIgnoreCase("value") ? this : null;
+	public AbstractFrame findSlot(String path) {
+		return path.equalsIgnoreCase(VALUE) ? this : null;
+	}
+
+	@Override
+	public AbstractFrame searchByType(String type, boolean deep) {
+		return null;
+	}
+
+	@Override
+	public AbstractFrame searchByName(String name, boolean deep) {
+		return name.equalsIgnoreCase(VALUE) ? this : null;
 	}
 }

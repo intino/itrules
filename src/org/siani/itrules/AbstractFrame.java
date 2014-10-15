@@ -8,9 +8,13 @@ public interface AbstractFrame {
 
 	public boolean isPrimitive();
 
-	public Iterator<AbstractFrame> property(String property);
+	public Iterator<AbstractFrame> getSlots(String slot);
 
 	public Object value();
 
-	public AbstractFrame findProperty(String path);
+	public AbstractFrame findSlot(String path);
+
+	public AbstractFrame searchByType(String type, boolean deep);
+
+	public AbstractFrame searchByName(String name, boolean deep);
 }

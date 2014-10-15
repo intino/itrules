@@ -14,9 +14,9 @@ public class CustomFormatting {
 	@Test
 	public void testCustomFormatting() throws Exception {
 		Frame frame = new Frame("Person");
-		frame.property("Name", "pau gasol");
-		frame.property("Birthday", new DateTime("06/07/1980"));
-		frame.property("Country", "Spain");
+		frame.addSlot("Name", "pau gasol");
+		frame.addSlot("Birthday", new DateTime("06/07/1980"));
+		frame.addSlot("Country", "Spain");
 		String rule = "" +
 			"defrule type(Person)\n" +
 			"$Name+Title nacio el $Birthday+FullDate+Title\n" +

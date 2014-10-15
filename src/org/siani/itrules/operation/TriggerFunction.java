@@ -4,17 +4,17 @@ import org.siani.itrules.Function;
 import org.siani.itrules.Trigger;
 
 final class TriggerFunction implements Function {
-	private final String parameter;
+	private final String[] parameters;
 
-	public TriggerFunction(String parameter) {
-		this.parameter = parameter;
+	public TriggerFunction(String[] parameters) {
+		this.parameters = parameters;
 	}
 
 	@Override
 	public boolean match(Trigger trigger) {
-		if (parameter.equalsIgnoreCase(trigger.mark().getName())) return true;
+		if (parameters[0].equalsIgnoreCase(trigger.mark().getName())) return true;
 		for (String s : trigger.mark().getOptions())
-			if (parameter.equalsIgnoreCase(s)) return true;
+			if (parameters[0].equalsIgnoreCase(s)) return true;
 		return false;
 	}
 }

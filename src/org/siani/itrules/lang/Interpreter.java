@@ -1,5 +1,6 @@
 package org.siani.itrules.lang;
 
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -30,29 +31,32 @@ final class Interpreter extends ITRulesParserBaseListener {
 		currentRule = new Rule();
 		currentRule.addAll(makeTypeFunctions(ctx.ruleType()));
 		if (!ctx.trigger().isEmpty())
-			currentRule.add(new Condition(Function.TRIGGER, ctx.trigger(0).triggerValue().getText(), false));
-		if (!ctx.attr().isEmpty())
-			for (AttrContext attrContext : ctx.attr())
-				currentRule.add(new Condition(Function.ATTR, attrContext.getText(), false));
+			currentRule.add(new Condition(Function.TRIGGER, new String[]{ctx.trigger(0).triggerValue().getText()}, false));
+		if (!ctx.slotName().isEmpty())
+			for (SlotNameContext slotContext : ctx.slotName())
+				currentRule.add(new Condition(Function.SLOT_NAME, getParameters(slotContext.slotParm()), false));
+		if (!ctx.slotType().isEmpty())
+			for (SlotTypeContext slotContext : ctx.slotType())
+				currentRule.add(new Condition(Function.SLOT_TYPE, getParameters(slotContext.slotParm()), false));
 		if (!ctx.eval().isEmpty())
 			for (EvalContext eval : ctx.eval())
-				currentRule.add(new Condition(Function.EVAL, composeEvalExpression(eval.evalExpression()), false));
+				currentRule.add(new Condition(Function.EVAL, getParameters(eval.evalExpression()), false));
 		rules.add(currentRule);
 	}
 
-	private String composeEvalExpression(EvalExpressionContext evalExpressionContext) {
-		final String AT = "@";
-		String result = "";
-		for (ParseTree child : evalExpressionContext.children) {
-			result += AT + child.getText();
-		}
-		return result.substring(1);
+	private String[] getParameters(ParserRuleContext ruleContext) {
+		String minorTokens = "(),";
+		List<String> result = new ArrayList<>();
+		for (ParseTree child : ruleContext.children)
+			if (!minorTokens.contains(child.getText()))
+				result.add(child.getText());
+		return result.toArray(new String[result.size()]);
 	}
 
 	private List<Condition> makeTypeFunctions(List<RuleTypeContext> ruleTypes) {
 		List<Condition> conditions = new ArrayList<>();
 		for (RuleTypeContext ruleType : ruleTypes)
-			conditions.add(new Condition(Function.TYPE, ruleType.value().ID().getText(), ruleType.NOT() != null));
+			conditions.add(new Condition(Function.TYPE, new String[]{ruleType.value().ID().getText()}, ruleType.NOT() != null));
 		return conditions;
 	}
 

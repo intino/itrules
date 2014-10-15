@@ -5,10 +5,10 @@ import java.util.*;
 public class Frame implements AbstractFrame {
 
 	private final List<String> types;
-	private final Map<String, List<AbstractFrame>> properties;
+	private final Map<String, List<AbstractFrame>> slots;
 
 	public Frame(String... types) {
-		this.properties = new LinkedHashMap<>();
+		this.slots = new LinkedHashMap<>();
 		this.types = new ArrayList<>();
 		for (String type : types)
 			this.types.add(type.toLowerCase());
@@ -25,15 +25,15 @@ public class Frame implements AbstractFrame {
 	}
 
 	@Override
-	public Iterator<AbstractFrame> property(String property) {
-		return (properties.get(property) != null) ? properties.get(property).iterator() : null;
+	public Iterator<AbstractFrame> getSlots(String slot) {
+		return (slots.get(slot) != null) ? slots.get(slot).iterator() : null;
 	}
 
-	public void property(String property, Object... values) {
-		if (!properties.containsKey(property))
-			properties.put(property, new ArrayList<AbstractFrame>());
+	public void addSlot(String slot, Object... values) {
+		if (!slots.containsKey(slot))
+			slots.put(slot, new ArrayList<AbstractFrame>());
 		for (Object value : values)
-			properties.get(property).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
+			slots.get(slot).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
 	}
 
 	@Override
@@ -42,11 +42,41 @@ public class Frame implements AbstractFrame {
 	}
 
 	@Override
-	public AbstractFrame findProperty(String path) {
+	public AbstractFrame findSlot(String path) {
 		String name = path.substring(0, path.indexOf("."));
-		if (!properties.containsKey(name)) return null;
-		List<AbstractFrame> property = properties.get(name);
-		return name.length() >= path.length() ? property.get(0) :
-			property.get(0).findProperty(path.substring(path.indexOf(".")));
+		if (!slots.containsKey(name)) return null;
+		List<AbstractFrame> slot = slots.get(name);
+		return name.length() >= path.length() ? slot.get(0) :
+			slot.get(0).findSlot(path.substring(path.indexOf(".")));
+	}
+
+	public AbstractFrame searchByType(String type, boolean deep) {
+		return is(type) ? this : searchByType(slots.values(), type, deep);
+	}
+
+	public AbstractFrame searchByName(String name, boolean deep) {
+		return getSlots(name) != null ? this : searchByName(slots.values(), name, deep);
+	}
+
+	private AbstractFrame searchByType(Collection<List<AbstractFrame>> slots, String type, boolean deep) {
+		for (List<AbstractFrame> slot : slots)
+			for (AbstractFrame frame : slot)
+				if (!frame.isPrimitive() && frame.is(type)) return frame;
+				else if (!frame.isPrimitive() && deep) {
+					AbstractFrame foundFrame = frame.searchByType(type, true);
+					if (foundFrame != null) return foundFrame;
+				}
+		return null;
+	}
+
+	private AbstractFrame searchByName(Collection<List<AbstractFrame>> slots, String name, boolean deep) {
+		for (List<AbstractFrame> slot : slots)
+			for (AbstractFrame frame : slot)
+				if (!frame.isPrimitive() && frame.getSlots(name) != null) return frame;
+				else if (!frame.isPrimitive() && deep) {
+					AbstractFrame foundFrame = frame.searchByName(name, true);
+					if (foundFrame != null) return foundFrame;
+				}
+		return null;
 	}
 }

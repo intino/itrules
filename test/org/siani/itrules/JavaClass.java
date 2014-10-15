@@ -11,24 +11,24 @@ public class JavaClass {
 	@Test
 	public void testJavaClass() throws Exception {
 		Frame frame = new Frame("Class");
-		frame.property("name", "Customer");
-		frame.property("final", "final");
-		frame.property("superclass", "Client");
-		frame.property("interface", "Company");
-		frame.property("interface", "TaxPayer");
-		frame.property("attribute", new Frame("Attribute", "Const") {{
-			property("name", "CUSTOMER_NAME");
-			property("type", "String");
-			property("default", "\"CUSTOMER\"");
+		frame.addSlot("name", "Customer");
+		frame.addSlot("final", "final");
+		frame.addSlot("superclass", "Client");
+		frame.addSlot("interface", "Company");
+		frame.addSlot("interface", "TaxPayer");
+		frame.addSlot("attribute", new Frame("Attribute", "Const") {{
+			addSlot("name", "CUSTOMER_NAME");
+			addSlot("type", "String");
+			addSlot("default", "\"CUSTOMER\"");
 		}});
-		frame.property("attribute", new Frame("Attribute", "ReadOnly") {{
-			property("name", "familyName");
-			property("type", "String");
+		frame.addSlot("attribute", new Frame("Attribute", "ReadOnly") {{
+			addSlot("name", "familyName");
+			addSlot("type", "String");
 		}});
-		frame.property("attribute", new Frame("Attribute") {{
-			property("name", "maxAge");
-			property("type", "Integer");
-			property("default", "100");
+		frame.addSlot("attribute", new Frame("Attribute") {{
+			addSlot("name", "maxAge");
+			addSlot("type", "Integer");
+			addSlot("default", "100");
 		}});
 
 		Document document = new Document();
