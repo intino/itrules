@@ -62,7 +62,7 @@ class Buffer {
 	@Override
 	public String toString() {
 		try {
-			return new String(content.getBytes(), "UTF-8").replaceAll("\n(\t| )+\n", "\n\n");
+			return new String(content.getBytes(), "UTF-8").replaceAll("\n(\t| )+\n", "\n\n").replace("\n\n\n", "\n\n");
 		} catch (UnsupportedEncodingException e) {
 			return "";
 		}

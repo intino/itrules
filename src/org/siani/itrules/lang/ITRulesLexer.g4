@@ -16,7 +16,7 @@ lexer grammar ITRulesLexer;
         String next = "";
         if (getCharIndex() + 3 < getInputStream().toString().length())
             next = this.getInputStream().toString().substring(getCharIndex(), getCharIndex() + 3);
-        return (c == '+' || next.equals("...") || (next.length() >= 2 && next.substring(0,2).equals("$~")));
+        return (c == '+' || next.equals("..."));
     }
 
     public void setMode(int newMode) {
@@ -67,22 +67,24 @@ mode EVAL_MODE;
 mode MARK;
 	LIST            : '...';
 	MARK_OPTION     : '+'                                       { setType(OPTION);};
-    END             : '$~'                                      { setMode(lastMode); setLastMode(MARK);};
+    END             : '~'                                       { setMode(lastMode); setLastMode(MARK);};
 	SEPARATOR       : '[' (~']')* ']'                           { setMode(lastMode); setLastMode(MARK);};
 	MARK_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID); exitMark();};
 	MARK_ERROR      : .;
 
 mode RULE_BODY;
-	NULL_CHAR       :'$~'                                       -> skip;
+	NULL_CHAR       : '~'                                       -> skip;
 	SCAPED_CHAR     : '$$'| '$[' | '$]';
 	MARK_KEY        : '$'                                       {setMode(MARK); setLastMode(RULE_BODY);};
 	LEFT_SQ         : '['                                       {setMode(EXPRESION); setLastMode(RULE_BODY);};
-	RULE_END        : '~'                                       {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
-	RULE_TEXT       : ~('$'| '['| '~')*                         {setType(TEXT);};
+	RULE_END        : '%%'                                      {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
+	RULE_TEXT       : ~('$'| '[' | '%' | '~')+                  {setType(TEXT);};
+
 
 mode EXPRESION;
+	NULL_CH         : '~'                                       -> skip;
 	RIGHT_SQ        : ']'                                       {setLastMode(EXPRESION);} -> mode(RULE_BODY);
-	EXP_SCAPED_CHAR : '$$'| '$[' | '$]' | '$~'                  {setType(SCAPED_CHAR);};
+	EXP_SCAPED_CHAR : '$$'| '$[' | '$]'                         {setType(SCAPED_CHAR);};
 	EXPRESSION_MARK : '$'                                       {setType(MARK_KEY); setLastMode(EXPRESION);} -> mode(MARK);
 	EXPRESSION_TEXT : ~('$'| '[' | ']')*                        {setType(TEXT);};
 

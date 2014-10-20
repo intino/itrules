@@ -17,9 +17,9 @@ final class Interpreter extends ITRulesParserBaseListener {
 
 	private static String NL_SEPARATOR = "\\$NL";
 	private static String TAB_SEPARATOR = "\\$TAB";
+	private final Logger logger;
 	private List<Rule> rules;
 	private Rule currentRule;
-	private final Logger logger;
 
 	public Interpreter(List<Rule> rules, Logger logger) {
 		this.rules = rules;
@@ -115,6 +115,6 @@ final class Interpreter extends ITRulesParserBaseListener {
 	}
 
 	private void throwError(String textNode) {
-		logger.debug("Error reading template. Template not well formed: " + textNode.replace("~", "endrule"));
+		logger.debug("Error reading template. Template not well formed: " + textNode.replace(RuleSetInputStream.ENDRULE_FOR_LEXER, "endrule") + "\n\n");
 	}
 }

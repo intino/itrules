@@ -30,7 +30,6 @@ public class JavaClass {
 			addSlot("type", "Integer");
 			addSlot("default", "100");
 		}});
-
 		Document document = new Document();
 		RuleEngine ruleEngine = new RuleEngine(getClassRules());
 		ruleEngine.render(frame, document);

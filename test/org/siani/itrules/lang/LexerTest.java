@@ -16,6 +16,35 @@ public class LexerTest {
 
 	public static String[] ruleNamesList;
 
+	public static void setRulesNameList(String[] list) {
+		ruleNamesList = list;
+	}
+
+	public static String getRulesNameList(int index) {
+		return ruleNamesList[index];
+	}
+
+	public static String[] lexerTest(String query) {
+		try {
+			String receivedToken;
+			ArrayList<String> receivedTypes = new ArrayList<>();
+			CharStream stream = new ANTLRInputStream(query);
+			ITRulesLexer lexer = new ITRulesLexer(stream);
+			lexer.reset();
+			setRulesNameList(lexer.getRuleNames());
+			Token currentToken = lexer.nextToken();
+			while (currentToken.getType() != Token.EOF) {
+				receivedToken = getRulesNameList(currentToken.getType() - 1);
+				receivedTypes.add(receivedToken);
+				currentToken = lexer.nextToken();
+			}
+			return receivedTypes.toArray(new String[receivedTypes.size()]);
+		} catch (RecognitionException error) {
+			System.err.println("Error on query: " + query);
+			return (new String[0]);
+		}
+	}
+
 	@Test
 	public void ruleBeginTest() {
 		String expectedType = "RULE_BEGIN";
@@ -32,7 +61,7 @@ public class LexerTest {
 
 	@Test
 	public void textTest() {
-		String[] receivedTypes = lexerTest("Name");
+		String[] receivedTypes = lexerTest("\'Name\'");
 		assertTrue(receivedTypes.length == 0);
 	}
 
@@ -63,7 +92,7 @@ public class LexerTest {
 	public void MarkWithFormat() {
 		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P",
 			"TRIGGER", "LEFT_P", "ID", "OPTION", "ID", "RIGHT_P", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"MARK_KEY", "ID", "OPTION","ID", "TEXT", "RULE_END"};
+			"MARK_KEY", "ID", "OPTION", "ID", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(MARK_WITH_FORMAT);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -110,7 +139,7 @@ public class LexerTest {
 	@Test
 	public void ruleWithEval() {
 		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P",
-			"EVAL", "LEFT_P", "ID","OPERATOR","STRING", "RIGHT_P", "NL", "TEXT",
+			"EVAL", "LEFT_P", "ID", "OPERATOR", "STRING", "RIGHT_P", "NL", "TEXT",
 			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END",
 			"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
 			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END"};
@@ -173,34 +202,5 @@ public class LexerTest {
 
 		String[] receivedTypes = lexerTest(LARGE_XML);
 		assertArrayEquals(expectedTypes, receivedTypes);
-	}
-
-	public static void setRulesNameList(String[] list) {
-		ruleNamesList = list;
-	}
-
-	public static String getRulesNameList(int index) {
-		return ruleNamesList[index];
-	}
-
-	public static String[] lexerTest(String query) {
-		try {
-			String receivedToken;
-			ArrayList<String> receivedTypes = new ArrayList<>();
-			CharStream stream = new ANTLRInputStream(query);
-			ITRulesLexer lexer = new ITRulesLexer(stream);
-			lexer.reset();
-			setRulesNameList(lexer.getRuleNames());
-			Token currentToken = lexer.nextToken();
-			while (currentToken.getType() != Token.EOF) {
-				receivedToken = getRulesNameList(currentToken.getType() - 1);
-				receivedTypes.add(receivedToken);
-				currentToken = lexer.nextToken();
-			}
-			return receivedTypes.toArray(new String[receivedTypes.size()]);
-		} catch (RecognitionException error) {
-			System.err.println("Error on query: " + query);
-			return (new String[0]);
-		}
 	}
 }

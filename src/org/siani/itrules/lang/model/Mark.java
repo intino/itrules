@@ -62,4 +62,8 @@ public class Mark extends AbstractMark {
 		return split.length > 1 ? split[1] : "";
 	}
 
+	@Override
+	public String toString() {
+		return name + (multiple ? "List" : "");
+	}
 }

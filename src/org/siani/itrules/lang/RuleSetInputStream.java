@@ -5,8 +5,8 @@ import java.nio.charset.StandardCharsets;
 
 final class RuleSetInputStream extends InputStream {
 
+	protected static final String ENDRULE_FOR_LEXER = "%%";
 	private static final String ENDRULE_FOR_USER = "\nendrule";
-	private static final String ENDRULE_FOR_LEXER = "~";
 	private int index = 0;
 	private byte[] content;
 
