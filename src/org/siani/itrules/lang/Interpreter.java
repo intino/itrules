@@ -15,8 +15,8 @@ import static org.siani.itrules.lang.ITRulesParser.*;
 
 final class Interpreter extends ITRulesParserBaseListener {
 
-	private static String NL_SEPARATOR = "\\$NL";
-	private static String TAB_SEPARATOR = "\\$TAB";
+	private static String NL_SEPARATOR = "$NL";
+	private static String TAB_SEPARATOR = "$TAB";
 	private final Logger logger;
 	private List<Rule> rules;
 	private Rule currentRule;
@@ -74,11 +74,22 @@ final class Interpreter extends ITRulesParserBaseListener {
 	public void enterExpression(@NotNull ExpressionContext ctx) {
 		Expression expression = new Expression();
 		for (ParseTree child : ctx.children)
-			if (child instanceof MarkContext)
-				expression.add(processAsMark(((MarkContext) child)));
-			else if (child instanceof TextContext)
+			if (child instanceof MarkContext) {
+				if (child.getText().equals(NL_SEPARATOR)) expression.add(new Literal("\n"));
+				else if (child.getText().equals(TAB_SEPARATOR)) expression.add(new Literal("\t"));
+				else expression.add(processAsMark(((MarkContext) child)));
+			} else if (child instanceof TextContext)
 				expression.add(new Literal(child.getText()));
 		currentRule.add(expression);
+	}
+
+	@Override
+	public void enterMark(@NotNull MarkContext ctx) {
+		if (!ExpressionContext.class.isInstance(ctx.getParent())) {
+			if (ctx.getText().equals(NL_SEPARATOR)) currentRule.add(new Literal("\n"));
+			else if (ctx.getText().equals(TAB_SEPARATOR)) currentRule.add(new Literal("\t"));
+			currentRule.add(processAsMark(ctx));
+		}
 	}
 
 	private AbstractMark processAsMark(MarkContext child) {
@@ -98,15 +109,9 @@ final class Interpreter extends ITRulesParserBaseListener {
 
 	private String format(String separator) {
 		String s = separator.substring(1, separator.length() - 1);
-		s = s.replaceAll(NL_SEPARATOR, "\n");
-		s = s.replaceAll(TAB_SEPARATOR, "\t");
+		s = s.replace(NL_SEPARATOR, "\n");
+		s = s.replace(TAB_SEPARATOR, "\t");
 		return s;
-	}
-
-	@Override
-	public void enterMark(@NotNull MarkContext ctx) {
-		if (!ExpressionContext.class.isInstance(ctx.getParent()))
-			currentRule.add(processAsMark(ctx));
 	}
 
 	@Override

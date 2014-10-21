@@ -52,7 +52,8 @@ class Buffer {
 	}
 
 	public void dedent() {
-		this.indentation.pop();
+		if (!indentation.isEmpty())
+			this.indentation.pop();
 	}
 
 	public Stack<String> getIndentation() {

@@ -17,7 +17,6 @@ public final class RuleEngine {
 	public RuleEngine(InputStream rules) {
 		this.ruleSet = new RuleSet(rules);
 		this.buffers = new Stack<>();
-		this.buffers.push(new Buffer());
 		this.formatters = new HashMap<>();
 		FormatterFactory.fill(formatters);
 	}
@@ -27,6 +26,8 @@ public final class RuleEngine {
 	}
 
 	public void render(AbstractFrame frame, Document document) {
+		buffers.clear();
+		this.buffers.push(new Buffer());
 		execute(new Trigger(frame, new Mark("root")));
 		document.write(buffer());
 	}
@@ -97,7 +98,6 @@ public final class RuleEngine {
 		}
 		return rendered;
 	}
-
 
 	private boolean execute(Trigger trigger, Expression expression) {
 		boolean result = true;
