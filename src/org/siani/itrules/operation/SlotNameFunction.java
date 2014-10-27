@@ -14,8 +14,8 @@ final class SlotNameFunction implements Function {
 
 	@Override
 	public boolean match(Trigger trigger) {
-		if (trigger.frame().isPrimitive())
-			return parameters[NAME].equalsIgnoreCase("value");
-		return trigger.frame().searchByType(parameters[NAME], parameters.length != 1) != null;
+		return trigger.frame().isPrimitive() ?
+			parameters[NAME].equalsIgnoreCase("value") :
+			trigger.frame().searchByName(parameters[NAME], parameters.length != 1) != null;
 	}
 }

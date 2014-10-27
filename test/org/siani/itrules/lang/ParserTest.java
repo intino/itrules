@@ -3,19 +3,12 @@ package org.siani.itrules.lang;
 import org.antlr.v4.runtime.*;
 import org.junit.Assert;
 import org.junit.Test;
-import org.siani.itrules.lang.ITRulesLexer;
-import org.siani.itrules.lang.ITRulesParser;
-import org.siani.itrules.lang.TemplateErrorStrategy;
 
 import static org.siani.itrules.TestSources.*;
 
-//@RunWith(JUnitParamsRunner.class)
 public class ParserTest {
 
 	@Test
-//	@Parameters({NULL_FILE, MARK, MARK_WITH_FORMAT,
-//		MARK_WITH_MODIFIERS, MEDIUM_TEST, OTHER_WITH_MARK, RULE_WITH_MARKS, SCAPED_CHARACTERS, SIGNATURE,
-//		TWO_RULES, XML_TARA, LITTLE_BIG_TEST, LARGE_XML})
 	public void test1() {
 		ITRulesParser parser = init(OTHER_WITH_MARK);
 		try {
