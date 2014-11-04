@@ -29,11 +29,12 @@ public class Frame implements AbstractFrame {
 		return (slots.get(slot) != null) ? slots.get(slot).iterator() : null;
 	}
 
-	public void addSlot(String slot, Object... values) {
+	public Frame addSlot(String slot, Object... values) {
 		if (!slots.containsKey(slot))
 			slots.put(slot, new ArrayList<AbstractFrame>());
 		for (Object value : values)
 			slots.get(slot).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
+		return this;
 	}
 
 	@Override
