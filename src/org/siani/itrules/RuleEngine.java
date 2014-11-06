@@ -1,18 +1,21 @@
 package org.siani.itrules;
 
+import org.siani.itrules.formatter.FormatterFactory;
 import org.siani.itrules.lang.model.*;
 
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public final class RuleEngine {
 
 	private final RuleSet ruleSet;
 	private final Stack<Buffer> buffers;
 	private final Map<String, Formatter> formatters;
+
+	public RuleEngine(InputStream rules, Locale locale) {
+		this(rules);
+		FormatterFactory.locale = locale;
+	}
 
 	public RuleEngine(InputStream rules) {
 		this.ruleSet = new RuleSet(rules);

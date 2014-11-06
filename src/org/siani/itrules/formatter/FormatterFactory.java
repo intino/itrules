@@ -1,4 +1,6 @@
-package org.siani.itrules;
+package org.siani.itrules.formatter;
+
+import org.siani.itrules.Formatter;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -7,7 +9,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
-final class FormatterFactory {
+public final class FormatterFactory {
+
+	public static Locale locale = Locale.getDefault();
 
 	public static void fill(Map<String, Formatter> formatters) {
 		formatters.put("uppercase", upperCase());
@@ -26,6 +30,7 @@ final class FormatterFactory {
 		formatters.put("separators", separators());
 		formatters.put("count", count());
 		formatters.put("twodecimals", twoDecimals());
+		formatters.put("plural", plural());
 	}
 
 	private static Formatter upperCase() {
@@ -96,6 +101,15 @@ final class FormatterFactory {
 			public Object format(Object value) {
 				String s = value.toString();
 				return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+			}
+		};
+	}
+
+	private static Formatter plural() {
+		return new Formatter() {
+			@Override
+			public Object format(Object value) {
+				return InflectorFactory.getInflector(locale).plural(value.toString());
 			}
 		};
 	}
