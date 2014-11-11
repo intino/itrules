@@ -26,7 +26,7 @@ public class Frame implements AbstractFrame {
 
 	@Override
 	public Iterator<AbstractFrame> getSlots(String slot) {
-		return (slots.get(slot) != null) ? slots.get(slot).iterator() : null;
+		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
 	}
 
 	public Frame addSlot(String slot, Object... values) {

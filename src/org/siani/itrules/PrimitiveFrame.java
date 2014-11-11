@@ -1,5 +1,6 @@
 package org.siani.itrules;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 class PrimitiveFrame implements AbstractFrame {
@@ -22,7 +23,7 @@ class PrimitiveFrame implements AbstractFrame {
 
 	@Override
 	public Iterator<AbstractFrame> getSlots(String slot) {
-		return null;
+		return Collections.<AbstractFrame>emptyList().iterator();
 	}
 
 	@Override
