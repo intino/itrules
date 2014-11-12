@@ -1,16 +1,14 @@
 defrule type(Class)
 public class [$static ][$final ]$name [extends $superclass ][implements $interface...[, ] ]{
 
-	$attribute+Const...[$NL]
-	$attribute+Field...[$NL]
+	$attribute+Const...[$NL]\
+	$attribute+Field...[$NL]\
 
 	public $name($attribute+Injection...[, ]) {
-		$attribute+Initialize...[$NL]
+		$attribute+Initialize...[$NL]\
 	}
-
-	$attribute+Getter...[$NL$NL]
-
-	$attribute+Setter...[$NL$NL]
+	$attribute+Getter...[$NL]\
+	$attribute+Setter...[$NL]\
 
 }
 endrule
@@ -31,12 +29,14 @@ defrule type(Attribute) !type(Const) trigger(Getter)
 public $type get$name+firstUpperCase() {
 	return $name;
 }
+
 endrule
 
 defrule type(Attribute) !type(Const) !type(ReadOnly) trigger(Setter)
 public void set$name+firstUpperCase($type value) {
 	$name = value;
 }
+
 endrule
 
 defrule type(Attribute) !type(Const) type(ReadOnly) trigger(Injection)

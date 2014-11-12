@@ -92,7 +92,8 @@ public final class RuleEngine {
 		boolean rendered = false;
 		while (frames != null && frames.hasNext()) {
 			pushBuffer(mark.getIndentation());
-			if (rendered && mark.isMultiple()) writeSeparator(mark);
+			if (rendered && mark.isMultiple())
+				writeSeparator(mark);
 			if (execute(new Trigger(frames.next(), mark))) {
 				buffer().used();
 				rendered = true;

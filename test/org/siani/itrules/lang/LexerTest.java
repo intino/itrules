@@ -75,7 +75,7 @@ public class LexerTest {
 	@Test
 	public void scapeCharacter() {
 		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "SCAPED_CHAR", "TEXT",
-			"SCAPED_CHAR", "TEXT", "TEXT", "RULE_END"};
+			"SCAPED_CHAR", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(SCAPED_CHARACTERS);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}

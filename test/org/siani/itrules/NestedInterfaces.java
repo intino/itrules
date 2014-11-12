@@ -52,12 +52,10 @@ public class NestedInterfaces {
 			"\n" +
 			"    public interface Handler extends org.sample.Handler {\n" +
 			"\n" +
-			"\n" +
 			"    }\n" +
 			"    public interface Field {\n" +
 			"\n" +
 			"        public interface Handler extends org.sample.Form.Handler {\n" +
-			"\n" +
 			"\n" +
 			"        }\n" +
 			"    }\n" +
@@ -65,15 +63,14 @@ public class NestedInterfaces {
 			"\n" +
 			"        public interface Handler extends org.sample.Form.Handler {\n" +
 			"\n" +
-			"\n" +
 			"        }\n" +
 			"    }\n" +
 			"}\n" +
 			"\n" +
 			"public interface Handler {\n" +
 			"\n" +
-			"\n" +
-			"}\n", document.content());
+			"}\n" +
+			"\n" + "\n", document.content());
 	}
 
 	public InputStream getRules() {

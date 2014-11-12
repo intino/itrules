@@ -7,7 +7,7 @@ public class TestSources {
 	public static final String MARK_WITH_FORMAT = "defrule type(Attribute) trigger(attribute+Const) type(Const)\n" +
 		"public static final $name+UPPERCASE;\n" + "%%";
 	public static final String OTHER_WITH_MARK = "defrule type(Class)\npublic class $attri alalasda $other \n" + "%%";
-	public static final String SCAPED_CHARACTERS = "defrule type(Class) \t \t   \t\t\n$] $$ $%% asdas \n%%\n";
+	public static final String SCAPED_CHARACTERS = "defrule type(Class) \t \t   \t\t\n$] $$ %%";
 	public static final String SIGNATURE = "defrule type(markca) \n%%";
 	public static final String RULE_BEGIN = "\n\ndefrule";
 	public static final String RULE_WITH_MARKS = "defrule type(Attribute) trigger(attribute+Field) type(!Const) type(readonly)\npublic class $attri alalasda $other \n%%";

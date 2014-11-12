@@ -1,12 +1,11 @@
 package org.siani.itrules;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Stack;
 
 class Buffer {
 	private static final char NEW_LINE = '\n';
 	private boolean replaced = false;
-	private String content = "";
+	private StringBuilder content = new StringBuilder("");
 	private Stack<String> indentation = new Stack<>();
 
 	public Buffer() {
@@ -23,11 +22,11 @@ class Buffer {
 
 
 	public void write(Buffer buffer) {
-		content += buffer;
+		content.append(buffer);
 	}
 
 	public void write(String text) {
-		content += putIndents(text);
+		content.append(putIndents(text));
 	}
 
 	private String putIndents(String text) {
@@ -62,11 +61,6 @@ class Buffer {
 
 	@Override
 	public String toString() {
-		try {
-			String s = new String(content.getBytes(), "UTF-8").replaceAll("\n(\t| )+\n", "\n\n");
-			return s.replaceAll("\n(\t| )* \\\\\n", "\n").replaceAll("\\\\\n", "\n");
-		} catch (UnsupportedEncodingException e) {
-			return "";
-		}
+		return content.toString();
 	}
 }

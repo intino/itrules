@@ -39,7 +39,7 @@ public class JavaClass {
 			"\tprivate final String familyName;\n" +
 			"\tprivate Integer maxAge = 100;\n" +
 			"\n" +
-			"\tpublic Customer(String familyName) {\n" +
+			"\tpublic Customer(String familyName) {\n\n" +
 			"\t\tthis.familyName = familyName;\n" +
 			"\t}\n" +
 			"\n" +
