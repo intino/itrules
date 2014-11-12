@@ -54,7 +54,6 @@ public class JavaClass {
 			"\tpublic void setMaxAge(Integer value) {\n" +
 			"\t\tmaxAge = value;\n" +
 			"\t}\n" +
-			"\n" +
 			"}", document.content());
 	}
 

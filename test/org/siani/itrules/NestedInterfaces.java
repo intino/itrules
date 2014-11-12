@@ -51,24 +51,20 @@ public class NestedInterfaces {
 			"public interface Form {\n" +
 			"\n" +
 			"    public interface Handler extends org.sample.Handler {\n" +
-			"\n" +
 			"    }\n" +
 			"    public interface Field {\n" +
 			"\n" +
 			"        public interface Handler extends org.sample.Form.Handler {\n" +
-			"\n" +
 			"        }\n" +
 			"    }\n" +
 			"    public interface TextField extends Field {\n" +
 			"\n" +
 			"        public interface Handler extends org.sample.Form.Handler {\n" +
-			"\n" +
 			"        }\n" +
 			"    }\n" +
 			"}\n" +
 			"\n" +
 			"public interface Handler {\n" +
-			"\n" +
 			"}\n" +
 			"\n" + "\n", document.content());
 	}
