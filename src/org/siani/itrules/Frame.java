@@ -44,7 +44,7 @@ public class Frame implements AbstractFrame {
 
 	@Override
 	public AbstractFrame findSlot(String path) {
-		String name = path.substring(0, path.indexOf("."));
+		String name = path.contains(".") ? path.substring(0, path.indexOf(".")) : path;
 		if (!slots.containsKey(name)) return null;
 		List<AbstractFrame> slot = slots.get(name);
 		return name.length() >= path.length() ? slot.get(0) :
@@ -56,7 +56,7 @@ public class Frame implements AbstractFrame {
 	}
 
 	public AbstractFrame searchByName(String name, boolean deep) {
-		return getSlots(name) != null ? this : searchByName(slots.values(), name, deep);
+		return getSlots(name).hasNext() ? this : searchByName(slots.values(), name, deep);
 	}
 
 	private AbstractFrame searchByType(Collection<List<AbstractFrame>> slots, String type, boolean deep) {
