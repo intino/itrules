@@ -24,7 +24,7 @@ final class EvalFunction implements Function {
 		try {
 			ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 			String expr = trySolve(op1, trigger.frame()) + operator + trySolve(op2, trigger.frame());
-			return engine.eval(expr) == true;
+			return (Boolean) engine.eval(expr);
 		} catch (ScriptException e) {
 			e.printStackTrace();
 		}
