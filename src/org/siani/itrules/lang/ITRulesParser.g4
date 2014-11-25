@@ -3,7 +3,7 @@ options { tokenVocab=ITRulesLexer; }
 
 root            : itrule* EOF;
 itrule          : signature body RULE_END;
-signature       : RULE_BEGIN (ruleType | trigger | slotName | slotType |eval)+ NL;
+signature       : RULE_BEGIN (ruleType | trigger | slotName | slotType | eval)+ NL;
 
 ruleType        : NOT? TYPE value;
 value           : LEFT_P ID RIGHT_P;

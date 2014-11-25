@@ -39,7 +39,7 @@ public class JavaClass {
 			"\tprivate final String familyName;\n" +
 			"\tprivate Integer maxAge = 100;\n" +
 			"\n" +
-			"\tpublic Customer(String familyName) {\n\n" +
+			"\tpublic Customer(String familyName) {\n" +
 			"\t\tthis.familyName = familyName;\n" +
 			"\t}\n" +
 			"\n" +
@@ -53,7 +53,7 @@ public class JavaClass {
 			"\n" +
 			"\tpublic void setMaxAge(Integer value) {\n" +
 			"\t\tmaxAge = value;\n" +
-			"\t}\n" +
+			"\t}\n\n" +
 			"}", document.content());
 	}
 

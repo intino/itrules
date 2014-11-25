@@ -13,7 +13,7 @@ public final class Document {
 	public String content() {
 		try {
 			String s = new String(content.toString().getBytes(), "UTF-8").replaceAll("\n(\t| )+\n", "\n\n");
-			return s.replaceAll("(\\n(\\t| )*)+\\\\+\n+", "\n").replaceAll("\\\\+\n?", "\n").replaceAll("\n(\t| )+\n", "\n\n");
+			return s.replaceAll("(\\n(\\t| )*)+\\\\+\n", "\n").replaceAll("\\\\+\n?", "\n").replaceAll("\n(\t| )+\n", "\n\n");
 		} catch (UnsupportedEncodingException e) {
 			return "";
 		}

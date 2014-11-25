@@ -64,6 +64,15 @@ mode EVAL_MODE;
 	OPERATOR        : '>' | '<' | '==' | '!=';
 	E_WS            : SP+                                       -> skip ;
 	EVAL_ERROR      : .;
+
+mode RULE_BODY;
+	NULL_CHAR       : '~'                                       -> skip;
+	SCAPED_CHAR     : '$$'| '$[' | '$]';
+	MARK_KEY        : '$'                                       {setMode(MARK); setLastMode(RULE_BODY);};
+	LEFT_SQ         : '['                                       {setMode(EXPRESSION); setLastMode(RULE_BODY);};
+	RULE_END        : '%%'                                      {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
+	RULE_TEXT       : ~('$'| '[' | '%' | '~')+                  {setType(TEXT);};
+
 mode MARK;
 	LIST            : '...';
 	MARK_OPTION     : '+'                                       { setType(OPTION);};
@@ -72,20 +81,11 @@ mode MARK;
 	MARK_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID); exitMark();};
 	MARK_ERROR      : .;
 
-mode RULE_BODY;
-	NULL_CHAR       : '~'                                       -> skip;
-	SCAPED_CHAR     : '$$'| '$[' | '$]';
-	MARK_KEY        : '$'                                       {setMode(MARK); setLastMode(RULE_BODY);};
-	LEFT_SQ         : '['                                       {setMode(EXPRESION); setLastMode(RULE_BODY);};
-	RULE_END        : '%%'                                      {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
-	RULE_TEXT       : ~('$'| '[' | '%' | '~')+                  {setType(TEXT);};
-
-
-mode EXPRESION;
+mode EXPRESSION;
 	NULL_CH         : '~'                                       -> skip;
-	RIGHT_SQ        : ']'                                       {setLastMode(EXPRESION);} -> mode(RULE_BODY);
+	RIGHT_SQ        : ']'                                       {setLastMode(EXPRESSION);} -> mode(RULE_BODY);
 	EXP_SCAPED_CHAR : '$$'| '$[' | '$]'                         {setType(SCAPED_CHAR);};
-	EXPRESSION_MARK : '$'                                       {setType(MARK_KEY); setLastMode(EXPRESION);} -> mode(MARK);
+	EXPRESSION_MARK : '$'                                       {setType(MARK_KEY); setLastMode(EXPRESSION);} -> mode(MARK);
 	EXPRESSION_TEXT : ~('$'| '[' | ']')*                        {setType(TEXT);};
 
 fragment

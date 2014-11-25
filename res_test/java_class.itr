@@ -7,7 +7,9 @@ public class [$static ][$final ]$name [extends $superclass ][implements $interfa
 	public $name($attribute+Injection...[, ]) {
 		$attribute+Initialize...[$NL]\
 	}
+
 	$attribute+Getter...[$NL]\
+
 	$attribute+Setter...[$NL]\
 
 }
