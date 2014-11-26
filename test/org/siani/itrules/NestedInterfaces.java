@@ -15,7 +15,7 @@ public class NestedInterfaces {
 	private static final String FILE_ITR = "/nested_interfaces.itr";
 
 	@Test
-	public void testNestedFrames() throws Exception {
+	public void testNestedInterfaces() throws Exception {
 		RuleReader reader = new TemplateReader(getRules());
 		FileWriter writer = new FileWriter(TEST);
 		writer.write(RulesSaver.toJSON(reader.read()));
@@ -85,11 +85,13 @@ public class NestedInterfaces {
 		"\n" +
 		"    public interface Handler extends org.sample.Handler {\n" +
 		"    }\n" +
+		"\n" +
 		"    public interface Field {\n" +
 		"\n" +
 		"        public interface Handler extends org.sample.Form.Handler {\n" +
 		"        }\n" +
 		"    }\n" +
+		"\n" +
 		"    public interface TextField extends Field {\n" +
 		"\n" +
 		"        public interface Handler extends org.sample.Form.Handler {\n" +
@@ -98,6 +100,5 @@ public class NestedInterfaces {
 		"}\n" +
 		"\n" +
 		"public interface Handler {\n" +
-		"}\n" +
-		"\n" + "\n";
+		"}\n";
 }

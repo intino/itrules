@@ -103,15 +103,10 @@ public class Box {
 		"    @Override\n" +
 		"    protected void loadNodes() {\n" +
 		"        def(\"definitionName\");\n" +
-		"\n" +
 		"            parent(Parent1);\n" +
-		"\n" +
 		"            def(\"definitionName2\");\n" +
-		"\n" +
 		"                parent(Parent2);\n" +
-		"\n" +
 		"            end();\n" +
-		"\n" +
 		"        end();\n" +
 		"    }\n" +
 		"}";

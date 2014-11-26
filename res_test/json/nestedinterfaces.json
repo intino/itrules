@@ -24,7 +24,7 @@
       {
         "tokenType": "Literal",
         "data": {
-          "literal": ";\n\n",
+          "literal": ";\n",
           "previous": {
             "tokenType": "Mark",
             "data": {
@@ -47,11 +47,11 @@
           "name": "concept",
           "options": [],
           "multiple": true,
-          "separator": "\n\n",
+          "separator": "\n",
           "previous": {
             "tokenType": "Literal",
             "data": {
-              "literal": ";\n\n",
+              "literal": ";\n",
               "previous": {
                 "tokenType": "Mark",
                 "data": {
@@ -62,41 +62,6 @@
                     "tokenType": "Literal",
                     "data": {
                       "literal": "package "
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      {
-        "tokenType": "Literal",
-        "data": {
-          "literal": "\n",
-          "previous": {
-            "tokenType": "Mark",
-            "data": {
-              "name": "concept",
-              "options": [],
-              "multiple": true,
-              "separator": "\n\n",
-              "previous": {
-                "tokenType": "Literal",
-                "data": {
-                  "literal": ";\n\n",
-                  "previous": {
-                    "tokenType": "Mark",
-                    "data": {
-                      "name": "package",
-                      "options": [],
-                      "multiple": false,
-                      "previous": {
-                        "tokenType": "Literal",
-                        "data": {
-                          "literal": "package "
-                        }
-                      }
                     }
                   }
                 }
@@ -121,7 +86,7 @@
       {
         "tokenType": "Literal",
         "data": {
-          "literal": "public interface "
+          "literal": "\npublic interface "
         }
       },
       {
@@ -135,7 +100,7 @@
           "previous": {
             "tokenType": "Literal",
             "data": {
-              "literal": "public interface "
+              "literal": "\npublic interface "
             }
           }
         }
@@ -155,7 +120,7 @@
               "previous": {
                 "tokenType": "Literal",
                 "data": {
-                  "literal": "public interface "
+                  "literal": "\npublic interface "
                 }
               }
             }
@@ -204,7 +169,7 @@
                   "previous": {
                     "tokenType": "Literal",
                     "data": {
-                      "literal": "public interface "
+                      "literal": "\npublic interface "
                     }
                   }
                 }
@@ -216,7 +181,7 @@
       {
         "tokenType": "Literal",
         "data": {
-          "literal": "{\n\n    ",
+          "literal": "{\n    ",
           "previous": {
             "tokenType": "Expression",
             "data": {
@@ -259,7 +224,7 @@
                       "previous": {
                         "tokenType": "Literal",
                         "data": {
-                          "literal": "public interface "
+                          "literal": "\npublic interface "
                         }
                       }
                     }
@@ -280,7 +245,7 @@
           "previous": {
             "tokenType": "Literal",
             "data": {
-              "literal": "{\n\n    ",
+              "literal": "{\n    ",
               "previous": {
                 "tokenType": "Expression",
                 "data": {
@@ -323,7 +288,7 @@
                           "previous": {
                             "tokenType": "Literal",
                             "data": {
-                              "literal": "public interface "
+                              "literal": "\npublic interface "
                             }
                           }
                         }
@@ -350,7 +315,7 @@
               "previous": {
                 "tokenType": "Literal",
                 "data": {
-                  "literal": "{\n\n    ",
+                  "literal": "{\n    ",
                   "previous": {
                     "tokenType": "Expression",
                     "data": {
@@ -393,7 +358,7 @@
                               "previous": {
                                 "tokenType": "Literal",
                                 "data": {
-                                  "literal": "public interface "
+                                  "literal": "\npublic interface "
                                 }
                               }
                             }

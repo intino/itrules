@@ -26,12 +26,12 @@ endrule
 
 defrule type(Definition) trigger(definition)
 def("$name");
-    $type...[$NL]
-    $parent
-    $var...[$NL]
-    $set...[$NL]
-    $definition...[$NL]
-
+    $type...[$NL]\
+    $parent\
+    $child\
+    $var...[$NL]\
+    $set...[$NL]\
+    $definition...[$NL]\
 end();
 endrule
 

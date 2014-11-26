@@ -29,13 +29,13 @@ public class Tara {
 		assertEquals(EXPECTED, document.content());
 	}
 
-	private static final String EXPECTED = "Enviroment('Solar_Radiation', 'temperature') Las Palmas > is Electrical(30.2, 15, 'ON')\n\n";
+	private static final String EXPECTED = "Environment('Solar_Radiation', 'temperature') Las Palmas > is Electrical(30.2, 15, 'ON')\n";
 
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("model");
 		frame.addSlot("node", new Frame("node") {{
-			addSlot("type", "Enviroment");
+			addSlot("type", "Environment");
 			addSlot("parameter", "Solar_Radiation", "temperature");
 			addSlot("name", "Las Palmas");
 			addSlot("facet", new Frame("facet") {{
