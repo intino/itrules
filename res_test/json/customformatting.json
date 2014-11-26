@@ -1,0 +1,68 @@
+[
+  {
+    "tokens": [
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "Name",
+          "options": [
+            "Title"
+          ],
+          "multiple": false
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " nacio el ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "Name",
+              "options": [
+                "Title"
+              ],
+              "multiple": false
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "Birthday",
+          "options": [
+            "FullDate",
+            "Title"
+          ],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " nacio el ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "Name",
+                  "options": [
+                    "Title"
+                  ],
+                  "multiple": false
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Person"
+        ],
+        "negated": false
+      }
+    ]
+  }
+]

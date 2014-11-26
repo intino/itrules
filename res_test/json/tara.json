@@ -1,0 +1,678 @@
+[
+  {
+    "tokens": [
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "node",
+          "options": [],
+          "multiple": true,
+          "separator": "\n"
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\\",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "node",
+              "options": [],
+              "multiple": true,
+              "separator": "\n"
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "model"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "type",
+          "options": [
+            "FirstUppercase"
+          ],
+          "multiple": false
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": "("
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "parameter",
+                "options": [],
+                "multiple": true,
+                "separator": ", "
+              }
+            },
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": ")"
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "type",
+              "options": [
+                "FirstUppercase"
+              ],
+              "multiple": false
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " "
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "name",
+                "options": [],
+                "multiple": false
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": "("
+                  }
+                },
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "parameter",
+                    "options": [],
+                    "multiple": true,
+                    "separator": ", "
+                  }
+                },
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": ")"
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "type",
+                  "options": [
+                    "FirstUppercase"
+                  ],
+                  "multiple": false
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " \u003e "
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "facet",
+                "options": [],
+                "multiple": true,
+                "separator": "; "
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " "
+                  }
+                },
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "name",
+                    "options": [],
+                    "multiple": false
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Expression",
+                "data": {
+                  "tokens": [
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": "("
+                      }
+                    },
+                    {
+                      "tokenType": "Mark",
+                      "data": {
+                        "name": "parameter",
+                        "options": [],
+                        "multiple": true,
+                        "separator": ", "
+                      }
+                    },
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": ")"
+                      }
+                    }
+                  ],
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "type",
+                      "options": [
+                        "FirstUppercase"
+                      ],
+                      "multiple": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\n",
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " \u003e "
+                  }
+                },
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "facet",
+                    "options": [],
+                    "multiple": true,
+                    "separator": "; "
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Expression",
+                "data": {
+                  "tokens": [
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": " "
+                      }
+                    },
+                    {
+                      "tokenType": "Mark",
+                      "data": {
+                        "name": "name",
+                        "options": [],
+                        "multiple": false
+                      }
+                    }
+                  ],
+                  "previous": {
+                    "tokenType": "Expression",
+                    "data": {
+                      "tokens": [
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": "("
+                          }
+                        },
+                        {
+                          "tokenType": "Mark",
+                          "data": {
+                            "name": "parameter",
+                            "options": [],
+                            "multiple": true,
+                            "separator": ", "
+                          }
+                        },
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": ")"
+                          }
+                        }
+                      ],
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "type",
+                          "options": [
+                            "FirstUppercase"
+                          ],
+                          "multiple": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "node",
+          "options": [],
+          "multiple": true,
+          "separator": "\n",
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "\n",
+              "previous": {
+                "tokenType": "Expression",
+                "data": {
+                  "tokens": [
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": " \u003e "
+                      }
+                    },
+                    {
+                      "tokenType": "Mark",
+                      "data": {
+                        "name": "facet",
+                        "options": [],
+                        "multiple": true,
+                        "separator": "; "
+                      }
+                    }
+                  ],
+                  "previous": {
+                    "tokenType": "Expression",
+                    "data": {
+                      "tokens": [
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": " "
+                          }
+                        },
+                        {
+                          "tokenType": "Mark",
+                          "data": {
+                            "name": "name",
+                            "options": [],
+                            "multiple": false
+                          }
+                        }
+                      ],
+                      "previous": {
+                        "tokenType": "Expression",
+                        "data": {
+                          "tokens": [
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": "("
+                              }
+                            },
+                            {
+                              "tokenType": "Mark",
+                              "data": {
+                                "name": "parameter",
+                                "options": [],
+                                "multiple": true,
+                                "separator": ", "
+                              }
+                            },
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": ")"
+                              }
+                            }
+                          ],
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "type",
+                              "options": [
+                                "FirstUppercase"
+                              ],
+                              "multiple": false
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\\",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "node",
+              "options": [],
+              "multiple": true,
+              "separator": "\n",
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "\n",
+                  "previous": {
+                    "tokenType": "Expression",
+                    "data": {
+                      "tokens": [
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": " \u003e "
+                          }
+                        },
+                        {
+                          "tokenType": "Mark",
+                          "data": {
+                            "name": "facet",
+                            "options": [],
+                            "multiple": true,
+                            "separator": "; "
+                          }
+                        }
+                      ],
+                      "previous": {
+                        "tokenType": "Expression",
+                        "data": {
+                          "tokens": [
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": " "
+                              }
+                            },
+                            {
+                              "tokenType": "Mark",
+                              "data": {
+                                "name": "name",
+                                "options": [],
+                                "multiple": false
+                              }
+                            }
+                          ],
+                          "previous": {
+                            "tokenType": "Expression",
+                            "data": {
+                              "tokens": [
+                                {
+                                  "tokenType": "Literal",
+                                  "data": {
+                                    "literal": "("
+                                  }
+                                },
+                                {
+                                  "tokenType": "Mark",
+                                  "data": {
+                                    "name": "parameter",
+                                    "options": [],
+                                    "multiple": true,
+                                    "separator": ", "
+                                  }
+                                },
+                                {
+                                  "tokenType": "Literal",
+                                  "data": {
+                                    "literal": ")"
+                                  }
+                                }
+                              ],
+                              "previous": {
+                                "tokenType": "Mark",
+                                "data": {
+                                  "name": "type",
+                                  "options": [
+                                    "FirstUppercase"
+                                  ],
+                                  "multiple": false
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "node"
+        ],
+        "negated": false
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "node"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "is "
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "type",
+          "options": [
+            "FirstUppercase"
+          ],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "is "
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": "("
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "parameter",
+                "options": [],
+                "multiple": true,
+                "separator": ", "
+              }
+            },
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": ")"
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "type",
+              "options": [
+                "FirstUppercase"
+              ],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "is "
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "facet"
+        ],
+        "negated": false
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "facet"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\u0027"
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "value",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "\u0027"
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\u0027",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "value",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "\u0027"
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "string"
+        ],
+        "negated": false
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "parameter"
+        ],
+        "negated": false
+      }
+    ]
+  }
+]

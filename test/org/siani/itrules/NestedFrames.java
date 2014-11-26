@@ -1,15 +1,48 @@
 package org.siani.itrules;
 
 import org.junit.Test;
+import org.siani.itrules.model.Rule;
+import org.siani.itrules.serialization.RulesSaver;
 
-import java.io.InputStream;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class NestedFrames {
+	private static final String FILE_JSON = "/json/nestedframes.json";
+	private static final File TEST = new File("res_test", FILE_JSON);
+	private static final String FILE_ITR = "/nested_frames.itr";
 
 	@Test
 	public void testNestedFrames() throws Exception {
+		RuleReader reader = new TemplateReader(getRules());
+		FileWriter writer = new FileWriter(TEST);
+		writer.write(RulesSaver.toJSON(reader.read()));
+		writer.close();
+		Frame frame = buildFrame();
+		Document document = new Document();
+		Rule[] rules = new JSONRuleReader(getJsonRules()).read();
+		assertNotNull(rules);
+		RuleEngine ruleEngine = new RuleEngine(rules);
+		ruleEngine.render(frame, document);
+		assertEquals(EXPECTED, document.content());
+	}
+
+	public InputStream getRules() {
+		return this.getClass().getResourceAsStream(FILE_ITR);
+	}
+
+	public InputStream getJsonRules() {
+		try {
+			return new FileInputStream(TEST);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private Frame buildFrame() {
 		Frame frame = new Frame("Roster");
 		frame.addSlot("Coach", new Frame("Person") {{
 			addSlot("Name", "Juan Antonio Orenga");
@@ -31,19 +64,16 @@ public class NestedFrames {
 			addSlot("Birthday", new DateTime("17/06/1980"));
 			addSlot("Country", "Spain");
 		}});
-		Document document = new Document();
-		new RuleEngine(getRules()).render(frame, document);
-		assertEquals("<roster>\n" +
-			"    <coach name=\"Juan Antonio Orenga\" year=\"1966\" country=\"Spain\"/>\n" +
-			"\t<players>\n" +
-			"\t\t<player name=\"Pau Gasol\" year=\"1980\" country=\"Spain\"/>\n" +
-			"\t\t<player name=\"Rudy Fernandez\" year=\"1985\" country=\"Spain\"/>\n" +
-			"\t\t<player name=\"Juan Carlos Navarro\" year=\"1980\" country=\"Spain\"/>\n" +
-			"    </players>\n" +
-			"</roster>", document.content());
+		return frame;
 	}
 
-	public InputStream getRules() {
-		return Eval.class.getResourceAsStream("/nested_frames.itr");
-	}
+	private static final String EXPECTED = "<roster>\n" +
+		"    <coach name=\"Juan Antonio Orenga\" year=\"1966\" country=\"Spain\"/>\n" +
+		"\t<players>\n" +
+		"\t\t<player name=\"Pau Gasol\" year=\"1980\" country=\"Spain\"/>\n" +
+		"\t\t<player name=\"Rudy Fernandez\" year=\"1985\" country=\"Spain\"/>\n" +
+		"\t\t<player name=\"Juan Carlos Navarro\" year=\"1980\" country=\"Spain\"/>\n" +
+		"    </players>\n" +
+		"</roster>";
+
 }

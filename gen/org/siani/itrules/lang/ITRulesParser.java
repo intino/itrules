@@ -17,22 +17,22 @@ public class ITRulesParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		MARK_ERROR=34, MARK_ID=33, RULE_ID=16, OPTION=5, NULL_CH=41, RULE_BEGIN=1, 
-		SCAPED_CHAR=36, OPERATOR=26, TRIGGER=10, EVAL_ID=22, NUMBER=24, RIGHT_P=7, 
-		RULE_ERROR=19, SEPARATOR=32, RULE_TEXT=40, NOT=15, EVAL_RIGHT_P=21, TEXT=4, 
-		ID=3, LIST=29, EXPRESSION_TEXT=45, EXP_SCAPED_CHAR=43, MARK_KEY=37, TYPE=9, 
-		EVAL_ERROR=28, WS=18, EVAL=14, RULE_END=39, COMMA=8, DEEP=13, WL=2, SLOT_TYPE=12, 
-		EXPRESSION_MARK=44, NL=17, LEFT_SQ=38, E_WS=27, SLOT_NAME=11, END=31, 
-		DOT=23, RIGHT_SQ=42, MARK_OPTION=30, EVAL_LEFT_P=20, LEFT_P=6, NULL_CHAR=35, 
+		MARK_ERROR=40, MARK_ID=39, RULE_ID=16, OPTION=5, NULL_CH=41, RULE_BEGIN=1, 
+		SCAPED_CHAR=30, OPERATOR=26, TRIGGER=10, EVAL_ID=22, NUMBER=24, RIGHT_P=7, 
+		RULE_ERROR=19, SEPARATOR=38, RULE_TEXT=34, NOT=15, EVAL_RIGHT_P=21, TEXT=4, 
+		ID=3, LIST=35, EXPRESSION_TEXT=45, EXP_SCAPED_CHAR=43, MARK_KEY=31, TYPE=9, 
+		EVAL_ERROR=28, WS=18, EVAL=14, RULE_END=33, COMMA=8, DEEP=13, WL=2, SLOT_TYPE=12, 
+		EXPRESSION_MARK=44, NL=17, LEFT_SQ=32, E_WS=27, SLOT_NAME=11, END=37, 
+		DOT=23, RIGHT_SQ=42, MARK_OPTION=36, EVAL_LEFT_P=20, LEFT_P=6, NULL_CHAR=29, 
 		STRING=25;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'defrule'", "WL", "ID", "'text'", "OPTION", "LEFT_P", "RIGHT_P", 
 		"','", "'type'", "'trigger'", "'slot-name'", "'slot-type'", "'deep'", 
 		"'eval'", "'!'", "RULE_ID", "NL", "WS", "RULE_ERROR", "EVAL_LEFT_P", "EVAL_RIGHT_P", 
 		"EVAL_ID", "'.'", "NUMBER", "STRING", "OPERATOR", "E_WS", "EVAL_ERROR", 
-		"'...'", "MARK_OPTION", "END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CHAR", 
-		"SCAPED_CHAR", "'$'", "'['", "'%%'", "RULE_TEXT", "NULL_CH", "RIGHT_SQ", 
-		"EXP_SCAPED_CHAR", "EXPRESSION_MARK", "EXPRESSION_TEXT"
+		"NULL_CHAR", "SCAPED_CHAR", "'$'", "'['", "'%%'", "RULE_TEXT", "'...'", 
+		"MARK_OPTION", "END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", 
+		"RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", "EXPRESSION_TEXT"
 	};
 	public static final int
 		RULE_root = 0, RULE_itrule = 1, RULE_signature = 2, RULE_ruleType = 3, 
@@ -1127,12 +1127,12 @@ public class ITRulesParser extends Parser {
 		"\u0082\13\17\3\20\3\20\3\20\3\20\7\20\u0088\n\20\f\20\16\20\u008b\13\20"+
 		"\3\20\3\20\3\21\3\21\3\22\3\22\3\22\7\22\u0094\n\22\f\22\16\22\u0097\13"+
 		"\22\3\22\3\22\5\22\u009b\n\22\3\23\3\23\3\23\3\23\2\2\24\2\4\6\b\n\f\16"+
-		"\20\22\24\26\30\32\34\36 \"$\2\3\4\2\6\6&&\u00a5\2)\3\2\2\2\4.\3\2\2\2"+
+		"\20\22\24\26\30\32\34\36 \"$\2\3\4\2\6\6  \u00a5\2)\3\2\2\2\4.\3\2\2\2"+
 		"\6\62\3\2\2\2\b?\3\2\2\2\nD\3\2\2\2\fH\3\2\2\2\16P\3\2\2\2\20X\3\2\2\2"+
 		"\22]\3\2\2\2\24b\3\2\2\2\26h\3\2\2\2\30n\3\2\2\2\32s\3\2\2\2\34\u0080"+
 		"\3\2\2\2\36\u0083\3\2\2\2 \u008e\3\2\2\2\"\u0090\3\2\2\2$\u009c\3\2\2"+
 		"\2&(\5\4\3\2\'&\3\2\2\2(+\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*,\3\2\2\2+)\3\2"+
-		"\2\2,-\7\2\2\3-\3\3\2\2\2./\5\6\4\2/\60\5\34\17\2\60\61\7)\2\2\61\5\3"+
+		"\2\2,-\7\2\2\3-\3\3\2\2\2./\5\6\4\2/\60\5\34\17\2\60\61\7#\2\2\61\5\3"+
 		"\2\2\2\628\7\3\2\2\639\5\b\5\2\649\5\22\n\2\659\5\26\f\2\669\5\30\r\2"+
 		"\679\5\f\7\28\63\3\2\2\28\64\3\2\2\28\65\3\2\2\28\66\3\2\2\28\67\3\2\2"+
 		"\29:\3\2\2\2:8\3\2\2\2:;\3\2\2\2;<\3\2\2\2<=\7\23\2\2=\7\3\2\2\2>@\7\21"+
@@ -1149,16 +1149,16 @@ public class ITRulesParser extends Parser {
 		"\3\2\2\2wx\3\2\2\2xy\3\2\2\2yz\7\t\2\2z\33\3\2\2\2{\177\5 \21\2|\177\5"+
 		"\"\22\2}\177\5\36\20\2~{\3\2\2\2~|\3\2\2\2~}\3\2\2\2\177\u0082\3\2\2\2"+
 		"\u0080~\3\2\2\2\u0080\u0081\3\2\2\2\u0081\35\3\2\2\2\u0082\u0080\3\2\2"+
-		"\2\u0083\u0089\7(\2\2\u0084\u0088\5 \21\2\u0085\u0088\5\"\22\2\u0086\u0088"+
-		"\5\36\20\2\u0087\u0084\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0086\3\2\2\2"+
-		"\u0088\u008b\3\2\2\2\u0089\u0087\3\2\2\2\u0089\u008a\3\2\2\2\u008a\u008c"+
-		"\3\2\2\2\u008b\u0089\3\2\2\2\u008c\u008d\7,\2\2\u008d\37\3\2\2\2\u008e"+
-		"\u008f\t\2\2\2\u008f!\3\2\2\2\u0090\u0091\7\'\2\2\u0091\u0095\7\5\2\2"+
-		"\u0092\u0094\5$\23\2\u0093\u0092\3\2\2\2\u0094\u0097\3\2\2\2\u0095\u0093"+
-		"\3\2\2\2\u0095\u0096\3\2\2\2\u0096\u009a\3\2\2\2\u0097\u0095\3\2\2\2\u0098"+
-		"\u0099\7\37\2\2\u0099\u009b\7\"\2\2\u009a\u0098\3\2\2\2\u009a\u009b\3"+
-		"\2\2\2\u009b#\3\2\2\2\u009c\u009d\7\7\2\2\u009d\u009e\7\5\2\2\u009e%\3"+
-		"\2\2\2\23)8:?PV[ehnw~\u0080\u0087\u0089\u0095\u009a";
+		"\2\u0083\u0089\7\"\2\2\u0084\u0088\5 \21\2\u0085\u0088\5\"\22\2\u0086"+
+		"\u0088\5\36\20\2\u0087\u0084\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0086\3"+
+		"\2\2\2\u0088\u008b\3\2\2\2\u0089\u0087\3\2\2\2\u0089\u008a\3\2\2\2\u008a"+
+		"\u008c\3\2\2\2\u008b\u0089\3\2\2\2\u008c\u008d\7,\2\2\u008d\37\3\2\2\2"+
+		"\u008e\u008f\t\2\2\2\u008f!\3\2\2\2\u0090\u0091\7!\2\2\u0091\u0095\7\5"+
+		"\2\2\u0092\u0094\5$\23\2\u0093\u0092\3\2\2\2\u0094\u0097\3\2\2\2\u0095"+
+		"\u0093\3\2\2\2\u0095\u0096\3\2\2\2\u0096\u009a\3\2\2\2\u0097\u0095\3\2"+
+		"\2\2\u0098\u0099\7%\2\2\u0099\u009b\7(\2\2\u009a\u0098\3\2\2\2\u009a\u009b"+
+		"\3\2\2\2\u009b#\3\2\2\2\u009c\u009d\7\7\2\2\u009d\u009e\7\5\2\2\u009e"+
+		"%\3\2\2\2\23)8:?PV[ehnw~\u0080\u0087\u0089\u0095\u009a";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -1,58 +1,96 @@
 package org.siani.itrules;
 
 import org.junit.Test;
+import org.siani.itrules.model.Rule;
+import org.siani.itrules.serialization.RulesSaver;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class Formatting {
+	private static final String FILE1_JSON = "/json/formatting.json";
+	private static final String FILE2_JSON = "/json/formatting2.json";
+	private static final File TEST1 = new File("res_test", FILE1_JSON);
+	private static final File TEST2 = new File("res_test", FILE2_JSON);
+	private static final String RULES2 = "defrule type(Person)\n$Name is $Height+Letters+Title cm tall, earns $$$Salary+Separators and has" +
+		" played in $Club+Count basket clubs\nendrule";
 
 	@Test
-	public void testFormatting() throws Exception {
-		Frame frame = new Frame("Person");
-		frame.addSlot("Name", "Pau Gasol");
-		frame.addSlot("Birthday", new DateTime("06/07/1980"));
-		frame.addSlot("Country", "Spain");
+	public void testFormatting1() throws Exception {
+		RuleReader reader = new TemplateReader(getRules());
+		FileWriter writer = new FileWriter(TEST1);
+		writer.write(RulesSaver.toJSON(reader.read()));
+		writer.close();
+		Frame frame = buildFrame1();
 		Document document = new Document();
-		new RuleEngine(getRules()).render(frame, document);
-		assertEquals("" +
-			"Default: Pau Gasol\n" +
-			"UpperCase: PAU GASOL\n" +
-			"LowerCase: pau gasol\n" +
-			"CamelCase: PauGasol\n" +
-			"LowerCamelCase: pauGasol\n" +
-			"\n" +
-			"Default: Sun Jul 06 00:00:00 WEST 1980\n" +
-			"Year: 1980\n" +
-			"MonthYear: July 1980\n" +
-			"ShortDate: 06/07/1980\n" +
-			"FullDate: 06 July 1980\n" +
-			"DayOfWeek: Sunday\n" +
-			"Time: 00:00", document.content());
+		Rule[] rules = new JSONRuleReader(getJsonRules(TEST1)).read();
+		assertNotNull(rules);
+		RuleEngine ruleEngine = new RuleEngine(rules);
+		ruleEngine.render(frame, document);
+		assertEquals(EXPECTED_1, document.content());
 	}
-
 
 	@Test
 	public void testFormatting2() throws Exception {
+		RuleReader reader = new TemplateReader(RULES2);
+		FileWriter writer = new FileWriter(TEST2);
+		writer.write(RulesSaver.toJSON(reader.read()));
+		writer.close();
+		Frame frame = buildFrame2();
+		Document document = new Document();
+		Rule[] rules = new JSONRuleReader(getJsonRules(TEST2)).read();
+		assertNotNull(rules);
+		RuleEngine ruleEngine = new RuleEngine(rules);
+		ruleEngine.render(frame, document);
+		assertEquals(EXPECTED_2, document.content());
+	}
+
+	private Frame buildFrame2() {
 		Frame frame = new Frame("Person");
 		frame.addSlot("Name", "Pau Gasol");
 		frame.addSlot("Height", 213);
 		frame.addSlot("Salary", 19201402);
 		frame.addSlot("Club", "Barcelona", "Lakers");
-		Document document = new Document();
-		new RuleEngine(toInputStream("defrule type(Person)\n$Name is $Height+Letters+Title cm tall, earns $$$Salary+Separators and has" +
-			" played in $Club+Count basket clubs\nendrule")).render(frame, document);
-		assertEquals("Pau Gasol is two hundred and thirteen cm tall, earns $19,201,402 and has played in BarcelonaLakers basket clubs", document.content());
+		return frame;
 	}
 
-	private ByteArrayInputStream toInputStream(String rules) {
-		return new ByteArrayInputStream(rules.getBytes());
+	private Frame buildFrame1() {
+		Frame frame = new Frame("Person");
+		frame.addSlot("Name", "Pau Gasol");
+		frame.addSlot("Birthday", new DateTime("06/07/1980"));
+		frame.addSlot("Country", "Spain");
+		return frame;
+	}
+
+	public InputStream getJsonRules(File file) {
+		try {
+			return new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public InputStream getRules() {
-		return Eval.class.getResourceAsStream("/formatting.itr");
+		return this.getClass().getResourceAsStream("/" + this.getClass().getSimpleName().toLowerCase() + ".itr");
 	}
 
+	private static final String EXPECTED_1 = "" +
+		"Default: Pau Gasol\n" +
+		"UpperCase: PAU GASOL\n" +
+		"LowerCase: pau gasol\n" +
+		"CamelCase: PauGasol\n" +
+		"LowerCamelCase: pauGasol\n" +
+		"\n" +
+		"Default: Sun Jul 06 00:00:00 WEST 1980\n" +
+		"Year: 1980\n" +
+		"MonthYear: July 1980\n" +
+		"ShortDate: 06/07/1980\n" +
+		"FullDate: 06 July 1980\n" +
+		"DayOfWeek: Sunday\n" +
+		"Time: 00:00";
+	private static final String EXPECTED_2 =
+		"Pau Gasol is two hundred and thirteen cm tall, earns $19,201,402 and has played in BarcelonaLakers basket clubs";
 }

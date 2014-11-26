@@ -1,0 +1,4435 @@
+[
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "public class "
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "static",
+                "options": [],
+                "multiple": false
+              }
+            },
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " "
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "public class "
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "final",
+                "options": [],
+                "multiple": false
+              }
+            },
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " "
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "static",
+                    "options": [],
+                    "multiple": false
+                  }
+                },
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " "
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "public class "
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "final",
+                    "options": [],
+                    "multiple": false
+                  }
+                },
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " "
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Expression",
+                "data": {
+                  "tokens": [
+                    {
+                      "tokenType": "Mark",
+                      "data": {
+                        "name": "static",
+                        "options": [],
+                        "multiple": false
+                      }
+                    },
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": " "
+                      }
+                    }
+                  ],
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "public class "
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Expression",
+                "data": {
+                  "tokens": [
+                    {
+                      "tokenType": "Mark",
+                      "data": {
+                        "name": "final",
+                        "options": [],
+                        "multiple": false
+                      }
+                    },
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": " "
+                      }
+                    }
+                  ],
+                  "previous": {
+                    "tokenType": "Expression",
+                    "data": {
+                      "tokens": [
+                        {
+                          "tokenType": "Mark",
+                          "data": {
+                            "name": "static",
+                            "options": [],
+                            "multiple": false
+                          }
+                        },
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": " "
+                          }
+                        }
+                      ],
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "public class "
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": "extends "
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "superclass",
+                "options": [],
+                "multiple": false
+              }
+            },
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " "
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "name",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Expression",
+                    "data": {
+                      "tokens": [
+                        {
+                          "tokenType": "Mark",
+                          "data": {
+                            "name": "final",
+                            "options": [],
+                            "multiple": false
+                          }
+                        },
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": " "
+                          }
+                        }
+                      ],
+                      "previous": {
+                        "tokenType": "Expression",
+                        "data": {
+                          "tokens": [
+                            {
+                              "tokenType": "Mark",
+                              "data": {
+                                "name": "static",
+                                "options": [],
+                                "multiple": false
+                              }
+                            },
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": " "
+                              }
+                            }
+                          ],
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "public class "
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": "implements "
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "interface",
+                "options": [],
+                "multiple": true,
+                "separator": ", "
+              }
+            },
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " "
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": "extends "
+                  }
+                },
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "superclass",
+                    "options": [],
+                    "multiple": false
+                  }
+                },
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " "
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": " ",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "name",
+                      "options": [],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Expression",
+                        "data": {
+                          "tokens": [
+                            {
+                              "tokenType": "Mark",
+                              "data": {
+                                "name": "final",
+                                "options": [],
+                                "multiple": false
+                              }
+                            },
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": " "
+                              }
+                            }
+                          ],
+                          "previous": {
+                            "tokenType": "Expression",
+                            "data": {
+                              "tokens": [
+                                {
+                                  "tokenType": "Mark",
+                                  "data": {
+                                    "name": "static",
+                                    "options": [],
+                                    "multiple": false
+                                  }
+                                },
+                                {
+                                  "tokenType": "Literal",
+                                  "data": {
+                                    "literal": " "
+                                  }
+                                }
+                              ],
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": "public class "
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "{\n\n\t",
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": "implements "
+                  }
+                },
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "interface",
+                    "options": [],
+                    "multiple": true,
+                    "separator": ", "
+                  }
+                },
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " "
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Expression",
+                "data": {
+                  "tokens": [
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": "extends "
+                      }
+                    },
+                    {
+                      "tokenType": "Mark",
+                      "data": {
+                        "name": "superclass",
+                        "options": [],
+                        "multiple": false
+                      }
+                    },
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": " "
+                      }
+                    }
+                  ],
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": " ",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "name",
+                          "options": [],
+                          "multiple": false,
+                          "previous": {
+                            "tokenType": "Expression",
+                            "data": {
+                              "tokens": [
+                                {
+                                  "tokenType": "Mark",
+                                  "data": {
+                                    "name": "final",
+                                    "options": [],
+                                    "multiple": false
+                                  }
+                                },
+                                {
+                                  "tokenType": "Literal",
+                                  "data": {
+                                    "literal": " "
+                                  }
+                                }
+                              ],
+                              "previous": {
+                                "tokenType": "Expression",
+                                "data": {
+                                  "tokens": [
+                                    {
+                                      "tokenType": "Mark",
+                                      "data": {
+                                        "name": "static",
+                                        "options": [],
+                                        "multiple": false
+                                      }
+                                    },
+                                    {
+                                      "tokenType": "Literal",
+                                      "data": {
+                                        "literal": " "
+                                      }
+                                    }
+                                  ],
+                                  "previous": {
+                                    "tokenType": "Literal",
+                                    "data": {
+                                      "literal": "public class "
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "attribute",
+          "options": [
+            "Const"
+          ],
+          "multiple": true,
+          "separator": "\n",
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "{\n\n\t",
+              "previous": {
+                "tokenType": "Expression",
+                "data": {
+                  "tokens": [
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": "implements "
+                      }
+                    },
+                    {
+                      "tokenType": "Mark",
+                      "data": {
+                        "name": "interface",
+                        "options": [],
+                        "multiple": true,
+                        "separator": ", "
+                      }
+                    },
+                    {
+                      "tokenType": "Literal",
+                      "data": {
+                        "literal": " "
+                      }
+                    }
+                  ],
+                  "previous": {
+                    "tokenType": "Expression",
+                    "data": {
+                      "tokens": [
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": "extends "
+                          }
+                        },
+                        {
+                          "tokenType": "Mark",
+                          "data": {
+                            "name": "superclass",
+                            "options": [],
+                            "multiple": false
+                          }
+                        },
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": " "
+                          }
+                        }
+                      ],
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": " ",
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "name",
+                              "options": [],
+                              "multiple": false,
+                              "previous": {
+                                "tokenType": "Expression",
+                                "data": {
+                                  "tokens": [
+                                    {
+                                      "tokenType": "Mark",
+                                      "data": {
+                                        "name": "final",
+                                        "options": [],
+                                        "multiple": false
+                                      }
+                                    },
+                                    {
+                                      "tokenType": "Literal",
+                                      "data": {
+                                        "literal": " "
+                                      }
+                                    }
+                                  ],
+                                  "previous": {
+                                    "tokenType": "Expression",
+                                    "data": {
+                                      "tokens": [
+                                        {
+                                          "tokenType": "Mark",
+                                          "data": {
+                                            "name": "static",
+                                            "options": [],
+                                            "multiple": false
+                                          }
+                                        },
+                                        {
+                                          "tokenType": "Literal",
+                                          "data": {
+                                            "literal": " "
+                                          }
+                                        }
+                                      ],
+                                      "previous": {
+                                        "tokenType": "Literal",
+                                        "data": {
+                                          "literal": "public class "
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\\\n\t",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "attribute",
+              "options": [
+                "Const"
+              ],
+              "multiple": true,
+              "separator": "\n",
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "{\n\n\t",
+                  "previous": {
+                    "tokenType": "Expression",
+                    "data": {
+                      "tokens": [
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": "implements "
+                          }
+                        },
+                        {
+                          "tokenType": "Mark",
+                          "data": {
+                            "name": "interface",
+                            "options": [],
+                            "multiple": true,
+                            "separator": ", "
+                          }
+                        },
+                        {
+                          "tokenType": "Literal",
+                          "data": {
+                            "literal": " "
+                          }
+                        }
+                      ],
+                      "previous": {
+                        "tokenType": "Expression",
+                        "data": {
+                          "tokens": [
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": "extends "
+                              }
+                            },
+                            {
+                              "tokenType": "Mark",
+                              "data": {
+                                "name": "superclass",
+                                "options": [],
+                                "multiple": false
+                              }
+                            },
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": " "
+                              }
+                            }
+                          ],
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": " ",
+                              "previous": {
+                                "tokenType": "Mark",
+                                "data": {
+                                  "name": "name",
+                                  "options": [],
+                                  "multiple": false,
+                                  "previous": {
+                                    "tokenType": "Expression",
+                                    "data": {
+                                      "tokens": [
+                                        {
+                                          "tokenType": "Mark",
+                                          "data": {
+                                            "name": "final",
+                                            "options": [],
+                                            "multiple": false
+                                          }
+                                        },
+                                        {
+                                          "tokenType": "Literal",
+                                          "data": {
+                                            "literal": " "
+                                          }
+                                        }
+                                      ],
+                                      "previous": {
+                                        "tokenType": "Expression",
+                                        "data": {
+                                          "tokens": [
+                                            {
+                                              "tokenType": "Mark",
+                                              "data": {
+                                                "name": "static",
+                                                "options": [],
+                                                "multiple": false
+                                              }
+                                            },
+                                            {
+                                              "tokenType": "Literal",
+                                              "data": {
+                                                "literal": " "
+                                              }
+                                            }
+                                          ],
+                                          "previous": {
+                                            "tokenType": "Literal",
+                                            "data": {
+                                              "literal": "public class "
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "attribute",
+          "options": [
+            "Field"
+          ],
+          "multiple": true,
+          "separator": "\n",
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "\\\n\t",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "attribute",
+                  "options": [
+                    "Const"
+                  ],
+                  "multiple": true,
+                  "separator": "\n",
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "{\n\n\t",
+                      "previous": {
+                        "tokenType": "Expression",
+                        "data": {
+                          "tokens": [
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": "implements "
+                              }
+                            },
+                            {
+                              "tokenType": "Mark",
+                              "data": {
+                                "name": "interface",
+                                "options": [],
+                                "multiple": true,
+                                "separator": ", "
+                              }
+                            },
+                            {
+                              "tokenType": "Literal",
+                              "data": {
+                                "literal": " "
+                              }
+                            }
+                          ],
+                          "previous": {
+                            "tokenType": "Expression",
+                            "data": {
+                              "tokens": [
+                                {
+                                  "tokenType": "Literal",
+                                  "data": {
+                                    "literal": "extends "
+                                  }
+                                },
+                                {
+                                  "tokenType": "Mark",
+                                  "data": {
+                                    "name": "superclass",
+                                    "options": [],
+                                    "multiple": false
+                                  }
+                                },
+                                {
+                                  "tokenType": "Literal",
+                                  "data": {
+                                    "literal": " "
+                                  }
+                                }
+                              ],
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": " ",
+                                  "previous": {
+                                    "tokenType": "Mark",
+                                    "data": {
+                                      "name": "name",
+                                      "options": [],
+                                      "multiple": false,
+                                      "previous": {
+                                        "tokenType": "Expression",
+                                        "data": {
+                                          "tokens": [
+                                            {
+                                              "tokenType": "Mark",
+                                              "data": {
+                                                "name": "final",
+                                                "options": [],
+                                                "multiple": false
+                                              }
+                                            },
+                                            {
+                                              "tokenType": "Literal",
+                                              "data": {
+                                                "literal": " "
+                                              }
+                                            }
+                                          ],
+                                          "previous": {
+                                            "tokenType": "Expression",
+                                            "data": {
+                                              "tokens": [
+                                                {
+                                                  "tokenType": "Mark",
+                                                  "data": {
+                                                    "name": "static",
+                                                    "options": [],
+                                                    "multiple": false
+                                                  }
+                                                },
+                                                {
+                                                  "tokenType": "Literal",
+                                                  "data": {
+                                                    "literal": " "
+                                                  }
+                                                }
+                                              ],
+                                              "previous": {
+                                                "tokenType": "Literal",
+                                                "data": {
+                                                  "literal": "public class "
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\\\n\n\tpublic ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "attribute",
+              "options": [
+                "Field"
+              ],
+              "multiple": true,
+              "separator": "\n",
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "\\\n\t",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "attribute",
+                      "options": [
+                        "Const"
+                      ],
+                      "multiple": true,
+                      "separator": "\n",
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "{\n\n\t",
+                          "previous": {
+                            "tokenType": "Expression",
+                            "data": {
+                              "tokens": [
+                                {
+                                  "tokenType": "Literal",
+                                  "data": {
+                                    "literal": "implements "
+                                  }
+                                },
+                                {
+                                  "tokenType": "Mark",
+                                  "data": {
+                                    "name": "interface",
+                                    "options": [],
+                                    "multiple": true,
+                                    "separator": ", "
+                                  }
+                                },
+                                {
+                                  "tokenType": "Literal",
+                                  "data": {
+                                    "literal": " "
+                                  }
+                                }
+                              ],
+                              "previous": {
+                                "tokenType": "Expression",
+                                "data": {
+                                  "tokens": [
+                                    {
+                                      "tokenType": "Literal",
+                                      "data": {
+                                        "literal": "extends "
+                                      }
+                                    },
+                                    {
+                                      "tokenType": "Mark",
+                                      "data": {
+                                        "name": "superclass",
+                                        "options": [],
+                                        "multiple": false
+                                      }
+                                    },
+                                    {
+                                      "tokenType": "Literal",
+                                      "data": {
+                                        "literal": " "
+                                      }
+                                    }
+                                  ],
+                                  "previous": {
+                                    "tokenType": "Literal",
+                                    "data": {
+                                      "literal": " ",
+                                      "previous": {
+                                        "tokenType": "Mark",
+                                        "data": {
+                                          "name": "name",
+                                          "options": [],
+                                          "multiple": false,
+                                          "previous": {
+                                            "tokenType": "Expression",
+                                            "data": {
+                                              "tokens": [
+                                                {
+                                                  "tokenType": "Mark",
+                                                  "data": {
+                                                    "name": "final",
+                                                    "options": [],
+                                                    "multiple": false
+                                                  }
+                                                },
+                                                {
+                                                  "tokenType": "Literal",
+                                                  "data": {
+                                                    "literal": " "
+                                                  }
+                                                }
+                                              ],
+                                              "previous": {
+                                                "tokenType": "Expression",
+                                                "data": {
+                                                  "tokens": [
+                                                    {
+                                                      "tokenType": "Mark",
+                                                      "data": {
+                                                        "name": "static",
+                                                        "options": [],
+                                                        "multiple": false
+                                                      }
+                                                    },
+                                                    {
+                                                      "tokenType": "Literal",
+                                                      "data": {
+                                                        "literal": " "
+                                                      }
+                                                    }
+                                                  ],
+                                                  "previous": {
+                                                    "tokenType": "Literal",
+                                                    "data": {
+                                                      "literal": "public class "
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "\\\n\n\tpublic ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "attribute",
+                  "options": [
+                    "Field"
+                  ],
+                  "multiple": true,
+                  "separator": "\n",
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "\\\n\t",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "attribute",
+                          "options": [
+                            "Const"
+                          ],
+                          "multiple": true,
+                          "separator": "\n",
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "{\n\n\t",
+                              "previous": {
+                                "tokenType": "Expression",
+                                "data": {
+                                  "tokens": [
+                                    {
+                                      "tokenType": "Literal",
+                                      "data": {
+                                        "literal": "implements "
+                                      }
+                                    },
+                                    {
+                                      "tokenType": "Mark",
+                                      "data": {
+                                        "name": "interface",
+                                        "options": [],
+                                        "multiple": true,
+                                        "separator": ", "
+                                      }
+                                    },
+                                    {
+                                      "tokenType": "Literal",
+                                      "data": {
+                                        "literal": " "
+                                      }
+                                    }
+                                  ],
+                                  "previous": {
+                                    "tokenType": "Expression",
+                                    "data": {
+                                      "tokens": [
+                                        {
+                                          "tokenType": "Literal",
+                                          "data": {
+                                            "literal": "extends "
+                                          }
+                                        },
+                                        {
+                                          "tokenType": "Mark",
+                                          "data": {
+                                            "name": "superclass",
+                                            "options": [],
+                                            "multiple": false
+                                          }
+                                        },
+                                        {
+                                          "tokenType": "Literal",
+                                          "data": {
+                                            "literal": " "
+                                          }
+                                        }
+                                      ],
+                                      "previous": {
+                                        "tokenType": "Literal",
+                                        "data": {
+                                          "literal": " ",
+                                          "previous": {
+                                            "tokenType": "Mark",
+                                            "data": {
+                                              "name": "name",
+                                              "options": [],
+                                              "multiple": false,
+                                              "previous": {
+                                                "tokenType": "Expression",
+                                                "data": {
+                                                  "tokens": [
+                                                    {
+                                                      "tokenType": "Mark",
+                                                      "data": {
+                                                        "name": "final",
+                                                        "options": [],
+                                                        "multiple": false
+                                                      }
+                                                    },
+                                                    {
+                                                      "tokenType": "Literal",
+                                                      "data": {
+                                                        "literal": " "
+                                                      }
+                                                    }
+                                                  ],
+                                                  "previous": {
+                                                    "tokenType": "Expression",
+                                                    "data": {
+                                                      "tokens": [
+                                                        {
+                                                          "tokenType": "Mark",
+                                                          "data": {
+                                                            "name": "static",
+                                                            "options": [],
+                                                            "multiple": false
+                                                          }
+                                                        },
+                                                        {
+                                                          "tokenType": "Literal",
+                                                          "data": {
+                                                            "literal": " "
+                                                          }
+                                                        }
+                                                      ],
+                                                      "previous": {
+                                                        "tokenType": "Literal",
+                                                        "data": {
+                                                          "literal": "public class "
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "(",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "\\\n\n\tpublic ",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "attribute",
+                      "options": [
+                        "Field"
+                      ],
+                      "multiple": true,
+                      "separator": "\n",
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "\\\n\t",
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "attribute",
+                              "options": [
+                                "Const"
+                              ],
+                              "multiple": true,
+                              "separator": "\n",
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": "{\n\n\t",
+                                  "previous": {
+                                    "tokenType": "Expression",
+                                    "data": {
+                                      "tokens": [
+                                        {
+                                          "tokenType": "Literal",
+                                          "data": {
+                                            "literal": "implements "
+                                          }
+                                        },
+                                        {
+                                          "tokenType": "Mark",
+                                          "data": {
+                                            "name": "interface",
+                                            "options": [],
+                                            "multiple": true,
+                                            "separator": ", "
+                                          }
+                                        },
+                                        {
+                                          "tokenType": "Literal",
+                                          "data": {
+                                            "literal": " "
+                                          }
+                                        }
+                                      ],
+                                      "previous": {
+                                        "tokenType": "Expression",
+                                        "data": {
+                                          "tokens": [
+                                            {
+                                              "tokenType": "Literal",
+                                              "data": {
+                                                "literal": "extends "
+                                              }
+                                            },
+                                            {
+                                              "tokenType": "Mark",
+                                              "data": {
+                                                "name": "superclass",
+                                                "options": [],
+                                                "multiple": false
+                                              }
+                                            },
+                                            {
+                                              "tokenType": "Literal",
+                                              "data": {
+                                                "literal": " "
+                                              }
+                                            }
+                                          ],
+                                          "previous": {
+                                            "tokenType": "Literal",
+                                            "data": {
+                                              "literal": " ",
+                                              "previous": {
+                                                "tokenType": "Mark",
+                                                "data": {
+                                                  "name": "name",
+                                                  "options": [],
+                                                  "multiple": false,
+                                                  "previous": {
+                                                    "tokenType": "Expression",
+                                                    "data": {
+                                                      "tokens": [
+                                                        {
+                                                          "tokenType": "Mark",
+                                                          "data": {
+                                                            "name": "final",
+                                                            "options": [],
+                                                            "multiple": false
+                                                          }
+                                                        },
+                                                        {
+                                                          "tokenType": "Literal",
+                                                          "data": {
+                                                            "literal": " "
+                                                          }
+                                                        }
+                                                      ],
+                                                      "previous": {
+                                                        "tokenType": "Expression",
+                                                        "data": {
+                                                          "tokens": [
+                                                            {
+                                                              "tokenType": "Mark",
+                                                              "data": {
+                                                                "name": "static",
+                                                                "options": [],
+                                                                "multiple": false
+                                                              }
+                                                            },
+                                                            {
+                                                              "tokenType": "Literal",
+                                                              "data": {
+                                                                "literal": " "
+                                                              }
+                                                            }
+                                                          ],
+                                                          "previous": {
+                                                            "tokenType": "Literal",
+                                                            "data": {
+                                                              "literal": "public class "
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "attribute",
+          "options": [
+            "Injection"
+          ],
+          "multiple": true,
+          "separator": ", ",
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "(",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "name",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "\\\n\n\tpublic ",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "attribute",
+                          "options": [
+                            "Field"
+                          ],
+                          "multiple": true,
+                          "separator": "\n",
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "\\\n\t",
+                              "previous": {
+                                "tokenType": "Mark",
+                                "data": {
+                                  "name": "attribute",
+                                  "options": [
+                                    "Const"
+                                  ],
+                                  "multiple": true,
+                                  "separator": "\n",
+                                  "previous": {
+                                    "tokenType": "Literal",
+                                    "data": {
+                                      "literal": "{\n\n\t",
+                                      "previous": {
+                                        "tokenType": "Expression",
+                                        "data": {
+                                          "tokens": [
+                                            {
+                                              "tokenType": "Literal",
+                                              "data": {
+                                                "literal": "implements "
+                                              }
+                                            },
+                                            {
+                                              "tokenType": "Mark",
+                                              "data": {
+                                                "name": "interface",
+                                                "options": [],
+                                                "multiple": true,
+                                                "separator": ", "
+                                              }
+                                            },
+                                            {
+                                              "tokenType": "Literal",
+                                              "data": {
+                                                "literal": " "
+                                              }
+                                            }
+                                          ],
+                                          "previous": {
+                                            "tokenType": "Expression",
+                                            "data": {
+                                              "tokens": [
+                                                {
+                                                  "tokenType": "Literal",
+                                                  "data": {
+                                                    "literal": "extends "
+                                                  }
+                                                },
+                                                {
+                                                  "tokenType": "Mark",
+                                                  "data": {
+                                                    "name": "superclass",
+                                                    "options": [],
+                                                    "multiple": false
+                                                  }
+                                                },
+                                                {
+                                                  "tokenType": "Literal",
+                                                  "data": {
+                                                    "literal": " "
+                                                  }
+                                                }
+                                              ],
+                                              "previous": {
+                                                "tokenType": "Literal",
+                                                "data": {
+                                                  "literal": " ",
+                                                  "previous": {
+                                                    "tokenType": "Mark",
+                                                    "data": {
+                                                      "name": "name",
+                                                      "options": [],
+                                                      "multiple": false,
+                                                      "previous": {
+                                                        "tokenType": "Expression",
+                                                        "data": {
+                                                          "tokens": [
+                                                            {
+                                                              "tokenType": "Mark",
+                                                              "data": {
+                                                                "name": "final",
+                                                                "options": [],
+                                                                "multiple": false
+                                                              }
+                                                            },
+                                                            {
+                                                              "tokenType": "Literal",
+                                                              "data": {
+                                                                "literal": " "
+                                                              }
+                                                            }
+                                                          ],
+                                                          "previous": {
+                                                            "tokenType": "Expression",
+                                                            "data": {
+                                                              "tokens": [
+                                                                {
+                                                                  "tokenType": "Mark",
+                                                                  "data": {
+                                                                    "name": "static",
+                                                                    "options": [],
+                                                                    "multiple": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "tokenType": "Literal",
+                                                                  "data": {
+                                                                    "literal": " "
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "previous": {
+                                                                "tokenType": "Literal",
+                                                                "data": {
+                                                                  "literal": "public class "
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": ") {\n\t\t",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "attribute",
+              "options": [
+                "Injection"
+              ],
+              "multiple": true,
+              "separator": ", ",
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "(",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "name",
+                      "options": [],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "\\\n\n\tpublic ",
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "attribute",
+                              "options": [
+                                "Field"
+                              ],
+                              "multiple": true,
+                              "separator": "\n",
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": "\\\n\t",
+                                  "previous": {
+                                    "tokenType": "Mark",
+                                    "data": {
+                                      "name": "attribute",
+                                      "options": [
+                                        "Const"
+                                      ],
+                                      "multiple": true,
+                                      "separator": "\n",
+                                      "previous": {
+                                        "tokenType": "Literal",
+                                        "data": {
+                                          "literal": "{\n\n\t",
+                                          "previous": {
+                                            "tokenType": "Expression",
+                                            "data": {
+                                              "tokens": [
+                                                {
+                                                  "tokenType": "Literal",
+                                                  "data": {
+                                                    "literal": "implements "
+                                                  }
+                                                },
+                                                {
+                                                  "tokenType": "Mark",
+                                                  "data": {
+                                                    "name": "interface",
+                                                    "options": [],
+                                                    "multiple": true,
+                                                    "separator": ", "
+                                                  }
+                                                },
+                                                {
+                                                  "tokenType": "Literal",
+                                                  "data": {
+                                                    "literal": " "
+                                                  }
+                                                }
+                                              ],
+                                              "previous": {
+                                                "tokenType": "Expression",
+                                                "data": {
+                                                  "tokens": [
+                                                    {
+                                                      "tokenType": "Literal",
+                                                      "data": {
+                                                        "literal": "extends "
+                                                      }
+                                                    },
+                                                    {
+                                                      "tokenType": "Mark",
+                                                      "data": {
+                                                        "name": "superclass",
+                                                        "options": [],
+                                                        "multiple": false
+                                                      }
+                                                    },
+                                                    {
+                                                      "tokenType": "Literal",
+                                                      "data": {
+                                                        "literal": " "
+                                                      }
+                                                    }
+                                                  ],
+                                                  "previous": {
+                                                    "tokenType": "Literal",
+                                                    "data": {
+                                                      "literal": " ",
+                                                      "previous": {
+                                                        "tokenType": "Mark",
+                                                        "data": {
+                                                          "name": "name",
+                                                          "options": [],
+                                                          "multiple": false,
+                                                          "previous": {
+                                                            "tokenType": "Expression",
+                                                            "data": {
+                                                              "tokens": [
+                                                                {
+                                                                  "tokenType": "Mark",
+                                                                  "data": {
+                                                                    "name": "final",
+                                                                    "options": [],
+                                                                    "multiple": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "tokenType": "Literal",
+                                                                  "data": {
+                                                                    "literal": " "
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "previous": {
+                                                                "tokenType": "Expression",
+                                                                "data": {
+                                                                  "tokens": [
+                                                                    {
+                                                                      "tokenType": "Mark",
+                                                                      "data": {
+                                                                        "name": "static",
+                                                                        "options": [],
+                                                                        "multiple": false
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "tokenType": "Literal",
+                                                                      "data": {
+                                                                        "literal": " "
+                                                                      }
+                                                                    }
+                                                                  ],
+                                                                  "previous": {
+                                                                    "tokenType": "Literal",
+                                                                    "data": {
+                                                                      "literal": "public class "
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "attribute",
+          "options": [
+            "Initialize"
+          ],
+          "multiple": true,
+          "separator": "\n",
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": ") {\n\t\t",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "attribute",
+                  "options": [
+                    "Injection"
+                  ],
+                  "multiple": true,
+                  "separator": ", ",
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "(",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "name",
+                          "options": [],
+                          "multiple": false,
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "\\\n\n\tpublic ",
+                              "previous": {
+                                "tokenType": "Mark",
+                                "data": {
+                                  "name": "attribute",
+                                  "options": [
+                                    "Field"
+                                  ],
+                                  "multiple": true,
+                                  "separator": "\n",
+                                  "previous": {
+                                    "tokenType": "Literal",
+                                    "data": {
+                                      "literal": "\\\n\t",
+                                      "previous": {
+                                        "tokenType": "Mark",
+                                        "data": {
+                                          "name": "attribute",
+                                          "options": [
+                                            "Const"
+                                          ],
+                                          "multiple": true,
+                                          "separator": "\n",
+                                          "previous": {
+                                            "tokenType": "Literal",
+                                            "data": {
+                                              "literal": "{\n\n\t",
+                                              "previous": {
+                                                "tokenType": "Expression",
+                                                "data": {
+                                                  "tokens": [
+                                                    {
+                                                      "tokenType": "Literal",
+                                                      "data": {
+                                                        "literal": "implements "
+                                                      }
+                                                    },
+                                                    {
+                                                      "tokenType": "Mark",
+                                                      "data": {
+                                                        "name": "interface",
+                                                        "options": [],
+                                                        "multiple": true,
+                                                        "separator": ", "
+                                                      }
+                                                    },
+                                                    {
+                                                      "tokenType": "Literal",
+                                                      "data": {
+                                                        "literal": " "
+                                                      }
+                                                    }
+                                                  ],
+                                                  "previous": {
+                                                    "tokenType": "Expression",
+                                                    "data": {
+                                                      "tokens": [
+                                                        {
+                                                          "tokenType": "Literal",
+                                                          "data": {
+                                                            "literal": "extends "
+                                                          }
+                                                        },
+                                                        {
+                                                          "tokenType": "Mark",
+                                                          "data": {
+                                                            "name": "superclass",
+                                                            "options": [],
+                                                            "multiple": false
+                                                          }
+                                                        },
+                                                        {
+                                                          "tokenType": "Literal",
+                                                          "data": {
+                                                            "literal": " "
+                                                          }
+                                                        }
+                                                      ],
+                                                      "previous": {
+                                                        "tokenType": "Literal",
+                                                        "data": {
+                                                          "literal": " ",
+                                                          "previous": {
+                                                            "tokenType": "Mark",
+                                                            "data": {
+                                                              "name": "name",
+                                                              "options": [],
+                                                              "multiple": false,
+                                                              "previous": {
+                                                                "tokenType": "Expression",
+                                                                "data": {
+                                                                  "tokens": [
+                                                                    {
+                                                                      "tokenType": "Mark",
+                                                                      "data": {
+                                                                        "name": "final",
+                                                                        "options": [],
+                                                                        "multiple": false
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "tokenType": "Literal",
+                                                                      "data": {
+                                                                        "literal": " "
+                                                                      }
+                                                                    }
+                                                                  ],
+                                                                  "previous": {
+                                                                    "tokenType": "Expression",
+                                                                    "data": {
+                                                                      "tokens": [
+                                                                        {
+                                                                          "tokenType": "Mark",
+                                                                          "data": {
+                                                                            "name": "static",
+                                                                            "options": [],
+                                                                            "multiple": false
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "tokenType": "Literal",
+                                                                          "data": {
+                                                                            "literal": " "
+                                                                          }
+                                                                        }
+                                                                      ],
+                                                                      "previous": {
+                                                                        "tokenType": "Literal",
+                                                                        "data": {
+                                                                          "literal": "public class "
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\\\n\t}\n\n\t",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "attribute",
+              "options": [
+                "Initialize"
+              ],
+              "multiple": true,
+              "separator": "\n",
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": ") {\n\t\t",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "attribute",
+                      "options": [
+                        "Injection"
+                      ],
+                      "multiple": true,
+                      "separator": ", ",
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "(",
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "name",
+                              "options": [],
+                              "multiple": false,
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": "\\\n\n\tpublic ",
+                                  "previous": {
+                                    "tokenType": "Mark",
+                                    "data": {
+                                      "name": "attribute",
+                                      "options": [
+                                        "Field"
+                                      ],
+                                      "multiple": true,
+                                      "separator": "\n",
+                                      "previous": {
+                                        "tokenType": "Literal",
+                                        "data": {
+                                          "literal": "\\\n\t",
+                                          "previous": {
+                                            "tokenType": "Mark",
+                                            "data": {
+                                              "name": "attribute",
+                                              "options": [
+                                                "Const"
+                                              ],
+                                              "multiple": true,
+                                              "separator": "\n",
+                                              "previous": {
+                                                "tokenType": "Literal",
+                                                "data": {
+                                                  "literal": "{\n\n\t",
+                                                  "previous": {
+                                                    "tokenType": "Expression",
+                                                    "data": {
+                                                      "tokens": [
+                                                        {
+                                                          "tokenType": "Literal",
+                                                          "data": {
+                                                            "literal": "implements "
+                                                          }
+                                                        },
+                                                        {
+                                                          "tokenType": "Mark",
+                                                          "data": {
+                                                            "name": "interface",
+                                                            "options": [],
+                                                            "multiple": true,
+                                                            "separator": ", "
+                                                          }
+                                                        },
+                                                        {
+                                                          "tokenType": "Literal",
+                                                          "data": {
+                                                            "literal": " "
+                                                          }
+                                                        }
+                                                      ],
+                                                      "previous": {
+                                                        "tokenType": "Expression",
+                                                        "data": {
+                                                          "tokens": [
+                                                            {
+                                                              "tokenType": "Literal",
+                                                              "data": {
+                                                                "literal": "extends "
+                                                              }
+                                                            },
+                                                            {
+                                                              "tokenType": "Mark",
+                                                              "data": {
+                                                                "name": "superclass",
+                                                                "options": [],
+                                                                "multiple": false
+                                                              }
+                                                            },
+                                                            {
+                                                              "tokenType": "Literal",
+                                                              "data": {
+                                                                "literal": " "
+                                                              }
+                                                            }
+                                                          ],
+                                                          "previous": {
+                                                            "tokenType": "Literal",
+                                                            "data": {
+                                                              "literal": " ",
+                                                              "previous": {
+                                                                "tokenType": "Mark",
+                                                                "data": {
+                                                                  "name": "name",
+                                                                  "options": [],
+                                                                  "multiple": false,
+                                                                  "previous": {
+                                                                    "tokenType": "Expression",
+                                                                    "data": {
+                                                                      "tokens": [
+                                                                        {
+                                                                          "tokenType": "Mark",
+                                                                          "data": {
+                                                                            "name": "final",
+                                                                            "options": [],
+                                                                            "multiple": false
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "tokenType": "Literal",
+                                                                          "data": {
+                                                                            "literal": " "
+                                                                          }
+                                                                        }
+                                                                      ],
+                                                                      "previous": {
+                                                                        "tokenType": "Expression",
+                                                                        "data": {
+                                                                          "tokens": [
+                                                                            {
+                                                                              "tokenType": "Mark",
+                                                                              "data": {
+                                                                                "name": "static",
+                                                                                "options": [],
+                                                                                "multiple": false
+                                                                              }
+                                                                            },
+                                                                            {
+                                                                              "tokenType": "Literal",
+                                                                              "data": {
+                                                                                "literal": " "
+                                                                              }
+                                                                            }
+                                                                          ],
+                                                                          "previous": {
+                                                                            "tokenType": "Literal",
+                                                                            "data": {
+                                                                              "literal": "public class "
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "attribute",
+          "options": [
+            "Getter"
+          ],
+          "multiple": true,
+          "separator": "\n",
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "\\\n\t}\n\n\t",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "attribute",
+                  "options": [
+                    "Initialize"
+                  ],
+                  "multiple": true,
+                  "separator": "\n",
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": ") {\n\t\t",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "attribute",
+                          "options": [
+                            "Injection"
+                          ],
+                          "multiple": true,
+                          "separator": ", ",
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "(",
+                              "previous": {
+                                "tokenType": "Mark",
+                                "data": {
+                                  "name": "name",
+                                  "options": [],
+                                  "multiple": false,
+                                  "previous": {
+                                    "tokenType": "Literal",
+                                    "data": {
+                                      "literal": "\\\n\n\tpublic ",
+                                      "previous": {
+                                        "tokenType": "Mark",
+                                        "data": {
+                                          "name": "attribute",
+                                          "options": [
+                                            "Field"
+                                          ],
+                                          "multiple": true,
+                                          "separator": "\n",
+                                          "previous": {
+                                            "tokenType": "Literal",
+                                            "data": {
+                                              "literal": "\\\n\t",
+                                              "previous": {
+                                                "tokenType": "Mark",
+                                                "data": {
+                                                  "name": "attribute",
+                                                  "options": [
+                                                    "Const"
+                                                  ],
+                                                  "multiple": true,
+                                                  "separator": "\n",
+                                                  "previous": {
+                                                    "tokenType": "Literal",
+                                                    "data": {
+                                                      "literal": "{\n\n\t",
+                                                      "previous": {
+                                                        "tokenType": "Expression",
+                                                        "data": {
+                                                          "tokens": [
+                                                            {
+                                                              "tokenType": "Literal",
+                                                              "data": {
+                                                                "literal": "implements "
+                                                              }
+                                                            },
+                                                            {
+                                                              "tokenType": "Mark",
+                                                              "data": {
+                                                                "name": "interface",
+                                                                "options": [],
+                                                                "multiple": true,
+                                                                "separator": ", "
+                                                              }
+                                                            },
+                                                            {
+                                                              "tokenType": "Literal",
+                                                              "data": {
+                                                                "literal": " "
+                                                              }
+                                                            }
+                                                          ],
+                                                          "previous": {
+                                                            "tokenType": "Expression",
+                                                            "data": {
+                                                              "tokens": [
+                                                                {
+                                                                  "tokenType": "Literal",
+                                                                  "data": {
+                                                                    "literal": "extends "
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "tokenType": "Mark",
+                                                                  "data": {
+                                                                    "name": "superclass",
+                                                                    "options": [],
+                                                                    "multiple": false
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "tokenType": "Literal",
+                                                                  "data": {
+                                                                    "literal": " "
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "previous": {
+                                                                "tokenType": "Literal",
+                                                                "data": {
+                                                                  "literal": " ",
+                                                                  "previous": {
+                                                                    "tokenType": "Mark",
+                                                                    "data": {
+                                                                      "name": "name",
+                                                                      "options": [],
+                                                                      "multiple": false,
+                                                                      "previous": {
+                                                                        "tokenType": "Expression",
+                                                                        "data": {
+                                                                          "tokens": [
+                                                                            {
+                                                                              "tokenType": "Mark",
+                                                                              "data": {
+                                                                                "name": "final",
+                                                                                "options": [],
+                                                                                "multiple": false
+                                                                              }
+                                                                            },
+                                                                            {
+                                                                              "tokenType": "Literal",
+                                                                              "data": {
+                                                                                "literal": " "
+                                                                              }
+                                                                            }
+                                                                          ],
+                                                                          "previous": {
+                                                                            "tokenType": "Expression",
+                                                                            "data": {
+                                                                              "tokens": [
+                                                                                {
+                                                                                  "tokenType": "Mark",
+                                                                                  "data": {
+                                                                                    "name": "static",
+                                                                                    "options": [],
+                                                                                    "multiple": false
+                                                                                  }
+                                                                                },
+                                                                                {
+                                                                                  "tokenType": "Literal",
+                                                                                  "data": {
+                                                                                    "literal": " "
+                                                                                  }
+                                                                                }
+                                                                              ],
+                                                                              "previous": {
+                                                                                "tokenType": "Literal",
+                                                                                "data": {
+                                                                                  "literal": "public class "
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\\\n\n\t",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "attribute",
+              "options": [
+                "Getter"
+              ],
+              "multiple": true,
+              "separator": "\n",
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "\\\n\t}\n\n\t",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "attribute",
+                      "options": [
+                        "Initialize"
+                      ],
+                      "multiple": true,
+                      "separator": "\n",
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": ") {\n\t\t",
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "attribute",
+                              "options": [
+                                "Injection"
+                              ],
+                              "multiple": true,
+                              "separator": ", ",
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": "(",
+                                  "previous": {
+                                    "tokenType": "Mark",
+                                    "data": {
+                                      "name": "name",
+                                      "options": [],
+                                      "multiple": false,
+                                      "previous": {
+                                        "tokenType": "Literal",
+                                        "data": {
+                                          "literal": "\\\n\n\tpublic ",
+                                          "previous": {
+                                            "tokenType": "Mark",
+                                            "data": {
+                                              "name": "attribute",
+                                              "options": [
+                                                "Field"
+                                              ],
+                                              "multiple": true,
+                                              "separator": "\n",
+                                              "previous": {
+                                                "tokenType": "Literal",
+                                                "data": {
+                                                  "literal": "\\\n\t",
+                                                  "previous": {
+                                                    "tokenType": "Mark",
+                                                    "data": {
+                                                      "name": "attribute",
+                                                      "options": [
+                                                        "Const"
+                                                      ],
+                                                      "multiple": true,
+                                                      "separator": "\n",
+                                                      "previous": {
+                                                        "tokenType": "Literal",
+                                                        "data": {
+                                                          "literal": "{\n\n\t",
+                                                          "previous": {
+                                                            "tokenType": "Expression",
+                                                            "data": {
+                                                              "tokens": [
+                                                                {
+                                                                  "tokenType": "Literal",
+                                                                  "data": {
+                                                                    "literal": "implements "
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "tokenType": "Mark",
+                                                                  "data": {
+                                                                    "name": "interface",
+                                                                    "options": [],
+                                                                    "multiple": true,
+                                                                    "separator": ", "
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "tokenType": "Literal",
+                                                                  "data": {
+                                                                    "literal": " "
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "previous": {
+                                                                "tokenType": "Expression",
+                                                                "data": {
+                                                                  "tokens": [
+                                                                    {
+                                                                      "tokenType": "Literal",
+                                                                      "data": {
+                                                                        "literal": "extends "
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "tokenType": "Mark",
+                                                                      "data": {
+                                                                        "name": "superclass",
+                                                                        "options": [],
+                                                                        "multiple": false
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "tokenType": "Literal",
+                                                                      "data": {
+                                                                        "literal": " "
+                                                                      }
+                                                                    }
+                                                                  ],
+                                                                  "previous": {
+                                                                    "tokenType": "Literal",
+                                                                    "data": {
+                                                                      "literal": " ",
+                                                                      "previous": {
+                                                                        "tokenType": "Mark",
+                                                                        "data": {
+                                                                          "name": "name",
+                                                                          "options": [],
+                                                                          "multiple": false,
+                                                                          "previous": {
+                                                                            "tokenType": "Expression",
+                                                                            "data": {
+                                                                              "tokens": [
+                                                                                {
+                                                                                  "tokenType": "Mark",
+                                                                                  "data": {
+                                                                                    "name": "final",
+                                                                                    "options": [],
+                                                                                    "multiple": false
+                                                                                  }
+                                                                                },
+                                                                                {
+                                                                                  "tokenType": "Literal",
+                                                                                  "data": {
+                                                                                    "literal": " "
+                                                                                  }
+                                                                                }
+                                                                              ],
+                                                                              "previous": {
+                                                                                "tokenType": "Expression",
+                                                                                "data": {
+                                                                                  "tokens": [
+                                                                                    {
+                                                                                      "tokenType": "Mark",
+                                                                                      "data": {
+                                                                                        "name": "static",
+                                                                                        "options": [],
+                                                                                        "multiple": false
+                                                                                      }
+                                                                                    },
+                                                                                    {
+                                                                                      "tokenType": "Literal",
+                                                                                      "data": {
+                                                                                        "literal": " "
+                                                                                      }
+                                                                                    }
+                                                                                  ],
+                                                                                  "previous": {
+                                                                                    "tokenType": "Literal",
+                                                                                    "data": {
+                                                                                      "literal": "public class "
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "attribute",
+          "options": [
+            "Setter"
+          ],
+          "multiple": true,
+          "separator": "\n",
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "\\\n\n\t",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "attribute",
+                  "options": [
+                    "Getter"
+                  ],
+                  "multiple": true,
+                  "separator": "\n",
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "\\\n\t}\n\n\t",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "attribute",
+                          "options": [
+                            "Initialize"
+                          ],
+                          "multiple": true,
+                          "separator": "\n",
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": ") {\n\t\t",
+                              "previous": {
+                                "tokenType": "Mark",
+                                "data": {
+                                  "name": "attribute",
+                                  "options": [
+                                    "Injection"
+                                  ],
+                                  "multiple": true,
+                                  "separator": ", ",
+                                  "previous": {
+                                    "tokenType": "Literal",
+                                    "data": {
+                                      "literal": "(",
+                                      "previous": {
+                                        "tokenType": "Mark",
+                                        "data": {
+                                          "name": "name",
+                                          "options": [],
+                                          "multiple": false,
+                                          "previous": {
+                                            "tokenType": "Literal",
+                                            "data": {
+                                              "literal": "\\\n\n\tpublic ",
+                                              "previous": {
+                                                "tokenType": "Mark",
+                                                "data": {
+                                                  "name": "attribute",
+                                                  "options": [
+                                                    "Field"
+                                                  ],
+                                                  "multiple": true,
+                                                  "separator": "\n",
+                                                  "previous": {
+                                                    "tokenType": "Literal",
+                                                    "data": {
+                                                      "literal": "\\\n\t",
+                                                      "previous": {
+                                                        "tokenType": "Mark",
+                                                        "data": {
+                                                          "name": "attribute",
+                                                          "options": [
+                                                            "Const"
+                                                          ],
+                                                          "multiple": true,
+                                                          "separator": "\n",
+                                                          "previous": {
+                                                            "tokenType": "Literal",
+                                                            "data": {
+                                                              "literal": "{\n\n\t",
+                                                              "previous": {
+                                                                "tokenType": "Expression",
+                                                                "data": {
+                                                                  "tokens": [
+                                                                    {
+                                                                      "tokenType": "Literal",
+                                                                      "data": {
+                                                                        "literal": "implements "
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "tokenType": "Mark",
+                                                                      "data": {
+                                                                        "name": "interface",
+                                                                        "options": [],
+                                                                        "multiple": true,
+                                                                        "separator": ", "
+                                                                      }
+                                                                    },
+                                                                    {
+                                                                      "tokenType": "Literal",
+                                                                      "data": {
+                                                                        "literal": " "
+                                                                      }
+                                                                    }
+                                                                  ],
+                                                                  "previous": {
+                                                                    "tokenType": "Expression",
+                                                                    "data": {
+                                                                      "tokens": [
+                                                                        {
+                                                                          "tokenType": "Literal",
+                                                                          "data": {
+                                                                            "literal": "extends "
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "tokenType": "Mark",
+                                                                          "data": {
+                                                                            "name": "superclass",
+                                                                            "options": [],
+                                                                            "multiple": false
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "tokenType": "Literal",
+                                                                          "data": {
+                                                                            "literal": " "
+                                                                          }
+                                                                        }
+                                                                      ],
+                                                                      "previous": {
+                                                                        "tokenType": "Literal",
+                                                                        "data": {
+                                                                          "literal": " ",
+                                                                          "previous": {
+                                                                            "tokenType": "Mark",
+                                                                            "data": {
+                                                                              "name": "name",
+                                                                              "options": [],
+                                                                              "multiple": false,
+                                                                              "previous": {
+                                                                                "tokenType": "Expression",
+                                                                                "data": {
+                                                                                  "tokens": [
+                                                                                    {
+                                                                                      "tokenType": "Mark",
+                                                                                      "data": {
+                                                                                        "name": "final",
+                                                                                        "options": [],
+                                                                                        "multiple": false
+                                                                                      }
+                                                                                    },
+                                                                                    {
+                                                                                      "tokenType": "Literal",
+                                                                                      "data": {
+                                                                                        "literal": " "
+                                                                                      }
+                                                                                    }
+                                                                                  ],
+                                                                                  "previous": {
+                                                                                    "tokenType": "Expression",
+                                                                                    "data": {
+                                                                                      "tokens": [
+                                                                                        {
+                                                                                          "tokenType": "Mark",
+                                                                                          "data": {
+                                                                                            "name": "static",
+                                                                                            "options": [],
+                                                                                            "multiple": false
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "tokenType": "Literal",
+                                                                                          "data": {
+                                                                                            "literal": " "
+                                                                                          }
+                                                                                        }
+                                                                                      ],
+                                                                                      "previous": {
+                                                                                        "tokenType": "Literal",
+                                                                                        "data": {
+                                                                                          "literal": "public class "
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "\\\n\n}",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "attribute",
+              "options": [
+                "Setter"
+              ],
+              "multiple": true,
+              "separator": "\n",
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "\\\n\n\t",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "attribute",
+                      "options": [
+                        "Getter"
+                      ],
+                      "multiple": true,
+                      "separator": "\n",
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "\\\n\t}\n\n\t",
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "attribute",
+                              "options": [
+                                "Initialize"
+                              ],
+                              "multiple": true,
+                              "separator": "\n",
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": ") {\n\t\t",
+                                  "previous": {
+                                    "tokenType": "Mark",
+                                    "data": {
+                                      "name": "attribute",
+                                      "options": [
+                                        "Injection"
+                                      ],
+                                      "multiple": true,
+                                      "separator": ", ",
+                                      "previous": {
+                                        "tokenType": "Literal",
+                                        "data": {
+                                          "literal": "(",
+                                          "previous": {
+                                            "tokenType": "Mark",
+                                            "data": {
+                                              "name": "name",
+                                              "options": [],
+                                              "multiple": false,
+                                              "previous": {
+                                                "tokenType": "Literal",
+                                                "data": {
+                                                  "literal": "\\\n\n\tpublic ",
+                                                  "previous": {
+                                                    "tokenType": "Mark",
+                                                    "data": {
+                                                      "name": "attribute",
+                                                      "options": [
+                                                        "Field"
+                                                      ],
+                                                      "multiple": true,
+                                                      "separator": "\n",
+                                                      "previous": {
+                                                        "tokenType": "Literal",
+                                                        "data": {
+                                                          "literal": "\\\n\t",
+                                                          "previous": {
+                                                            "tokenType": "Mark",
+                                                            "data": {
+                                                              "name": "attribute",
+                                                              "options": [
+                                                                "Const"
+                                                              ],
+                                                              "multiple": true,
+                                                              "separator": "\n",
+                                                              "previous": {
+                                                                "tokenType": "Literal",
+                                                                "data": {
+                                                                  "literal": "{\n\n\t",
+                                                                  "previous": {
+                                                                    "tokenType": "Expression",
+                                                                    "data": {
+                                                                      "tokens": [
+                                                                        {
+                                                                          "tokenType": "Literal",
+                                                                          "data": {
+                                                                            "literal": "implements "
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "tokenType": "Mark",
+                                                                          "data": {
+                                                                            "name": "interface",
+                                                                            "options": [],
+                                                                            "multiple": true,
+                                                                            "separator": ", "
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "tokenType": "Literal",
+                                                                          "data": {
+                                                                            "literal": " "
+                                                                          }
+                                                                        }
+                                                                      ],
+                                                                      "previous": {
+                                                                        "tokenType": "Expression",
+                                                                        "data": {
+                                                                          "tokens": [
+                                                                            {
+                                                                              "tokenType": "Literal",
+                                                                              "data": {
+                                                                                "literal": "extends "
+                                                                              }
+                                                                            },
+                                                                            {
+                                                                              "tokenType": "Mark",
+                                                                              "data": {
+                                                                                "name": "superclass",
+                                                                                "options": [],
+                                                                                "multiple": false
+                                                                              }
+                                                                            },
+                                                                            {
+                                                                              "tokenType": "Literal",
+                                                                              "data": {
+                                                                                "literal": " "
+                                                                              }
+                                                                            }
+                                                                          ],
+                                                                          "previous": {
+                                                                            "tokenType": "Literal",
+                                                                            "data": {
+                                                                              "literal": " ",
+                                                                              "previous": {
+                                                                                "tokenType": "Mark",
+                                                                                "data": {
+                                                                                  "name": "name",
+                                                                                  "options": [],
+                                                                                  "multiple": false,
+                                                                                  "previous": {
+                                                                                    "tokenType": "Expression",
+                                                                                    "data": {
+                                                                                      "tokens": [
+                                                                                        {
+                                                                                          "tokenType": "Mark",
+                                                                                          "data": {
+                                                                                            "name": "final",
+                                                                                            "options": [],
+                                                                                            "multiple": false
+                                                                                          }
+                                                                                        },
+                                                                                        {
+                                                                                          "tokenType": "Literal",
+                                                                                          "data": {
+                                                                                            "literal": " "
+                                                                                          }
+                                                                                        }
+                                                                                      ],
+                                                                                      "previous": {
+                                                                                        "tokenType": "Expression",
+                                                                                        "data": {
+                                                                                          "tokens": [
+                                                                                            {
+                                                                                              "tokenType": "Mark",
+                                                                                              "data": {
+                                                                                                "name": "static",
+                                                                                                "options": [],
+                                                                                                "multiple": false
+                                                                                              }
+                                                                                            },
+                                                                                            {
+                                                                                              "tokenType": "Literal",
+                                                                                              "data": {
+                                                                                                "literal": " "
+                                                                                              }
+                                                                                            }
+                                                                                          ],
+                                                                                          "previous": {
+                                                                                            "tokenType": "Literal",
+                                                                                            "data": {
+                                                                                              "literal": "public class "
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Class"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "public static final "
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "type",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "public static final "
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "type",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "public static final "
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "type",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "public static final "
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " \u003d "
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "default",
+                "options": [],
+                "multiple": false
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": " ",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "type",
+                      "options": [],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "public static final "
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": ";",
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " \u003d "
+                  }
+                },
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "default",
+                    "options": [],
+                    "multiple": false
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "name",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": " ",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "type",
+                          "options": [],
+                          "multiple": false,
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "public static final "
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Attribute"
+        ],
+        "negated": false
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "Const"
+        ],
+        "negated": false
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "Const"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "private final "
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "type",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "private final "
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "type",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "private final "
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "type",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "private final "
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " \u003d "
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "default",
+                "options": [],
+                "multiple": false
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": " ",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "type",
+                      "options": [],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "private final "
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": ";",
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " \u003d "
+                  }
+                },
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "default",
+                    "options": [],
+                    "multiple": false
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "name",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": " ",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "type",
+                          "options": [],
+                          "multiple": false,
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "private final "
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Attribute"
+        ],
+        "negated": false
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "Const"
+        ],
+        "negated": true
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "ReadOnly"
+        ],
+        "negated": false
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "Field"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "private "
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "type",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "private "
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "type",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "private "
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "type",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "private "
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Expression",
+        "data": {
+          "tokens": [
+            {
+              "tokenType": "Literal",
+              "data": {
+                "literal": " \u003d "
+              }
+            },
+            {
+              "tokenType": "Mark",
+              "data": {
+                "name": "default",
+                "options": [],
+                "multiple": false
+              }
+            }
+          ],
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": " ",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "type",
+                      "options": [],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "private "
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": ";",
+          "previous": {
+            "tokenType": "Expression",
+            "data": {
+              "tokens": [
+                {
+                  "tokenType": "Literal",
+                  "data": {
+                    "literal": " \u003d "
+                  }
+                },
+                {
+                  "tokenType": "Mark",
+                  "data": {
+                    "name": "default",
+                    "options": [],
+                    "multiple": false
+                  }
+                }
+              ],
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "name",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": " ",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "type",
+                          "options": [],
+                          "multiple": false,
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "private "
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Attribute"
+        ],
+        "negated": false
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "Const"
+        ],
+        "negated": true
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "ReadOnly"
+        ],
+        "negated": true
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "Field"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "public "
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "type",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "public "
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " get",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "type",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "public "
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [
+            "firstUpperCase"
+          ],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " get",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "type",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "public "
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "() {\n\treturn ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [
+                "firstUpperCase"
+              ],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": " get",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "type",
+                      "options": [],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "public "
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "() {\n\treturn ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "name",
+                  "options": [
+                    "firstUpperCase"
+                  ],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": " get",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "type",
+                          "options": [],
+                          "multiple": false,
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "public "
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": ";\n}\n",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "() {\n\treturn ",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "name",
+                      "options": [
+                        "firstUpperCase"
+                      ],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": " get",
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "type",
+                              "options": [],
+                              "multiple": false,
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": "public "
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Attribute"
+        ],
+        "negated": false
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "Const"
+        ],
+        "negated": true
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "Getter"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "public void set"
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [
+            "firstUpperCase"
+          ],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "public void set"
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "(",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [
+                "firstUpperCase"
+              ],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "public void set"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "type",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "(",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "name",
+                  "options": [
+                    "firstUpperCase"
+                  ],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "public void set"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " value) {\n\t",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "type",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "(",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "name",
+                      "options": [
+                        "firstUpperCase"
+                      ],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "public void set"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " value) {\n\t",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "type",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "(",
+                      "previous": {
+                        "tokenType": "Mark",
+                        "data": {
+                          "name": "name",
+                          "options": [
+                            "firstUpperCase"
+                          ],
+                          "multiple": false,
+                          "previous": {
+                            "tokenType": "Literal",
+                            "data": {
+                              "literal": "public void set"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " \u003d value;\n}\n",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": " value) {\n\t",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "type",
+                      "options": [],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "(",
+                          "previous": {
+                            "tokenType": "Mark",
+                            "data": {
+                              "name": "name",
+                              "options": [
+                                "firstUpperCase"
+                              ],
+                              "multiple": false,
+                              "previous": {
+                                "tokenType": "Literal",
+                                "data": {
+                                  "literal": "public void set"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Attribute"
+        ],
+        "negated": false
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "Const"
+        ],
+        "negated": true
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "ReadOnly"
+        ],
+        "negated": true
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "Setter"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "type",
+          "options": [],
+          "multiple": false
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "type",
+              "options": [],
+              "multiple": false
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "type",
+                  "options": [],
+                  "multiple": false
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Attribute"
+        ],
+        "negated": false
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "Const"
+        ],
+        "negated": true
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "ReadOnly"
+        ],
+        "negated": false
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "Injection"
+        ],
+        "negated": false
+      }
+    ]
+  },
+  {
+    "tokens": [
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": "this."
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": "this."
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": " \u003d ",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": "this."
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Mark",
+        "data": {
+          "name": "name",
+          "options": [],
+          "multiple": false,
+          "previous": {
+            "tokenType": "Literal",
+            "data": {
+              "literal": " \u003d ",
+              "previous": {
+                "tokenType": "Mark",
+                "data": {
+                  "name": "name",
+                  "options": [],
+                  "multiple": false,
+                  "previous": {
+                    "tokenType": "Literal",
+                    "data": {
+                      "literal": "this."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "tokenType": "Literal",
+        "data": {
+          "literal": ";",
+          "previous": {
+            "tokenType": "Mark",
+            "data": {
+              "name": "name",
+              "options": [],
+              "multiple": false,
+              "previous": {
+                "tokenType": "Literal",
+                "data": {
+                  "literal": " \u003d ",
+                  "previous": {
+                    "tokenType": "Mark",
+                    "data": {
+                      "name": "name",
+                      "options": [],
+                      "multiple": false,
+                      "previous": {
+                        "tokenType": "Literal",
+                        "data": {
+                          "literal": "this."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "name": "type",
+        "parameters": [
+          "Attribute"
+        ],
+        "negated": false
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "Const"
+        ],
+        "negated": true
+      },
+      {
+        "name": "type",
+        "parameters": [
+          "ReadOnly"
+        ],
+        "negated": false
+      },
+      {
+        "name": "trigger",
+        "parameters": [
+          "Initialize"
+        ],
+        "negated": false
+      }
+    ]
+  }
+]

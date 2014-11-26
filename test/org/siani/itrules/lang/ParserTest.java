@@ -4,13 +4,11 @@ import org.antlr.v4.runtime.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.siani.itrules.TestSources.*;
-
 public class ParserTest {
 
 	@Test
 	public void test1() {
-		ITRulesParser parser = init(OTHER_WITH_MARK);
+		ITRulesParser parser = init(TestSources.OTHER_WITH_MARK);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -20,7 +18,7 @@ public class ParserTest {
 
 	@Test
 	public void test2() {
-		ITRulesParser parser = init(RULE_WITH_MARKS);
+		ITRulesParser parser = init(TestSources.RULE_WITH_MARKS);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -30,7 +28,7 @@ public class ParserTest {
 
 	@Test
 	public void test3() {
-		ITRulesParser parser = init(SCAPED_CHARACTERS);
+		ITRulesParser parser = init(TestSources.SCAPED_CHARACTERS);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -40,7 +38,7 @@ public class ParserTest {
 
 	@Test
 	public void test4() {
-		ITRulesParser parser = init(SIGNATURE);
+		ITRulesParser parser = init(TestSources.SIGNATURE);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -50,7 +48,7 @@ public class ParserTest {
 
 	@Test
 	public void test5() {
-		ITRulesParser parser = init(TWO_RULES);
+		ITRulesParser parser = init(TestSources.TWO_RULES);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -60,7 +58,7 @@ public class ParserTest {
 
 	@Test
 	public void test6() {
-		ITRulesParser parser = init(XML_TARA);
+		ITRulesParser parser = init(TestSources.XML_TARA);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -70,7 +68,7 @@ public class ParserTest {
 
 	@Test
 	public void test7() {
-		ITRulesParser parser = init(LITTLE_BIG_TEST);
+		ITRulesParser parser = init(TestSources.LITTLE_BIG_TEST);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -80,7 +78,7 @@ public class ParserTest {
 
 	@Test
 	public void test8() {
-		ITRulesParser parser = init(LARGE_XML);
+		ITRulesParser parser = init(TestSources.LARGE_XML);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -90,7 +88,7 @@ public class ParserTest {
 
 	@Test
 	public void test9() {
-		ITRulesParser parser = init(MARK);
+		ITRulesParser parser = init(TestSources.MARK);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
@@ -100,7 +98,7 @@ public class ParserTest {
 
 	@Test
 	public void test10() {
-		ITRulesParser parser = init(MARK_WITH_FORMAT);
+		ITRulesParser parser = init(TestSources.MARK_WITH_FORMAT);
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {

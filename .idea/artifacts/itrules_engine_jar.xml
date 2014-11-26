@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="itrules-engine:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/itrules_engine_jar</output-path>
+    <root id="archive" name="itrules.jar">
+      <element id="module-output" name="itrules" />
+    </root>
+  </artifact>
+</component>

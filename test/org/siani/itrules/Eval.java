@@ -1,15 +1,35 @@
 package org.siani.itrules;
 
 import org.junit.Test;
+import org.siani.itrules.model.Rule;
+import org.siani.itrules.serialization.RulesSaver;
 
-import java.io.InputStream;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class Eval {
 
+	private static final String FILE_JSON = "/json/eval.json";
+	private static final File TEST = new File("res_test", FILE_JSON);
+
 	@Test
 	public void testEval() throws Exception {
+		RuleReader reader = new TemplateReader(getRules());
+		FileWriter writer = new FileWriter(TEST);
+		writer.write(RulesSaver.toJSON(reader.read()));
+		writer.close();
+		Frame frame = buildFrame();
+		Document document = new Document();
+		Rule[] rules = new JSONRuleReader(getJsonRules()).read();
+		assertNotNull(rules);
+		RuleEngine ruleEngine = new RuleEngine(rules);
+		ruleEngine.render(frame, document);
+		assertEquals(EXPECTED, document.content());
+	}
+
+	private Frame buildFrame() {
 		Frame frame = new Frame("Contract");
 		frame.addSlot("Owner", new Frame("Person") {{
 			addSlot("Name", "Tere Galvez");
@@ -23,27 +43,35 @@ public class Eval {
 			addSlot("Age", "2");
 		}});
 		frame.addSlot("Date", new DateTime("27/09/2014"));
-		Document document = new Document();
-		RuleEngine ruleEngine = new RuleEngine(getRules());
-		ruleEngine.render(frame, document);
-		assertEquals("Las Palmas de Gran de Canaria, el 27/09/2014\n" +
-			"\n" +
-			"Tere Galvez, con DNI 4050321, con domicilio en la calle Pico Viento 51, Las Palmas\n" +
-			"\n" +
-			"declara adoptar a\n" +
-			"\n" +
-			"El perro con chip X204512, de la especie Caniche, de 2 años\n" +
-			"\n" +
-			"\n" +
-			"\n" +
-			"\n" +
-			"Firmado\n" +
-			"Tere Galvez, con DNI 4050321, con domicilio en la calle Pico Viento 51, Las Palmas", document.content());
+		return frame;
 	}
 
 	public InputStream getRules() {
-		return Eval.class.getResourceAsStream("/eval.itr");
+		return this.getClass().getResourceAsStream("/" + this.getClass().getSimpleName().toLowerCase() + ".itr");
 	}
 
+	public InputStream getJsonRules() {
+		try {
+			return new FileInputStream(TEST);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+	private static final String EXPECTED = "Las Palmas de Gran de Canaria, el 27/09/2014\n" +
+		"\n" +
+		"Tere Galvez, con DNI 4050321, con domicilio en la calle Pico Viento 51, Las Palmas\n" +
+		"\n" +
+		"declara adoptar a\n" +
+		"\n" +
+		"El perro con chip X204512, de la especie Caniche, de 2 años\n" +
+		"\n" +
+		"\n" +
+		"\n" +
+		"\n" +
+		"Firmado\n" +
+		"Tere Galvez, con DNI 4050321, con domicilio en la calle Pico Viento 51, Las Palmas";
 
 }
