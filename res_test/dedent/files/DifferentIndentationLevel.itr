@@ -1,0 +1,4 @@
+defrule type(Person)
+	if (prueba)
+		count++
+endrule

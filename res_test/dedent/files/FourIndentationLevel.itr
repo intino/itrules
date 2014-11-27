@@ -1,0 +1,7 @@
+defrule type(Person)
+			<person>
+				<age>
+				<name>
+				<nacionality>
+			<person>
+endrule
