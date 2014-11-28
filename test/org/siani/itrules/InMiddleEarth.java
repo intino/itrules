@@ -39,13 +39,13 @@ public class InMiddleEarth {
 
 	@Test
 	public void testInMiddleEarth() throws Exception {
-		RuleReader reader = new TemplateReader(getRules());
+		RulesReader reader = new TemplateReader(getRules());
 		FileWriter writer = new FileWriter(TEST);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();
 		Frame frame = buildFrame();
 		Document document = new Document();
-		Rule[] rules = new JSONRuleReader(getJsonRules()).read();
+		Rule[] rules = new JSONRulesReader(getJsonRules()).read();
 		assertNotNull(rules);
 		RuleEngine ruleEngine = new RuleEngine(rules);
 		ruleEngine.render(frame, document);

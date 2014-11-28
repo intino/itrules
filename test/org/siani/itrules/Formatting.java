@@ -41,13 +41,13 @@ public class Formatting {
 
 	@Test
 	public void testFormatting1() throws Exception {
-		RuleReader reader = new TemplateReader(getRules());
+		RulesReader reader = new TemplateReader(getRules());
 		FileWriter writer = new FileWriter(TEST1);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();
 		Frame frame = buildFrame1();
 		Document document = new Document();
-		Rule[] rules = new JSONRuleReader(getJsonRules(TEST1)).read();
+		Rule[] rules = new JSONRulesReader(getJsonRules(TEST1)).read();
 		assertNotNull(rules);
 		RuleEngine ruleEngine = new RuleEngine(rules);
 		ruleEngine.render(frame, document);
@@ -56,13 +56,13 @@ public class Formatting {
 
 	@Test
 	public void testFormatting2() throws Exception {
-		RuleReader reader = new TemplateReader(RULES2);
+		RulesReader reader = new TemplateReader(RULES2);
 		FileWriter writer = new FileWriter(TEST2);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();
 		Frame frame = buildFrame2();
 		Document document = new Document();
-		Rule[] rules = new JSONRuleReader(getJsonRules(TEST2)).read();
+		Rule[] rules = new JSONRulesReader(getJsonRules(TEST2)).read();
 		assertNotNull(rules);
 		RuleEngine ruleEngine = new RuleEngine(rules);
 		ruleEngine.render(frame, document);

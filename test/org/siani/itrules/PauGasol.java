@@ -43,13 +43,13 @@ public class PauGasol {
 
 	@Test
 	public void testPauGasol() throws Exception {
-		RuleReader reader = new TemplateReader(RULE);
+		RulesReader reader = new TemplateReader(RULE);
 		FileWriter writer = new FileWriter(TEST);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();
 		Frame frame = buildFrame();
 		Document document = new Document();
-		Rule[] rules = new JSONRuleReader(getJsonRules()).read();
+		Rule[] rules = new JSONRulesReader(getJsonRules()).read();
 		assertNotNull(rules);
 		RuleEngine ruleEngine = new RuleEngine(rules);
 		ruleEngine.render(frame, document);

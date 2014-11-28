@@ -33,12 +33,12 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
-public final class JSONRuleReader implements RuleReader {
+public final class JSONRulesReader implements RulesReader {
 
 
 	private final InputStream stream;
 
-	public JSONRuleReader(InputStream stream) {
+	public JSONRulesReader(InputStream stream) {
 		this.stream = stream;
 	}
 

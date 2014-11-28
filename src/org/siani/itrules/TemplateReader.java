@@ -26,10 +26,13 @@ import org.siani.itrules.lang.TemplateCompiler;
 import org.siani.itrules.model.Rule;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public final class TemplateReader implements RuleReader {
+public final class TemplateReader implements RulesReader {
 
-	private InputStream input;
+	private List<InputStream> inputs;
 
 	public TemplateReader(File file) throws FileNotFoundException {
 		this(new FileInputStream(file));
@@ -39,11 +42,16 @@ public final class TemplateReader implements RuleReader {
 		this(new ByteArrayInputStream(stream.getBytes()));
 	}
 
-	public TemplateReader(InputStream stream) {
-		input = new DedentInputStream(new RuleSetInputStream(stream));
+	public TemplateReader(InputStream... stream) {
+		inputs = new ArrayList<>();
+		for (InputStream input : stream)
+			inputs.add(new DedentInputStream(new RuleSetInputStream(input)));
 	}
 
 	public Rule[] read() {
-		return new TemplateCompiler().compile(input);
+		List<Rule> rules = new ArrayList<>();
+		for (InputStream inputStream : inputs)
+			Collections.addAll(rules, new TemplateCompiler().compile(inputStream));
+		return rules.toArray(new Rule[rules.size()]);
 	}
 }

@@ -38,13 +38,13 @@ public class HelloWorld {
 
 	@Test
 	public void testHelloWorld() throws Exception {
-		RuleReader reader = new TemplateReader("");
+		RulesReader reader = new TemplateReader("");
 		FileWriter writer = new FileWriter(TEST);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();
 		Frame frame = buildFrame();
 		Document document = new Document();
-		Rule[] rules = new JSONRuleReader(getJsonRules()).read();
+		Rule[] rules = new JSONRulesReader(getJsonRules()).read();
 		assertNotNull(rules);
 		RuleEngine ruleEngine = new RuleEngine(rules);
 		ruleEngine.render(frame, document);

@@ -24,7 +24,7 @@ package org.siani.itrules;
 
 import org.siani.itrules.model.Rule;
 
-public interface RuleReader {
+public interface RulesReader {
 
 	public Rule[] read();
 }

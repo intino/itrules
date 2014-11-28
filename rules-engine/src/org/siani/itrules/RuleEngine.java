@@ -42,11 +42,11 @@ public final class RuleEngine {
 		this(rules, Locale.getDefault());
 	}
 
-	public RuleEngine(RuleReader reader, Locale locale) {
+	public RuleEngine(RulesReader reader, Locale locale) {
 		this(reader.read(), locale);
 	}
 
-	public RuleEngine(RuleReader reader) {
+	public RuleEngine(RulesReader reader) {
 		this(reader.read());
 	}
 
