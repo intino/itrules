@@ -36,6 +36,10 @@ public class Tara {
 	private static final File TEST = new File("res_test", FILE_JSON);
 	private static final String FILE_ITR = "/tara.itr";
 
+	static {
+		TEST.getParentFile().mkdirs();
+	}
+
 	@Test
 	public void testTara() throws Exception {
 		RulesReader reader = new TemplateReader(getRules());

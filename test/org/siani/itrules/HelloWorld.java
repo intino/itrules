@@ -36,6 +36,10 @@ public class HelloWorld {
 	private static final String FILE_JSON = "/json/helloworld.json";
 	private static final File TEST = new File("res_test", FILE_JSON);
 
+	static {
+		TEST.getParentFile().mkdirs();
+	}
+
 	@Test
 	public void testHelloWorld() throws Exception {
 		RulesReader reader = new TemplateReader("");

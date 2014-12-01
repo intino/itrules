@@ -41,6 +41,10 @@ public class PauGasol {
 		"$Name was born in $Country on $Birthday\n" +
 		"endrule";
 
+	static {
+		TEST.getParentFile().mkdirs();
+	}
+
 	@Test
 	public void testPauGasol() throws Exception {
 		RulesReader reader = new TemplateReader(RULE);

@@ -36,6 +36,10 @@ public class Eval {
 	private static final String FILE_JSON = "/json/eval.json";
 	private static final File TEST = new File("res_test", FILE_JSON);
 
+	static {
+		TEST.getParentFile().mkdirs();
+	}
+
 	@Test
 	public void testEval() throws Exception {
 		RulesReader reader = new TemplateReader(getRules());

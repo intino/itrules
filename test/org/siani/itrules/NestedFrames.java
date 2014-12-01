@@ -36,6 +36,10 @@ public class NestedFrames {
 	private static final File TEST = new File("res_test", FILE_JSON);
 	private static final String FILE_ITR = "/nested_frames.itr";
 
+	static {
+		TEST.getParentFile().mkdirs();
+	}
+
 	@Test
 	public void testNestedFrames() throws Exception {
 		RulesReader reader = new TemplateReader(getRules());

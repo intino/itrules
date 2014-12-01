@@ -44,6 +44,10 @@ public class CustomFormatting {
 		"endrule";
 	private static final String EXPECTED = "Pau Gasol nació el 06 De Julio De 1980";
 
+	static {
+		TEST.getParentFile().mkdirs();
+	}
+
 	@Test
 	public void testCustomFormatting() throws Exception {
 		RulesReader reader = new TemplateReader(RULE);

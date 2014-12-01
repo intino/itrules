@@ -36,6 +36,18 @@ public class Frame implements AbstractFrame {
 			this.types.add(type.toLowerCase());
 	}
 
+	public Frame(Object object) {
+		if (String.class.isAssignableFrom(object.getClass())) {
+			this.slots = new LinkedHashMap<>();
+			this.types = new ArrayList<>();
+			this.types.add(object.toString().toLowerCase());
+		} else {
+			Frame frame = (Frame) FrameBuilder.build(object);
+			this.types = frame.types;
+			this.slots = frame.slots;
+		}
+	}
+
 	@Override
 	public boolean is(String type) {
 		return this.types.contains(type.toLowerCase());

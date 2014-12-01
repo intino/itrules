@@ -39,6 +39,10 @@ public class Formatting {
 	private static final String RULES2 = "defrule type(Person)\n$Name is $Height+Letters+Title cm tall, earns $$$Salary+Separators and has" +
 		" played in $Club+Count basket clubs\nendrule";
 
+	static {
+		TEST1.getParentFile().mkdirs();
+	}
+
 	@Test
 	public void testFormatting1() throws Exception {
 		RulesReader reader = new TemplateReader(getRules());
