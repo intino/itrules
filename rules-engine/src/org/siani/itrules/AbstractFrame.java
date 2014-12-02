@@ -30,11 +30,11 @@ public interface AbstractFrame {
 
 	public boolean isPrimitive();
 
-	public Iterator<AbstractFrame> getSlots(String slot);
+	public Iterator<AbstractFrame> getFrames(String slot);
 
 	public Object value();
 
-	public AbstractFrame findSlot(String path);
+	public AbstractFrame findFrame(String path);
 
 	public AbstractFrame searchByType(String type, boolean deep);
 

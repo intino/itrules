@@ -75,18 +75,18 @@ public class Formatting {
 
 	private Frame buildFrame2() {
 		Frame frame = new Frame("Person");
-		frame.addSlot("Name", "Pau Gasol");
-		frame.addSlot("Height", 213);
-		frame.addSlot("Salary", 19201402);
-		frame.addSlot("Club", "Barcelona", "Lakers");
+		frame.addFrame("Name", "Pau Gasol");
+		frame.addFrame("Height", 213);
+		frame.addFrame("Salary", 19201402);
+		frame.addFrame("Club", "Barcelona", "Lakers");
 		return frame;
 	}
 
 	private Frame buildFrame1() {
 		Frame frame = new Frame("Person");
-		frame.addSlot("Name", "Pau Gasol");
-		frame.addSlot("Birthday", new DateTime("06/07/1980"));
-		frame.addSlot("Country", "Spain");
+		frame.addFrame("Name", "Pau Gasol");
+		frame.addFrame("Birthday", new DateTime("06/07/1980"));
+		frame.addFrame("Country", "Spain");
 		return frame;
 	}
 

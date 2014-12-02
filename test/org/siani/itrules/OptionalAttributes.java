@@ -57,26 +57,26 @@ public class OptionalAttributes {
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("Roster");
-		frame.addSlot("Coach", new Frame("Person") {{
-			addSlot("Name", "Juan Antonio Orenga");
-			addSlot("Birthday", new DateTime("29/07/1966"));
-			addSlot("Country", "Spain");
+		frame.addFrame("Coach", new Frame("Person") {{
+			addFrame("Name", "Juan Antonio Orenga");
+			addFrame("Birthday", new DateTime("29/07/1966"));
+			addFrame("Country", "Spain");
 		}});
-		frame.addSlot("Player", new Frame("Person") {{
-			addSlot("Name", "Pau Gasol");
-			addSlot("Birthday", new DateTime("06/07/1980"));
-			addSlot("Country", "Spain");
-			addSlot("Club", "L.A. Lakers");
+		frame.addFrame("Player", new Frame("Person") {{
+			addFrame("Name", "Pau Gasol");
+			addFrame("Birthday", new DateTime("06/07/1980"));
+			addFrame("Country", "Spain");
+			addFrame("Club", "L.A. Lakers");
 		}});
-		frame.addSlot("Player", new Frame("Person") {{
-			addSlot("Name", "Rudy Fernandez");
-			addSlot("Birthday", new DateTime("04/04/1985"));
-			addSlot("Country", "Spain");
+		frame.addFrame("Player", new Frame("Person") {{
+			addFrame("Name", "Rudy Fernandez");
+			addFrame("Birthday", new DateTime("04/04/1985"));
+			addFrame("Country", "Spain");
 		}});
-		frame.addSlot("Player", new Frame("Person") {{
-			addSlot("Name", "Juan Carlos Navarro");
-			addSlot("Birthday", new DateTime("17/06/1980"));
-			addSlot("Country", "Spain");
+		frame.addFrame("Player", new Frame("Person") {{
+			addFrame("Name", "Juan Carlos Navarro");
+			addFrame("Birthday", new DateTime("17/06/1980"));
+			addFrame("Country", "Spain");
 		}});
 		return frame;
 	}

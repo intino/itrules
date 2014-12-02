@@ -58,12 +58,12 @@ public class InMiddleEarth {
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("Message");
-		frame.addSlot("From", "frodo@hobbiton.me");
-		frame.addSlot("To", "gandalf@elrond.me");
-		frame.addSlot("To", "bilbo@hobbiton.me");
-		frame.addSlot("Subject", "The ring");
-		frame.addSlot("Text", "I wish the Ring had never come to me.");
-		frame.addSlot("Text", "I wish none of this had happened.");
+		frame.addFrame("From", "frodo@hobbiton.me");
+		frame.addFrame("To", "gandalf@elrond.me");
+		frame.addFrame("To", "bilbo@hobbiton.me");
+		frame.addFrame("Subject", "The ring");
+		frame.addFrame("Text", "I wish the Ring had never come to me.");
+		frame.addFrame("Text", "I wish none of this had happened.");
 		return frame;
 	}
 

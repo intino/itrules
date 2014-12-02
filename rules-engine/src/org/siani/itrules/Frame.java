@@ -53,17 +53,25 @@ public class Frame implements AbstractFrame {
 		return this.types.contains(type.toLowerCase());
 	}
 
+	public String[] getTypes() {
+		return types.toArray(new String[types.size()]);
+	}
+
+	public String[] getSlots() {
+		return slots.keySet().toArray(new String[slots.size()]);
+	}
+
 	@Override
 	public boolean isPrimitive() {
 		return false;
 	}
 
 	@Override
-	public Iterator<AbstractFrame> getSlots(String slot) {
+	public Iterator<AbstractFrame> getFrames(String slot) {
 		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
 	}
 
-	public Frame addSlot(String slot, Object... values) {
+	public Frame addFrame(String slot, Object... values) {
 		if (!slots.containsKey(slot))
 			slots.put(slot, new ArrayList<AbstractFrame>());
 		for (Object value : values)
@@ -77,12 +85,12 @@ public class Frame implements AbstractFrame {
 	}
 
 	@Override
-	public AbstractFrame findSlot(String path) {
+	public AbstractFrame findFrame(String path) {
 		String name = path.contains(".") ? path.substring(0, path.indexOf(".")) : path;
 		if (!slots.containsKey(name)) return null;
 		List<AbstractFrame> slot = slots.get(name);
 		return name.length() >= path.length() ? slot.get(0) :
-			slot.get(0).findSlot(path.substring(path.indexOf(".")));
+			slot.get(0).findFrame(path.substring(path.indexOf(".")));
 	}
 
 	public AbstractFrame searchByType(String type, boolean deep) {
@@ -90,7 +98,7 @@ public class Frame implements AbstractFrame {
 	}
 
 	public AbstractFrame searchByName(String name, boolean deep) {
-		return getSlots(name).hasNext() ? this : searchByName(slots.values(), name, deep);
+		return getFrames(name).hasNext() ? this : searchByName(slots.values(), name, deep);
 	}
 
 	private AbstractFrame searchByType(Collection<List<AbstractFrame>> slots, String type, boolean deep) {
@@ -107,7 +115,7 @@ public class Frame implements AbstractFrame {
 	private AbstractFrame searchByName(Collection<List<AbstractFrame>> slots, String name, boolean deep) {
 		for (List<AbstractFrame> slot : slots)
 			for (AbstractFrame frame : slot)
-				if (!frame.isPrimitive() && frame.getSlots(name) != null) return frame;
+				if (!frame.isPrimitive() && frame.getFrames(name) != null) return frame;
 				else if (!frame.isPrimitive() && deep) {
 					AbstractFrame foundFrame = frame.searchByName(name, true);
 					if (foundFrame != null) return foundFrame;

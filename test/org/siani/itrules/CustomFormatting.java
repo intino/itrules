@@ -89,9 +89,9 @@ public class CustomFormatting {
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("Person");
-		frame.addSlot("Name", "pau gasol");
-		frame.addSlot("Birthday", new DateTime("06/07/1980"));
-		frame.addSlot("Country", "Spain");
+		frame.addFrame("Name", "pau gasol");
+		frame.addFrame("Birthday", new DateTime("06/07/1980"));
+		frame.addFrame("Country", "Spain");
 		return frame;
 	}
 

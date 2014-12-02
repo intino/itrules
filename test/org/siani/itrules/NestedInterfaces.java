@@ -57,36 +57,36 @@ public class NestedInterfaces {
 
 	private Frame buildFrame() {
 		final Frame frame = new Frame("class");
-		frame.addSlot("package", "org.sample");
-		frame.addSlot("concept", new Frame("concept") {{
-			addSlot("name", "Form");
-			addSlot("concept", new Frame("concept", "action") {{
-				addSlot("name", "Handler");
-				addSlot("parent", "org.sample.Handler");
+		frame.addFrame("package", "org.sample");
+		frame.addFrame("concept", new Frame("concept") {{
+			addFrame("name", "Form");
+			addFrame("concept", new Frame("concept", "action") {{
+				addFrame("name", "Handler");
+				addFrame("parent", "org.sample.Handler");
 			}});
-			addSlot("concept", new Frame("concept") {{
-				addSlot("name", "Field");
-				addSlot("concept", new Frame("concept", "action") {{
-					addSlot("name", "Handler");
-					addSlot("parent", "org.sample.Form.Handler");
+			addFrame("concept", new Frame("concept") {{
+				addFrame("name", "Field");
+				addFrame("concept", new Frame("concept", "action") {{
+					addFrame("name", "Handler");
+					addFrame("parent", "org.sample.Form.Handler");
 				}});
 			}});
-			addSlot("concept", new Frame("concept") {{
-				addSlot("name", "TextField");
-				addSlot("parent", "Field");
-				addSlot("concept", new Frame("concept", "action") {{
-					addSlot("name", "Handler");
-					addSlot("parent", "org.sample.Form.Handler");
+			addFrame("concept", new Frame("concept") {{
+				addFrame("name", "TextField");
+				addFrame("parent", "Field");
+				addFrame("concept", new Frame("concept", "action") {{
+					addFrame("name", "Handler");
+					addFrame("parent", "org.sample.Form.Handler");
 				}});
 			}});
 		}});
-		frame.addSlot("concept", new Frame("concept", "action", "private") {{
-			addSlot("name", "Handler");
+		frame.addFrame("concept", new Frame("concept", "action", "private") {{
+			addFrame("name", "Handler");
 		}});
-		frame.addSlot("concept", new Frame("concept") {{
-			addSlot("name", "Collection");
-			addSlot("concept", new Frame("concept") {{
-				addSlot("name", "Item");
+		frame.addFrame("concept", new Frame("concept") {{
+			addFrame("name", "Collection");
+			addFrame("concept", new Frame("concept") {{
+				addFrame("name", "Item");
 			}});
 		}});
 		return frame;

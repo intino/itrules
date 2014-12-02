@@ -63,9 +63,9 @@ public class PauGasol {
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("Person");
-		frame.addSlot("Name", "Pau Gasol");
-		frame.addSlot("Birthday", "06/07/1980");
-		frame.addSlot("Country", "Spain");
+		frame.addFrame("Name", "Pau Gasol");
+		frame.addFrame("Birthday", "06/07/1980");
+		frame.addFrame("Country", "Spain");
 		return frame;
 	}
 

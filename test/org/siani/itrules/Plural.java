@@ -70,18 +70,18 @@ public class Plural {
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("Contract");
-		frame.addSlot("Owner", new Frame("Person") {{
-			addSlot("Name", "persona");
-			addSlot("Address", "direccion");
-			addSlot("City", "ciudad");
-			addSlot("IdCard", "4050321");
+		frame.addFrame("Owner", new Frame("Person") {{
+			addFrame("Name", "persona");
+			addFrame("Address", "direccion");
+			addFrame("City", "ciudad");
+			addFrame("IdCard", "4050321");
 		}});
-		frame.addSlot("Pet", new Frame("Dog") {{
-			addSlot("Chip", "X204512");
-			addSlot("Especie", "Caniche");
-			addSlot("Age", "2");
+		frame.addFrame("Pet", new Frame("Dog") {{
+			addFrame("Chip", "X204512");
+			addFrame("Especie", "Caniche");
+			addFrame("Age", "2");
 		}});
-		frame.addSlot("Date", new DateTime("27/09/2014"));
+		frame.addFrame("Date", new DateTime("27/09/2014"));
 		return frame;
 	}
 

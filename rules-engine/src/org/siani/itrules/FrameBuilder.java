@@ -94,31 +94,31 @@ public class FrameBuilder {
     }
 
     private static void fillAsArray(Object object, Frame toReturn, Field field) throws IllegalAccessException {
-        for (Object o : (Object[]) field.get(object)) toReturn.addSlot(field.getName(), o);
+        for (Object o : (Object[]) field.get(object)) toReturn.addFrame(field.getName(), o);
     }
 
     private static void fillAsList(Object object, Frame toReturn, Field field) throws IllegalAccessException {
         for (Object o : (List<Object>) field.get(object))
-            toReturn.addSlot(field.getName(), isPrimitive(o.getClass()) ? o : createFrame(o));
+            toReturn.addFrame(field.getName(), isPrimitive(o.getClass()) ? o : createFrame(o));
     }
 
     private static void fillAsMap(Object object, Frame toReturn, final Field field) throws IllegalAccessException {
         final Map<Object, Object> map = (Map<Object, Object>) field.get(object);
-        toReturn.addSlot(field.getName(), new Frame(field.getName()) {{
+        toReturn.addFrame(field.getName(), new Frame(field.getName()) {{
             for (Object key : map.keySet())
-                addSlot(key.toString(),
-                        FrameBuilder.isPrimitive(map.get(key).getClass()) ? map.get(key) : createFrame(map.get(key)));
+                addFrame(key.toString(),
+                    FrameBuilder.isPrimitive(map.get(key).getClass()) ? map.get(key) : createFrame(map.get(key)));
         }});
     }
 
     private static void fillAsPrimitive(Object object, Frame toReturn, Field field) throws IllegalAccessException {
-        toReturn.addSlot(field.getName(), field.get(object));
+        toReturn.addFrame(field.getName(), field.get(object));
     }
 
     private static void fillAsComplexObject(Object object, Frame toReturn, Field field) throws IllegalAccessException {
         Frame frame = new Frame(field.getName());
         fillSlots(field.get(object), frame);
-        toReturn.addSlot(field.getName(), frame);
+        toReturn.addFrame(field.getName(), frame);
     }
 
 }

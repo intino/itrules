@@ -31,21 +31,21 @@ public class BuildingTest {
 	@org.junit.Test
 	public void testBuilding() throws Exception {
 		Frame toRender = new Frame("model") {{
-			addSlot("building", new Frame("building") {{
-				addSlot("id", "B0001");
-				addSlot("area", 230);
-				addSlot("town", "01001");
-				addSlot("district", "01002");
-				addSlot("xCoordinate", 21.0);
-				addSlot("yCoordinate", -22.0);
-				addSlot("household", new Frame("household") {{
-					addSlot("energybox", new Frame("energybox") {{
-						addSlot("id", "B0001EB");
+			addFrame("building", new Frame("building") {{
+				addFrame("id", "B0001");
+				addFrame("area", 230);
+				addFrame("town", "01001");
+				addFrame("district", "01002");
+				addFrame("xCoordinate", 21.0);
+				addFrame("yCoordinate", -22.0);
+				addFrame("household", new Frame("household") {{
+					addFrame("energybox", new Frame("energybox") {{
+						addFrame("id", "B0001EB");
 					}});
 				}});
-				addSlot("mockload", new Frame("mockload") {{
-					addSlot("id", "B0001ML");
-					addSlot("feeder", "Rose De Vents");
+				addFrame("mockload", new Frame("mockload") {{
+					addFrame("id", "B0001ML");
+					addFrame("feeder", "Rose De Vents");
 				}});
 			}});
 		}};

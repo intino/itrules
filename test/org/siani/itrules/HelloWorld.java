@@ -57,7 +57,7 @@ public class HelloWorld {
 	}
 
 	private Frame buildFrame() {
-		return new Frame("String").addSlot("value", "Hello world");
+		return new Frame("String").addFrame("value", "Hello world");
 	}
 
 	public InputStream getJsonRules() {

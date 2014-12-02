@@ -58,24 +58,24 @@ public class JavaClass {
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("Class");
-		frame.addSlot("name", "Customer");
-		frame.addSlot("final", "final");
-		frame.addSlot("superclass", "Client");
-		frame.addSlot("interface", "Company");
-		frame.addSlot("interface", "TaxPayer");
-		frame.addSlot("attribute", new Frame("Attribute", "Const") {{
-			addSlot("name", "CUSTOMER_NAME");
-			addSlot("type", "String");
-			addSlot("default", "\"CUSTOMER\"");
+		frame.addFrame("name", "Customer");
+		frame.addFrame("final", "final");
+		frame.addFrame("superclass", "Client");
+		frame.addFrame("interface", "Company");
+		frame.addFrame("interface", "TaxPayer");
+		frame.addFrame("attribute", new Frame("Attribute", "Const") {{
+			addFrame("name", "CUSTOMER_NAME");
+			addFrame("type", "String");
+			addFrame("default", "\"CUSTOMER\"");
 		}});
-		frame.addSlot("attribute", new Frame("Attribute", "ReadOnly") {{
-			addSlot("name", "familyName");
-			addSlot("type", "String");
+		frame.addFrame("attribute", new Frame("Attribute", "ReadOnly") {{
+			addFrame("name", "familyName");
+			addFrame("type", "String");
 		}});
-		frame.addSlot("attribute", new Frame("Attribute") {{
-			addSlot("name", "maxAge");
-			addSlot("type", "Integer");
-			addSlot("default", "100");
+		frame.addFrame("attribute", new Frame("Attribute") {{
+			addFrame("name", "maxAge");
+			addFrame("type", "Integer");
+			addFrame("default", "100");
 		}});
 		return frame;
 	}

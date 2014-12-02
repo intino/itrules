@@ -44,7 +44,7 @@ class PrimitiveFrame implements AbstractFrame {
 	}
 
 	@Override
-	public Iterator<AbstractFrame> getSlots(String slot) {
+	public Iterator<AbstractFrame> getFrames(String slot) {
 		return Collections.<AbstractFrame>emptyList().iterator();
 	}
 
@@ -54,7 +54,7 @@ class PrimitiveFrame implements AbstractFrame {
 	}
 
 	@Override
-	public AbstractFrame findSlot(String path) {
+	public AbstractFrame findFrame(String path) {
 		return path.equalsIgnoreCase(VALUE) ? this : null;
 	}
 

@@ -60,13 +60,13 @@ public class Tara {
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("model");
-		frame.addSlot("node", new Frame("node") {{
-			addSlot("type", "Environment");
-			addSlot("parameter", "Solar_Radiation", "temperature");
-			addSlot("name", "Las Palmas");
-			addSlot("facet", new Frame("facet") {{
-				addSlot("type", "electrical");
-				addSlot("parameter", 30.2, 15, "ON");
+		frame.addFrame("node", new Frame("node") {{
+			addFrame("type", "Environment");
+			addFrame("parameter", "Solar_Radiation", "temperature");
+			addFrame("name", "Las Palmas");
+			addFrame("facet", new Frame("facet") {{
+				addFrame("type", "electrical");
+				addFrame("parameter", 30.2, 15, "ON");
 			}});
 		}});
 		return frame;

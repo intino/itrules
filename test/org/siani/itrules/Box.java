@@ -59,37 +59,37 @@ public class Box {
 
 	private Frame buildFrame() {
 		Frame frame = new Frame("Box");
-		frame.addSlot("name", "Tara");
-		frame.addSlot("import", new Frame("import") {{
-			addSlot("value", "import0");
+		frame.addFrame("name", "Tara");
+		frame.addFrame("import", new Frame("import") {{
+			addFrame("value", "import0");
 		}});
-		frame.addSlot("import", new Frame("import") {{
-			addSlot("value", "import1");
+		frame.addFrame("import", new Frame("import") {{
+			addFrame("value", "import1");
 		}});
-		frame.addSlot("definition", new Frame("Definition") {{
-			addSlot("name", "definitionName");
-			addSlot("typeId", new Frame("typeId") {{
-				addSlot("value", "definitionType");
+		frame.addFrame("definition", new Frame("Definition") {{
+			addFrame("name", "definitionName");
+			addFrame("typeId", new Frame("typeId") {{
+				addFrame("value", "definitionType");
 			}});
-			addSlot("parent", new Frame("parent") {{
-				addSlot("value", "Parent1");
+			addFrame("parent", new Frame("parent") {{
+				addFrame("value", "Parent1");
 			}});
-			addSlot("definition", new Frame("Definition") {{
-				addSlot("name", "definitionName2");
-				addSlot("typeId", new Frame("type2") {{
-					addSlot("value", "definitionType2");
+			addFrame("definition", new Frame("Definition") {{
+				addFrame("name", "definitionName2");
+				addFrame("typeId", new Frame("type2") {{
+					addFrame("value", "definitionType2");
 				}});
-				addSlot("parent", new Frame("parent") {{
-					addSlot("value", "Parent2");
+				addFrame("parent", new Frame("parent") {{
+					addFrame("value", "Parent2");
 				}});
 			}});
 		}});
-		frame.addSlot("Pet", new Frame("Dog") {{
-			addSlot("Chip", "X204512");
-			addSlot("Especie", "Caniche");
-			addSlot("Age", "2");
+		frame.addFrame("Pet", new Frame("Dog") {{
+			addFrame("Chip", "X204512");
+			addFrame("Especie", "Caniche");
+			addFrame("Age", "2");
 		}});
-		frame.addSlot("Date", new DateTime("27/09/2014"));
+		frame.addFrame("Date", new DateTime("27/09/2014"));
 		return frame;
 	}
 
