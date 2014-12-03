@@ -20,16 +20,30 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules;
+package org.siani.itrules.framebuilder;
+
+import org.siani.itrules.AbstractFrame;
+import org.siani.itrules.Frame;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class FrameBuilder {
+public final class FrameBuilder {
 
-    public static AbstractFrame build(Object object) {
+    private final Object object;
+    private final ExclusionList exclusionList = new ExclusionList();
+
+    public FrameBuilder(Object object) {
+        this.object = object;
+    }
+
+    public void exclude(String aClass, String... fields) {
+        exclusionList.exclude(aClass, fields);
+    }
+
+    public AbstractFrame build() {
         try {
             if (isPrimitive(object.getClass())) throw new RuntimeException("Object cannot be primitive");
             return createFrame(object);
@@ -39,14 +53,14 @@ public class FrameBuilder {
         }
     }
 
-    private static AbstractFrame createFrame(Object object) throws IllegalAccessException {
+    private AbstractFrame createFrame(Object object) throws IllegalAccessException {
         List<String> allTypes = getAllTypes(object.getClass());
         Frame toReturn = new Frame(allTypes.toArray(new String[allTypes.size()]));
         fillSlots(object, toReturn);
         return toReturn;
     }
 
-    private static List<String> getAllTypes(final Class<?> clazz) {
+    private List<String> getAllTypes(final Class<?> clazz) {
         final List<String> types = new ArrayList<String>() {{
             add(clazz.getSimpleName());
         }};
@@ -55,8 +69,9 @@ public class FrameBuilder {
         return types;
     }
 
-    private static void fillSlots(Object object, Frame toReturn) throws IllegalAccessException {
+    private void fillSlots(Object object, Frame toReturn) throws IllegalAccessException {
         for (Field field : object.getClass().getDeclaredFields()) {
+            if (exclusionList.isExcluded(object.getClass(), field)) continue;
             boolean accessibility = field.isAccessible();
             field.setAccessible(true);
             if (isArray(field.getType())) fillAsArray(object, toReturn, field);
@@ -68,7 +83,7 @@ public class FrameBuilder {
         }
     }
 
-    private static boolean isPrimitive(Class<?> clazz) {
+    private boolean isPrimitive(Class<?> clazz) {
         return clazz.isPrimitive() ||
                 String.class.isAssignableFrom(clazz) ||
                 Byte.class.isAssignableFrom(clazz) ||
@@ -81,41 +96,41 @@ public class FrameBuilder {
                 Character.class.isAssignableFrom(clazz);
     }
 
-    private static boolean isMap(Class<?> clazz) {
+    private boolean isMap(Class<?> clazz) {
         return Map.class.isAssignableFrom(clazz);
     }
 
-    private static boolean isList(Class<?> clazz) {
+    private boolean isList(Class<?> clazz) {
         return List.class.isAssignableFrom(clazz);
     }
 
-    private static boolean isArray(Class<?> clazz) {
+    private boolean isArray(Class<?> clazz) {
         return clazz.isArray();
     }
 
-    private static void fillAsArray(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+    private void fillAsArray(Object object, Frame toReturn, Field field) throws IllegalAccessException {
         for (Object o : (Object[]) field.get(object)) toReturn.addFrame(field.getName(), o);
     }
 
-    private static void fillAsList(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+    private void fillAsList(Object object, Frame toReturn, Field field) throws IllegalAccessException {
         for (Object o : (List<Object>) field.get(object))
             toReturn.addFrame(field.getName(), isPrimitive(o.getClass()) ? o : createFrame(o));
     }
 
-    private static void fillAsMap(Object object, Frame toReturn, final Field field) throws IllegalAccessException {
+    private void fillAsMap(Object object, Frame toReturn, final Field field) throws IllegalAccessException {
         final Map<Object, Object> map = (Map<Object, Object>) field.get(object);
         toReturn.addFrame(field.getName(), new Frame(field.getName()) {{
             for (Object key : map.keySet())
                 addFrame(key.toString(),
-                    FrameBuilder.isPrimitive(map.get(key).getClass()) ? map.get(key) : createFrame(map.get(key)));
+                        FrameBuilder.this.isPrimitive(map.get(key).getClass()) ? map.get(key) : createFrame(map.get(key)));
         }});
     }
 
-    private static void fillAsPrimitive(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+    private void fillAsPrimitive(Object object, Frame toReturn, Field field) throws IllegalAccessException {
         toReturn.addFrame(field.getName(), field.get(object));
     }
 
-    private static void fillAsComplexObject(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+    private void fillAsComplexObject(Object object, Frame toReturn, Field field) throws IllegalAccessException {
         Frame frame = new Frame(field.getName());
         fillSlots(field.get(object), frame);
         toReturn.addFrame(field.getName(), frame);
