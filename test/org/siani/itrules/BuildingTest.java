@@ -50,14 +50,14 @@ public class BuildingTest {
 			}});
 		}};
 		String expected =
-			"Building B0001\r\n" +
-				"    Area(230)\r\n" +
-				"    Place(T01001.D01002)\r\n" +
-				"    Location(21.0 -22.0)\r\n" +
-				"    Household\r\n" +
-				"        EnergyBox B0001EB is Control\r\n" +
-				"    GenericDevice B0001ML > is Electrical(from = Source.Power.RoseDeVents.B0001ML)\r\n" +
-				"    PowerBus(B0001PB) is Electrical\r\n";
+			"Building B0001\n" +
+				"    Area(230)\n" +
+				"    Place(T01001.D01002)\n" +
+				"    Location(21.0 -22.0)\n" +
+				"    Household\n" +
+				"        EnergyBox B0001EB is Control\n" +
+				"    GenericDevice B0001ML > is Electrical(from = Source.Power.RoseDeVents.B0001ML)\n" +
+				"    PowerBus(B0001PB) is Electrical\n";
 		Document document = new Document();
 		createRuleEngine().render(toRender, document);
 		assertEquals(expected, document.content());

@@ -70,8 +70,8 @@ mode RULE_BODY;
 	SCAPED_CHAR     : '$$'| '$[' | '$]';
 	MARK_KEY        : '$'                                       {setMode(MARK); setLastMode(RULE_BODY);};
 	LEFT_SQ         : '['                                       {setMode(EXPRESSION); setLastMode(RULE_BODY);};
-	RULE_END        : '%%'                                      {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
-	RULE_TEXT       : ~('$'| '[' | '%' | '~')+                  {setType(TEXT);};
+	RULE_END        : '§§'                                      {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
+	RULE_TEXT       : ~('$'| '[' | '§' | '~')+                  {setType(TEXT);};
 
 mode MARK;
 	LIST            : '...';
