@@ -22,10 +22,10 @@
 
 package org.siani.itrules.framebuilder;
 
-import org.siani.itrules.AbstractFrame;
 import org.siani.itrules.Frame;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +43,7 @@ public final class FrameBuilder {
         exclusionList.exclude(aClass, fields);
     }
 
-    public AbstractFrame build() {
+    public Frame build() {
         try {
             if (isPrimitive(object.getClass())) throw new RuntimeException("Object cannot be primitive");
             return createFrame(object);
@@ -53,7 +53,7 @@ public final class FrameBuilder {
         }
     }
 
-    private AbstractFrame createFrame(Object object) throws IllegalAccessException {
+    private Frame createFrame(Object object) throws IllegalAccessException {
         List<String> allTypes = getAllTypes(object.getClass());
         Frame toReturn = new Frame(allTypes.toArray(new String[allTypes.size()]));
         fillSlots(object, toReturn);
@@ -70,17 +70,33 @@ public final class FrameBuilder {
     }
 
     private void fillSlots(Object object, Frame toReturn) throws IllegalAccessException {
-        for (Field field : object.getClass().getDeclaredFields()) {
-            if (exclusionList.isExcluded(object.getClass(), field)) continue;
+        Class<?> aClass = object.getClass();
+        while (aClass != null) {
+            fillSlotsForClass(aClass, object, toReturn);
+            aClass = aClass.getSuperclass();
+        }
+    }
+
+    private void fillSlotsForClass(Class<?> aClass, Object object, Frame toReturn) throws IllegalAccessException {
+        for (Field field : aClass.getDeclaredFields()) {
+            if (fieldIsNotSerializable(aClass, field)) continue;
             boolean accessibility = field.isAccessible();
             field.setAccessible(true);
-            if (isArray(field.getType())) fillAsArray(object, toReturn, field);
-            else if (isList(field.getType())) fillAsList(object, toReturn, field);
-            else if (isMap(field.getType())) fillAsMap(object, toReturn, field);
-            else if (isPrimitive(field.getType())) fillAsPrimitive(object, toReturn, field);
-            else fillAsComplexObject(object, toReturn, field);
+            processField(object, toReturn, field);
             field.setAccessible(accessibility);
         }
+    }
+
+    private boolean fieldIsNotSerializable(Class<?> aClass, Field field) {
+        return Modifier.isStatic(field.getModifiers()) || exclusionList.isExcluded(aClass, field);
+    }
+
+    private void processField(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+        if (isArray(field.getType())) fillAsArray(object, toReturn, field);
+        else if (isList(field.getType())) fillAsList(object, toReturn, field);
+        else if (isMap(field.getType())) fillAsMap(object, toReturn, field);
+        else if (isPrimitive(field.getType())) fillAsPrimitive(object, toReturn, field);
+        else fillAsComplexObject(object, toReturn, field);
     }
 
     private boolean isPrimitive(Class<?> clazz) {
