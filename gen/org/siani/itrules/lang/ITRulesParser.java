@@ -30,7 +30,7 @@ public class ITRulesParser extends Parser {
 		"','", "'type'", "'trigger'", "'slot-name'", "'slot-type'", "'deep'", 
 		"'eval'", "'!'", "RULE_ID", "NL", "WS", "RULE_ERROR", "EVAL_LEFT_P", "EVAL_RIGHT_P", 
 		"EVAL_ID", "'.'", "NUMBER", "STRING", "OPERATOR", "E_WS", "EVAL_ERROR", 
-		"NULL_CHAR", "SCAPED_CHAR", "'$'", "'['", "'%%'", "RULE_TEXT", "'...'", 
+		"NULL_CHAR", "SCAPED_CHAR", "'$'", "'['", "'\\u0015'", "RULE_TEXT", "'...'", 
 		"MARK_OPTION", "END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", 
 		"RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", "EXPRESSION_TEXT"
 	};

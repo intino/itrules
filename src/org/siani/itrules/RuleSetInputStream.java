@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 
 final class RuleSetInputStream extends InputStream {
 
-	protected static final String ENDRULE_FOR_LEXER = "§§";
+	protected static final String ENDRULE_FOR_LEXER = "\u0015";
 	private static final String ENDRULE_FOR_USER = "(\n|\r|\r\n)endrule";
 	private int index = 0;
 	private byte[] content;

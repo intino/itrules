@@ -140,6 +140,6 @@ final class Interpreter extends ITRulesParserBaseListener {
 	}
 
 	private void throwError(String textNode) {
-		logger.debug("Error reading template. Template not well formed: " + textNode.replace("§§", "endrule") + "\n\n");
+		logger.debug("Error reading template. Template not well formed: " + textNode.replace("\u0015", "endrule") + "\n\n");
 	}
 }
