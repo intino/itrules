@@ -52,6 +52,7 @@ public class PauGasol {
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();
 		Frame frame = buildFrame();
+		AbstractFrame abstractFrame = frame.searchByName("Name");
 		Document document = new Document();
 		Rule[] rules = new JSONRulesReader(getJsonRules()).read();
 		assertNotNull(rules);

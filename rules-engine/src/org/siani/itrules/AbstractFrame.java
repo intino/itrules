@@ -36,7 +36,11 @@ public interface AbstractFrame {
 
 	public AbstractFrame findFrame(String path);
 
-	public AbstractFrame searchByType(String type, boolean deep);
+	public AbstractFrame searchByType(String type);
 
-	public AbstractFrame searchByName(String name, boolean deep);
+	public AbstractFrame deepSearchByType(String type);
+
+	public AbstractFrame searchByName(String name);
+
+	public AbstractFrame deepSearchByName(String name);
 }

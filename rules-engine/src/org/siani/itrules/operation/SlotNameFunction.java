@@ -22,6 +22,7 @@
 
 package org.siani.itrules.operation;
 
+import org.siani.itrules.AbstractFrame;
 import org.siani.itrules.Function;
 import org.siani.itrules.Trigger;
 
@@ -36,8 +37,10 @@ final class SlotNameFunction implements Function {
 
 	@Override
 	public boolean match(Trigger trigger) {
-		return trigger.frame().isPrimitive() ?
-			parameters[NAME].equalsIgnoreCase("value") :
-			trigger.frame().searchByName(parameters[NAME], parameters.length != 1) != null;
+		return trigger.frame().isPrimitive() ? parameters[NAME].equalsIgnoreCase("value") : searchName(trigger) != null;
+	}
+
+	private AbstractFrame searchName(Trigger trigger) {
+		return parameters.length == 1 ? trigger.frame().searchByName(parameters[NAME]) : trigger.frame().deepSearchByName(parameters[NAME]);
 	}
 }

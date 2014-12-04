@@ -81,12 +81,20 @@ public class Frame implements AbstractFrame {
 			slot.get(0).findFrame(path.substring(path.indexOf(".")));
 	}
 
-	public AbstractFrame searchByType(String type, boolean deep) {
-		return is(type) ? this : searchByType(slots.values(), type, deep);
+	public AbstractFrame searchByType(String type) {
+		return is(type) ? this : searchByType(slots.values(), type, false);
 	}
 
-	public AbstractFrame searchByName(String name, boolean deep) {
-		return getFrames(name).hasNext() ? this : searchByName(slots.values(), name, deep);
+	public AbstractFrame deepSearchByType(String type) {
+		return is(type) ? this : searchByType(slots.values(), type, true);
+	}
+
+	public AbstractFrame searchByName(String name) {
+		return getFrames(name).hasNext() ? this : searchByName(slots.values(), name, false);
+	}
+
+	public AbstractFrame deepSearchByName(String name) {
+		return getFrames(name).hasNext() ? this : searchByName(slots.values(), name, true);
 	}
 
 	private AbstractFrame searchByType(Collection<List<AbstractFrame>> slots, String type, boolean deep) {
@@ -94,7 +102,7 @@ public class Frame implements AbstractFrame {
 			for (AbstractFrame frame : slot)
 				if (!frame.isPrimitive() && frame.is(type)) return frame;
 				else if (!frame.isPrimitive() && deep) {
-					AbstractFrame foundFrame = frame.searchByType(type, true);
+					AbstractFrame foundFrame = frame.deepSearchByType(type);
 					if (foundFrame != null) return foundFrame;
 				}
 		return null;
@@ -105,7 +113,7 @@ public class Frame implements AbstractFrame {
 			for (AbstractFrame frame : slot)
 				if (!frame.isPrimitive() && frame.getFrames(name) != null) return frame;
 				else if (!frame.isPrimitive() && deep) {
-					AbstractFrame foundFrame = frame.searchByName(name, true);
+					AbstractFrame foundFrame = frame.deepSearchByName(name);
 					if (foundFrame != null) return foundFrame;
 				}
 		return null;

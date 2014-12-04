@@ -22,6 +22,7 @@
 
 package org.siani.itrules.operation;
 
+import org.siani.itrules.AbstractFrame;
 import org.siani.itrules.Function;
 import org.siani.itrules.Trigger;
 
@@ -35,6 +36,11 @@ final class SlotTypeFunction implements Function {
 
 	@Override
 	public boolean match(Trigger trigger) {
-		return !trigger.frame().isPrimitive() && trigger.frame().searchByType(parameters[TYPE], parameters.length != 1) != null;
+		return !trigger.frame().isPrimitive() && searchFrame(trigger) != null;
+	}
+
+	private AbstractFrame searchFrame(Trigger trigger) {
+		return parameters.length == 1 ?
+			trigger.frame().searchByType(parameters[TYPE]) : trigger.frame().deepSearchByType(parameters[TYPE]);
 	}
 }

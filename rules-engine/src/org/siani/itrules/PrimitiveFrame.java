@@ -59,12 +59,22 @@ class PrimitiveFrame implements AbstractFrame {
 	}
 
 	@Override
-	public AbstractFrame searchByType(String type, boolean deep) {
+	public AbstractFrame searchByType(String type) {
 		return null;
 	}
 
 	@Override
-	public AbstractFrame searchByName(String name, boolean deep) {
+	public AbstractFrame deepSearchByType(String type) {
+		return null;
+	}
+
+	@Override
+	public AbstractFrame searchByName(String name) {
+		return name.equalsIgnoreCase(VALUE) ? this : null;
+	}
+
+	@Override
+	public AbstractFrame deepSearchByName(String name) {
 		return name.equalsIgnoreCase(VALUE) ? this : null;
 	}
 }
