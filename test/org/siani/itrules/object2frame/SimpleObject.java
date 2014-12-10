@@ -9,4 +9,8 @@ public class SimpleObject {
         this.field1 = field1;
         this.field2 = field2;
     }
+
+	public String getField1() {
+		return field1;
+	}
 }

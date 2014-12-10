@@ -14,7 +14,7 @@ public final class ExclusionList {
         }
     };
 
-    public void exclude(String aClass, String... fields) {
+    protected void exclude(String aClass, String... fields) {
         map.get(aClass).addAll(Arrays.asList(fields));
     }
 

@@ -30,126 +30,135 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class FrameBuilder {
+public final class FrameBuilder implements BuilderContext {
 
-    private final Object object;
-    private final ExclusionList exclusionList = new ExclusionList();
+	private final ExclusionList exclusionList = new ExclusionList();
+	private final AdapterList adapterList = new AdapterList();
 
-    public FrameBuilder(Object object) {
-        this.object = object;
-    }
+	@Override
+	public void exclude(String aClass, String... fields) {
+		exclusionList.exclude(aClass, fields);
+	}
 
-    public void exclude(String aClass, String... fields) {
-        exclusionList.exclude(aClass, fields);
-    }
+	@Override
+	public <T> void register(Class<T> aClass, Adapter<T> adapter) {
+		adapterList.add(aClass, adapter);
+	}
 
-    public Frame build() {
-        try {
-            if (isPrimitive(object.getClass())) throw new RuntimeException("Object cannot be primitive");
-            return createFrame(object);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+	@Override
+	public Frame build(Object object) {
+		if (isPrimitive(object.getClass())) throw new RuntimeException("Object cannot be primitive");
+		return createFrame(object);
+	}
 
-    private Frame createFrame(Object object) throws IllegalAccessException {
-        List<String> allTypes = getAllTypes(object.getClass());
-        Frame toReturn = new Frame(allTypes.toArray(new String[allTypes.size()]));
-        fillSlots(object, toReturn);
-        return toReturn;
-    }
+	public Frame createFrame(Object object) {
+		try {
+			List<String> allTypes = getAllTypes(object.getClass());
+			Frame toReturn = new Frame(allTypes.toArray(new String[allTypes.size()]));
+			fillSlots(object, toReturn);
+			return toReturn;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-    private List<String> getAllTypes(final Class<?> clazz) {
-        final List<String> types = new ArrayList<String>() {{
-            add(clazz.getSimpleName());
-        }};
-        for (Class<?> aInterface : clazz.getInterfaces()) types.addAll(getAllTypes(aInterface));
-        if (clazz.getSuperclass() != null) types.addAll(getAllTypes(clazz.getSuperclass()));
-        return types;
-    }
+	private List<String> getAllTypes(final Class<?> clazz) {
+		final List<String> types = new ArrayList<String>() {{
+			add(clazz.getSimpleName());
+		}};
+		for (Class<?> aInterface : clazz.getInterfaces()) types.addAll(getAllTypes(aInterface));
+		if (clazz.getSuperclass() != null) types.addAll(getAllTypes(clazz.getSuperclass()));
+		return types;
+	}
 
-    private void fillSlots(Object object, Frame toReturn) throws IllegalAccessException {
-        Class<?> aClass = object.getClass();
-        while (aClass != null) {
-            fillSlotsForClass(aClass, object, toReturn);
-            aClass = aClass.getSuperclass();
-        }
-    }
+	private void fillSlots(Object object, Frame toReturn) throws IllegalAccessException {
+		Class<?> aClass = object.getClass();
+		while (aClass != null) {
+			fillSlotsForClass(aClass, object, toReturn);
+			aClass = aClass.getSuperclass();
+		}
+	}
 
-    private void fillSlotsForClass(Class<?> aClass, Object object, Frame toReturn) throws IllegalAccessException {
-        for (Field field : aClass.getDeclaredFields()) {
-            if (fieldIsNotSerializable(aClass, field)) continue;
-            boolean accessibility = field.isAccessible();
-            field.setAccessible(true);
-            processField(object, toReturn, field);
-            field.setAccessible(accessibility);
-        }
-    }
+	private void fillSlotsForClass(Class<?> aClass, Object object, Frame toReturn) throws IllegalAccessException {
+		if (adapterList.contains(aClass))
+			adapterList.get(aClass).adapt(toReturn, object, this);
+		else
+			processFields(aClass, object, toReturn);
+	}
 
-    private boolean fieldIsNotSerializable(Class<?> aClass, Field field) {
-        return Modifier.isStatic(field.getModifiers()) || exclusionList.isExcluded(aClass, field);
-    }
+	private void processFields(Class<?> aClass, Object object, Frame toReturn) throws IllegalAccessException {
+		for (Field field : aClass.getDeclaredFields()) {
+			if (fieldIsNotSerializable(aClass, field)) continue;
+			boolean accessibility = field.isAccessible();
+			field.setAccessible(true);
+			processField(object, toReturn, field);
+			field.setAccessible(accessibility);
+		}
+	}
 
-    private void processField(Object object, Frame toReturn, Field field) throws IllegalAccessException {
-        if (isArray(field.getType())) fillAsArray(object, toReturn, field);
-        else if (isList(field.getType())) fillAsList(object, toReturn, field);
-        else if (isMap(field.getType())) fillAsMap(object, toReturn, field);
-        else if (isPrimitive(field.getType())) fillAsPrimitive(object, toReturn, field);
-        else fillAsComplexObject(object, toReturn, field);
-    }
+	private boolean fieldIsNotSerializable(Class<?> aClass, Field field) {
+		return Modifier.isStatic(field.getModifiers()) || exclusionList.isExcluded(aClass, field);
+	}
 
-    private boolean isPrimitive(Class<?> clazz) {
-        return clazz.isPrimitive() ||
-                String.class.isAssignableFrom(clazz) ||
-                Byte.class.isAssignableFrom(clazz) ||
-                Short.class.isAssignableFrom(clazz) ||
-                Integer.class.isAssignableFrom(clazz) ||
-                Long.class.isAssignableFrom(clazz) ||
-                Float.class.isAssignableFrom(clazz) ||
-                Double.class.isAssignableFrom(clazz) ||
-                Boolean.class.isAssignableFrom(clazz) ||
-                Character.class.isAssignableFrom(clazz);
-    }
+	private void processField(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+		if (isArray(field.getType())) fillAsArray(object, toReturn, field);
+		else if (isList(field.getType())) fillAsList(object, toReturn, field);
+		else if (isMap(field.getType())) fillAsMap(object, toReturn, field);
+		else if (isPrimitive(field.getType())) fillAsPrimitive(object, toReturn, field);
+		else fillAsComplexObject(object, toReturn, field);
+	}
 
-    private boolean isMap(Class<?> clazz) {
-        return Map.class.isAssignableFrom(clazz);
-    }
+	private boolean isPrimitive(Class<?> clazz) {
+		return clazz.isPrimitive() ||
+			String.class.isAssignableFrom(clazz) ||
+			Byte.class.isAssignableFrom(clazz) ||
+			Short.class.isAssignableFrom(clazz) ||
+			Integer.class.isAssignableFrom(clazz) ||
+			Long.class.isAssignableFrom(clazz) ||
+			Float.class.isAssignableFrom(clazz) ||
+			Double.class.isAssignableFrom(clazz) ||
+			Boolean.class.isAssignableFrom(clazz) ||
+			Character.class.isAssignableFrom(clazz);
+	}
 
-    private boolean isList(Class<?> clazz) {
-        return List.class.isAssignableFrom(clazz);
-    }
+	private boolean isMap(Class<?> clazz) {
+		return Map.class.isAssignableFrom(clazz);
+	}
 
-    private boolean isArray(Class<?> clazz) {
-        return clazz.isArray();
-    }
+	private boolean isList(Class<?> clazz) {
+		return List.class.isAssignableFrom(clazz);
+	}
 
-    private void fillAsArray(Object object, Frame toReturn, Field field) throws IllegalAccessException {
-        for (Object o : (Object[]) field.get(object)) toReturn.addFrame(field.getName(), o);
-    }
+	private boolean isArray(Class<?> clazz) {
+		return clazz.isArray();
+	}
 
-    private void fillAsList(Object object, Frame toReturn, Field field) throws IllegalAccessException {
-        for (Object o : (List<Object>) field.get(object))
-            toReturn.addFrame(field.getName(), isPrimitive(o.getClass()) ? o : createFrame(o));
-    }
+	private void fillAsArray(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+		for (Object o : (Object[]) field.get(object)) toReturn.addFrame(field.getName(), o);
+	}
 
-    private void fillAsMap(Object object, Frame toReturn, final Field field) throws IllegalAccessException {
-        final Map<Object, Object> map = (Map<Object, Object>) field.get(object);
-        toReturn.addFrame(field.getName(), new Frame(field.getName()) {{
-            for (Object key : map.keySet())
-                addFrame(key.toString(),
-                        FrameBuilder.this.isPrimitive(map.get(key).getClass()) ? map.get(key) : createFrame(map.get(key)));
-        }});
-    }
+	private void fillAsList(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+		for (Object o : (List<Object>) field.get(object))
+			toReturn.addFrame(field.getName(), isPrimitive(o.getClass()) ? o : createFrame(o));
+	}
 
-    private void fillAsPrimitive(Object object, Frame toReturn, Field field) throws IllegalAccessException {
-        toReturn.addFrame(field.getName(), field.get(object));
-    }
+	private void fillAsMap(Object object, Frame toReturn, final Field field) throws IllegalAccessException {
+		final Map<Object, Object> map = (Map<Object, Object>) field.get(object);
+		toReturn.addFrame(field.getName(), new Frame(field.getName()) {{
+			for (Object key : map.keySet())
+				addFrame(key.toString(),
+					FrameBuilder.this.isPrimitive(map.get(key).getClass()) ? map.get(key) : createFrame(map.get(key)));
+		}});
+	}
 
-    private void fillAsComplexObject(Object object, Frame toReturn, Field field) throws IllegalAccessException {
-        Frame frame = new Frame(field.getName());
-        fillSlots(field.get(object), frame);
-        toReturn.addFrame(field.getName(), frame);
-    }
+	private void fillAsPrimitive(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+		toReturn.addFrame(field.getName(), field.get(object));
+	}
 
+	private void fillAsComplexObject(Object object, Frame toReturn, Field field) throws IllegalAccessException {
+		Frame frame = new Frame(field.getName());
+		fillSlots(field.get(object), frame);
+		toReturn.addFrame(field.getName(), frame);
+	}
 }

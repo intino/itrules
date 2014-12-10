@@ -9,4 +9,9 @@ public class SimpleObjectWithComplexList {
     public SimpleObjectWithComplexList(List<Object> field1) {
         this.field1 = field1;
     }
+
+	public Object get(int index) {
+		return field1.get(index);
+	}
+
 }
