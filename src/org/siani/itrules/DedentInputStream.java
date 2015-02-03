@@ -3,6 +3,7 @@
  * Octavio Roncal Andrés
  * José Juan Hernández Cabrera
  * José Évora Gomez
+ * Ronni Ancorini
  *
  * This File is Part of itrules Project
  *
@@ -25,7 +26,6 @@ package org.siani.itrules;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DedentInputStream extends InputStream {
@@ -36,7 +36,6 @@ public class DedentInputStream extends InputStream {
 	public DedentInputStream(InputStream inputStream) {
 		content = dedent(toString(inputStream)).getBytes();
 	}
-
 
 	public byte[] getContent() {
 		return content;
@@ -50,16 +49,36 @@ public class DedentInputStream extends InputStream {
 	}
 
 	private String getContentToConcat(String rule) {
-		if (getRuleDefinitionLine(rule.split("\\n")) == -1)
-			return rule;
-		return dedentRule(rule + "endrule");
+		if (!hasDefRuleLine(rule.split("\\n"))) return rule;
+		rule = rule + "endrule";
+		return (areAtLeastOneIndentationInAllLines(rule)) ? dedentRule(rule) : rule;
 	}
 
-	private int getRuleDefinitionLine(String[] lines) {
+	private boolean areAtLeastOneIndentationInAllLines(String rule) {
+		for (String line : rule.split("\\n"))
+			if (isPossibleDeleteTabInLine(line)) return false;
+		return true;
+	}
+
+	private boolean isPossibleDeleteTabInLine(String line) {
+		if (isNotAnEmptyLineOrDefinitionLine(line))
+			if (!doLineStartWithTab(line)) return true;
+		return false;
+	}
+
+	private boolean doLineStartWithTab(String line) {
+		return line.startsWith("    ") || line.startsWith("\t");
+	}
+
+	private boolean isNotAnEmptyLineOrDefinitionLine(String line) {
+		return !line.startsWith("defrule") && !line.startsWith("endrule") && !line.equals("");
+	}
+
+	private boolean hasDefRuleLine(String[] lines) {
 		Pattern ruleInitializer = Pattern.compile("defrule");
-		for (int i = 0; i < lines.length; i++)
-			if (ruleInitializer.matcher(lines[i]).find()) return i;
-		return -1;
+		for (String line : lines)
+			if (ruleInitializer.matcher(line).find()) return true;
+		return false;
 	}
 
 	private String dedentRule(String rule) {
@@ -69,16 +88,8 @@ public class DedentInputStream extends InputStream {
 	}
 
 	private void replaceTabsForEachLine(String[] lines) {
-		int numberOfTabs = getFirstContentLineTabsAmount(lines);
-		if (numberOfTabs == 0) return;
-		for (int j = 0; j < numberOfTabs; j++)
-			for (int i = 0; i < lines.length; i++)
-				lines[i] = lines[i].replaceFirst("    |\\t", "");
-	}
-
-	private int getFirstContentLineTabsAmount(String[] lines) {
-		int ruleDefinitionLine = getRuleDefinitionLine(lines);
-		return getFirstRuleContentLine(lines, ruleDefinitionLine);
+		for (int i = 0; i < lines.length; i++)
+			lines[i] = lines[i].replaceFirst("    |\\t", "");
 	}
 
 	private String copyRemplacedLines(String[] lines) {
@@ -87,28 +98,12 @@ public class DedentInputStream extends InputStream {
 		return remplacedLines.substring(0, remplacedLines.length() - 1);
 	}
 
-	private int getFirstRuleContentLine(String[] lines, int ruleDefinitionLine) {
-		int firstContentLine = ruleDefinitionLine + 1;
-		while (lines[firstContentLine].replaceAll("    |\\t", "").equals(""))
-			firstContentLine++;
-		return getNumberOfTabs(lines[firstContentLine]);
-	}
-
-	private int getNumberOfTabs(String line) {
-		int numberOfSpaces = 0;
-		Pattern spaces = Pattern.compile("    |\\t");
-		Matcher matcher = spaces.matcher(line);
-		while (matcher.find()) numberOfSpaces++;
-		return numberOfSpaces;
-	}
-
 	private String toString(InputStream inputStream) throws NullPointerException {
 		Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
 		String result = scanner.hasNext() ? scanner.next() : "";
 		scanner.close();
 		return result;
 	}
-
 
 	@Override
 	public int read() throws IOException {
