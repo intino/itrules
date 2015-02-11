@@ -60,11 +60,18 @@ public class Frame implements AbstractFrame {
 	}
 
 	public Frame addFrame(String slot, Object... values) {
+		if (containsNull(values)) throw new RuntimeException("Value of Slot '" + slot + "' has been Inserted as Null");
 		if (!slots.containsKey(slot))
 			slots.put(slot, new ArrayList<AbstractFrame>());
 		for (Object value : values)
 			slots.get(slot).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
 		return this;
+	}
+
+	private boolean containsNull(Object[] values) {
+		if (values == null) return true;
+		for (Object value : values) if (value == null) return true;
+		return false;
 	}
 
 	@Override

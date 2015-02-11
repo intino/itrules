@@ -1,4 +1,4 @@
-// Generated from /Users/oroncal/workspace/itrules/src/org/siani/itrules/lang/ITRulesLexer.g4 by ANTLR 4.4.1-dev
+// Generated from /Users/octavio/workspace/itrules/src/org/siani/itrules/lang/ITRulesLexer.g4 by ANTLR 4.4.1-dev
 package org.siani.itrules.lang;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -23,7 +23,7 @@ public class ITRulesLexer extends Lexer {
 		EVAL_ID=22, DOT=23, NUMBER=24, STRING=25, OPERATOR=26, E_WS=27, EVAL_ERROR=28, 
 		NULL_CHAR=29, SCAPED_CHAR=30, MARK_KEY=31, LEFT_SQ=32, RULE_END=33, RULE_TEXT=34, 
 		LIST=35, MARK_OPTION=36, END=37, SEPARATOR=38, MARK_ID=39, MARK_ERROR=40, 
-		NULL_CH=41, RIGHT_SQ=42, EXP_SCAPED_CHAR=43, EXPRESSION_MARK=44, EXPRESSION_TEXT=45;
+		NULL_CH=41, EXP_SCAPED_CHAR=42, RIGHT_SQ=43, EXPRESSION_MARK=44, EXPRESSION_TEXT=45;
 	public static final int RULE_SIGNATURE = 1;
 	public static final int EVAL_MODE = 2;
 	public static final int RULE_BODY = 3;
@@ -48,8 +48,9 @@ public class ITRulesLexer extends Lexer {
 		"NL", "WS", "RULE_ERROR", "EVAL_LEFT_P", "EVAL_RIGHT_P", "EVAL_ID", "DOT", 
 		"NUMBER", "STRING", "OPERATOR", "E_WS", "EVAL_ERROR", "NULL_CHAR", "SCAPED_CHAR", 
 		"MARK_KEY", "LEFT_SQ", "RULE_END", "RULE_TEXT", "LIST", "MARK_OPTION", 
-		"END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", "RIGHT_SQ", "EXP_SCAPED_CHAR", 
-		"EXPRESSION_MARK", "EXPRESSION_TEXT", "LN", "SP", "DIGIT", "LETTER"
+		"END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", "EXP_SCAPED_CHAR", 
+		"RIGHT_SQ", "EXPRESSION_MARK", "EXPRESSION_TEXT", "LN", "SP", "DIGIT", 
+		"LETTER"
 	};
 
 
@@ -124,8 +125,8 @@ public class ITRulesLexer extends Lexer {
 		case 36: END_action((RuleContext)_localctx, actionIndex); break;
 		case 37: SEPARATOR_action((RuleContext)_localctx, actionIndex); break;
 		case 38: MARK_ID_action((RuleContext)_localctx, actionIndex); break;
-		case 41: RIGHT_SQ_action((RuleContext)_localctx, actionIndex); break;
-		case 42: EXP_SCAPED_CHAR_action((RuleContext)_localctx, actionIndex); break;
+		case 41: EXP_SCAPED_CHAR_action((RuleContext)_localctx, actionIndex); break;
+		case 42: RIGHT_SQ_action((RuleContext)_localctx, actionIndex); break;
 		case 43: EXPRESSION_MARK_action((RuleContext)_localctx, actionIndex); break;
 		case 44: EXPRESSION_TEXT_action((RuleContext)_localctx, actionIndex); break;
 		}
@@ -197,7 +198,7 @@ public class ITRulesLexer extends Lexer {
 	}
 	private void RIGHT_SQ_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 15: setLastMode(EXPRESSION); break;
+		case 16: setLastMode(EXPRESSION); break;
 		}
 	}
 	private void EVAL_LEFT_P_action(RuleContext _localctx, int actionIndex) {
@@ -217,7 +218,7 @@ public class ITRulesLexer extends Lexer {
 	}
 	private void EXP_SCAPED_CHAR_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 16: setType(SCAPED_CHAR); break;
+		case 15: setType(SCAPED_CHAR); break;
 		}
 	}
 	private void MARK_KEY_action(RuleContext _localctx, int actionIndex) {
@@ -252,7 +253,7 @@ public class ITRulesLexer extends Lexer {
 		"!\3!\3!\3\"\3\"\3\"\3#\6#\u0136\n#\r#\16#\u0137\3#\3#\3$\3$\3$\3$\3%\3"+
 		"%\3%\3&\3&\3&\3\'\3\'\7\'\u0148\n\'\f\'\16\'\u014b\13\'\3\'\3\'\3\'\3"+
 		"(\3(\3(\7(\u0153\n(\f(\16(\u0156\13(\3(\3(\3)\3)\3*\3*\3*\3*\3+\3+\3+"+
-		"\3+\3+\3,\3,\3,\3,\3,\3,\3,\3,\5,\u016d\n,\3-\3-\3-\3-\3-\3.\7.\u0175"+
+		"\3+\3+\3+\3+\3+\5+\u0168\n+\3,\3,\3,\3,\3,\3-\3-\3-\3-\3-\3.\7.\u0175"+
 		"\n.\f.\16.\u0178\13.\3.\3.\3/\5/\u017d\n/\3/\3/\5/\u0181\n/\3\60\3\60"+
 		"\3\61\3\61\3\62\3\62\2\2\63\b\3\n\4\f\5\16\6\20\7\22\b\24\t\26\n\30\13"+
 		"\32\f\34\r\36\16 \17\"\20$\21&\22(\23*\24,\25.\26\60\27\62\30\64\31\66"+
@@ -275,7 +276,7 @@ public class ITRulesLexer extends Lexer {
 		"\3\2\2\2>\u011d\3\2\2\2@\u011f\3\2\2\2B\u0129\3\2\2\2D\u012b\3\2\2\2F"+
 		"\u012e\3\2\2\2H\u0131\3\2\2\2J\u0135\3\2\2\2L\u013b\3\2\2\2N\u013f\3\2"+
 		"\2\2P\u0142\3\2\2\2R\u0145\3\2\2\2T\u014f\3\2\2\2V\u0159\3\2\2\2X\u015b"+
-		"\3\2\2\2Z\u015f\3\2\2\2\\\u016c\3\2\2\2^\u016e\3\2\2\2`\u0176\3\2\2\2"+
+		"\3\2\2\2Z\u0167\3\2\2\2\\\u0169\3\2\2\2^\u016e\3\2\2\2`\u0176\3\2\2\2"+
 		"b\u0180\3\2\2\2d\u0182\3\2\2\2f\u0184\3\2\2\2h\u0186\3\2\2\2jk\7f\2\2"+
 		"kl\7g\2\2lm\7h\2\2mn\7t\2\2no\7w\2\2op\7n\2\2pq\7g\2\2qr\3\2\2\2rs\b\2"+
 		"\2\2s\t\3\2\2\2tv\t\2\2\2ut\3\2\2\2vy\3\2\2\2wu\3\2\2\2wx\3\2\2\2x\177"+
@@ -346,21 +347,21 @@ public class ITRulesLexer extends Lexer {
 		"\u0156\3\2\2\2\u0154\u0152\3\2\2\2\u0154\u0155\3\2\2\2\u0155\u0157\3\2"+
 		"\2\2\u0156\u0154\3\2\2\2\u0157\u0158\b(\22\2\u0158U\3\2\2\2\u0159\u015a"+
 		"\13\2\2\2\u015aW\3\2\2\2\u015b\u015c\7\u0080\2\2\u015c\u015d\3\2\2\2\u015d"+
-		"\u015e\b*\3\2\u015eY\3\2\2\2\u015f\u0160\7_\2\2\u0160\u0161\b+\23\2\u0161"+
-		"\u0162\3\2\2\2\u0162\u0163\b+\7\2\u0163[\3\2\2\2\u0164\u0165\7&\2\2\u0165"+
-		"\u016d\7&\2\2\u0166\u0167\7&\2\2\u0167\u016d\7]\2\2\u0168\u0169\7&\2\2"+
-		"\u0169\u016a\7_\2\2\u016a\u016b\3\2\2\2\u016b\u016d\b,\24\2\u016c\u0164"+
-		"\3\2\2\2\u016c\u0166\3\2\2\2\u016c\u0168\3\2\2\2\u016d]\3\2\2\2\u016e"+
-		"\u016f\7&\2\2\u016f\u0170\b-\25\2\u0170\u0171\3\2\2\2\u0171\u0172\b-\26"+
-		"\2\u0172_\3\2\2\2\u0173\u0175\n\7\2\2\u0174\u0173\3\2\2\2\u0175\u0178"+
-		"\3\2\2\2\u0176\u0174\3\2\2\2\u0176\u0177\3\2\2\2\u0177\u0179\3\2\2\2\u0178"+
-		"\u0176\3\2\2\2\u0179\u017a\b.\27\2\u017aa\3\2\2\2\u017b\u017d\7\17\2\2"+
-		"\u017c\u017b\3\2\2\2\u017c\u017d\3\2\2\2\u017d\u017e\3\2\2\2\u017e\u0181"+
-		"\7\f\2\2\u017f\u0181\7\f\2\2\u0180\u017c\3\2\2\2\u0180\u017f\3\2\2\2\u0181"+
+		"\u015e\b*\3\2\u015eY\3\2\2\2\u015f\u0160\7&\2\2\u0160\u0168\7&\2\2\u0161"+
+		"\u0162\7&\2\2\u0162\u0168\7]\2\2\u0163\u0164\7&\2\2\u0164\u0165\7_\2\2"+
+		"\u0165\u0166\3\2\2\2\u0166\u0168\b+\23\2\u0167\u015f\3\2\2\2\u0167\u0161"+
+		"\3\2\2\2\u0167\u0163\3\2\2\2\u0168[\3\2\2\2\u0169\u016a\7_\2\2\u016a\u016b"+
+		"\b,\24\2\u016b\u016c\3\2\2\2\u016c\u016d\b,\7\2\u016d]\3\2\2\2\u016e\u016f"+
+		"\7&\2\2\u016f\u0170\b-\25\2\u0170\u0171\3\2\2\2\u0171\u0172\b-\26\2\u0172"+
+		"_\3\2\2\2\u0173\u0175\n\7\2\2\u0174\u0173\3\2\2\2\u0175\u0178\3\2\2\2"+
+		"\u0176\u0174\3\2\2\2\u0176\u0177\3\2\2\2\u0177\u0179\3\2\2\2\u0178\u0176"+
+		"\3\2\2\2\u0179\u017a\b.\27\2\u017aa\3\2\2\2\u017b\u017d\7\17\2\2\u017c"+
+		"\u017b\3\2\2\2\u017c\u017d\3\2\2\2\u017d\u017e\3\2\2\2\u017e\u0181\7\f"+
+		"\2\2\u017f\u0181\7\f\2\2\u0180\u017c\3\2\2\2\u0180\u017f\3\2\2\2\u0181"+
 		"c\3\2\2\2\u0182\u0183\t\2\2\2\u0183e\3\2\2\2\u0184\u0185\t\b\2\2\u0185"+
 		"g\3\2\2\2\u0186\u0187\t\t\2\2\u0187i\3\2\2\2\"\2\3\4\5\6\7w{\177\u0086"+
 		"\u0088\u00ce\u00d0\u00d8\u00dc\u00e0\u00e9\u00f8\u00fa\u0104\u010a\u0114"+
-		"\u0119\u0129\u0137\u0149\u0152\u0154\u016c\u0176\u017c\u0180\30\3\2\2"+
+		"\u0119\u0129\u0137\u0149\u0152\u0154\u0167\u0176\u017c\u0180\30\3\2\2"+
 		"\b\2\2\3\17\3\3\21\4\3\22\5\4\5\2\3\25\6\3\26\7\3\27\b\3 \t\3!\n\3\"\13"+
 		"\3#\f\3%\r\3&\16\3\'\17\3(\20\3+\21\3,\22\3-\23\4\6\2\3.\24";
 	public static final ATN _ATN =

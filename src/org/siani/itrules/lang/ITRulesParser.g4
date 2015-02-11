@@ -19,6 +19,6 @@ slotParm        : LEFT_P ID (COMMA DEEP)? RIGHT_P;
 body            : (text | mark | expression)*;
 
 expression      : LEFT_SQ (text | mark | expression)* RIGHT_SQ;
-text            : TEXT | SCAPED_CHAR;
+text            : TEXT | SCAPED_CHAR | EXP_SCAPED_CHAR;
 mark            : MARK_KEY ID option* (LIST SEPARATOR)?;
 option          : OPTION ID;

@@ -91,10 +91,18 @@ public class TestSources {
 		"<interface name=\"$value\" />\n" +
 		"\u0015";
 
-
+	public static final String TARA = "defrule type(declarednode)\n" +
+		"\n" +
+		"\t[$aggregable\n" +
+		"\tpublic Definition$[$] aggregables() {\n" +
+		"        return definition().aggregables();\n" +
+		"    }]\n" +
+		"}\n" +
+		"\n" +
+		"\u0015";
 
 	public static final String[] TEST_SOURCES = new String[]{NULL_FILE, MARK, MARK_WITH_FORMAT,
 		MARK_WITH_MODIFIERS, MEDIUM_TEST, OTHER_WITH_MARK, RULE_BEGIN, RULE_WITH_MARKS, SCAPED_CHARACTERS, SIGNATURE,
-		TWO_RULES, XML_TARA, LITTLE_BIG_TEST, LARGE_XML, LARGE_XML};
+		TWO_RULES, XML_TARA, LITTLE_BIG_TEST, LARGE_XML, LARGE_XML, TARA};
 
 }

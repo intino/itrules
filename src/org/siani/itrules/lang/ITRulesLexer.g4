@@ -70,7 +70,7 @@ mode RULE_BODY;
 	SCAPED_CHAR     : '$$'| '$[' | '$]';
 	MARK_KEY        : '$'                                       {setMode(MARK); setLastMode(RULE_BODY);};
 	LEFT_SQ         : '['                                       {setMode(EXPRESSION); setLastMode(RULE_BODY);};
-	RULE_END        : '\u0015'                            {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
+	RULE_END        : '\u0015'                                  {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
 	RULE_TEXT       : ~('$'| '[' | '\u0015' | '~')+             {setType(TEXT);};
 
 mode MARK;

@@ -1,4 +1,4 @@
-// Generated from /Users/oroncal/workspace/itrules/src/org/siani/itrules/lang/ITRulesParser.g4 by ANTLR 4.4.1-dev
+// Generated from /Users/octavio/workspace/itrules/src/org/siani/itrules/lang/ITRulesParser.g4 by ANTLR 4.4.1-dev
 package org.siani.itrules.lang;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,10 +20,10 @@ public class ITRulesParser extends Parser {
 		MARK_ERROR=40, MARK_ID=39, RULE_ID=16, OPTION=5, NULL_CH=41, RULE_BEGIN=1, 
 		SCAPED_CHAR=30, OPERATOR=26, TRIGGER=10, EVAL_ID=22, NUMBER=24, RIGHT_P=7, 
 		RULE_ERROR=19, SEPARATOR=38, RULE_TEXT=34, NOT=15, EVAL_RIGHT_P=21, TEXT=4, 
-		ID=3, LIST=35, EXPRESSION_TEXT=45, EXP_SCAPED_CHAR=43, MARK_KEY=31, TYPE=9, 
+		ID=3, LIST=35, EXPRESSION_TEXT=45, EXP_SCAPED_CHAR=42, MARK_KEY=31, TYPE=9, 
 		EVAL_ERROR=28, WS=18, EVAL=14, RULE_END=33, COMMA=8, DEEP=13, WL=2, SLOT_TYPE=12, 
 		EXPRESSION_MARK=44, NL=17, LEFT_SQ=32, E_WS=27, SLOT_NAME=11, END=37, 
-		DOT=23, RIGHT_SQ=42, MARK_OPTION=36, EVAL_LEFT_P=20, LEFT_P=6, NULL_CHAR=29, 
+		DOT=23, RIGHT_SQ=43, MARK_OPTION=36, EVAL_LEFT_P=20, LEFT_P=6, NULL_CHAR=29, 
 		STRING=25;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'defrule'", "WL", "ID", "'text'", "OPTION", "LEFT_P", "RIGHT_P", 
@@ -32,7 +32,7 @@ public class ITRulesParser extends Parser {
 		"EVAL_ID", "'.'", "NUMBER", "STRING", "OPERATOR", "E_WS", "EVAL_ERROR", 
 		"NULL_CHAR", "SCAPED_CHAR", "'$'", "'['", "'\\u0015'", "RULE_TEXT", "'...'", 
 		"MARK_OPTION", "END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", 
-		"RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", "EXPRESSION_TEXT"
+		"EXP_SCAPED_CHAR", "RIGHT_SQ", "EXPRESSION_MARK", "EXPRESSION_TEXT"
 	};
 	public static final int
 		RULE_root = 0, RULE_itrule = 1, RULE_signature = 2, RULE_ruleType = 3, 
@@ -835,12 +835,13 @@ public class ITRulesParser extends Parser {
 			setState(126);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << MARK_KEY) | (1L << LEFT_SQ))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << MARK_KEY) | (1L << LEFT_SQ) | (1L << EXP_SCAPED_CHAR))) != 0)) {
 				{
 				setState(124);
 				switch (_input.LA(1)) {
 				case TEXT:
 				case SCAPED_CHAR:
+				case EXP_SCAPED_CHAR:
 					{
 					setState(121); text();
 					}
@@ -922,12 +923,13 @@ public class ITRulesParser extends Parser {
 			setState(135);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << MARK_KEY) | (1L << LEFT_SQ))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << MARK_KEY) | (1L << LEFT_SQ) | (1L << EXP_SCAPED_CHAR))) != 0)) {
 				{
 				setState(133);
 				switch (_input.LA(1)) {
 				case TEXT:
 				case SCAPED_CHAR:
+				case EXP_SCAPED_CHAR:
 					{
 					setState(130); text();
 					}
@@ -966,6 +968,7 @@ public class ITRulesParser extends Parser {
 
 	public static class TextContext extends ParserRuleContext {
 		public TerminalNode TEXT() { return getToken(ITRulesParser.TEXT, 0); }
+		public TerminalNode EXP_SCAPED_CHAR() { return getToken(ITRulesParser.EXP_SCAPED_CHAR, 0); }
 		public TerminalNode SCAPED_CHAR() { return getToken(ITRulesParser.SCAPED_CHAR, 0); }
 		public TextContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -990,7 +993,7 @@ public class ITRulesParser extends Parser {
 			{
 			setState(140);
 			_la = _input.LA(1);
-			if ( !(_la==TEXT || _la==SCAPED_CHAR) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << EXP_SCAPED_CHAR))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			consume();
@@ -1127,9 +1130,9 @@ public class ITRulesParser extends Parser {
 		"\u0082\13\17\3\20\3\20\3\20\3\20\7\20\u0088\n\20\f\20\16\20\u008b\13\20"+
 		"\3\20\3\20\3\21\3\21\3\22\3\22\3\22\7\22\u0094\n\22\f\22\16\22\u0097\13"+
 		"\22\3\22\3\22\5\22\u009b\n\22\3\23\3\23\3\23\3\23\2\2\24\2\4\6\b\n\f\16"+
-		"\20\22\24\26\30\32\34\36 \"$\2\3\4\2\6\6  \u00a5\2)\3\2\2\2\4.\3\2\2\2"+
-		"\6\62\3\2\2\2\b?\3\2\2\2\nD\3\2\2\2\fH\3\2\2\2\16P\3\2\2\2\20X\3\2\2\2"+
-		"\22]\3\2\2\2\24b\3\2\2\2\26h\3\2\2\2\30n\3\2\2\2\32s\3\2\2\2\34\u0080"+
+		"\20\22\24\26\30\32\34\36 \"$\2\3\5\2\6\6  ,,\u00a5\2)\3\2\2\2\4.\3\2\2"+
+		"\2\6\62\3\2\2\2\b?\3\2\2\2\nD\3\2\2\2\fH\3\2\2\2\16P\3\2\2\2\20X\3\2\2"+
+		"\2\22]\3\2\2\2\24b\3\2\2\2\26h\3\2\2\2\30n\3\2\2\2\32s\3\2\2\2\34\u0080"+
 		"\3\2\2\2\36\u0083\3\2\2\2 \u008e\3\2\2\2\"\u0090\3\2\2\2$\u009c\3\2\2"+
 		"\2&(\5\4\3\2\'&\3\2\2\2(+\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*,\3\2\2\2+)\3\2"+
 		"\2\2,-\7\2\2\3-\3\3\2\2\2./\5\6\4\2/\60\5\34\17\2\60\61\7#\2\2\61\5\3"+
@@ -1152,7 +1155,7 @@ public class ITRulesParser extends Parser {
 		"\2\u0083\u0089\7\"\2\2\u0084\u0088\5 \21\2\u0085\u0088\5\"\22\2\u0086"+
 		"\u0088\5\36\20\2\u0087\u0084\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0086\3"+
 		"\2\2\2\u0088\u008b\3\2\2\2\u0089\u0087\3\2\2\2\u0089\u008a\3\2\2\2\u008a"+
-		"\u008c\3\2\2\2\u008b\u0089\3\2\2\2\u008c\u008d\7,\2\2\u008d\37\3\2\2\2"+
+		"\u008c\3\2\2\2\u008b\u0089\3\2\2\2\u008c\u008d\7-\2\2\u008d\37\3\2\2\2"+
 		"\u008e\u008f\t\2\2\2\u008f!\3\2\2\2\u0090\u0091\7!\2\2\u0091\u0095\7\5"+
 		"\2\2\u0092\u0094\5$\23\2\u0093\u0092\3\2\2\2\u0094\u0097\3\2\2\2\u0095"+
 		"\u0093\3\2\2\2\u0095\u0096\3\2\2\2\u0096\u009a\3\2\2\2\u0097\u0095\3\2"+
