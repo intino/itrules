@@ -41,6 +41,6 @@ public class InflectorFactory {
 	}
 
 	public static Inflector getInflector(Locale locale) {
-		return inflectors.get(locale);
+		return inflectors.get(locale) != null ? inflectors.get(locale) : new SpanishInflector();
 	}
 }

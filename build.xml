@@ -13,13 +13,13 @@
   </path>
 
   <target name="init">
-    <mkdir dir="build" />
-    <mkdir dir="dist" />
+    <mkdir dir="out/artifacts" />
+    <mkdir dir="out/production" />
   </target>
 
   <target name="clean">
-    <delete dir="build"/>
-    <delete dir="dist" />
+    <delete dir="out/artifacts"/>
+    <delete dir="out/production" />
   </target>
 
   <target depends="clean" name="cleanall" />
@@ -29,7 +29,7 @@
   <target depends="init" name="build-project">
     <echo message="${ant.project.name}: ${ant.file}" />
 
-    <javac debug="true" debuglevel="${debuglevel}" destdir="dist" source="${source}" target="${target}" includeantruntime="false">     
+    <javac debug="true" debuglevel="${debuglevel}" destdir="out/production" source="${source}" target="${target}" includeantruntime="false">     
       <src path="gen" />
       <src path="rules-engine/src" />
       <src path="src" />
@@ -38,23 +38,23 @@
 
   </target>
   
-  <target name="dist" depends="cleanall,build-project">
-    <unzip src="lib/gson-2.2.4.jar" dest="dist">
+  <target name="out/production" depends="cleanall,build-project">
+    <unzip src="lib/gson-2.3.1.jar" dest="out/production">
       <patternset>
       <include name="com/"/>
       </patternset>
     </unzip>
   </target>  
 
-  <target name="build-jar" depends="dist">
-    <fileset dir="dist">
+  <target name="build-jar" depends="out/production">
+    <fileset dir="out/production">
       <include name="**/*" />
     </fileset>
     <jar destfile="${file.jar}">
-      <zipfileset dir="dist">
+      <zipfileset dir="out/production">
       </zipfileset>
     </jar>
     <echo>Copying ${file.jar}...</echo>
-    <move file="${file.jar}" todir="build" />
+    <move file="${file.jar}" todir="out/artifacts" />
   </target>
 </project>
