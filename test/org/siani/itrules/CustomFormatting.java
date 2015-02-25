@@ -50,7 +50,7 @@ public class CustomFormatting {
 
 	@Test
 	public void testCustomFormatting() throws Exception {
-		RulesReader reader = new TemplateReader(RULE);
+		RulesReader reader = new RuleSetReader(RULE);
 		FileWriter writer = new FileWriter(TEST);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();

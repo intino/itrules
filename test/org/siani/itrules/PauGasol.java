@@ -47,7 +47,7 @@ public class PauGasol {
 
 	@Test
 	public void testPauGasol() throws Exception {
-		RulesReader reader = new TemplateReader(RULE);
+		RulesReader reader = new RuleSetReader(RULE);
 		FileWriter writer = new FileWriter(TEST);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();

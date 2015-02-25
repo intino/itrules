@@ -42,7 +42,7 @@ public class NestedInterfaces {
 
 	@Test
 	public void testNestedInterfaces() throws Exception {
-		RulesReader reader = new TemplateReader(getRules());
+		RulesReader reader = new RuleSetReader(getRules());
 		FileWriter writer = new FileWriter(TEST);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();

@@ -42,7 +42,7 @@ public class HelloWorld {
 
 	@Test
 	public void testHelloWorld() throws Exception {
-		RulesReader reader = new TemplateReader("");
+		RulesReader reader = new RuleSetReader("");
 		FileWriter writer = new FileWriter(TEST);
 		writer.write(RulesSaver.toJSON(reader.read()));
 		writer.close();

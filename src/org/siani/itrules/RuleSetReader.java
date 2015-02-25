@@ -26,23 +26,36 @@ import org.siani.itrules.lang.TemplateCompiler;
 import org.siani.itrules.model.Rule;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class TemplateReader implements RulesReader {
+public final class RuleSetReader implements RulesReader {
 
 	private List<InputStream> inputs;
 
-	public TemplateReader(File file) throws FileNotFoundException {
+	public static RuleSet read(String rules) {
+		return read(StringToInputStream(rules));
+	}
+
+	private static RuleSet read(InputStream inputStream) {
+		return new RuleSet(new RuleSetReader(inputStream).read());
+	}
+
+	private static ByteArrayInputStream StringToInputStream(String rules) {
+		return new ByteArrayInputStream(rules.getBytes(StandardCharsets.UTF_8));
+	}
+
+	private RuleSetReader(File file) throws FileNotFoundException {
 		this(new FileInputStream(file));
 	}
 
-	public TemplateReader(String stream) {
+	private RuleSetReader(String stream) {
 		this(new ByteArrayInputStream(stream.getBytes()));
 	}
 
-	public TemplateReader(InputStream... stream) {
+	private RuleSetReader(InputStream... stream) {
 		inputs = new ArrayList<>();
 		for (InputStream input : stream)
 			inputs.add(new DedentInputStream(new RuleSetInputStream(input)));

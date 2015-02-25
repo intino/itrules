@@ -65,7 +65,7 @@ public class BuildingTest {
 
 	public RuleEngine createRuleEngine() {
 		RuleEngine ruleEngine;
-		ruleEngine = new RuleEngine(new TemplateReader(findResource()));
+		ruleEngine = new RuleEngine(RuleSetReader.read(findResource()));
 		ruleEngine.register("SnakeCase", new Formatter() {
 			@Override
 			public Object format(Object o) {

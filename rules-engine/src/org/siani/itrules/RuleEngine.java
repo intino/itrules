@@ -23,6 +23,7 @@
 package org.siani.itrules;
 
 import org.siani.itrules.formatter.SystemFormatterRepository;
+import org.siani.itrules.framebuilder.FrameBuilder;
 import org.siani.itrules.model.*;
 
 import java.util.*;
@@ -38,7 +39,7 @@ public final class RuleEngine {
 		this.formatters.putAll(SystemFormatterRepository.formatters(locale));
 	}
 
-	public RuleEngine(Rule[] rules) {
+	public RuleEngine(RuleSet rules) {
 		this(rules, Locale.getDefault());
 	}
 
@@ -47,11 +48,19 @@ public final class RuleEngine {
 	}
 
 	public RuleEngine(RulesReader reader) {
-		this(reader.read());
+		this(reader.read(), Locale.getDefault());
+	}
+
+	public RuleEngine(RuleSet rules, Locale locale) {
+		this.ruleSet = rules;
 	}
 
 	public void register(String name, Formatter formatter) {
 		formatters.put(name.toLowerCase(), formatter);
+	}
+
+	public void render(Object object, Document document) {
+		render(new FrameBuilder().createFrame(object), document);
 	}
 
 	public void render(AbstractFrame frame, Document document) {
