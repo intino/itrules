@@ -32,7 +32,7 @@
   <property name="sonar.sources" value="${src.dir}, ${gen.dir}"/>
   <property name="sonar.tests" value="${test.dir}"/>
   <property name="sonar.surefire.reportsPath" value="${reports.junit.xml.dir}"/>
-  <property name="sonar.modules" value="it-rules,rules-engine"/>
+  <property name="sonar.modules" value=""/>
   <property name="sonar.sourceEncoding" value="UTF-8"/>
   <property name="sonar.java.libraries" value="${classes.dir},../lib,../rules-engine/dist"/>
 
