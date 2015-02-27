@@ -51,12 +51,12 @@
   <!-- ========= Define "regular" targets: clean, compile, test, ... ========= -->
   <target name="clean">
     <delete dir=".sonar"/>
-    <ant dir="it-rules" target="clean"/>
-    <ant dir="rules-engine" target="clean"/>
+    <ant dir="" target="clean"/>
+    <!--<ant dir="rules-engine" target="clean"/>-->
   </target>
 
   <target name="compile">
-    <ant dir="it-rules" target="build-jar"/>
+    <ant dir="" target="build-jar"/>
   </target>
 
   <!-- ========= Define SonarQube target ========= -->
