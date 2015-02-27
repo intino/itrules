@@ -1,60 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build-jar">
-  <property name="debuglevel" value="source,lines,vars" />
-  <property name="target" value="1.7" />
-  <property name="source" value="1.7" />
-  <property name="file.jar" value="itrules.jar" />
-	
+  <property name="debuglevel" value="source,lines,vars"/>
+  <property name="target" value="1.7"/>
+  <property name="source" value="1.7"/>
+  <property name="file.jar" value="itrules.jar"/>
+
   <path id="library.classpath">
-    <pathelement location="lib" />
+    <pathelement location="lib"/>
     <fileset dir="lib">
-      <include name="**/*.jar" />
+      <include name="**/*.jar"/>
     </fileset>
   </path>
 
   <target name="init">
-    <mkdir dir="out/artifacts" />
-    <mkdir dir="out/production" />
+    <mkdir dir="build"/>
+    <mkdir dir="dist"/>
   </target>
 
   <target name="clean">
-    <delete dir="out/artifacts"/>
-    <delete dir="out/production" />
+    <delete dir="build"/>
+    <delete dir="dist"/>
   </target>
 
-  <target depends="clean" name="cleanall" />
-  <target depends="build-subprojects,build-project" name="build" />
-  <target name="build-subprojects" />
-  
-  <target depends="init" name="build-project">
-    <echo message="${ant.project.name}: ${ant.file}" />
+  <target depends="clean" name="cleanall"/>
+  <target depends="build-subprojects,build-project" name="build"/>
+  <target name="build-subprojects"/>
 
-    <javac debug="true" debuglevel="${debuglevel}" destdir="out/production" source="${source}" target="${target}" includeantruntime="false">     
-      <src path="gen" />
-      <src path="rules-engine/src" />
-      <src path="src" />
-      <classpath refid="library.classpath" />
+  <target depends="init" name="build-project">
+    <echo message="${ant.project.name}: ${ant.file}"/>
+
+    <javac debug="true" debuglevel="${debuglevel}" destdir="dist" source="${source}" target="${target}"
+           includeantruntime="false">
+      <src path="gen"/>
+      <src path="rules-engine/src"/>
+      <src path="src"/>
+      <classpath refid="library.classpath"/>
     </javac>
 
   </target>
-  
-  <target name="out/production" depends="cleanall,build-project">
-    <unzip src="lib/gson-2.3.1.jar" dest="out/production">
+
+  <target name="dist" depends="cleanall,build-project">
+    <unzip src="lib/gson-2.2.4.jar" dest="dist">
       <patternset>
-      <include name="com/"/>
+        <include name="com/"/>
       </patternset>
     </unzip>
-  </target>  
+  </target>
 
-  <target name="build-jar" depends="out/production">
-    <fileset dir="out/production">
-      <include name="**/*" />
+  <target name="build-jar" depends="dist">
+    <fileset dir="dist">
+      <include name="**/*"/>
     </fileset>
     <jar destfile="${file.jar}">
-      <zipfileset dir="out/production">
+      <zipfileset dir="dist">
       </zipfileset>
     </jar>
     <echo>Copying ${file.jar}...</echo>
-    <move file="${file.jar}" todir="out/artifacts" />
+    <move file="${file.jar}" todir="build"/>
   </target>
 </project>
