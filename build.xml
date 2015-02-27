@@ -40,7 +40,7 @@
   </target>
 
   <target name="dist" depends="cleanall,build-project">
-    <unzip src="lib/gson-2.2.4.jar" dest="dist">
+    <unzip src="lib/gson-2.3.1.jar" dest="dist">
       <patternset>
         <include name="com/"/>
       </patternset>
