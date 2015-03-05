@@ -23,8 +23,6 @@
 package org.siani.itrules;
 
 import org.junit.Test;
-import org.siani.itrules.model.Rule;
-import org.siani.itrules.serialization.RulesSaver;
 
 import java.io.*;
 
@@ -33,25 +31,18 @@ import static org.junit.Assert.assertNotNull;
 
 public class Eval {
 
-	private static final String FILE_JSON = "/json/eval.json";
-	private static final File TEST = new File("res_test", FILE_JSON);
+	private static final String RULE_NAME = "/eval.itr";
+	private static final File RULE = new File("res_test", RULE_NAME);
 
 	static {
-		TEST.getParentFile().mkdirs();
+		RULE.getParentFile().mkdirs();
 	}
 
 	@Test
 	public void testEval() throws Exception {
-		RulesReader reader = new RuleSetReader(getRules());
-		FileWriter writer = new FileWriter(TEST);
-		writer.write(RulesSaver.toJSON(reader.read()));
-		writer.close();
-		Frame frame = buildFrame();
 		Document document = new Document();
-		Rule[] rules = new JSONRulesReader(getJsonRules()).read();
-		assertNotNull(rules);
-		RuleEngine ruleEngine = new RuleEngine(rules);
-		ruleEngine.render(frame, document);
+        RuleEngine ruleEngine = new RuleEngine(RuleSetReader.read(new FileInputStream(RULE)));
+        ruleEngine.render(buildFrame(), document);
 		assertEquals(EXPECTED, document.content());
 	}
 
@@ -75,16 +66,6 @@ public class Eval {
 	public InputStream getRules() {
 		return this.getClass().getResourceAsStream("/" + this.getClass().getSimpleName().toLowerCase() + ".itr");
 	}
-
-	public InputStream getJsonRules() {
-		try {
-			return new FileInputStream(TEST);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 
 	private static final String EXPECTED = "Las Palmas de Gran de Canaria, el 27/09/2014\n" +
 		"\n" +

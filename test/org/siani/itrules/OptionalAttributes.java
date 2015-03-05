@@ -29,12 +29,10 @@ import org.siani.itrules.serialization.RulesSaver;
 import java.io.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class OptionalAttributes {
-	private static final String FILE_JSON = "/json/optionalatributes.json";
-	private static final File TEST = new File("res_test", FILE_JSON);
-	private static final String FILE_ITR = "/optional_attributes.itr";
+    private static final String FILE_ITR = "/optional_attributes.itr";
+    private static final File TEST = new File("res_test", FILE_ITR);
 
 	static {
 		TEST.getParentFile().mkdirs();
@@ -42,16 +40,9 @@ public class OptionalAttributes {
 
 	@Test
 	public void testOptionalAttributes() throws Exception {
-		RulesReader reader = new RuleSetReader(getRules());
-		FileWriter writer = new FileWriter(TEST);
-		writer.write(RulesSaver.toJSON(reader.read()));
-		writer.close();
-		Frame frame = buildFrame();
 		Document document = new Document();
-		Rule[] rules = new JSONRulesReader(getJsonRules()).read();
-		assertNotNull(rules);
-		RuleEngine ruleEngine = new RuleEngine(rules);
-		ruleEngine.render(frame, document);
+        RuleEngine ruleEngine = new RuleEngine(RuleSetReader.read(new FileInputStream(TEST)));
+        ruleEngine.render(buildFrame(), document);
 		assertEquals(EXPECTED, document.content());
 	}
 

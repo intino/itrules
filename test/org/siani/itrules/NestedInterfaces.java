@@ -50,7 +50,7 @@ public class NestedInterfaces {
 		Document document = new Document();
 		Rule[] rules = new JSONRulesReader(getJsonRules()).read();
 		assertNotNull(rules);
-		RuleEngine ruleEngine = new RuleEngine(rules);
+		RuleEngine ruleEngine = new RuleEngine(reader);
 		ruleEngine.render(frame, document);
 		assertEquals(EXPECTED, document.content());
 	}

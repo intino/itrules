@@ -33,9 +33,8 @@ import static org.junit.Assert.assertNotNull;
 
 public class InMiddleEarth {
 
-	private static final String FILE_JSON = "/json/inmiddleearth.json";
-	private static final File TEST = new File("res_test", FILE_JSON);
 	private static final String FILE_ITR = "/in_middle_earth.itr";
+    private static final File TEST = new File("res_test", FILE_ITR);
 
 	static {
 		TEST.getParentFile().mkdirs();
@@ -43,17 +42,10 @@ public class InMiddleEarth {
 
 	@Test
 	public void testInMiddleEarth() throws Exception {
-		RulesReader reader = new RuleSetReader(getRules());
-		FileWriter writer = new FileWriter(TEST);
-		writer.write(RulesSaver.toJSON(reader.read()));
-		writer.close();
-		Frame frame = buildFrame();
 		Document document = new Document();
-		Rule[] rules = new JSONRulesReader(getJsonRules()).read();
-		assertNotNull(rules);
-		RuleEngine ruleEngine = new RuleEngine(rules);
-		ruleEngine.render(frame, document);
-		assertEquals(EXPECTED, document.content());
+        RuleEngine ruleEngine = new RuleEngine(RuleSetReader.read(new FileInputStream(TEST)));
+		ruleEngine.render(buildFrame(), document);
+        assertEquals(EXPECTED, document.content());
 	}
 
 	private Frame buildFrame() {
