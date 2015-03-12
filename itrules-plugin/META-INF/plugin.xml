@@ -1,0 +1,55 @@
+<idea-plugin version="1">
+  <id>siani.dev.itrules</id>
+  <name>itrules</name>
+  <version>1.0</version>
+  <vendor email="support-itrules@siani.es">Siani</vendor>
+
+  <description><![CDATA[
+     it-rules is a rule-based template engine. it-rules can generate HTML, XML, SQL, JSON or any other documents from templates. Documents are generated from frames (the data source) and a set of production rules.
+    ]]></description>
+
+  <change-notes><![CDATA[
+      First version
+    ]]>
+  </change-notes>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="131"/>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+  <actions>
+    <group id="itrules.file.group" popup="false">
+      <action id="itrules.Generate" class="siani.itrules.intellij.actions.GenerateAction" text="Build template">
+        <keyboard-shortcut keymap="$default" first-keystroke="control shift G"/>
+      </action>
+      <add-to-group group-id="ToolsMenu" anchor="before" relative-to-action="com.intellij.tools.ExternalToolsGroup"/>
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+    </group>
+
+  </actions>
+  <extensions defaultExtensionNs="com.intellij">
+    <fileTypeFactory implementation="siani.itrules.intellij.lang.file.ItrulesFileTypeFactory"/>
+    <lang.parserDefinition language="Itrules"
+                           implementationClass="siani.itrules.intellij.lang.parser.ItrulesParserDefinition"/>
+    <lang.syntaxHighlighterFactory key="Itrules"
+                                   implementationClass="siani.itrules.intellij.highlighting.ItrulesSyntaxHighlighterFactory"/>
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
