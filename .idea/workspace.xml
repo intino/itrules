@@ -3,144 +3,144 @@
   <component name="ChangeListManager">
     <list default="true" id="ec02f87b-fcf8-432c-b5d2-164d4115b389" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/Plural.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/CustomFormatting.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin/plugin.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/eval.itr" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/TabIndentationTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/TestApi.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/HelloWorld.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/Formatting.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-json/rule-engine-json.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/NestedFrames.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/PauGasol.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/rule-engine-itr.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/InMiddleEarth.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/json/nestedinterfaces.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/OptionalAttributes.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/Eval.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/NestedInterfaces.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/logger/DebugLogger.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/HelloWorld.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/OptionalAttributes.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plugin/plugin.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/CustomFormatting.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/JavaClass.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/TabIndentationTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/NestedFrames.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/eval.itr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/Formatting.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/PauGasol.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/InMiddleEarth.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-json/rule-engine-json.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/TestApi.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/json/nestedinterfaces.json" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/BuildingTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/NestedInterfaces.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/ComplexObject.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/logger/DebugLogger.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/serialization/RulesSaver.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/dsl/ParserTest.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/OptionalAttributes.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/PauGasol.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/serialization/RulesSaver.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/PolymorphicProvider.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/TabIndentationTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/PauGasol.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/Tests.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/ComplexObject.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/Plural.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObject.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/Formatting.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/InMiddleEarth.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithMap.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/Eval.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/CustomFormatting.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/dsl/ParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/NestedFrames.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/PolymorphicClass.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithArrays.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/dsl/TestSources.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/res_test/eval.itr" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/BuildingTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/dsl/LexerTest.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/HelloWorld.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/PolymorphicProvider.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/BuildingTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/InMiddleEarth.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/JavaClass.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/Formatting.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/dsl/LexerTest.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/TestApi.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/Tests.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithComplexList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithArrays.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/NestedInterfaces.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/Eval.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/PolymorphicClass.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithMap.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/PrimitiveObject.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/dsl/TestSources.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithStaticField.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/optional_attributes.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/optional_attributes.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/in_middle_earth.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/in_middle_earth.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/PrimitiveFrame.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/PrimitiveFrame.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Link.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Link.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/RuleEngine.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/RuleEngine.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/roster.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/roster.itr" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/object2frame/SimpleObjectWithComplexList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/org/siani/itrules/NestedFrames.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/AbstractFrame.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/AbstractFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/TemplateCompiler.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/TemplateCompiler.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesParser.java" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesParser.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/EvalFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/EvalFunction.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/Inflector.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/Inflector.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/OperatorFactory.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/OperatorFactory.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/TwoIndentationLevelExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/TwoIndentationLevelExpected.itr" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/nested_interfaces.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/nested_interfaces.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Literal.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Literal.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/FourIndentationLevel.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/FourIndentationLevel.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/PrimitiveFrame.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/PrimitiveFrame.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/roster.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/roster.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/Adapter.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/Adapter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/roster.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/roster.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/EqualIndentation.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/EqualIndentation.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Document.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/Document.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Link.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Link.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/java_class.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/java_class.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/NoIndentationExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/NoIndentationExpected.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/FrameBuilder.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/FrameBuilder.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/FirstContentRuleLineEmpty.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/FirstContentRuleLineEmpty.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/DedentInputStream.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/reader/DedentInputStream.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/optional_attributes.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/optional_attributes.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/SlotTypeFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/SlotTypeFunction.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesParser.tokens" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesParser.tokens" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/in_middle_earth.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/in_middle_earth.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Expression.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Expression.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/nested_frames.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/nested_frames.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/DifferentIndentationLevel.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/DifferentIndentationLevel.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/BuilderContext.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/BuilderContext.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/Interpreter.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/Interpreter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/ITRulesLexer.g4" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesLexer.g4" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/TwoIndentationLevel.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/TwoIndentationLevel.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Mark.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Mark.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/in_middle_earth.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/in_middle_earth.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Formatter.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/Formatter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Buffer.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/engine/Buffer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/ITRulesSyntaxError.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesSyntaxError.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/TriggerFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/TriggerFunction.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/ITRulesParser.g4" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesParser.g4" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/RuleSet.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/engine/RuleSet.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/TypeFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/TypeFunction.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/java_classExpected.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/java_classExpected.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/RuleWithEmptyLinesExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/RuleWithEmptyLinesExpected.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/RuleEngine.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/RuleEngine.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/DateTime.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/DateTime.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/java_class.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/java_class.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/inflectors/SpanishInflector.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/inflectors/SpanishInflector.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Function.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Function.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/plural.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/plural.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesLexer.java" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesLexer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/ExclusionList.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/ExclusionList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/DifferentIndentationLevelExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/DifferentIndentationLevelExpected.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/JSONRulesReader.java" afterPath="$PROJECT_DIR$/rule-engine-json/src/org/siani/itrules/JsonRulesReader.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/TwoRules.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/TwoRules.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/TemplateErrorStrategy.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/TemplateErrorStrategy.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/FirstLineWithoutIndentationExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/FirstLineWithoutIndentationExpected.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/FourIndentationLevelExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/FourIndentationLevelExpected.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/SlotNameFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/SlotNameFunction.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/RulesReader.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/RulesReader.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/InflectorFactory.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/InflectorFactory.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/formatting.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/formatting.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/TwoRulesExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/TwoRulesExpected.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/SystemFormatterRepository.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/SystemFormatterRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/rules-engine.iml" afterPath="$PROJECT_DIR$/rule-engine/rule-engine.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/AdapterList.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/AdapterList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/RuleSetReader.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/ItrRulesReader.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/RuleWithEmptyLines.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/RuleWithEmptyLines.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Condition.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Condition.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/in_middle_earth.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/in_middle_earth.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/roster.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/roster.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/AbstractMark.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/AbstractMark.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Token.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Token.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesParserBaseListener.java" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesParserBaseListener.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Rule.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Rule.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/RuleSetInputStream.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/reader/RuleSetInputStream.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Frame.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Frame.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesLexer.tokens" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesLexer.tokens" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/itrules.iml" afterPath="$PROJECT_DIR$/itrules.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/inflectors/EnglishInflector.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/inflectors/EnglishInflector.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/FirstLineWithoutIndentation.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/FirstLineWithoutIndentation.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesParserListener.java" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesParserListener.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/FirstContentRuleLineEmptyExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/FirstContentRuleLineEmptyExpected.itr" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/NoIndentation.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/NoIndentation.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/InflectorFactory.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/InflectorFactory.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Mark.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Mark.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/SlotNameFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/SlotNameFunction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Expression.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Expression.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/BuilderContext.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/BuilderContext.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Function.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Function.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/AdapterList.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/AdapterList.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/TemplateErrorStrategy.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/TemplateErrorStrategy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesLexer.java" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesLexer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/formatting.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/formatting.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/EqualIndentation.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/EqualIndentation.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/OperatorFactory.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/OperatorFactory.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Logger.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/logger/Logger.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/TypeFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/TypeFunction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesParser.java" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesParser.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/rules-engine.iml" afterPath="$PROJECT_DIR$/rule-engine/rule-engine.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/roster.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/roster.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/nested_frames.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/nested_frames.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/DateTime.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/DateTime.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Frame.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Frame.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/DedentInputStream.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/reader/DedentInputStream.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesLexer.tokens" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesLexer.tokens" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/FrameBuilder.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/FrameBuilder.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/ITRulesSyntaxError.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesSyntaxError.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/RulesReader.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/RulesReader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/in_middle_earth.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/in_middle_earth.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Condition.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Condition.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Rule.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Rule.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/RuleWithEmptyLines.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/RuleWithEmptyLines.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/TemplateCompiler.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/TemplateCompiler.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/Adapter.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/Adapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/inflectors/SpanishInflector.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/inflectors/SpanishInflector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/TwoIndentationLevel.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/TwoIndentationLevel.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/FirstContentRuleLineEmpty.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/FirstContentRuleLineEmpty.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/Interpreter.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/Interpreter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/NoIndentationExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/NoIndentationExpected.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/AbstractMark.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/AbstractMark.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Trigger.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Trigger.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesParserBaseListener.java" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesParserBaseListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/FirstLineWithoutIndentationExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/FirstLineWithoutIndentationExpected.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/java_class.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/java_class.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/DifferentIndentationLevelExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/DifferentIndentationLevelExpected.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/in_middle_earth.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/in_middle_earth.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/SlotTypeFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/SlotTypeFunction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/RuleWithEmptyLinesExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/RuleWithEmptyLinesExpected.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Formatter.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/Formatter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Document.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/Document.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Buffer.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/engine/Buffer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/framebuilder/ExclusionList.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/framebuilder/ExclusionList.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/RuleSetReader.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/ItrRulesReader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/FourIndentationLevelExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/FourIndentationLevelExpected.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/TriggerFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/TriggerFunction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/TwoRulesExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/TwoRulesExpected.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/ITRulesParser.g4" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesParser.g4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Token.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Token.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/FourIndentationLevel.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/FourIndentationLevel.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/Inflector.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/Inflector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/TwoIndentationLevelExpected" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/TwoIndentationLevelExpected.itr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/java_class.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/java_class.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/lang/ITRulesLexer.g4" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesLexer.g4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/gen/org/siani/itrules/lang/ITRulesParserListener.java" afterPath="$PROJECT_DIR$/rule-engine-itr/gen/org/siani/itrules/dsl/ITRulesParserListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/RuleSet.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/engine/RuleSet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/operation/EvalFunction.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/operation/EvalFunction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/SystemFormatterRepository.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/SystemFormatterRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/roster.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/roster.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/DifferentIndentationLevel.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/DifferentIndentationLevel.itr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/itrules.iml" afterPath="$PROJECT_DIR$/itrules.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/expected/java_classExpected.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/java_classExpected.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/formatter/inflectors/EnglishInflector.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/formatter/inflectors/EnglishInflector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/TwoRules.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/TwoRules.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/JSONRulesReader.java" afterPath="$PROJECT_DIR$/rule-engine-json/src/org/siani/itrules/JsonRulesReader.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/AbstractFrame.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/AbstractFrame.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/siani/itrules/RuleSetInputStream.java" afterPath="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/reader/RuleSetInputStream.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/dedent/files/FirstLineWithoutIndentation.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/files/FirstLineWithoutIndentation.itr" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res_test/plural.itr" afterPath="$PROJECT_DIR$/rule-engine-itr/res_test/plural.itr" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Logger.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/logger/Logger.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/Trigger.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Trigger.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Literal.java" afterPath="$PROJECT_DIR$/rule-engine/src/org/siani/itrules/model/Literal.java" />
     </list>
     <ignored path="itrules.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -166,14 +166,94 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TabIndentationTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TabIndentationTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/TabIndentationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4235589" vertical-offset="1487" max-vertical-offset="2286">
-              <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2286">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonRulesReader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rule-engine-json/src/org/siani/itrules/JsonRulesReader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1008">
+              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ItrRulesReader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/ItrRulesReader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="810">
+              <caret line="64" column="5" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Eval.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/Eval.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3164557" vertical-offset="37" max-vertical-offset="1314">
+              <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NestedInterfaces.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/NestedInterfaces.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1782">
+              <caret line="34" column="71" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OptionalAttributes.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/OptionalAttributes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
+              <caret line="36" column="73" selection-start-line="36" selection-start-column="73" selection-end-line="36" selection-end-column="73" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InMiddleEarth.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/InMiddleEarth.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1062">
+              <caret line="36" column="69" selection-start-line="36" selection-start-column="69" selection-end-line="36" selection-end-column="69" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JavaClass.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/JavaClass.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1566">
+              <caret line="36" column="64" selection-start-line="36" selection-start-column="64" selection-end-line="36" selection-end-column="64" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NestedFrames.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/NestedFrames.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
+              <caret line="36" column="67" selection-start-line="36" selection-start-column="67" selection-end-line="36" selection-end-column="67" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -186,13 +266,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/org/siani/itrules/RuleSetReader.java" />
-        <option value="$PROJECT_DIR$/test/org/siani/itrules/Formatting.java" />
-        <option value="$PROJECT_DIR$/test/org/siani/itrules/JavaClass.java" />
-        <option value="$PROJECT_DIR$/test/org/siani/itrules/InMiddleEarth.java" />
-        <option value="$PROJECT_DIR$/test/org/siani/itrules/NestedFrames.java" />
-        <option value="$PROJECT_DIR$/errors" />
-        <option value="$PROJECT_DIR$/test/org/siani/itrules/OptionalAttributes.java" />
         <option value="$PROJECT_DIR$/test/org/siani/itrules/NestedInterfaces.java" />
         <option value="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/RuleEngine.java" />
         <option value="$PROJECT_DIR$/rules-engine/src/org/siani/itrules/model/Function.java" />
@@ -203,9 +276,7 @@
         <option value="$PROJECT_DIR$/res_test/eval.itr" />
         <option value="$PROJECT_DIR$/test/org/siani/itrules/Eval.java" />
         <option value="$PROJECT_DIR$/rule-engine-json/src/org/siani/itrules/JsonRuleSetReader.java" />
-        <option value="$PROJECT_DIR$/rule-engine-json/src/org/siani/itrules/JsonRulesReader.java" />
         <option value="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/ItrRuleSetReader.java" />
-        <option value="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/ItrRulesReader.java" />
         <option value="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/reader/RuleSetInputStream.java" />
         <option value="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesLexer.g4" />
         <option value="$PROJECT_DIR$/rule-engine/test/org/siani/itrules/framebuilder/AcceptedFrameBuilder.java" />
@@ -237,6 +308,15 @@
         <option value="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/TwoRulesExpected" />
         <option value="$PROJECT_DIR$/rule-engine-itr/res_test/dedent/expected/roster.itr" />
         <option value="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/TabIndentationTest.java" />
+        <option value="$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/Eval.java" />
+        <option value="$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/ItrRulesReader.java" />
+        <option value="$PROJECT_DIR$/rule-engine-json/src/org/siani/itrules/JsonRulesReader.java" />
+        <option value="$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/TestApi.java" />
+        <option value="$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/OptionalAttributes.java" />
+        <option value="$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/NestedInterfaces.java" />
+        <option value="$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/NestedFrames.java" />
+        <option value="$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/JavaClass.java" />
+        <option value="$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/InMiddleEarth.java" />
       </list>
     </option>
   </component>
@@ -245,9 +325,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1337" />
-    <option name="y" value="21" />
+    <option name="y" value="-7" />
     <option name="width" value="1309" />
-    <option name="height" value="747" />
+    <option name="height" value="775" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -283,14 +363,13 @@
       <showMembers />
       <showModules />
       <showLibraryContents />
-      <hideEmptyPackages ProjectPane="false" />
+      <hideEmptyPackages ProjectPane="true" />
       <abbreviatePackageNames />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -303,6 +382,7 @@
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -329,9 +409,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules" />
       <recent name="$PROJECT_DIR$/rule-engine/test/org/siani/itrules" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/rule-engine-json/res_test" />
       <recent name="$PROJECT_DIR$/rule-engine/test/org/siani/itrules" />
       <recent name="$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules" />
       <recent name="$PROJECT_DIR$/rule-engine-itr" />
@@ -343,7 +425,7 @@
       <recent name="org.siani.itrules.framebuilder" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TabIndentationTest">
+  <component name="RunManager" selected="JUnit.All in rule-engine-json">
     <configuration default="false" name="TabIndentationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -358,62 +440,6 @@
       <option name="MAIN_CLASS_NAME" value="org.siani.itrules.TabIndentationTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="TabIndentationTest.removeWithLevelFourOfIndentation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.siani.itrules.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="rule-engine-itr" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.siani.itrules" />
-      <option name="MAIN_CLASS_NAME" value="org.siani.itrules.TabIndentationTest" />
-      <option name="METHOD_NAME" value="removeWithLevelFourOfIndentation" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="TabIndentationTest.testBox" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.siani.itrules.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="rule-engine-itr" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.siani.itrules" />
-      <option name="MAIN_CLASS_NAME" value="org.siani.itrules.TabIndentationTest" />
-      <option name="METHOD_NAME" value="testBox" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -459,6 +485,57 @@
     <configuration default="false" name="All in rule-engine-itr" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="rule-engine-itr" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Eval.testEval" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.siani.itrules.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="rule-engine-json" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.siani.itrules" />
+      <option name="MAIN_CLASS_NAME" value="org.siani.itrules.Eval" />
+      <option name="METHOD_NAME" value="testEval" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="All in rule-engine-json" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="rule-engine-json" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
@@ -772,18 +849,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JUnit.TabIndentationTest" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.TabIndentationTest.removeWithLevelFourOfIndentation" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.TabIndentationTest.testBox" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.TabIndentationTest.testMiddleEarth" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.All in rule-engine-itr" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.TabIndentationTest.testMiddleEarth" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.All in rule-engine-itr" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.Eval.testEval" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.All in rule-engine-json" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.TabIndentationTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.All in rule-engine-itr" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TabIndentationTest.testMiddleEarth" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TabIndentationTest.testBox" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.TabIndentationTest.removeWithLevelFourOfIndentation" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.All in rule-engine-json" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.Eval.testEval" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.TabIndentationTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.All in rule-engine-itr" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.TabIndentationTest.testMiddleEarth" />
       </list>
     </recent_temporary>
   </component>
@@ -813,21 +890,22 @@
       <workItem from="1425985746869" duration="4438000" />
       <workItem from="1426070532400" duration="60000" />
       <workItem from="1426070648120" duration="5000" />
-      <workItem from="1426165422908" duration="1484000" />
+      <workItem from="1426165422908" duration="1895000" />
+      <workItem from="1426167360292" duration="929000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27951000" />
+    <option name="totallyTimeSpent" value="29291000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1337" y="21" width="1309" height="747" extended-state="6" />
+    <frame x="1337" y="-7" width="1309" height="775" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32721713" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32718894" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -835,13 +913,13 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32721713" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32718894" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2415154" sideWeight="0.49885058" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24148852" sideWeight="0.49885058" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24940617" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32721713" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -849,8 +927,8 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39908257" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32721713" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -880,55 +958,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rule-engine/src/org/siani/itrules/logger/Logger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine/src/org/siani/itrules/logger/DebugLogger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="216">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesSyntaxError.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/TemplateCompiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="483" max-vertical-offset="882">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine-itr/res_test/json/nestedinterfaces.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7326">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesParser.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="522">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine/src/org/siani/itrules/Document.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1062">
-          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rule-engine-itr/res_test/eval.itr">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
@@ -943,28 +972,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine-json/src/org/siani/itrules/JsonRulesReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="223" max-vertical-offset="1062">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine-json/res/formatting.itr.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="41832">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesLexer.g4">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.909091" vertical-offset="0" max-vertical-offset="1908">
           <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
         </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rule-engine/test/org/siani/itrules/framebuilder/object2frame/SimpleObjectWithStaticField.java">
@@ -1034,13 +1049,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3618">
           <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/ItrRulesReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="87" max-vertical-offset="810">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1125,9 +1133,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1224">
           <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#2528#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1142,9 +1147,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="1566">
           <caret line="96" column="14" selection-start-line="96" selection-start-column="14" selection-end-line="96" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#3123#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1176,7 +1178,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="412">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1184,7 +1185,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="362" max-vertical-offset="972">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1192,7 +1192,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="216">
           <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1200,7 +1199,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="162">
           <caret line="3" column="0" selection-start-line="1" selection-start-column="4" selection-end-line="3" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1208,7 +1206,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="412">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1216,7 +1213,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17475729" vertical-offset="0" max-vertical-offset="504">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1224,7 +1220,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17475729" vertical-offset="0" max-vertical-offset="412">
           <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1232,7 +1227,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="412">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1240,7 +1234,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.004854369" vertical-offset="70" max-vertical-offset="972">
           <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1248,7 +1241,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17475729" vertical-offset="0" max-vertical-offset="412">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1256,17 +1248,80 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="412">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rule-engine-itr/test/org/siani/itrules/TabIndentationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4235589" vertical-offset="1487" max-vertical-offset="2286">
-          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2286">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rule-engine-itr/src/org/siani/itrules/ItrRulesReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="810">
+          <caret line="64" column="5" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rule-engine-json/src/org/siani/itrules/JsonRulesReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1008">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/OptionalAttributes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
+          <caret line="36" column="73" selection-start-line="36" selection-start-column="73" selection-end-line="36" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/NestedInterfaces.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1782">
+          <caret line="34" column="71" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/NestedFrames.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1332">
+          <caret line="36" column="67" selection-start-line="36" selection-start-column="67" selection-end-line="36" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/JavaClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1566">
+          <caret line="36" column="64" selection-start-line="36" selection-start-column="64" selection-end-line="36" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/InMiddleEarth.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1062">
+          <caret line="36" column="69" selection-start-line="36" selection-start-column="69" selection-end-line="36" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rule-engine-json/test/org/siani/itrules/Eval.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3164557" vertical-offset="37" max-vertical-offset="1314">
+          <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1322,11 +1377,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>rule-engine-itr</last-edited>
+          <last-edited>rule-engine-json</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.27272728" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

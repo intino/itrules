@@ -24,12 +24,15 @@ package org.siani.itrules;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.model.Rule;
 import org.siani.itrules.model.Token;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,6 +44,18 @@ public final class JsonRulesReader implements RulesReader {
 	public JsonRulesReader(InputStream stream) {
 		this.stream = stream;
 	}
+
+    public static RuleSet read(String rules) {
+        return read(StringToInputStream(rules));
+    }
+
+    public static RuleSet read(InputStream inputStream) {
+        return new RuleSet(new JsonRulesReader(inputStream).read());
+    }
+
+    private static ByteArrayInputStream StringToInputStream(String rules) {
+        return new ByteArrayInputStream(rules.getBytes(StandardCharsets.UTF_8));
+    }
 
 	@Override
 	public Rule[] read() {
