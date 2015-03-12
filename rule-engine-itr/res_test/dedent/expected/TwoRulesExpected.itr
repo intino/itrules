@@ -3,6 +3,6 @@ write something
 endrule
 
 defrule type(other)
-primera línea
-segunda línea
+	primera línea
+	segunda línea
 endrule

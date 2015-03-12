@@ -22,10 +22,13 @@
 
 package org.siani.itrules;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.siani.itrules.Document;
+import org.siani.itrules.RuleEngine;
+import org.siani.itrules.RulesReader;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.Rule;
-import org.siani.itrules.serialization.RulesSaver;
 
 import java.io.*;
 
@@ -33,27 +36,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class    NestedInterfaces {
-	private static final String FILE_JSON = "/json/nestedinterfaces.json";
-	private static final File TEST = new File("res_test", FILE_JSON);
-	private static final String FILE_ITR = "/nested_interfaces.itr";
+    private static final String FILE_ITR = "/nested_interfaces.itr";
+    private static final File TEST = new File("res_test", FILE_ITR);
 
 	static {
-		TEST.getParentFile().mkdirs();
+//		TEST.getParentFile().mkdirs();
 	}
 
 	@Test
 	public void testNestedInterfaces() throws Exception {
-		RulesReader reader = new RuleSetReader(getRules());
-		FileWriter writer = new FileWriter(TEST);
-		writer.write(RulesSaver.toJSON(reader.read()));
-		writer.close();
-		Frame frame = buildFrame();
-		Document document = new Document();
-		Rule[] rules = new JsonRulesReader(getJsonRules()).read();
-		assertNotNull(rules);
-		RuleEngine ruleEngine = new RuleEngine(reader);
-		ruleEngine.render(frame, document);
-		assertEquals(EXPECTED, document.content());
+        Document document = new Document();
+        RuleEngine ruleEngine = new RuleEngine(ItrRulesReader.read(new FileInputStream(TEST)));
+        ruleEngine.render(buildFrame(), document);
+        Assert.assertEquals(EXPECTED, document.content());
 	}
 
 	private Frame buildFrame() {

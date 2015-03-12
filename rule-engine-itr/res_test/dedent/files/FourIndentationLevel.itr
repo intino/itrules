@@ -1,7 +1,7 @@
 defrule type(Person)
-			<person>
-				<age>
-				<name>
-				<nacionality>
-			<person>
+				<person>
+					<age>
+					<name>
+					<nacionality>
+				<person>
 endrule

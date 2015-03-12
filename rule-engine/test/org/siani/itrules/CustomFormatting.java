@@ -24,7 +24,7 @@ package org.siani.itrules;
 
 import org.junit.Test;
 import org.siani.itrules.model.Rule;
-import org.siani.itrules.serialization.RulesSaver;
+import org.siani.itrules.serialization.JsonRulesWriter;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

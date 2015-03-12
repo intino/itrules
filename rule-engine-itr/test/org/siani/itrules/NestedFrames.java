@@ -29,9 +29,10 @@ import org.siani.itrules.model.Frame;
 import java.io.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-public class OptionalAttributes {
-    private static final String FILE_ITR = "/optional_attributes.itr";
+public class NestedFrames {
+    private static final String FILE_ITR = "/nested_frames.itr";
     private static final File TEST = new File("res_test", FILE_ITR);
 
 	static {
@@ -39,11 +40,24 @@ public class OptionalAttributes {
 	}
 
 	@Test
-	public void testOptionalAttributes() throws Exception {
-		Document document = new Document();
-        RuleEngine ruleEngine = new RuleEngine(RuleSetReader.read(new FileInputStream(TEST)));
+	public void testNestedFrames() throws Exception {
+        Document document = new Document();
+        RuleEngine ruleEngine = new RuleEngine(ItrRulesReader.read(new FileInputStream(TEST)));
         ruleEngine.render(buildFrame(), document);
 		assertEquals(EXPECTED, document.content());
+	}
+
+	public InputStream getRules() {
+		return this.getClass().getResourceAsStream(FILE_ITR);
+	}
+
+	public InputStream getJsonRules() {
+		try {
+			return new FileInputStream(TEST);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	private Frame buildFrame() {
@@ -57,7 +71,6 @@ public class OptionalAttributes {
 			addFrame("Name", "Pau Gasol");
 			addFrame("Birthday", new DateTime("06/07/1980"));
 			addFrame("Country", "Spain");
-			addFrame("Club", "L.A. Lakers");
 		}});
 		frame.addFrame("Player", new Frame("Person") {{
 			addFrame("Name", "Rudy Fernandez");
@@ -73,25 +86,12 @@ public class OptionalAttributes {
 	}
 
 	private static final String EXPECTED = "<roster>\n" +
-		"  <coach name=\"Juan Antonio Orenga\" year=\"1966\" country=\"Spain\" />\n" +
-		"  <players>\n" +
-		"    <player name=\"Pau Gasol\" year=\"1980\" country=\"Spain\" club=\"L.A. Lakers\" />\n" +
-		"    <player name=\"Rudy Fernandez\" year=\"1985\" country=\"Spain\" />\n" +
-		"    <player name=\"Juan Carlos Navarro\" year=\"1980\" country=\"Spain\" />\n" +
-		"  </players>\n" +
+		"    <coach name=\"Juan Antonio Orenga\" year=\"1966\" country=\"Spain\"/>\n" +
+		"\t<players>\n" +
+		"\t\t<player name=\"Pau Gasol\" year=\"1980\" country=\"Spain\"/>\n" +
+		"\t\t<player name=\"Rudy Fernandez\" year=\"1985\" country=\"Spain\"/>\n" +
+		"\t\t<player name=\"Juan Carlos Navarro\" year=\"1980\" country=\"Spain\"/>\n" +
+		"    </players>\n" +
 		"</roster>";
-
-	public InputStream getRules() {
-		return this.getClass().getResourceAsStream(FILE_ITR);
-	}
-
-	public InputStream getJsonRules() {
-		try {
-			return new FileInputStream(TEST);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 }

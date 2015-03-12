@@ -22,7 +22,9 @@
 
 package org.siani.itrules;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.siani.itrules.reader.DedentInputStream;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -34,8 +36,8 @@ public class TabIndentationTest {
 	@Test
 	public void rulesWithoutIndentation() {
 		DedentInputStream stream = new DedentInputStream(getInputStream("/dedent/files/NoIndentation.itr"));
-		assertEquals(passInputStreamToString(getInputStream
-			("/dedent/expected/NoIndentationExpected")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream
+                ("/dedent/expected/NoIndentationExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
@@ -43,8 +45,8 @@ public class TabIndentationTest {
 		DedentInputStream stream =
 			new DedentInputStream(getInputStream("/dedent/files/EqualIndentation.itr"));
 
-		assertEquals(passInputStreamToString(getInputStream
-			("/dedent/expected/NoIndentationExpected")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream
+                ("/dedent/expected/NoIndentationExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
@@ -52,8 +54,8 @@ public class TabIndentationTest {
 		DedentInputStream stream = new DedentInputStream
 			(getInputStream("/dedent/files/DifferentIndentationLevel.itr"));
 
-		assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
-			"/DifferentIndentationLevelExpected")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
+                "/DifferentIndentationLevelExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
@@ -62,7 +64,7 @@ public class TabIndentationTest {
 			(getInputStream("/dedent/files/FirstLineWithoutIndentation.itr"));
 
 		assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
-			"/FirstLineWithoutIndentationExpected")), new String(stream.getContent()));
+                "/FirstLineWithoutIndentationExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
@@ -70,8 +72,8 @@ public class TabIndentationTest {
 		DedentInputStream stream = new DedentInputStream
 			(getInputStream("/dedent/files/TwoIndentationLevel.itr"));
 
-		assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
-			"/TwoIndentationLevelExpected")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
+                "/TwoIndentationLevelExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
@@ -79,8 +81,8 @@ public class TabIndentationTest {
 		DedentInputStream stream = new DedentInputStream
 			(getInputStream("/dedent/files/FourIndentationLevel.itr"));
 
-		assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
-			"/FourIndentationLevelExpected")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
+                "/FourIndentationLevelExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
@@ -88,8 +90,8 @@ public class TabIndentationTest {
 		DedentInputStream stream = new DedentInputStream
 			(getInputStream("/dedent/files/RuleWithEmptyLines.itr"));
 
-		assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
-			"/RuleWithEmptyLinesExpected")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
+                "/RuleWithEmptyLinesExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
@@ -97,41 +99,35 @@ public class TabIndentationTest {
 		DedentInputStream stream = new DedentInputStream
 			(getInputStream("/dedent/files/FirstContentRuleLineEmpty.itr"));
 
-		assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
-			"/FirstContentRuleLineEmptyExpected")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
+                "/FirstContentRuleLineEmptyExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
 	public void dedentTwoRulesInSameFile() {
 		DedentInputStream stream = new DedentInputStream
 			(getInputStream("/dedent/files/TwoRules.itr"));
-		assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
-			"/TwoRulesExpected")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
+                "/TwoRulesExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
 	public void dedentJavaClassItRulesExample() {
 		DedentInputStream stream = new DedentInputStream(getInputStream("/dedent/files/java_class.itr"));
 		assertEquals(passInputStreamToString(getInputStream("/dedent/expected" +
-			"/java_classExpected.itr")), new String(stream.getContent()));
-	}
-
-	@Test
-	public void testBox() throws Exception {
-		DedentInputStream stream = new DedentInputStream(getInputStream("/box.itr"));
-		assertEquals(passInputStreamToString(getInputStream("/box.itr")), new String(stream.getContent()));
+                "/java_classExpected.itr")), new String(stream.getContent()));
 	}
 
 	@Test
 	public void testMiddleEarth() throws Exception {
 		DedentInputStream stream = new DedentInputStream(getInputStream("/dedent/files/in_middle_earth.itr"));
-		assertEquals(passInputStreamToString(getInputStream("/dedent/files/in_middle_earth.itr")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream("/dedent/files/in_middle_earth.itr")), new String(stream.getContent()));
 	}
 
 	@Test
 	public void testRoster() throws Exception {
 		DedentInputStream stream = new DedentInputStream(getInputStream("/dedent/files/roster.itr"));
-		assertEquals(passInputStreamToString(getInputStream("/dedent/expected/roster.itr")), new String(stream.getContent()));
+		Assert.assertEquals(passInputStreamToString(getInputStream("/dedent/expected/roster.itr")), new String(stream.getContent()));
 	}
 
 	private String passInputStreamToString(InputStream inputStream) throws NullPointerException {

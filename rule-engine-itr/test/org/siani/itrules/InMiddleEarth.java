@@ -42,7 +42,7 @@ public class InMiddleEarth {
 	@Test
 	public void testInMiddleEarth() throws Exception {
 		Document document = new Document();
-        RuleEngine ruleEngine = new RuleEngine(RuleSetReader.read(new FileInputStream(TEST)));
+        RuleEngine ruleEngine = new RuleEngine(ItrRulesReader.read(new FileInputStream(TEST)));
 		ruleEngine.render(buildFrame(), document);
         assertEquals(EXPECTED, document.content());
 	}

@@ -1,18 +1,18 @@
 defrule type(Class)
-		public class [$static ][$final ]$name [extends $superclass ][implements $interface...[, ] ]{
+	public class [$static ][$final ]$name [extends $superclass ][implements $interface...[, ] ]{
 
-			$attribute+Const...[$NL]
-			$attribute+Field...[$NL]
+		$attribute+Const...[$NL]
+		$attribute+Field...[$NL]
 
-			public $name($attribute+Injection...[, ]) {
-				$attribute+Initialize...[$NL]
-			}
-
-			$attribute+Getter...[$NL$NL]
-
-			$attribute+Setter...[$NL$NL]
-
+		public $name($attribute+Injection...[, ]) {
+			$attribute+Initialize...[$NL]
 		}
+
+		$attribute+Getter...[$NL$NL]
+
+		$attribute+Setter...[$NL$NL]
+
+	}
 endrule
 
 defrule type(Attribute) type(Const) trigger(Const)
@@ -24,7 +24,7 @@ private final $type $name[ = $default];
 endrule
 
 defrule type(Attribute) !type(Const) !type(ReadOnly) trigger(Field)
-		private $type $name[ = $default];
+    private $type $name[ = $default];
 endrule
 
 defrule type(Attribute) !type(Const) trigger(Getter)

@@ -19,7 +19,7 @@ public class TestApi {
     @Test
     public void renderingDirectlyAPerson() throws Exception {
         Document document = new Document();
-        RuleEngine ruleEngine = new RuleEngine(RuleSetReader.read(RULE));
+        RuleEngine ruleEngine = new RuleEngine(ItrRulesReader.read(RULE));
         ruleEngine.render(new Person("Pau Gasol", "06/07/1980", "Spain"), document);
         assertEquals(EXPECTED, document.content());
     }

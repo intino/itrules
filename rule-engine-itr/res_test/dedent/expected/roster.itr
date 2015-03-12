@@ -1,10 +1,10 @@
 defrule type(Roster)
-  <roster>
-    $Coach
-    <players>
-      $Player
-    </players>
-  </roster>
+<roster>
+  $Coach
+  <players>
+    $Player
+  </players>
+</roster>
 endrule
 
 defrule type(Person) trigger(Coach)
