@@ -53,7 +53,7 @@ public final class FrameBuilder implements BuilderContext {
 
 	public Frame createFrame(Object object) {
 		try {
-			List<String> allTypes = getAllTypes(object.getClass());
+			List<String> allTypes = toString(getAllTypes(object.getClass()));
 			Frame toReturn = new Frame(allTypes.toArray(new String[allTypes.size()]));
 			fillSlots(object, toReturn);
 			return toReturn;
@@ -63,16 +63,37 @@ public final class FrameBuilder implements BuilderContext {
 		}
 	}
 
-	private List<String> getAllTypes(final Class<?> clazz) {
-		final List<String> types = new ArrayList<String>() {{
-			add(clazz.getSimpleName());
+	private List<String> toString(List<Class<?>> allTypes) {
+		List<String> result = new ArrayList<>();
+		for (Class<?> allType : allTypes) result.add(allType.getSimpleName());
+		return result;
+	}
+
+	private List<Class<?>> getAllTypes(final Class<?> clazz) {
+		final List<Class<?>> types = new ArrayList<Class<?>>() {{
+			add(clazz);
 		}};
 		for (Class<?> aInterface : clazz.getInterfaces()) types.addAll(getAllTypes(aInterface));
 		if (clazz.getSuperclass() != null) types.addAll(getAllTypes(clazz.getSuperclass()));
 		return types;
 	}
 
-	private void fillSlots(Object object, Frame toReturn) throws IllegalAccessException {
+	private<T> void fillSlots(T object, Frame toReturn) throws IllegalAccessException {
+		Adapter<T> adapter = findAdapter(object);
+		if(adapter != null) adapter.adapt(toReturn, object, this);
+		else fillSlotsByDefault(object, toReturn);
+	}
+
+	private<T> Adapter<T> findAdapter(T object) {
+		List<Class<?>> allTypes = getAllTypes(object.getClass());
+		for (Class<?> type : allTypes) {
+			if(!adapterList.contains(type)) continue;
+			return adapterList.get(type);
+		}
+		return null;
+	}
+
+	private void fillSlotsByDefault(Object object, Frame toReturn) throws IllegalAccessException {
 		Class<?> aClass = object.getClass();
 		while (aClass != null) {
 			fillSlotsForClass(aClass, object, toReturn);
