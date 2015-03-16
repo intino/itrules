@@ -1,4 +1,4 @@
-package siani.itrules.intellij.highlighting;
+package org.siani.itrules.intellij.highlighting;
 
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;

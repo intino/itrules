@@ -1,4 +1,4 @@
-package siani.itrules.intellij.actions;
+package org.siani.itrules.intellij.actions;
 
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;

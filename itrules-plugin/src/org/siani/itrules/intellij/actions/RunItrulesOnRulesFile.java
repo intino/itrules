@@ -1,4 +1,4 @@
-package siani.itrules.intellij.actions;
+package org.siani.itrules.intellij.actions;
 
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
@@ -9,8 +9,7 @@ import com.intellij.openapi.progress.Task.Modal;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
-import org.siani.itrules.TemplateReader;
-import org.siani.itrules.serialization.RulesSaver;
+import org.siani.itrules.ItrRulesReader;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -41,7 +40,7 @@ public class RunItrulesOnRulesFile extends Modal {
 		LOG.info("itrules(\"" + this.rulesFile.getPath() + "\")");
 		try {
 			FileWriter writer = new FileWriter(this.destiny);
-			writer.write(RulesSaver.toJSON(new TemplateReader(this.rulesFile.getInputStream()).read()));
+			writer.write(JsonRulesWriter.toJSON(new ItrRulesReader(this.rulesFile.getInputStream()).read()));
 			writer.close();
 		} catch (Throwable e) {
 			e.printStackTrace();

@@ -50,14 +50,6 @@ public final class ItrRulesReader implements RulesReader {
 		return new ByteArrayInputStream(rules.getBytes(StandardCharsets.UTF_8));
 	}
 
-//	private RuleSetReader(File file) throws FileNotFoundException {
-//		this(new FileInputStream(file));
-//	}
-//
-//	private RuleSetReader(String stream) {
-//		this(new ByteArrayInputStream(stream.getBytes()));
-//	}
-
 	public ItrRulesReader(InputStream... stream) {
 		inputs = new ArrayList<>();
 		for (InputStream input : stream)

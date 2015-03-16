@@ -1,4 +1,4 @@
-package siani.itrules.intellij.lang.file;
+package org.siani.itrules.intellij.lang.file;
 
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 

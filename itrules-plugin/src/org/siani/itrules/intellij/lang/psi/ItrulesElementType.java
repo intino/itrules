@@ -1,9 +1,9 @@
-package siani.itrules.intellij.lang.psi;
+package org.siani.itrules.intellij.lang.psi;
 
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
-import siani.itrules.intellij.lang.ItrulesLanguage;
+import org.siani.itrules.intellij.lang.ItrulesLanguage;
 
 public class ItrulesElementType extends IElementType {
 

@@ -1,4 +1,4 @@
-package siani.itrules.intellij.highlighting;
+package org.siani.itrules.intellij.highlighting;
 
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.lexer.Lexer;
@@ -8,8 +8,8 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.openapi.util.Pair;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import siani.itrules.intellij.lang.lexer.LexerAdapter;
-import siani.itrules.intellij.lang.psi.ItrulesTypes;
+import org.siani.itrules.intellij.lang.lexer.LexerAdapter;
+import org.siani.itrules.intellij.lang.psi.ItrulesTypes;
 
 import java.util.HashMap;
 import java.util.Map;

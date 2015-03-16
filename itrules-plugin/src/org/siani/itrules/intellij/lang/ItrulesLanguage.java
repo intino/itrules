@@ -1,4 +1,4 @@
-package siani.itrules.intellij.lang;
+package org.siani.itrules.intellij.lang;
 
 import com.intellij.lang.Language;
 

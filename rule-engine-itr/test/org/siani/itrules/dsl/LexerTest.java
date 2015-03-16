@@ -227,10 +227,7 @@ public class LexerTest {
 	@Test
 	public void testTara() throws Exception {
 		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"MARK_KEY", "ID", "TEXT", "MARK_KEY", "ID",
-			"TEXT", "MARK_KEY", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "RULE_END",
-			 "RULE_END"};
-
+			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "EXP_SCAPED_CHAR", "SCAPED_CHAR", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.TARA);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}

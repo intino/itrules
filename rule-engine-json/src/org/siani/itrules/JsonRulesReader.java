@@ -45,10 +45,6 @@ public final class JsonRulesReader implements RulesReader {
 		this.stream = stream;
 	}
 
-    public static RuleSet read(String rules) {
-        return read(StringToInputStream(rules));
-    }
-
     public static RuleSet read(InputStream inputStream) {
         return new RuleSet(new JsonRulesReader(inputStream).read());
     }

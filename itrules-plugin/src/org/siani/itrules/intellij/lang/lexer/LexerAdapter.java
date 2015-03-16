@@ -1,4 +1,4 @@
-package siani.itrules.intellij.lang.lexer;
+package org.siani.itrules.intellij.lang.lexer;
 
 import com.intellij.lexer.FlexAdapter;
 

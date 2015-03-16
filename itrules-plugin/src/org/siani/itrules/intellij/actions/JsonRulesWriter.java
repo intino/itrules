@@ -20,7 +20,7 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.serialization;
+package org.siani.itrules.intellij.actions;
 
 import com.google.gson.*;
 import org.siani.itrules.model.Rule;

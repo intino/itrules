@@ -1,4 +1,4 @@
-package siani.itrules.intellij.lang.psi;
+package org.siani.itrules.intellij.lang.psi;
 
 import com.intellij.psi.tree.IElementType;
 

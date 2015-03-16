@@ -1,8 +1,9 @@
-package siani.itrules.intellij.actions;
+package org.siani.itrules.intellij.actions;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.vfs.VirtualFile;
+import org.siani.itrules.intellij.lang.file.ItrulesFileType;
 
 public final class ActionUtils {
 
@@ -23,7 +24,7 @@ public final class ActionUtils {
 		VirtualFile[] files = LangDataKeys.VIRTUAL_FILE_ARRAY.getData(e.getDataContext());
 		if ((files == null) || (files.length == 0)) return null;
 		VirtualFile vfile = files[0];
-		if ((vfile != null) && (vfile.getName().endsWith(siani.itrules.intellij.lang.file.ItrulesFileType.INSTANCE.getDefaultExtension()))) {
+		if ((vfile != null) && (vfile.getName().endsWith(ItrulesFileType.INSTANCE.getDefaultExtension()))) {
 			return vfile;
 		}
 		return null;
