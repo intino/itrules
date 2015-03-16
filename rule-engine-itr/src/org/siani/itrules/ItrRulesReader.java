@@ -43,7 +43,7 @@ public final class ItrRulesReader implements RulesReader {
 	}
 
 	public static RuleSet read(InputStream inputStream) {
-		return new RuleSet(new ItrRulesReader(inputStream).read());
+		return new ItrRulesReader(inputStream).read();
 	}
 
 	private static ByteArrayInputStream StringToInputStream(String rules) {
@@ -56,10 +56,10 @@ public final class ItrRulesReader implements RulesReader {
 			inputs.add(new DedentInputStream(new RuleSetInputStream(input)));
 	}
 
-	public Rule[] read() {
+	public RuleSet read() {
 		List<Rule> rules = new ArrayList<>();
 		for (InputStream inputStream : inputs)
 			Collections.addAll(rules, new TemplateCompiler().compile(inputStream));
-		return rules.toArray(new Rule[rules.size()]);
+		return new RuleSet(rules.toArray(new Rule[rules.size()]));
 	}
 }

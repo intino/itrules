@@ -22,9 +22,9 @@
 
 package org.siani.itrules;
 
-import org.siani.itrules.model.Rule;
+import org.siani.itrules.engine.RuleSet;
 
 public interface RulesReader {
 
-	public Rule[] read();
+	public RuleSet read();
 }

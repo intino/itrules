@@ -37,14 +37,6 @@ public final class RuleEngine {
 	private final Stack<Buffer> buffers = new Stack<>();
 	private final Map<String, Formatter> formatters = new HashMap<>();
 
-	public RuleEngine(Rule[] rules, Locale locale) {
-		this(new RuleSet(rules), locale);
-	}
-
-	public RuleEngine(RuleSet rules) {
-		this(rules, Locale.getDefault());
-	}
-
 	public RuleEngine(RulesReader reader, Locale locale) {
 		this(reader.read(), locale);
 	}
@@ -53,9 +45,13 @@ public final class RuleEngine {
 		this(reader.read(), Locale.getDefault());
 	}
 
+	public RuleEngine(RuleSet rules) {
+		this(rules, Locale.getDefault());
+	}
+
 	public RuleEngine(RuleSet rules, Locale locale) {
 		this.ruleSet = rules;
-        this.formatters.putAll(SystemFormatterRepository.formatters(locale));
+		this.formatters.putAll(SystemFormatterRepository.formatters(locale));
 	}
 
 	public void register(String name, Formatter formatter) {

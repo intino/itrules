@@ -45,20 +45,20 @@ public final class JsonRulesReader implements RulesReader {
 		this.stream = stream;
 	}
 
-    public static RuleSet read(InputStream inputStream) {
-        return new RuleSet(new JsonRulesReader(inputStream).read());
-    }
+	public static RuleSet read(InputStream inputStream) {
+		return new JsonRulesReader(inputStream).read();
+	}
 
-    private static ByteArrayInputStream StringToInputStream(String rules) {
-        return new ByteArrayInputStream(rules.getBytes(StandardCharsets.UTF_8));
-    }
+	private static ByteArrayInputStream StringToInputStream(String rules) {
+		return new ByteArrayInputStream(rules.getBytes(StandardCharsets.UTF_8));
+	}
 
 	@Override
-	public Rule[] read() {
+	public RuleSet read() {
 		GsonBuilder gb = new GsonBuilder();
 		gb.registerTypeAdapter(Token.class, new TokenAdapter());
 		List<Rule> rules = gb.create().fromJson(new InputStreamReader(stream), getType());
-		return rules.toArray(new Rule[rules.size()]);
+		return new RuleSet(rules.toArray(new Rule[rules.size()]));
 	}
 
 
