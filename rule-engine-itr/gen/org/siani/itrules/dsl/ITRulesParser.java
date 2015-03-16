@@ -1,10 +1,13 @@
-// Generated from /Users/oroncal/workspace/itrules/src/org/siani/itrules/lang/ITRulesParser.g4 by ANTLR 4.4.1-dev
+// Generated from /Users/oroncal/workspace/it-rules/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesParser.g4 by ANTLR 4.4.1-dev
 package org.siani.itrules.dsl;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ITRulesParser extends Parser {
@@ -832,12 +835,13 @@ public class ITRulesParser extends Parser {
 			setState(126);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << MARK_KEY) | (1L << LEFT_SQ))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << MARK_KEY) | (1L << LEFT_SQ) | (1L << EXP_SCAPED_CHAR))) != 0)) {
 				{
 				setState(124);
 				switch (_input.LA(1)) {
 				case TEXT:
 				case SCAPED_CHAR:
+				case EXP_SCAPED_CHAR:
 					{
 					setState(121); text();
 					}
@@ -919,12 +923,13 @@ public class ITRulesParser extends Parser {
 			setState(135);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << MARK_KEY) | (1L << LEFT_SQ))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << MARK_KEY) | (1L << LEFT_SQ) | (1L << EXP_SCAPED_CHAR))) != 0)) {
 				{
 				setState(133);
 				switch (_input.LA(1)) {
 				case TEXT:
 				case SCAPED_CHAR:
+				case EXP_SCAPED_CHAR:
 					{
 					setState(130); text();
 					}
@@ -963,6 +968,7 @@ public class ITRulesParser extends Parser {
 
 	public static class TextContext extends ParserRuleContext {
 		public TerminalNode TEXT() { return getToken(ITRulesParser.TEXT, 0); }
+		public TerminalNode EXP_SCAPED_CHAR() { return getToken(ITRulesParser.EXP_SCAPED_CHAR, 0); }
 		public TerminalNode SCAPED_CHAR() { return getToken(ITRulesParser.SCAPED_CHAR, 0); }
 		public TextContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -987,7 +993,7 @@ public class ITRulesParser extends Parser {
 			{
 			setState(140);
 			_la = _input.LA(1);
-			if ( !(_la==TEXT || _la==SCAPED_CHAR) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << SCAPED_CHAR) | (1L << EXP_SCAPED_CHAR))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			consume();
@@ -1124,9 +1130,9 @@ public class ITRulesParser extends Parser {
 		"\u0082\13\17\3\20\3\20\3\20\3\20\7\20\u0088\n\20\f\20\16\20\u008b\13\20"+
 		"\3\20\3\20\3\21\3\21\3\22\3\22\3\22\7\22\u0094\n\22\f\22\16\22\u0097\13"+
 		"\22\3\22\3\22\5\22\u009b\n\22\3\23\3\23\3\23\3\23\2\2\24\2\4\6\b\n\f\16"+
-		"\20\22\24\26\30\32\34\36 \"$\2\3\4\2\6\6  \u00a5\2)\3\2\2\2\4.\3\2\2\2"+
-		"\6\62\3\2\2\2\b?\3\2\2\2\nD\3\2\2\2\fH\3\2\2\2\16P\3\2\2\2\20X\3\2\2\2"+
-		"\22]\3\2\2\2\24b\3\2\2\2\26h\3\2\2\2\30n\3\2\2\2\32s\3\2\2\2\34\u0080"+
+		"\20\22\24\26\30\32\34\36 \"$\2\3\5\2\6\6  --\u00a5\2)\3\2\2\2\4.\3\2\2"+
+		"\2\6\62\3\2\2\2\b?\3\2\2\2\nD\3\2\2\2\fH\3\2\2\2\16P\3\2\2\2\20X\3\2\2"+
+		"\2\22]\3\2\2\2\24b\3\2\2\2\26h\3\2\2\2\30n\3\2\2\2\32s\3\2\2\2\34\u0080"+
 		"\3\2\2\2\36\u0083\3\2\2\2 \u008e\3\2\2\2\"\u0090\3\2\2\2$\u009c\3\2\2"+
 		"\2&(\5\4\3\2\'&\3\2\2\2(+\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*,\3\2\2\2+)\3\2"+
 		"\2\2,-\7\2\2\3-\3\3\2\2\2./\5\6\4\2/\60\5\34\17\2\60\61\7#\2\2\61\5\3"+

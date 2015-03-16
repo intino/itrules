@@ -1,10 +1,13 @@
-// Generated from /Users/oroncal/workspace/itrules/src/org/siani/itrules/lang/ITRulesLexer.g4 by ANTLR 4.4.1-dev
+// Generated from /Users/oroncal/workspace/it-rules/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesLexer.g4 by ANTLR 4.4.1-dev
 package org.siani.itrules.dsl;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ITRulesLexer extends Lexer {

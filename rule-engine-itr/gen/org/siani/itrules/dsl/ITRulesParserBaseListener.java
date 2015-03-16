@@ -1,4 +1,4 @@
-// Generated from /Users/oroncal/workspace/itrules/src/org/siani/itrules/lang/ITRulesParser.g4 by ANTLR 4.4.1-dev
+// Generated from /Users/oroncal/workspace/it-rules/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesParser.g4 by ANTLR 4.4.1-dev
 package org.siani.itrules.dsl;
 
 import org.antlr.v4.runtime.ParserRuleContext;
