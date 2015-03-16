@@ -9,8 +9,6 @@
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="rule-engine" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
@@ -22,7 +20,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="antlr-4.4-complete" level="project" />
     <orderEntry type="library" name="antlr-runtime-4.4" level="project" />
+    <orderEntry type="module" module-name="rule-engine" />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
