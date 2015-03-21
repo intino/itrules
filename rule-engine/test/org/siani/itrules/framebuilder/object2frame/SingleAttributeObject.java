@@ -1,10 +1,10 @@
 package org.siani.itrules.framebuilder.object2frame;
 
-public class PrimitiveObject {
+public class SingleAttributeObject {
 
     private final int field1;
 
-    public PrimitiveObject(int field1) {
+    public SingleAttributeObject(int field1) {
         this.field1 = field1;
     }
 }

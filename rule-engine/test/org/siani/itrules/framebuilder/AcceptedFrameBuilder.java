@@ -15,8 +15,8 @@ import static org.junit.Assert.assertTrue;
 
 public class AcceptedFrameBuilder {
 
-    @org.junit.Test
-    public void testPrimitiveToFrame() throws Exception {
+    @Test
+    public void should_throw_an_exception_with() throws Exception {
         try {
             new FrameBuilder().build(1.0);
             assertFalse(true);
@@ -25,21 +25,21 @@ public class AcceptedFrameBuilder {
         }
     }
 
-    @org.junit.Test
-    public void testPrimitiveObjectToFrame() throws Exception {
-        Frame frame = new FrameBuilder().build(new PrimitiveObject(1));
+    @Test
+    public void should_create_a_frame_when_building_an_object_with_a_single_attribute() throws Exception {
+        Frame frame = new FrameBuilder().build(new SingleAttributeObject(1));
         assertEquals(1, frame.getFrames("field1").next().value());
     }
 
-    @org.junit.Test
-    public void testSimpleObjectToFrame() throws Exception {
-        Frame frame = new FrameBuilder().build(new SimpleObject("test", 1.0));
+    @Test
+    public void should_create_a_frame_when_building_an_object_with_two_attributes() throws Exception {
+        Frame frame = new FrameBuilder().build(new TwoAttributesObject("test", 1.0));
         assertEquals("test", frame.getFrames("field1").next().value());
         assertEquals(1.0, frame.getFrames("field2").next().value());
     }
 
-    @org.junit.Test
-    public void testSimpleObjectWithArraysToFrame() throws Exception {
+    @Test
+    public void should_create_a_frame_when_building_an_object_with_two_array_attributes() throws Exception {
         Frame frame = new FrameBuilder().build(
 	        new SimpleObjectWithArrays(new String[]{"test1", "test2"}, new Double[]{1.0, 2.0}));
 
@@ -54,7 +54,7 @@ public class AcceptedFrameBuilder {
         assertTrue(!field2.hasNext());
     }
 
-    @org.junit.Test
+    @Test
     public void testSimpleObjectWithListsToFrame() throws Exception {
         Frame frame = new FrameBuilder().build(
 	        new SimpleObjectWithList(Arrays.asList("test1", "test2"), Arrays.asList(1.0, 2.0)));
@@ -70,15 +70,15 @@ public class AcceptedFrameBuilder {
         assertTrue(!field2.hasNext());
     }
 
-    @org.junit.Test
+    @Test
     public void testSimpleObjectWithComplexListsToFrame() throws Exception {
         Frame frame = new FrameBuilder().build(
-	        new SimpleObjectWithComplexList(Arrays.asList(new Object[]{new SimpleObject("t", 1.0)})));
+	        new SimpleObjectWithComplexList(Arrays.asList(new Object[]{new TwoAttributesObject("t", 1.0)})));
         assertEquals("t", frame.getFrames("field1").next().getFrames("field1").next().value());
         assertEquals(1.0, frame.getFrames("field1").next().getFrames("field2").next().value());
     }
 
-    @org.junit.Test
+    @Test
     public void testSimpleObjectWithMapToFrame() throws Exception {
         Frame frame = new FrameBuilder().build(new SimpleObjectWithMap(Arrays.asList(new Object[]{"test1", "test2"}),
 	        Arrays.asList(new Object[]{1.0, 2.0})));
@@ -87,26 +87,26 @@ public class AcceptedFrameBuilder {
         assertEquals(2.0, doubleMap.getFrames("test2").next().value());
     }
 
-    @org.junit.Test
+    @Test
     public void testSimpleObjectWithComplexMapToFrame() throws Exception {
-        SimpleObject object = new SimpleObject("t", 1.0);
+        TwoAttributesObject object = new TwoAttributesObject("t", 1.0);
         Frame frame = new FrameBuilder().build(new SimpleObjectWithMap(Arrays.asList(new Object[]{object}),
-	        Arrays.asList(new Object[]{new SimpleObject("t", 1.0)})));
+	        Arrays.asList(new Object[]{new TwoAttributesObject("t", 1.0)})));
         AbstractFrame map = frame.getFrames("map").next();
         assertEquals("t", map.getFrames(object.toString()).next().getFrames("field1").next().value());
         assertEquals(1.0, map.getFrames(object.toString()).next().getFrames("field2").next().value());
     }
 
-    @org.junit.Test
+    @Test
     public void testComplexObjectToFrame() throws Exception {
-        Frame frame = new FrameBuilder().build(new ComplexObject(new SimpleObject("test", 1.0)));
+        Frame frame = new FrameBuilder().build(new ComplexObject(new TwoAttributesObject("test", 1.0)));
 
         AbstractFrame field1 = frame.getFrames("field1").next();
         assertEquals("test", field1.getFrames("field1").next().value());
         assertEquals(1.0, field1.getFrames("field2").next().value());
     }
 
-    @org.junit.Test
+    @Test
     public void testGetAllSuperClassesAndInterfaces() throws Exception {
         Frame frame = new FrameBuilder().build(new PolymorphicClass());
         assertTrue(frame.is("PolymorphicClass"));
@@ -118,11 +118,11 @@ public class AcceptedFrameBuilder {
         assertTrue(frame.is("InterfaceC"));
     }
 
-    @org.junit.Test
+    @Test
     public void testExcludeMap() throws Exception {
         FrameBuilder frameBuilder = new FrameBuilder();
         frameBuilder.exclude("SimpleObject", "field2");
-        Frame frame = frameBuilder.build(new SimpleObject("test", 1.0));
+        Frame frame = frameBuilder.build(new TwoAttributesObject("test", 1.0));
         assertEquals("test", frame.getFrames("field1").next().value());
         assertFalse(frame.getFrames("field2").hasNext());
     }
@@ -150,14 +150,14 @@ public class AcceptedFrameBuilder {
 	@Test
 	public void testSimpleAdapter() throws Exception {
 		FrameBuilder builder = new FrameBuilder();
-		builder.register(SimpleObject.class, new Adapter<SimpleObject>() {
+		builder.register(TwoAttributesObject.class, new Adapter<TwoAttributesObject>() {
 
 			@Override
-			public void adapt(Frame frame, SimpleObject object, BuilderContext context) {
+			public void adapt(Frame frame, TwoAttributesObject object, BuilderContext context) {
 				frame.addFrame("field1", object.getField1());
 			}
 		});
-		Frame frame = builder.build(new SimpleObject("test", 1.0));
+		Frame frame = builder.build(new TwoAttributesObject("test", 1.0));
 		assertEquals("test", frame.getFrames("field1").next().value());
 		assertFalse(frame.getFrames("field2").hasNext());
 	}
@@ -172,9 +172,9 @@ public class AcceptedFrameBuilder {
 				}
 			});
 		Frame frame = builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
-			new SimpleObject("test1", 1.0),
-			new SimpleObject("test2", 2.0),
-			new SimpleObject("test3", 3.0)
+			new TwoAttributesObject("test1", 1.0),
+			new TwoAttributesObject("test2", 2.0),
+			new TwoAttributesObject("test3", 3.0)
 		)));
 		Iterator<AbstractFrame> frames = frame.getFrames("object2");
 		AbstractFrame next = frames.next();
@@ -189,9 +189,9 @@ public class AcceptedFrameBuilder {
 		builder.register(SimpleObjectWithComplexList.class, new Adapter<SimpleObjectWithComplexList>() {
 				@Override
 				public void adapt(Frame frame, SimpleObjectWithComplexList object, BuilderContext context) {
-					context.register(SimpleObject.class, new Adapter<SimpleObject>() {
+					context.register(TwoAttributesObject.class, new Adapter<TwoAttributesObject>() {
 						@Override
-						public void adapt(Frame frame, SimpleObject object, BuilderContext context) {
+						public void adapt(Frame frame, TwoAttributesObject object, BuilderContext context) {
 							frame.addFrame("field1", object.getField1());
 						}
 					});
@@ -199,9 +199,9 @@ public class AcceptedFrameBuilder {
 				}
 			});
 		Frame frame = builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
-			new SimpleObject("test1", 1.0),
-			new SimpleObject("test2", 2.0),
-			new SimpleObject("test3", 3.0)
+			new TwoAttributesObject("test1", 1.0),
+			new TwoAttributesObject("test2", 2.0),
+			new TwoAttributesObject("test3", 3.0)
 		)));
 		Iterator<AbstractFrame> frames = frame.getFrames("object2");
 		AbstractFrame next = frames.next();
@@ -221,9 +221,9 @@ public class AcceptedFrameBuilder {
 				}
 			});
 		Frame frame = builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
-			new SimpleObject("test1", 1.0),
-			new SimpleObject("test2", 2.0),
-			new SimpleObject("test3", 3.0)
+			new TwoAttributesObject("test1", 1.0),
+			new TwoAttributesObject("test2", 2.0),
+			new TwoAttributesObject("test3", 3.0)
 		)));
 		Iterator<AbstractFrame> frames = frame.getFrames("object2");
 		AbstractFrame next = frames.next();
