@@ -1,0 +1,16 @@
+defrule type(Roster)
+<roster>
+    $Coach
+	<players>
+		$Player...[$NL]
+    </players>
+</roster>
+endrule
+
+defrule type(Person) trigger(Coach)
+<coach name="$Name" year="$Birthday+Year" country="$Country"/>
+endrule
+
+defrule type(Person) trigger(Player)
+<player name="$Name" year="$Birthday+Year" country="$Country"/>
+endrule

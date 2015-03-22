@@ -1,0 +1,11 @@
+defrule type(class)
+package $package;
+$concept...[$NL]
+endrule
+
+defrule type(concept) slot-type(action, deep) trigger(concept)
+
+public interface $name+UpperCamelCase [extends $parent+UpperCamelCase ]{
+    $concept...[$NL]\
+}
+endrule

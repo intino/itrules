@@ -1,0 +1,23 @@
+public class final Customer extends Client implements Company, TaxPayer {
+
+	public static final String CUSTOMER_NAME = "CUSTOMER";
+	private final String familyName;
+	private Integer maxAge = 100;
+
+	public Customer(String familyName) {
+		this.familyName = familyName;
+	}
+
+	public String getFamilyName() {
+		return familyName;
+	}
+
+	public Integer getMaxAge() {
+		return maxAge;
+	}
+
+	public void setMaxAge(Integer value) {
+		maxAge = value;
+	}
+
+}

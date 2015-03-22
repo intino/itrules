@@ -1,4 +1,4 @@
-// Generated from /Users/oroncal/workspace/it-rules/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesLexer.g4 by ANTLR 4.4.1-dev
+// Generated from /Users/JJ/IdeaProjects/itrules/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesLexer.g4 by ANTLR 4.5
 package org.siani.itrules.dsl;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ITRulesLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.4.1-dev", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.5", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -33,15 +33,6 @@ public class ITRulesLexer extends Lexer {
 		"DEFAULT_MODE", "RULE_SIGNATURE", "EVAL_MODE", "RULE_BODY", "MARK", "EXPRESSION"
 	};
 
-	public static final String[] tokenNames = {
-		"'\\u0000'", "'\\u0001'", "'\\u0002'", "'\\u0003'", "'\\u0004'", "'\\u0005'", 
-		"'\\u0006'", "'\\u0007'", "'\b'", "'\t'", "'\n'", "'\\u000B'", "'\f'", 
-		"'\r'", "'\\u000E'", "'\\u000F'", "'\\u0010'", "'\\u0011'", "'\\u0012'", 
-		"'\\u0013'", "'\\u0014'", "'\\u0015'", "'\\u0016'", "'\\u0017'", "'\\u0018'", 
-		"'\\u0019'", "'\\u001A'", "'\\u001B'", "'\\u001C'", "'\\u001D'", "'\\u001E'", 
-		"'\\u001F'", "' '", "'!'", "'\"'", "'#'", "'$'", "'%'", "'&'", "'''", 
-		"'('", "')'", "'*'", "'+'", "','", "'-'"
-	};
 	public static final String[] ruleNames = {
 		"RULE_BEGIN", "WL", "ID", "TEXT", "OPTION", "LEFT_P", "RIGHT_P", "COMMA", 
 		"TYPE", "TRIGGER", "SLOT_NAME", "SLOT_TYPE", "DEEP", "EVAL", "NOT", "RULE_ID", 
@@ -51,6 +42,54 @@ public class ITRulesLexer extends Lexer {
 		"END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", "RIGHT_SQ", "EXP_SCAPED_CHAR", 
 		"EXPRESSION_MARK", "EXPRESSION_TEXT", "LN", "SP", "DIGIT", "LETTER"
 	};
+
+	private static final String[] _LITERAL_NAMES = {
+		null, "'defrule'", null, null, "'text'", null, null, null, "','", "'type'", 
+		"'trigger'", "'slot-name'", "'slot-type'", "'deep'", "'eval'", "'!'", 
+		null, null, null, null, null, null, null, "'.'", null, null, null, null, 
+		null, null, null, "'$'", "'['", "'\\u0015'", null, "'...'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "RULE_BEGIN", "WL", "ID", "TEXT", "OPTION", "LEFT_P", "RIGHT_P", 
+		"COMMA", "TYPE", "TRIGGER", "SLOT_NAME", "SLOT_TYPE", "DEEP", "EVAL", 
+		"NOT", "RULE_ID", "NL", "WS", "RULE_ERROR", "EVAL_LEFT_P", "EVAL_RIGHT_P", 
+		"EVAL_ID", "DOT", "NUMBER", "STRING", "OPERATOR", "E_WS", "EVAL_ERROR", 
+		"NULL_CHAR", "SCAPED_CHAR", "MARK_KEY", "LEFT_SQ", "RULE_END", "RULE_TEXT", 
+		"LIST", "MARK_OPTION", "END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", 
+		"RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", "EXPRESSION_TEXT"
+	};
+	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+
+	/**
+	 * @deprecated Use {@link #VOCABULARY} instead.
+	 */
+	@Deprecated
+	public static final String[] tokenNames;
+	static {
+		tokenNames = new String[_SYMBOLIC_NAMES.length];
+		for (int i = 0; i < tokenNames.length; i++) {
+			tokenNames[i] = VOCABULARY.getLiteralName(i);
+			if (tokenNames[i] == null) {
+				tokenNames[i] = VOCABULARY.getSymbolicName(i);
+			}
+
+			if (tokenNames[i] == null) {
+				tokenNames[i] = "<INVALID>";
+			}
+		}
+	}
+
+	@Override
+	@Deprecated
+	public String[] getTokenNames() {
+		return tokenNames;
+	}
+
+	@Override
+	@NotNull
+	public Vocabulary getVocabulary() {
+		return VOCABULARY;
+	}
 
 
 		int lastMode = 0;
@@ -92,9 +131,6 @@ public class ITRulesLexer extends Lexer {
 	public String getGrammarFileName() { return "ITRulesLexer.g4"; }
 
 	@Override
-	public String[] getTokenNames() { return tokenNames; }
-
-	@Override
 	public String[] getRuleNames() { return ruleNames; }
 
 	@Override
@@ -109,120 +145,214 @@ public class ITRulesLexer extends Lexer {
 	@Override
 	public void action(RuleContext _localctx, int ruleIndex, int actionIndex) {
 		switch (ruleIndex) {
-		case 0: RULE_BEGIN_action((RuleContext)_localctx, actionIndex); break;
-		case 13: EVAL_action((RuleContext)_localctx, actionIndex); break;
-		case 15: RULE_ID_action((RuleContext)_localctx, actionIndex); break;
-		case 16: NL_action((RuleContext)_localctx, actionIndex); break;
-		case 19: EVAL_LEFT_P_action((RuleContext)_localctx, actionIndex); break;
-		case 20: EVAL_RIGHT_P_action((RuleContext)_localctx, actionIndex); break;
-		case 21: EVAL_ID_action((RuleContext)_localctx, actionIndex); break;
-		case 30: MARK_KEY_action((RuleContext)_localctx, actionIndex); break;
-		case 31: LEFT_SQ_action((RuleContext)_localctx, actionIndex); break;
-		case 32: RULE_END_action((RuleContext)_localctx, actionIndex); break;
-		case 33: RULE_TEXT_action((RuleContext)_localctx, actionIndex); break;
-		case 35: MARK_OPTION_action((RuleContext)_localctx, actionIndex); break;
-		case 36: END_action((RuleContext)_localctx, actionIndex); break;
-		case 37: SEPARATOR_action((RuleContext)_localctx, actionIndex); break;
-		case 38: MARK_ID_action((RuleContext)_localctx, actionIndex); break;
-		case 41: RIGHT_SQ_action((RuleContext)_localctx, actionIndex); break;
-		case 42: EXP_SCAPED_CHAR_action((RuleContext)_localctx, actionIndex); break;
-		case 43: EXPRESSION_MARK_action((RuleContext)_localctx, actionIndex); break;
-		case 44: EXPRESSION_TEXT_action((RuleContext)_localctx, actionIndex); break;
-		}
-	}
-	private void MARK_ID_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 14:  setType(ID); exitMark(); break;
-		}
-	}
-	private void RULE_ID_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 2:  setType(ID); break;
-		}
-	}
-	private void EVAL_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 1:  setMode(EVAL_MODE); setLastMode(RULE_SIGNATURE); break;
-		}
-	}
-	private void RULE_END_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 9: setMode(DEFAULT_MODE); setLastMode(RULE_BODY); break;
+		case 0: 
+			RULE_BEGIN_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 13: 
+			EVAL_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 15: 
+			RULE_ID_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 16: 
+			NL_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 19: 
+			EVAL_LEFT_P_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 20: 
+			EVAL_RIGHT_P_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 21: 
+			EVAL_ID_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 30: 
+			MARK_KEY_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 31: 
+			LEFT_SQ_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 32: 
+			RULE_END_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 33: 
+			RULE_TEXT_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 35: 
+			MARK_OPTION_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 36: 
+			END_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 37: 
+			SEPARATOR_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 38: 
+			MARK_ID_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 41: 
+			RIGHT_SQ_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 42: 
+			EXP_SCAPED_CHAR_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 43: 
+			EXPRESSION_MARK_action((RuleContext)_localctx, actionIndex); 
+			break;
+
+		case 44: 
+			EXPRESSION_TEXT_action((RuleContext)_localctx, actionIndex); 
+			break;
 		}
 	}
 	private void RULE_BEGIN_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 0:  setMode(RULE_SIGNATURE); setLastMode(DEFAULT_MODE); break;
+		case 0: 
+			 setMode(RULE_SIGNATURE); setLastMode(DEFAULT_MODE); 
+			break;
 		}
 	}
-	private void EVAL_ID_action(RuleContext _localctx, int actionIndex) {
+	private void EVAL_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 6:  setType(ID); break;
+		case 1: 
+			 setMode(EVAL_MODE); setLastMode(RULE_SIGNATURE); 
+			break;
 		}
 	}
-	private void SEPARATOR_action(RuleContext _localctx, int actionIndex) {
+	private void RULE_ID_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 13:  setMode(lastMode); setLastMode(MARK); break;
-		}
-	}
-	private void EXPRESSION_MARK_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 17: setType(MARK_KEY); setLastMode(EXPRESSION); break;
+		case 2: 
+			 setType(ID); 
+			break;
 		}
 	}
 	private void NL_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 3:  setLastMode(RULE_SIGNATURE); break;
-		}
-	}
-	private void EVAL_RIGHT_P_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 5:  setType(RIGHT_P); setMode(RULE_SIGNATURE); setLastMode(EVAL); break;
-		}
-	}
-	private void RULE_TEXT_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 10: setType(TEXT); break;
-		}
-	}
-	private void LEFT_SQ_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 8: setMode(EXPRESSION); setLastMode(RULE_BODY); break;
-		}
-	}
-	private void END_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 12:  setMode(lastMode); setLastMode(MARK); break;
-		}
-	}
-	private void RIGHT_SQ_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 15: setLastMode(EXPRESSION); break;
+		case 3: 
+			 setLastMode(RULE_SIGNATURE); 
+			break;
 		}
 	}
 	private void EVAL_LEFT_P_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 4:  setType(LEFT_P); break;
+		case 4: 
+			 setType(LEFT_P); 
+			break;
 		}
 	}
-	private void MARK_OPTION_action(RuleContext _localctx, int actionIndex) {
+	private void EVAL_RIGHT_P_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 11:  setType(OPTION); break;
+		case 5: 
+			 setType(RIGHT_P); setMode(RULE_SIGNATURE); setLastMode(EVAL); 
+			break;
 		}
 	}
-	private void EXPRESSION_TEXT_action(RuleContext _localctx, int actionIndex) {
+	private void EVAL_ID_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 18: setType(TEXT); break;
-		}
-	}
-	private void EXP_SCAPED_CHAR_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 16: setType(SCAPED_CHAR); break;
+		case 6: 
+			 setType(ID); 
+			break;
 		}
 	}
 	private void MARK_KEY_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 7: setMode(MARK); setLastMode(RULE_BODY); break;
+		case 7: 
+			setMode(MARK); setLastMode(RULE_BODY); 
+			break;
+		}
+	}
+	private void LEFT_SQ_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 8: 
+			setMode(EXPRESSION); setLastMode(RULE_BODY); 
+			break;
+		}
+	}
+	private void RULE_END_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 9: 
+			setMode(DEFAULT_MODE); setLastMode(RULE_BODY); 
+			break;
+		}
+	}
+	private void RULE_TEXT_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 10: 
+			setType(TEXT); 
+			break;
+		}
+	}
+	private void MARK_OPTION_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 11: 
+			 setType(OPTION); 
+			break;
+		}
+	}
+	private void END_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 12: 
+			 setMode(lastMode); setLastMode(MARK); 
+			break;
+		}
+	}
+	private void SEPARATOR_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 13: 
+			 setMode(lastMode); setLastMode(MARK); 
+			break;
+		}
+	}
+	private void MARK_ID_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 14: 
+			 setType(ID); exitMark(); 
+			break;
+		}
+	}
+	private void RIGHT_SQ_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 15: 
+			setLastMode(EXPRESSION); 
+			break;
+		}
+	}
+	private void EXP_SCAPED_CHAR_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 16: 
+			setType(SCAPED_CHAR); 
+			break;
+		}
+	}
+	private void EXPRESSION_MARK_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 17: 
+			setType(MARK_KEY); setLastMode(EXPRESSION); 
+			break;
+		}
+	}
+	private void EXPRESSION_TEXT_action(RuleContext _localctx, int actionIndex) {
+		switch (actionIndex) {
+		case 18: 
+			setType(TEXT); 
+			break;
 		}
 	}
 

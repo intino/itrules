@@ -11,7 +11,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/itrules-plugin/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/rule-engine-itr/pom.xml" />
+        <option value="$PROJECT_DIR$/rule-engine-json/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

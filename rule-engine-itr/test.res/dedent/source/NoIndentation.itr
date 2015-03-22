@@ -1,0 +1,4 @@
+defrule type(Person)
+x
+y
+endrule

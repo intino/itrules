@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/itrules.iml" filepath="$PROJECT_DIR$/itrules.iml" />
-      <module fileurl="file://$PROJECT_DIR$/itrules-plugin/itrules-plugin.iml" filepath="$PROJECT_DIR$/itrules-plugin/itrules-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugin/plugin.iml" filepath="$PROJECT_DIR$/plugin/plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/rule-engine/rule-engine.iml" filepath="$PROJECT_DIR$/rule-engine/rule-engine.iml" />
       <module fileurl="file://$PROJECT_DIR$/rule-engine-itr/rule-engine-itr.iml" filepath="$PROJECT_DIR$/rule-engine-itr/rule-engine-itr.iml" />
       <module fileurl="file://$PROJECT_DIR$/rule-engine-json/rule-engine-json.iml" filepath="$PROJECT_DIR$/rule-engine-json/rule-engine-json.iml" />

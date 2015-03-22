@@ -37,10 +37,6 @@ public class DedentInputStream extends InputStream {
 		content = dedent(toString(inputStream)).getBytes();
 	}
 
-	public byte[] getContent() {
-		return content;
-	}
-
 	public String dedent(String content) {
 		String[] rules = content.split("endrule");
 		String dedentedContent = "";

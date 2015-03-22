@@ -1,4 +1,4 @@
-// Generated from /Users/oroncal/workspace/it-rules/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesParser.g4 by ANTLR 4.4.1-dev
+// Generated from /Users/JJ/IdeaProjects/itrules/rule-engine-itr/src/org/siani/itrules/dsl/ITRulesParser.g4 by ANTLR 4.5
 package org.siani.itrules.dsl;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -11,29 +11,19 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ITRulesParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.4.1-dev", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.5", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		MARK_ERROR=40, MARK_ID=39, RULE_ID=16, OPTION=5, NULL_CH=41, RULE_BEGIN=1, 
-		SCAPED_CHAR=30, OPERATOR=26, TRIGGER=10, EVAL_ID=22, NUMBER=24, RIGHT_P=7, 
-		RULE_ERROR=19, SEPARATOR=38, RULE_TEXT=34, NOT=15, EVAL_RIGHT_P=21, TEXT=4, 
-		ID=3, LIST=35, EXPRESSION_TEXT=45, EXP_SCAPED_CHAR=43, MARK_KEY=31, TYPE=9, 
-		EVAL_ERROR=28, WS=18, EVAL=14, RULE_END=33, COMMA=8, DEEP=13, WL=2, SLOT_TYPE=12, 
-		EXPRESSION_MARK=44, NL=17, LEFT_SQ=32, E_WS=27, SLOT_NAME=11, END=37, 
-		DOT=23, RIGHT_SQ=42, MARK_OPTION=36, EVAL_LEFT_P=20, LEFT_P=6, NULL_CHAR=29, 
-		STRING=25;
-	public static final String[] tokenNames = {
-		"<INVALID>", "'defrule'", "WL", "ID", "'text'", "OPTION", "LEFT_P", "RIGHT_P", 
-		"','", "'type'", "'trigger'", "'slot-name'", "'slot-type'", "'deep'", 
-		"'eval'", "'!'", "RULE_ID", "NL", "WS", "RULE_ERROR", "EVAL_LEFT_P", "EVAL_RIGHT_P", 
-		"EVAL_ID", "'.'", "NUMBER", "STRING", "OPERATOR", "E_WS", "EVAL_ERROR", 
-		"NULL_CHAR", "SCAPED_CHAR", "'$'", "'['", "'\\u0015'", "RULE_TEXT", "'...'", 
-		"MARK_OPTION", "END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", 
-		"RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", "EXPRESSION_TEXT"
-	};
+		RULE_BEGIN=1, WL=2, ID=3, TEXT=4, OPTION=5, LEFT_P=6, RIGHT_P=7, COMMA=8, 
+		TYPE=9, TRIGGER=10, SLOT_NAME=11, SLOT_TYPE=12, DEEP=13, EVAL=14, NOT=15, 
+		RULE_ID=16, NL=17, WS=18, RULE_ERROR=19, EVAL_LEFT_P=20, EVAL_RIGHT_P=21, 
+		EVAL_ID=22, DOT=23, NUMBER=24, STRING=25, OPERATOR=26, E_WS=27, EVAL_ERROR=28, 
+		NULL_CHAR=29, SCAPED_CHAR=30, MARK_KEY=31, LEFT_SQ=32, RULE_END=33, RULE_TEXT=34, 
+		LIST=35, MARK_OPTION=36, END=37, SEPARATOR=38, MARK_ID=39, MARK_ERROR=40, 
+		NULL_CH=41, RIGHT_SQ=42, EXP_SCAPED_CHAR=43, EXPRESSION_MARK=44, EXPRESSION_TEXT=45;
 	public static final int
 		RULE_root = 0, RULE_itrule = 1, RULE_signature = 2, RULE_ruleType = 3, 
 		RULE_value = 4, RULE_eval = 5, RULE_evalExpression = 6, RULE_composedID = 7, 
@@ -46,11 +36,56 @@ public class ITRulesParser extends Parser {
 		"body", "expression", "text", "mark", "option"
 	};
 
-	@Override
-	public String getGrammarFileName() { return "ITRulesParser.g4"; }
+	private static final String[] _LITERAL_NAMES = {
+		null, "'defrule'", null, null, "'text'", null, null, null, "','", "'type'", 
+		"'trigger'", "'slot-name'", "'slot-type'", "'deep'", "'eval'", "'!'", 
+		null, null, null, null, null, null, null, "'.'", null, null, null, null, 
+		null, null, null, "'$'", "'['", "'\\u0015'", null, "'...'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "RULE_BEGIN", "WL", "ID", "TEXT", "OPTION", "LEFT_P", "RIGHT_P", 
+		"COMMA", "TYPE", "TRIGGER", "SLOT_NAME", "SLOT_TYPE", "DEEP", "EVAL", 
+		"NOT", "RULE_ID", "NL", "WS", "RULE_ERROR", "EVAL_LEFT_P", "EVAL_RIGHT_P", 
+		"EVAL_ID", "DOT", "NUMBER", "STRING", "OPERATOR", "E_WS", "EVAL_ERROR", 
+		"NULL_CHAR", "SCAPED_CHAR", "MARK_KEY", "LEFT_SQ", "RULE_END", "RULE_TEXT", 
+		"LIST", "MARK_OPTION", "END", "SEPARATOR", "MARK_ID", "MARK_ERROR", "NULL_CH", 
+		"RIGHT_SQ", "EXP_SCAPED_CHAR", "EXPRESSION_MARK", "EXPRESSION_TEXT"
+	};
+	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+
+	/**
+	 * @deprecated Use {@link #VOCABULARY} instead.
+	 */
+	@Deprecated
+	public static final String[] tokenNames;
+	static {
+		tokenNames = new String[_SYMBOLIC_NAMES.length];
+		for (int i = 0; i < tokenNames.length; i++) {
+			tokenNames[i] = VOCABULARY.getLiteralName(i);
+			if (tokenNames[i] == null) {
+				tokenNames[i] = VOCABULARY.getSymbolicName(i);
+			}
+
+			if (tokenNames[i] == null) {
+				tokenNames[i] = "<INVALID>";
+			}
+		}
+	}
 
 	@Override
-	public String[] getTokenNames() { return tokenNames; }
+	@Deprecated
+	public String[] getTokenNames() {
+		return tokenNames;
+	}
+
+	@Override
+	@NotNull
+	public Vocabulary getVocabulary() {
+		return VOCABULARY;
+	}
+
+	@Override
+	public String getGrammarFileName() { return "ITRulesParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -67,11 +102,11 @@ public class ITRulesParser extends Parser {
 	}
 	public static class RootContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(ITRulesParser.EOF, 0); }
-		public ItruleContext itrule(int i) {
-			return getRuleContext(ItruleContext.class,i);
-		}
 		public List<ItruleContext> itrule() {
 			return getRuleContexts(ItruleContext.class);
+		}
+		public ItruleContext itrule(int i) {
+			return getRuleContext(ItruleContext.class,i);
 		}
 		public RootContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -100,14 +135,16 @@ public class ITRulesParser extends Parser {
 			while (_la==RULE_BEGIN) {
 				{
 				{
-				setState(36); itrule();
+				setState(36); 
+				itrule();
 				}
 				}
 				setState(41);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(42); match(EOF);
+			setState(42); 
+			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -122,13 +159,13 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class ItruleContext extends ParserRuleContext {
+		public SignatureContext signature() {
+			return getRuleContext(SignatureContext.class,0);
+		}
 		public BodyContext body() {
 			return getRuleContext(BodyContext.class,0);
 		}
 		public TerminalNode RULE_END() { return getToken(ITRulesParser.RULE_END, 0); }
-		public SignatureContext signature() {
-			return getRuleContext(SignatureContext.class,0);
-		}
 		public ItruleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -149,9 +186,12 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44); signature();
-			setState(45); body();
-			setState(46); match(RULE_END);
+			setState(44); 
+			signature();
+			setState(45); 
+			body();
+			setState(46); 
+			match(RULE_END);
 			}
 		}
 		catch (RecognitionException re) {
@@ -166,28 +206,10 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class SignatureContext extends ParserRuleContext {
-		public TerminalNode NL() { return getToken(ITRulesParser.NL, 0); }
-		public EvalContext eval(int i) {
-			return getRuleContext(EvalContext.class,i);
-		}
-		public SlotTypeContext slotType(int i) {
-			return getRuleContext(SlotTypeContext.class,i);
-		}
-		public TriggerContext trigger(int i) {
-			return getRuleContext(TriggerContext.class,i);
-		}
-		public List<SlotTypeContext> slotType() {
-			return getRuleContexts(SlotTypeContext.class);
-		}
 		public TerminalNode RULE_BEGIN() { return getToken(ITRulesParser.RULE_BEGIN, 0); }
-		public List<EvalContext> eval() {
-			return getRuleContexts(EvalContext.class);
-		}
-		public List<SlotNameContext> slotName() {
-			return getRuleContexts(SlotNameContext.class);
-		}
-		public SlotNameContext slotName(int i) {
-			return getRuleContext(SlotNameContext.class,i);
+		public TerminalNode NL() { return getToken(ITRulesParser.NL, 0); }
+		public List<RuleTypeContext> ruleType() {
+			return getRuleContexts(RuleTypeContext.class);
 		}
 		public RuleTypeContext ruleType(int i) {
 			return getRuleContext(RuleTypeContext.class,i);
@@ -195,8 +217,26 @@ public class ITRulesParser extends Parser {
 		public List<TriggerContext> trigger() {
 			return getRuleContexts(TriggerContext.class);
 		}
-		public List<RuleTypeContext> ruleType() {
-			return getRuleContexts(RuleTypeContext.class);
+		public TriggerContext trigger(int i) {
+			return getRuleContext(TriggerContext.class,i);
+		}
+		public List<SlotNameContext> slotName() {
+			return getRuleContexts(SlotNameContext.class);
+		}
+		public SlotNameContext slotName(int i) {
+			return getRuleContext(SlotNameContext.class,i);
+		}
+		public List<SlotTypeContext> slotType() {
+			return getRuleContexts(SlotTypeContext.class);
+		}
+		public SlotTypeContext slotType(int i) {
+			return getRuleContext(SlotTypeContext.class,i);
+		}
+		public List<EvalContext> eval() {
+			return getRuleContexts(EvalContext.class);
+		}
+		public EvalContext eval(int i) {
+			return getRuleContext(EvalContext.class,i);
 		}
 		public SignatureContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -219,7 +259,8 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(48); match(RULE_BEGIN);
+			setState(48); 
+			match(RULE_BEGIN);
 			setState(54); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -229,27 +270,32 @@ public class ITRulesParser extends Parser {
 				switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 				case 1:
 					{
-					setState(49); ruleType();
+					setState(49); 
+					ruleType();
 					}
 					break;
 				case 2:
 					{
-					setState(50); trigger();
+					setState(50); 
+					trigger();
 					}
 					break;
 				case 3:
 					{
-					setState(51); slotName();
+					setState(51); 
+					slotName();
 					}
 					break;
 				case 4:
 					{
-					setState(52); slotType();
+					setState(52); 
+					slotType();
 					}
 					break;
 				case 5:
 					{
-					setState(53); eval();
+					setState(53); 
+					eval();
 					}
 					break;
 				}
@@ -258,7 +304,8 @@ public class ITRulesParser extends Parser {
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TYPE) | (1L << TRIGGER) | (1L << SLOT_NAME) | (1L << SLOT_TYPE) | (1L << EVAL) | (1L << NOT))) != 0) );
-			setState(58); match(NL);
+			setState(58); 
+			match(NL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -273,11 +320,11 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class RuleTypeContext extends ParserRuleContext {
+		public TerminalNode TYPE() { return getToken(ITRulesParser.TYPE, 0); }
 		public ValueContext value() {
 			return getRuleContext(ValueContext.class,0);
 		}
 		public TerminalNode NOT() { return getToken(ITRulesParser.NOT, 0); }
-		public TerminalNode TYPE() { return getToken(ITRulesParser.TYPE, 0); }
 		public RuleTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -303,12 +350,15 @@ public class ITRulesParser extends Parser {
 			_la = _input.LA(1);
 			if (_la==NOT) {
 				{
-				setState(60); match(NOT);
+				setState(60); 
+				match(NOT);
 				}
 			}
 
-			setState(63); match(TYPE);
-			setState(64); value();
+			setState(63); 
+			match(TYPE);
+			setState(64); 
+			value();
 			}
 		}
 		catch (RecognitionException re) {
@@ -324,8 +374,8 @@ public class ITRulesParser extends Parser {
 
 	public static class ValueContext extends ParserRuleContext {
 		public TerminalNode LEFT_P() { return getToken(ITRulesParser.LEFT_P, 0); }
-		public TerminalNode RIGHT_P() { return getToken(ITRulesParser.RIGHT_P, 0); }
 		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
+		public TerminalNode RIGHT_P() { return getToken(ITRulesParser.RIGHT_P, 0); }
 		public ValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -346,9 +396,12 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(66); match(LEFT_P);
-			setState(67); match(ID);
-			setState(68); match(RIGHT_P);
+			setState(66); 
+			match(LEFT_P);
+			setState(67); 
+			match(ID);
+			setState(68); 
+			match(RIGHT_P);
 			}
 		}
 		catch (RecognitionException re) {
@@ -365,10 +418,10 @@ public class ITRulesParser extends Parser {
 	public static class EvalContext extends ParserRuleContext {
 		public TerminalNode EVAL() { return getToken(ITRulesParser.EVAL, 0); }
 		public TerminalNode LEFT_P() { return getToken(ITRulesParser.LEFT_P, 0); }
-		public TerminalNode RIGHT_P() { return getToken(ITRulesParser.RIGHT_P, 0); }
 		public EvalExpressionContext evalExpression() {
 			return getRuleContext(EvalExpressionContext.class,0);
 		}
+		public TerminalNode RIGHT_P() { return getToken(ITRulesParser.RIGHT_P, 0); }
 		public EvalContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -389,10 +442,14 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(70); match(EVAL);
-			setState(71); match(LEFT_P);
-			setState(72); evalExpression();
-			setState(73); match(RIGHT_P);
+			setState(70); 
+			match(EVAL);
+			setState(71); 
+			match(LEFT_P);
+			setState(72); 
+			evalExpression();
+			setState(73); 
+			match(RIGHT_P);
 			}
 		}
 		catch (RecognitionException re) {
@@ -407,21 +464,21 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class EvalExpressionContext extends ParserRuleContext {
+		public TerminalNode OPERATOR() { return getToken(ITRulesParser.OPERATOR, 0); }
 		public List<ComposedIDContext> composedID() {
 			return getRuleContexts(ComposedIDContext.class);
 		}
-		public TerminalNode STRING(int i) {
-			return getToken(ITRulesParser.STRING, i);
-		}
-		public TerminalNode NUMBER(int i) {
-			return getToken(ITRulesParser.NUMBER, i);
-		}
-		public List<TerminalNode> NUMBER() { return getTokens(ITRulesParser.NUMBER); }
-		public List<TerminalNode> STRING() { return getTokens(ITRulesParser.STRING); }
 		public ComposedIDContext composedID(int i) {
 			return getRuleContext(ComposedIDContext.class,i);
 		}
-		public TerminalNode OPERATOR() { return getToken(ITRulesParser.OPERATOR, 0); }
+		public List<TerminalNode> STRING() { return getTokens(ITRulesParser.STRING); }
+		public TerminalNode STRING(int i) {
+			return getToken(ITRulesParser.STRING, i);
+		}
+		public List<TerminalNode> NUMBER() { return getTokens(ITRulesParser.NUMBER); }
+		public TerminalNode NUMBER(int i) {
+			return getToken(ITRulesParser.NUMBER, i);
+		}
 		public EvalExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -446,38 +503,45 @@ public class ITRulesParser extends Parser {
 			switch (_input.LA(1)) {
 			case ID:
 				{
-				setState(75); composedID();
+				setState(75); 
+				composedID();
 				}
 				break;
 			case STRING:
 				{
-				setState(76); match(STRING);
+				setState(76); 
+				match(STRING);
 				}
 				break;
 			case NUMBER:
 				{
-				setState(77); match(NUMBER);
+				setState(77); 
+				match(NUMBER);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(80); match(OPERATOR);
+			setState(80); 
+			match(OPERATOR);
 			setState(84);
 			switch (_input.LA(1)) {
 			case ID:
 				{
-				setState(81); composedID();
+				setState(81); 
+				composedID();
 				}
 				break;
 			case STRING:
 				{
-				setState(82); match(STRING);
+				setState(82); 
+				match(STRING);
 				}
 				break;
 			case NUMBER:
 				{
-				setState(83); match(NUMBER);
+				setState(83); 
+				match(NUMBER);
 				}
 				break;
 			default:
@@ -497,11 +561,11 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class ComposedIDContext extends ParserRuleContext {
-		public TerminalNode DOT() { return getToken(ITRulesParser.DOT, 0); }
 		public List<TerminalNode> ID() { return getTokens(ITRulesParser.ID); }
 		public TerminalNode ID(int i) {
 			return getToken(ITRulesParser.ID, i);
 		}
+		public TerminalNode DOT() { return getToken(ITRulesParser.DOT, 0); }
 		public ComposedIDContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -523,13 +587,16 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(86); match(ID);
+			setState(86); 
+			match(ID);
 			setState(89);
 			_la = _input.LA(1);
 			if (_la==DOT) {
 				{
-				setState(87); match(DOT);
-				setState(88); match(ID);
+				setState(87); 
+				match(DOT);
+				setState(88); 
+				match(ID);
 				}
 			}
 
@@ -547,11 +614,11 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class TriggerContext extends ParserRuleContext {
+		public TerminalNode TRIGGER() { return getToken(ITRulesParser.TRIGGER, 0); }
+		public TerminalNode LEFT_P() { return getToken(ITRulesParser.LEFT_P, 0); }
 		public TriggerValueContext triggerValue() {
 			return getRuleContext(TriggerValueContext.class,0);
 		}
-		public TerminalNode TRIGGER() { return getToken(ITRulesParser.TRIGGER, 0); }
-		public TerminalNode LEFT_P() { return getToken(ITRulesParser.LEFT_P, 0); }
 		public TerminalNode RIGHT_P() { return getToken(ITRulesParser.RIGHT_P, 0); }
 		public TriggerContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -573,10 +640,14 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(91); match(TRIGGER);
-			setState(92); match(LEFT_P);
-			setState(93); triggerValue();
-			setState(94); match(RIGHT_P);
+			setState(91); 
+			match(TRIGGER);
+			setState(92); 
+			match(LEFT_P);
+			setState(93); 
+			triggerValue();
+			setState(94); 
+			match(RIGHT_P);
 			}
 		}
 		catch (RecognitionException re) {
@@ -592,10 +663,10 @@ public class ITRulesParser extends Parser {
 
 	public static class TriggerValueContext extends ParserRuleContext {
 		public List<TerminalNode> ID() { return getTokens(ITRulesParser.ID); }
-		public TerminalNode OPTION() { return getToken(ITRulesParser.OPTION, 0); }
 		public TerminalNode ID(int i) {
 			return getToken(ITRulesParser.ID, i);
 		}
+		public TerminalNode OPTION() { return getToken(ITRulesParser.OPTION, 0); }
 		public TriggerValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -617,13 +688,16 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(96); match(ID);
+			setState(96); 
+			match(ID);
 			setState(99);
 			_la = _input.LA(1);
 			if (_la==OPTION) {
 				{
-				setState(97); match(OPTION);
-				setState(98); match(ID);
+				setState(97); 
+				match(OPTION);
+				setState(98); 
+				match(ID);
 				}
 			}
 
@@ -642,10 +716,10 @@ public class ITRulesParser extends Parser {
 
 	public static class SlotNameContext extends ParserRuleContext {
 		public TerminalNode SLOT_NAME() { return getToken(ITRulesParser.SLOT_NAME, 0); }
-		public TerminalNode NOT() { return getToken(ITRulesParser.NOT, 0); }
 		public SlotParmContext slotParm() {
 			return getRuleContext(SlotParmContext.class,0);
 		}
+		public TerminalNode NOT() { return getToken(ITRulesParser.NOT, 0); }
 		public SlotNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -671,12 +745,15 @@ public class ITRulesParser extends Parser {
 			_la = _input.LA(1);
 			if (_la==NOT) {
 				{
-				setState(101); match(NOT);
+				setState(101); 
+				match(NOT);
 				}
 			}
 
-			setState(104); match(SLOT_NAME);
-			setState(105); slotParm();
+			setState(104); 
+			match(SLOT_NAME);
+			setState(105); 
+			slotParm();
 			}
 		}
 		catch (RecognitionException re) {
@@ -691,11 +768,11 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class SlotTypeContext extends ParserRuleContext {
-		public TerminalNode NOT() { return getToken(ITRulesParser.NOT, 0); }
+		public TerminalNode SLOT_TYPE() { return getToken(ITRulesParser.SLOT_TYPE, 0); }
 		public SlotParmContext slotParm() {
 			return getRuleContext(SlotParmContext.class,0);
 		}
-		public TerminalNode SLOT_TYPE() { return getToken(ITRulesParser.SLOT_TYPE, 0); }
+		public TerminalNode NOT() { return getToken(ITRulesParser.NOT, 0); }
 		public SlotTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -721,12 +798,15 @@ public class ITRulesParser extends Parser {
 			_la = _input.LA(1);
 			if (_la==NOT) {
 				{
-				setState(107); match(NOT);
+				setState(107); 
+				match(NOT);
 				}
 			}
 
-			setState(110); match(SLOT_TYPE);
-			setState(111); slotParm();
+			setState(110); 
+			match(SLOT_TYPE);
+			setState(111); 
+			slotParm();
 			}
 		}
 		catch (RecognitionException re) {
@@ -742,9 +822,9 @@ public class ITRulesParser extends Parser {
 
 	public static class SlotParmContext extends ParserRuleContext {
 		public TerminalNode LEFT_P() { return getToken(ITRulesParser.LEFT_P, 0); }
+		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
 		public TerminalNode RIGHT_P() { return getToken(ITRulesParser.RIGHT_P, 0); }
 		public TerminalNode COMMA() { return getToken(ITRulesParser.COMMA, 0); }
-		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
 		public TerminalNode DEEP() { return getToken(ITRulesParser.DEEP, 0); }
 		public SlotParmContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -767,18 +847,23 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(113); match(LEFT_P);
-			setState(114); match(ID);
+			setState(113); 
+			match(LEFT_P);
+			setState(114); 
+			match(ID);
 			setState(117);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(115); match(COMMA);
-				setState(116); match(DEEP);
+				setState(115); 
+				match(COMMA);
+				setState(116); 
+				match(DEEP);
 				}
 			}
 
-			setState(119); match(RIGHT_P);
+			setState(119); 
+			match(RIGHT_P);
 			}
 		}
 		catch (RecognitionException re) {
@@ -796,11 +881,11 @@ public class ITRulesParser extends Parser {
 		public List<TextContext> text() {
 			return getRuleContexts(TextContext.class);
 		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
 		public TextContext text(int i) {
 			return getRuleContext(TextContext.class,i);
+		}
+		public List<MarkContext> mark() {
+			return getRuleContexts(MarkContext.class);
 		}
 		public MarkContext mark(int i) {
 			return getRuleContext(MarkContext.class,i);
@@ -808,8 +893,8 @@ public class ITRulesParser extends Parser {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
-		public List<MarkContext> mark() {
-			return getRuleContexts(MarkContext.class);
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
 		}
 		public BodyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -843,17 +928,20 @@ public class ITRulesParser extends Parser {
 				case SCAPED_CHAR:
 				case EXP_SCAPED_CHAR:
 					{
-					setState(121); text();
+					setState(121); 
+					text();
 					}
 					break;
 				case MARK_KEY:
 					{
-					setState(122); mark();
+					setState(122); 
+					mark();
 					}
 					break;
 				case LEFT_SQ:
 					{
-					setState(123); expression();
+					setState(123); 
+					expression();
 					}
 					break;
 				default:
@@ -878,15 +966,16 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
+		public TerminalNode LEFT_SQ() { return getToken(ITRulesParser.LEFT_SQ, 0); }
+		public TerminalNode RIGHT_SQ() { return getToken(ITRulesParser.RIGHT_SQ, 0); }
 		public List<TextContext> text() {
 			return getRuleContexts(TextContext.class);
 		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public TerminalNode RIGHT_SQ() { return getToken(ITRulesParser.RIGHT_SQ, 0); }
 		public TextContext text(int i) {
 			return getRuleContext(TextContext.class,i);
+		}
+		public List<MarkContext> mark() {
+			return getRuleContexts(MarkContext.class);
 		}
 		public MarkContext mark(int i) {
 			return getRuleContext(MarkContext.class,i);
@@ -894,10 +983,9 @@ public class ITRulesParser extends Parser {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
-		public List<MarkContext> mark() {
-			return getRuleContexts(MarkContext.class);
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode LEFT_SQ() { return getToken(ITRulesParser.LEFT_SQ, 0); }
 		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -919,7 +1007,8 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(129); match(LEFT_SQ);
+			setState(129); 
+			match(LEFT_SQ);
 			setState(135);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -931,17 +1020,20 @@ public class ITRulesParser extends Parser {
 				case SCAPED_CHAR:
 				case EXP_SCAPED_CHAR:
 					{
-					setState(130); text();
+					setState(130); 
+					text();
 					}
 					break;
 				case MARK_KEY:
 					{
-					setState(131); mark();
+					setState(131); 
+					mark();
 					}
 					break;
 				case LEFT_SQ:
 					{
-					setState(132); expression();
+					setState(132); 
+					expression();
 					}
 					break;
 				default:
@@ -952,7 +1044,8 @@ public class ITRulesParser extends Parser {
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(138); match(RIGHT_SQ);
+			setState(138); 
+			match(RIGHT_SQ);
 			}
 		}
 		catch (RecognitionException re) {
@@ -968,8 +1061,8 @@ public class ITRulesParser extends Parser {
 
 	public static class TextContext extends ParserRuleContext {
 		public TerminalNode TEXT() { return getToken(ITRulesParser.TEXT, 0); }
-		public TerminalNode EXP_SCAPED_CHAR() { return getToken(ITRulesParser.EXP_SCAPED_CHAR, 0); }
 		public TerminalNode SCAPED_CHAR() { return getToken(ITRulesParser.SCAPED_CHAR, 0); }
+		public TerminalNode EXP_SCAPED_CHAR() { return getToken(ITRulesParser.EXP_SCAPED_CHAR, 0); }
 		public TextContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1012,15 +1105,15 @@ public class ITRulesParser extends Parser {
 
 	public static class MarkContext extends ParserRuleContext {
 		public TerminalNode MARK_KEY() { return getToken(ITRulesParser.MARK_KEY, 0); }
+		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
 		public List<OptionContext> option() {
 			return getRuleContexts(OptionContext.class);
 		}
-		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
-		public TerminalNode SEPARATOR() { return getToken(ITRulesParser.SEPARATOR, 0); }
 		public OptionContext option(int i) {
 			return getRuleContext(OptionContext.class,i);
 		}
 		public TerminalNode LIST() { return getToken(ITRulesParser.LIST, 0); }
+		public TerminalNode SEPARATOR() { return getToken(ITRulesParser.SEPARATOR, 0); }
 		public MarkContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1042,15 +1135,18 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(142); match(MARK_KEY);
-			setState(143); match(ID);
+			setState(142); 
+			match(MARK_KEY);
+			setState(143); 
+			match(ID);
 			setState(147);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==OPTION) {
 				{
 				{
-				setState(144); option();
+				setState(144); 
+				option();
 				}
 				}
 				setState(149);
@@ -1061,8 +1157,10 @@ public class ITRulesParser extends Parser {
 			_la = _input.LA(1);
 			if (_la==LIST) {
 				{
-				setState(150); match(LIST);
-				setState(151); match(SEPARATOR);
+				setState(150); 
+				match(LIST);
+				setState(151); 
+				match(SEPARATOR);
 				}
 			}
 
@@ -1080,8 +1178,8 @@ public class ITRulesParser extends Parser {
 	}
 
 	public static class OptionContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
 		public TerminalNode OPTION() { return getToken(ITRulesParser.OPTION, 0); }
+		public TerminalNode ID() { return getToken(ITRulesParser.ID, 0); }
 		public OptionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1102,8 +1200,10 @@ public class ITRulesParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(154); match(OPTION);
-			setState(155); match(ID);
+			setState(154); 
+			match(OPTION);
+			setState(155); 
+			match(ID);
 			}
 		}
 		catch (RecognitionException re) {
