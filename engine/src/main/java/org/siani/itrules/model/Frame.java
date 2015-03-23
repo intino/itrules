@@ -26,12 +26,12 @@ import java.util.*;
 
 public class Frame implements AbstractFrame {
 
-	private final List<String> types;
+	private final Set<String> types;
 	private final Map<String, List<AbstractFrame>> slots;
 
 	public Frame(String... types) {
 		this.slots = new LinkedHashMap<>();
-		this.types = new ArrayList<>();
+		this.types = new HashSet<>();
 		for (String type : types)
 			this.types.add(type.toLowerCase());
 	}
@@ -43,6 +43,10 @@ public class Frame implements AbstractFrame {
 
 	public String[] getTypes() {
 		return types.toArray(new String[types.size()]);
+	}
+
+	public void add(String... types) {
+		Collections.addAll(this.types, types);
 	}
 
 	public String[] getSlots() {
