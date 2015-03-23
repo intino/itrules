@@ -5,8 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/engine/engine.iml" filepath="$PROJECT_DIR$/engine/engine.iml" />
       <module fileurl="file://$PROJECT_DIR$/engine-itr/engine-itr.iml" filepath="$PROJECT_DIR$/engine-itr/engine-itr.iml" />
       <module fileurl="file://$PROJECT_DIR$/engine-json/engine-json.iml" filepath="$PROJECT_DIR$/engine-json/engine-json.iml" />
-      <module fileurl="file://$PROJECT_DIR$/plugin/plugin.iml" filepath="$PROJECT_DIR$/plugin/plugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/plugin/plugin.iml" filepath="$PROJECT_DIR$/plugin/plugin.iml" />
     </modules>
   </component>
 </project>
