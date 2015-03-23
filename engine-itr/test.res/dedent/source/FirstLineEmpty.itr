@@ -1,0 +1,5 @@
+defrule type(X)
+
+	first line
+	second line
+endrule

@@ -5,10 +5,8 @@ uiDesigner.xml
 .idea/artifacts/itrules_jar.xml
 .idea/artifacts/rules_engine_jar.xml
 release/
-.idea/artifacts/itrules_0_2_1_jar.xml
-.idea/artifacts/itrules_engine_jar.xml
-.idea/artifacts/rules_interpreter_jar.xml
-box.itr
+target/
+.idea/artifacts/
 .idea/codeStyleSettings.xml
 .idea/artifacts/itrules_jar2.xml
 .idea/copyright/profiles_settings.xml

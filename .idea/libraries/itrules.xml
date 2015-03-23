@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="itrules">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/itrules-plugin/lib/itrules.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
