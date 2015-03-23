@@ -1,7 +1,0 @@
-defrule type(Message)
-	From: $From
-To: $To...[, ]
-	$Subject
-
-$Text...[$NL]
-endrule
