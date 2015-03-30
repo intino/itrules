@@ -56,7 +56,6 @@ class DedentInputStream extends InputStream {
 
     private interface Load {
         DedentContainer in(DedentContainer container);
-
     }
 
     @Override

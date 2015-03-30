@@ -6,7 +6,7 @@ public class DedentContainer {
     private final String headerToken;
     private final String footerToken;
     private Block block;
-    private String text = "";
+    private String content = "";
 
     public DedentContainer(String headerToken, String footerToken) {
         this.headerToken = headerToken;
@@ -20,7 +20,7 @@ public class DedentContainer {
     }
 
     public byte[] content() {
-        return text.trim().getBytes();
+        return content.trim().getBytes();
     }
 
 
@@ -39,9 +39,8 @@ public class DedentContainer {
         }
 
         private void close(String line) {
-            text = text + header + "\n" + body() + line + "\n" + "\n";
+            content = content + header + "\n" + body() + line + "\n" + "\n";
         }
-
 
         private String body() {
             String body = "";
@@ -57,7 +56,7 @@ public class DedentContainer {
         }
 
         private String normalize(String line) {
-            return line.replace("    ", "\t");
+            return line.replaceAll("    ", "\t");
         }
     }
 }
