@@ -22,6 +22,8 @@
 
 package org.siani.itrules.formatter;
 
+import org.siani.itrules.Formatter;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;

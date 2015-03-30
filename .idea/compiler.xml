@@ -25,14 +25,14 @@
         <module name="engine" />
         <module name="engine-itr" />
         <module name="engine-json" />
+        <module name="reader-itr" />
+        <module name="reader-json" />
         <module name="rule-engine-itr" />
         <module name="rule-engine-json" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.7">
       <module name="engine" target="1.7" />
-      <module name="engine-itr" target="1.7" />
-      <module name="engine-json" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

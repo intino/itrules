@@ -27,27 +27,22 @@ import java.util.*;
 public class Frame implements AbstractFrame {
 
 	private final Set<String> types;
-	private Frame container;
 	private final Map<String, List<AbstractFrame>> slots;
+	private final Frame container;
 
-	public Frame(String... types) {
-		this.slots = new LinkedHashMap<>();
-		this.types = new HashSet<>();
-		for (String type : types)
-			this.types.add(type.toLowerCase());
+	public Frame(Frame container, String... types) {
+		this.types = createTypes(types);
+		this.slots = createSlots();
+		this.container = container;
 	}
 
 	public boolean is(String type) {
-		return this.types.contains(type.toLowerCase());
+		return this.types.contains(type);
 	}
 
 	@Override
 	public Frame container() {
 		return container;
-	}
-
-	void container(Frame container) {
-		this.container = container;
 	}
 
 	public String[] getTypes() {
@@ -72,14 +67,14 @@ public class Frame implements AbstractFrame {
 
 	public Frame addFrame(String slot, Object... values) {
 		if (containsNull(values)) throw new RuntimeException("Value of Slot '" + slot + "' has been Inserted as Null");
-		if (!slots.containsKey(slot))
-			slots.put(slot, new ArrayList<AbstractFrame>());
-		for (Object value : values) {
-			AbstractFrame frame = (value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value);
-			setContainer(frame);
-			slots.get(slot).add(frame);
-		}
+		for (Object value : values) slots.get(slot).add(frame(value));
 		return this;
+	}
+
+	private AbstractFrame frame(Object value) {
+		if (value instanceof Frame)
+			return (Frame) value;
+		return new PrimitiveFrame(this, value);
 	}
 
 	private boolean containsNull(Object[] values) {
@@ -138,8 +133,40 @@ public class Frame implements AbstractFrame {
 		return null;
 	}
 
-	public void setContainer(AbstractFrame frame) {
-		if (frame instanceof PrimitiveFrame) ((PrimitiveFrame) frame).container(this);
-		else ((Frame) frame).container(this);
+	private static Map<String, List<AbstractFrame>> createSlots() {
+		return new LinkedHashMap<String, List<AbstractFrame>>(){
+
+			@Override
+			public List<AbstractFrame> put(String key, List<AbstractFrame> value) {
+				return super.put(key.toLowerCase(), value);
+			}
+
+			@Override
+			public List<AbstractFrame> get(Object key) {
+				if (!containsKey(key)) put(key.toString(), new ArrayList<AbstractFrame>());
+				return super.get(key.toString().toLowerCase());
+			}
+
+			@Override
+			public boolean containsKey(Object key) {
+				return super.containsKey(key.toString().toLowerCase());
+			}
+		};
+	}
+
+	private static Set<String> createTypes(String[] types) {
+		HashSet<String> result = new HashSet<String>() {
+			@Override
+			public boolean contains(Object o) {
+				return super.contains(o.toString().toLowerCase());
+			}
+
+			@Override
+			public boolean add(String s) {
+				return super.add(s.toLowerCase());
+			}
+		};
+		Collections.addAll(result, types);
+		return result;
 	}
 }

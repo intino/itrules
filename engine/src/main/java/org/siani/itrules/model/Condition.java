@@ -50,4 +50,8 @@ public class Condition {
 	public String[] getParameters() {
 		return parameters;
 	}
+
+	public boolean is(String type) {
+		return name().equals(type);
+	}
 }

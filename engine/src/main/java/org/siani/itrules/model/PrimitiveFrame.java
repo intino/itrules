@@ -28,10 +28,11 @@ import java.util.Iterator;
 class PrimitiveFrame implements AbstractFrame {
 	private static final String VALUE = "value";
 	private final Object value;
-	private Frame container;
+	private final Frame container;
 
-	public PrimitiveFrame(Object value) {
+	PrimitiveFrame(Frame container, Object value) {
 		this.value = value;
+		this.container = container;
 	}
 
 	@Override
@@ -42,10 +43,6 @@ class PrimitiveFrame implements AbstractFrame {
 	@Override
 	public Frame container() {
 		return this.container;
-	}
-
-	void container(Frame container) {
-		this.container = container;
 	}
 
 	@Override

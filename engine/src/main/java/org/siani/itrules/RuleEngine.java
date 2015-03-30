@@ -25,9 +25,8 @@ package org.siani.itrules;
 import org.siani.itrules.engine.Buffer;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.formatter.SystemFormatterRepository;
-import org.siani.itrules.framebuilder.FrameBuilder;
+import org.siani.itrules.engine.FrameBuilder;
 import org.siani.itrules.model.*;
-import org.siani.itrules.formatter.Formatter;
 
 import java.util.*;
 
@@ -37,20 +36,12 @@ public final class RuleEngine {
 	private final Stack<Buffer> buffers = new Stack<>();
 	private final Map<String, Formatter> formatters = new HashMap<>();
 
-	public RuleEngine(RulesReader reader, Locale locale) {
-		this(reader.read(), locale);
+	public RuleEngine(RuleSet ruleSet) {
+		this(ruleSet, Locale.getDefault());
 	}
 
-	public RuleEngine(RulesReader reader) {
-		this(reader.read(), Locale.getDefault());
-	}
-
-	public RuleEngine(RuleSet rules) {
-		this(rules, Locale.getDefault());
-	}
-
-	public RuleEngine(RuleSet rules, Locale locale) {
-		this.ruleSet = rules;
+	public RuleEngine(RuleSet ruleSet, Locale locale) {
+		this.ruleSet = ruleSet;
 		this.formatters.putAll(SystemFormatterRepository.formatters(locale));
 	}
 
@@ -58,11 +49,17 @@ public final class RuleEngine {
 		formatters.put(name.toLowerCase(), formatter);
 	}
 
-	public void render(Object object, Document document) {
-		render(new FrameBuilder().createFrame(object), document);
+	public Document render(AbstractFrame frame) {
+		Document document = new Document();
+		render(frame, document);
+		return document;
 	}
 
-	public void render(AbstractFrame frame, Document document) {
+	public Document render(Object object) {
+		return render(new FrameBuilder().createFrame(object));
+	}
+
+	private void render(AbstractFrame frame, Document document) {
 		buffers.clear();
 		this.buffers.push(new Buffer());
 		execute(new Trigger(frame, new Mark("root")));

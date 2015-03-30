@@ -23,7 +23,6 @@
 package org.siani.itrules.engine;
 
 import org.siani.itrules.model.*;
-import org.siani.itrules.operation.OperatorFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,7 +39,7 @@ public final class RuleSet {
 
 	private Rule createDefaultRule() {
 		Rule rule = new Rule();
-		rule.add(new Condition(Function.SLOT_NAME, new String[]{"value"}, false));
+		rule.add(new Condition(Function.SlotName, new String[]{"value"}, false));
 		rule.add(new Mark("value"));
 		return rule;
 	}
@@ -53,7 +52,7 @@ public final class RuleSet {
 
 	private boolean match(Rule rule, Trigger trigger) {
 		for (Condition condition : rule.getConditions())
-			if (OperatorFactory.get(condition).match(trigger) == condition.negated())
+			if (FunctionFactory.get(condition).match(trigger) == condition.negated())
 				return false;
 		return true;
 	}

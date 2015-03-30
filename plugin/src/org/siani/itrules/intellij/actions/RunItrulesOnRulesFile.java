@@ -9,7 +9,7 @@ import com.intellij.openapi.progress.Task.Modal;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
-import org.siani.itrules.ItrRulesReader;
+import org.siani.itrules.reader.itr.RuleSetReader;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -40,7 +40,7 @@ public class RunItrulesOnRulesFile extends Modal {
 		LOG.info("itrules(\"" + this.rulesFile.getPath() + "\")");
 		try {
 			FileWriter writer = new FileWriter(this.destiny);
-			writer.write(JsonRulesWriter.toJSON(new ItrRulesReader(this.rulesFile.getInputStream()).read()));
+			writer.write(JsonRulesWriter.toJSON(new RuleSetReader(this.rulesFile.getInputStream()).read()));
 			writer.close();
 		} catch (Throwable e) {
 			e.printStackTrace();
