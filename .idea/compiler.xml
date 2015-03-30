@@ -30,6 +30,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="engine" target="1.5" />
+      <module name="engine-itr" target="1.5" />
+      <module name="engine-json" target="1.5" />
       <module name="itrules" target="1.6" />
     </bytecodeTargetLevel>
   </component>

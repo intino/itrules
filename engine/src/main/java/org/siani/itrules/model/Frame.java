@@ -36,7 +36,6 @@ public class Frame implements AbstractFrame {
 			this.types.add(type.toLowerCase());
 	}
 
-	@Override
 	public boolean is(String type) {
 		return this.types.contains(type.toLowerCase());
 	}
@@ -53,12 +52,10 @@ public class Frame implements AbstractFrame {
 		return slots.keySet().toArray(new String[slots.size()]);
 	}
 
-	@Override
 	public boolean isPrimitive() {
 		return false;
 	}
 
-	@Override
 	public Iterator<AbstractFrame> getFrames(String slot) {
 		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
 	}
@@ -78,12 +75,10 @@ public class Frame implements AbstractFrame {
 		return false;
 	}
 
-	@Override
 	public Object value() {
 		return null;
 	}
 
-	@Override
 	public AbstractFrame findFrame(String path) {
 		String name = path.contains(".") ? path.substring(0, path.indexOf(".")) : path;
 		if (!slots.containsKey(name)) return null;

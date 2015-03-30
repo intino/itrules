@@ -53,7 +53,6 @@ public final class JsonRulesReader implements RulesReader {
 		return new ByteArrayInputStream(rules.getBytes(StandardCharsets.UTF_8));
 	}
 
-	@Override
 	public RuleSet read() {
 		GsonBuilder gb = new GsonBuilder();
 		gb.registerTypeAdapter(Token.class, new TokenAdapter());
@@ -68,7 +67,6 @@ public final class JsonRulesReader implements RulesReader {
 	}
 
 	private static class TokenAdapter implements JsonDeserializer<Token> {
-		@Override
 		public Token deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 			throws JsonParseException {
 			JsonObject jsonObject = json.getAsJsonObject();
