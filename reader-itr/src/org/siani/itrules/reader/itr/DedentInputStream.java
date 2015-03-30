@@ -23,8 +23,10 @@
 
 package org.siani.itrules.reader.itr;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -34,28 +36,16 @@ class DedentInputStream extends InputStream {
     private int index = 0;
 
     public DedentInputStream(InputStream inputStream) {
-        content = load(inputStream).in(container()).content();
+        content = container(inputStream).content();
     }
 
-    private Load load(final InputStream inputStream)  {
-        return new Load() {
-            @Override
-            public DedentContainer in(DedentContainer container) {
-                Scanner scanner = new Scanner(inputStream).useDelimiter("\n");
-                while (scanner.hasNext())
-                    container.put(scanner.next());
-                scanner.close();
-                return container;
-            }
-        };
-    }
-
-    private DedentContainer container() {
-        return new DedentContainer("defrule","endrule");
-    }
-
-    private interface Load {
-        DedentContainer in(DedentContainer container);
+    private DedentContainer container(InputStream inputStream)  {
+        DedentContainer container = new DedentContainer("defrule", "endrule");
+        try {
+            return container.load(inputStream);
+        } catch (IOException e) {
+            return container;
+        }
     }
 
     @Override

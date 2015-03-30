@@ -1,5 +1,9 @@
 package org.siani.itrules.reader.itr;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class DedentContainer {
@@ -13,14 +17,25 @@ public class DedentContainer {
         this.footerToken = footerToken;
     }
 
-    public void put(String line) {
-        if (line.startsWith(headerToken)) block = new Block(line);
-        else if (line.startsWith(footerToken)) block.close(line);
-        else block.body(line);
+    public DedentContainer load(InputStream inputStream) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        while (true) {
+            String line = reader.readLine();
+            if (line == null) break;
+            put(line);
+        }
+        reader.close();
+        return this;
     }
 
     public byte[] content() {
         return content.trim().getBytes();
+    }
+
+    private void put(String line) {
+        if (line.startsWith(headerToken)) block = new Block(line);
+        else if (line.startsWith(footerToken)) block.close(line);
+        else block.body(line);
     }
 
 
