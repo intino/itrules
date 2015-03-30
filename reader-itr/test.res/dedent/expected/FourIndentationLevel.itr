@@ -1,0 +1,7 @@
+defrule type(org.siani.itrules.samples.Person)
+			<person>
+				<age>
+				<name>
+				<nacionality>
+			<person>
+endrule

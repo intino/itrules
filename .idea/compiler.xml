@@ -24,6 +24,8 @@
         <processorPath useClasspath="true" />
         <module name="engine" />
         <module name="engine-itr" />
+        <module name="engine-itr (1)" />
+        <module name="engine-itr (2)" />
         <module name="engine-json" />
         <module name="reader-itr" />
         <module name="reader-json" />

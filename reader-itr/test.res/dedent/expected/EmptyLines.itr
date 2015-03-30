@@ -1,0 +1,8 @@
+defrule type(org.siani.itrules.samples.Person)
+first line
+
+second line
+
+third line
+
+endrule

@@ -41,13 +41,13 @@ public final class TemplateCompiler {
 	private final List<Rule> rules = new ArrayList<>();
 
 
-	public Rule[] compile(InputStream stream) {
+	public List<Rule> compile(InputStream stream) {
 		try {
 			parseTemplate(new ANTLRInputStream(stream));
-			return rules.toArray(new Rule[rules.size()]);
+			return rules;
 		} catch (ITRulesSyntaxError | IOException e) {
 			e.printStackTrace();
-			return rules.toArray(new Rule[rules.size()]);
+			return rules;
 		}
 	}
 

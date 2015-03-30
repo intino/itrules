@@ -1,0 +1,35 @@
+defrule type(Contract)
+    Las Palmas de Gran de Canaria, el $Date+ShortDate
+
+    $Owner
+
+    declara adoptar a
+
+    $Pet
+
+
+
+
+    Firmado
+    $Owner+Name
+endrule
+
+defrule type(org.siani.itrules.samples.Person) trigger(Owner)
+    $Name, con DNI $IdCard, con domicilio en la calle $Address, $City
+endrule
+
+defrule type(Dog) trigger(Pet)
+    El perro con chip $Chip[, de la especie $Especie,][ de $Age $Age+label]
+endrule
+
+defrule type(org.siani.itrules.samples.Person) trigger(Name)
+    $Name
+endrule
+
+defrule trigger(label) eval(value != 1)
+    años
+endrule
+
+defrule trigger(label) eval(value == 1)
+    año
+endrule

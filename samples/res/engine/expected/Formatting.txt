@@ -1,0 +1,13 @@
+Default: Pau Gasol
+UpperCase: PAU GASOL
+LowerCase: pau gasol
+CamelCase: PauGasol
+LowerCamelCase: pauGasol
+
+Default: Sun Jul 06 00:00:00 WEST 1980
+Year: 1980
+MonthYear: July 1980
+ShortDate: 06/07/1980
+FullDate: 06 July 1980
+DayOfWeek: Sunday
+Time: 00:00

@@ -1,0 +1,4 @@
+defrule type(org.siani.itrules.samples.Person)
+    x
+    y
+endrule

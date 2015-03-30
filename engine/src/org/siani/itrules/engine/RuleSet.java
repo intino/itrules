@@ -20,31 +20,44 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.reader.itr;
+package org.siani.itrules.engine;
 
-import org.siani.itrules.dsl.TemplateCompiler;
-import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.model.Rule;
+import org.siani.itrules.model.*;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
+public final class RuleSet {
 
-    private InputStream inputStream;
+	private final List<Rule> rules = new ArrayList<>();
 
-    public RuleSetReader(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
-    private InputStream stream(InputStream stream) {
-        return new DedentInputStream(new RuleSetInputStream(stream));
-    }
-
-	public RuleSet read() {
-        return new RuleSet(new TemplateCompiler().compile(stream(inputStream)));
+	public RuleSet() {
 	}
+
+    public RuleSet(List<Rule> rules) {
+        this.rules.addAll(rules);
+    }
+
+    public Rule match(Trigger trigger) {
+		for (Rule rule : rules)
+			if (match(rule, trigger)) return rule;
+		return null;
+	}
+
+	private boolean match(Rule rule, Trigger trigger) {
+		for (Condition condition : rule.getConditions())
+			if (FunctionFactory.get(condition).match(trigger) == condition.negated())
+				return false;
+		return true;
+	}
+
+    public void add(RuleSet ruleSet) {
+        rules.addAll(ruleSet.rules);
+    }
+
+    public void add(Rule rule) {
+        rules.add(rule);
+    }
 }
