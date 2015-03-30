@@ -28,6 +28,8 @@ public interface AbstractFrame {
 
 	public boolean is(String type);
 
+	public Frame container();
+
 	public boolean isPrimitive();
 
 	public Iterator<AbstractFrame> getFrames(String slot);

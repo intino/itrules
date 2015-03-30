@@ -22,14 +22,13 @@
 
 package org.siani.itrules.model;
 
-import org.siani.itrules.model.AbstractFrame;
-
 import java.util.Collections;
 import java.util.Iterator;
 
 class PrimitiveFrame implements AbstractFrame {
 	private static final String VALUE = "value";
 	private final Object value;
+	private Frame container;
 
 	public PrimitiveFrame(Object value) {
 		this.value = value;
@@ -38,6 +37,15 @@ class PrimitiveFrame implements AbstractFrame {
 	@Override
 	public boolean is(String type) {
 		return type.equalsIgnoreCase(value.getClass().getSimpleName());
+	}
+
+	@Override
+	public Frame container() {
+		return this.container;
+	}
+
+	void container(Frame container) {
+		this.container = container;
 	}
 
 	@Override

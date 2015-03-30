@@ -27,6 +27,7 @@ import java.util.*;
 public class Frame implements AbstractFrame {
 
 	private final Set<String> types;
+	private Frame container;
 	private final Map<String, List<AbstractFrame>> slots;
 
 	public Frame(String... types) {
@@ -38,6 +39,15 @@ public class Frame implements AbstractFrame {
 
 	public boolean is(String type) {
 		return this.types.contains(type.toLowerCase());
+	}
+
+	@Override
+	public Frame container() {
+		return container;
+	}
+
+	void container(Frame container) {
+		this.container = container;
 	}
 
 	public String[] getTypes() {
@@ -64,8 +74,11 @@ public class Frame implements AbstractFrame {
 		if (containsNull(values)) throw new RuntimeException("Value of Slot '" + slot + "' has been Inserted as Null");
 		if (!slots.containsKey(slot))
 			slots.put(slot, new ArrayList<AbstractFrame>());
-		for (Object value : values)
-			slots.get(slot).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
+		for (Object value : values) {
+			AbstractFrame frame = (value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value);
+			setContainer(frame);
+			slots.get(slot).add(frame);
+		}
 		return this;
 	}
 
@@ -123,5 +136,10 @@ public class Frame implements AbstractFrame {
 					if (foundFrame != null) return foundFrame;
 				}
 		return null;
+	}
+
+	public void setContainer(AbstractFrame frame) {
+		if (frame instanceof PrimitiveFrame) ((PrimitiveFrame) frame).container(this);
+		else ((Frame) frame).container(this);
 	}
 }
