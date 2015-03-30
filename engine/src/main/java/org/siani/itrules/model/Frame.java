@@ -27,6 +27,7 @@ import java.util.*;
 public class Frame implements AbstractFrame {
 
 	private final Set<String> types;
+	private Frame container;
 	private final Map<String, List<AbstractFrame>> slots;
 
 	public Frame(String... types) {
@@ -36,9 +37,17 @@ public class Frame implements AbstractFrame {
 			this.types.add(type.toLowerCase());
 	}
 
-	@Override
 	public boolean is(String type) {
 		return this.types.contains(type.toLowerCase());
+	}
+
+	@Override
+	public Frame container() {
+		return container;
+	}
+
+	void container(Frame container) {
+		this.container = container;
 	}
 
 	public String[] getTypes() {
@@ -53,12 +62,10 @@ public class Frame implements AbstractFrame {
 		return slots.keySet().toArray(new String[slots.size()]);
 	}
 
-	@Override
 	public boolean isPrimitive() {
 		return false;
 	}
 
-	@Override
 	public Iterator<AbstractFrame> getFrames(String slot) {
 		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
 	}
@@ -67,8 +74,11 @@ public class Frame implements AbstractFrame {
 		if (containsNull(values)) throw new RuntimeException("Value of Slot '" + slot + "' has been Inserted as Null");
 		if (!slots.containsKey(slot))
 			slots.put(slot, new ArrayList<AbstractFrame>());
-		for (Object value : values)
-			slots.get(slot).add((value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value));
+		for (Object value : values) {
+			AbstractFrame frame = (value instanceof AbstractFrame) ? (AbstractFrame) value : new PrimitiveFrame(value);
+			setContainer(frame);
+			slots.get(slot).add(frame);
+		}
 		return this;
 	}
 
@@ -78,12 +88,10 @@ public class Frame implements AbstractFrame {
 		return false;
 	}
 
-	@Override
 	public Object value() {
 		return null;
 	}
 
-	@Override
 	public AbstractFrame findFrame(String path) {
 		String name = path.contains(".") ? path.substring(0, path.indexOf(".")) : path;
 		if (!slots.containsKey(name)) return null;
@@ -128,5 +136,10 @@ public class Frame implements AbstractFrame {
 					if (foundFrame != null) return foundFrame;
 				}
 		return null;
+	}
+
+	public void setContainer(AbstractFrame frame) {
+		if (frame instanceof PrimitiveFrame) ((PrimitiveFrame) frame).container(this);
+		else ((Frame) frame).container(this);
 	}
 }

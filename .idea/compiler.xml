@@ -29,8 +29,10 @@
         <module name="rule-engine-json" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="itrules" target="1.6" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="engine" target="1.7" />
+      <module name="engine-itr" target="1.7" />
+      <module name="engine-json" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
