@@ -60,23 +60,23 @@ public class FrameRepository {
 
     private static Frame rosterFrame() {
         Frame frame = new Frame("Roster");
-        frame.addFrame("Coach", new Frame("org.siani.itrules.samples.Person") {{
+        frame.addFrame("Coach", new Frame("Person") {{
             addFrame("Name", "Juan Antonio Orenga");
             addFrame("Birthday", date("29/07/1966"));
             addFrame("Country", "Spain");
         }});
-        frame.addFrame("Player", new Frame("org.siani.itrules.samples.Person") {{
+        frame.addFrame("Player", new Frame("Person") {{
             addFrame("Name", "Pau Gasol");
             addFrame("Birthday", date("06/07/1980"));
             addFrame("Country", "Spain");
             addFrame("Club", "L.A. Lakers");
         }});
-        frame.addFrame("Player", new Frame("org.siani.itrules.samples.Person") {{
+        frame.addFrame("Player", new Frame("Person") {{
             addFrame("Name", "Rudy Fernandez");
             addFrame("Birthday", date("04/04/1985"));
             addFrame("Country", "Spain");
         }});
-        frame.addFrame("Player", new Frame("org.siani.itrules.samples.Person") {{
+        frame.addFrame("Player", new Frame("Person") {{
             addFrame("Name", "Juan Carlos Navarro");
             addFrame("Birthday", date("17/06/1980"));
             addFrame("Country", "Spain");
@@ -131,7 +131,7 @@ public class FrameRepository {
 
     private static Frame eval() {
         Frame frame = new Frame("Contract");
-        frame.addFrame("Owner", new Frame("org.siani.itrules.samples.Person") {{
+        frame.addFrame("Owner", new Frame("Person") {{
             addFrame("Name", "Tere Galvez");
             addFrame("Address", "Triana 20");
             addFrame("City", "Las Palmas");

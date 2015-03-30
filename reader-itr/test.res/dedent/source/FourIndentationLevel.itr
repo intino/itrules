@@ -1,4 +1,4 @@
-defrule type(org.siani.itrules.samples.Person)
+defrule type(Person)
 				<person>
 					<age>
 					<name>

@@ -14,7 +14,7 @@ defrule type(Contract)
     $Owner+Name
 endrule
 
-defrule type(org.siani.itrules.samples.Person) trigger(Owner)
+defrule type(Person) trigger(Owner)
     $Name, con DNI $IdCard, con domicilio en la calle $Address, $City
 endrule
 
@@ -22,7 +22,7 @@ defrule type(Dog) trigger(Pet)
     El perro con chip $Chip[, de la especie $Especie,][ de $Age $Age+label]
 endrule
 
-defrule type(org.siani.itrules.samples.Person) trigger(Name)
+defrule type(Person) trigger(Name)
     $Name
 endrule
 

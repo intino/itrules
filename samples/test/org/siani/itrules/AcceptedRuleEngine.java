@@ -34,8 +34,8 @@ import static java.util.Calendar.APRIL;
 import static java.util.Calendar.JULY;
 import static java.util.Calendar.JUNE;
 import static org.siani.itrules.samples.Message.*;
-import static org.siani.itrules.samples.Person.birthday;
-import static org.siani.itrules.samples.Roster.players;
+import static org.siani.itrules.samples.Person.*;
+import static org.siani.itrules.samples.Roster.*;
 
 
 public class AcceptedRuleEngine {

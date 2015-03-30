@@ -23,6 +23,7 @@
 package org.siani.itrules.intellij.actions;
 
 import com.google.gson.*;
+import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.model.Rule;
 import org.siani.itrules.model.Token;
 
@@ -34,7 +35,7 @@ public class JsonRulesWriter {
 	private JsonRulesWriter() {
 	}
 
-	public static String toJSON(Rule[] rules) {
+	public static String toJSON(RuleSet rules) {
 		GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat(DateFormat.FULL, DateFormat.FULL).setPrettyPrinting();
 		gsonBuilder.registerTypeAdapter(Token.class, new TokenAdapter());
 		return gsonBuilder.create().toJson(rules);

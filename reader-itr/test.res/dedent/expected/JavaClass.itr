@@ -28,9 +28,9 @@ private $type $name[ = $default];
 endrule
 
 defrule type(Attribute) !type(Const) trigger(Getter)
-		public $type get$name+firstUpperCase() {
-			return $name;
-		}
+public $type get$name+firstUpperCase() {
+	return $name;
+}
 endrule
 
 defrule type(Attribute) !type(Const) !type(ReadOnly) trigger(Setter)

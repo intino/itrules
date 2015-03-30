@@ -1,4 +1,4 @@
 defrule type(Animal)
 primera línea
-    segunda línea
+	segunda línea
 endrule

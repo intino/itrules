@@ -1,8 +1,8 @@
-defrule type(person)
+defrule type(Person)
 	write something
 endrule
 
-defrule type(other)
+defrule type(Other)
 		primera línea
 		segunda línea
 endrule

@@ -117,7 +117,7 @@ public class AcceptedDedentInputStream {
 	}
 
 	@Test
-	public void should_dedent_middle_earth_case() {
+	public void should_do_nothing_in_middle_earth_case() {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/InMiddleEarth.itr"));
         InputStream expected = inputStream("/dedent/expected/InMiddleEarth.itr");
         assertEquals(text(expected), text(actual));
@@ -131,7 +131,7 @@ public class AcceptedDedentInputStream {
 		Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
 		String result = scanner.hasNext() ? scanner.next() : "";
 		scanner.close();
-		return result;
+		return result.trim();
 	}
 
 
