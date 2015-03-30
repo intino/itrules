@@ -51,16 +51,32 @@ public final class FrameBuilder implements BuilderContext {
 		return createFrame(object);
 	}
 
+	@Override
+	public void buildIn(Frame frame, String slot, Object object) {
+		if (isPrimitive(object.getClass())) throw new RuntimeException("Object cannot be primitive");
+		Frame include = newFrame(object);
+		frame.addFrame(slot, include);
+		try {
+			fillSlots(object, include);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Frame createFrame(Object object) {
 		try {
-			List<String> allTypes = toString(getAllTypes(object.getClass()));
-			Frame toReturn = new Frame(allTypes.toArray(new String[allTypes.size()]));
+			Frame toReturn = newFrame(object);
 			fillSlots(object, toReturn);
 			return toReturn;
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	private Frame newFrame(Object object) {
+		List<String> allTypes = toString(getAllTypes(object.getClass()));
+		return new Frame(allTypes.toArray(new String[allTypes.size()]));
 	}
 
 	private List<String> toString(List<Class<?>> allTypes) {
@@ -78,16 +94,16 @@ public final class FrameBuilder implements BuilderContext {
 		return types;
 	}
 
-	private<T> void fillSlots(T object, Frame toReturn) throws IllegalAccessException {
+	private <T> void fillSlots(T object, Frame toReturn) throws IllegalAccessException {
 		Adapter<T> adapter = findAdapter(object);
-		if(adapter != null) adapter.adapt(toReturn, object, this);
+		if (adapter != null) adapter.adapt(toReturn, object, this);
 		else fillSlotsByDefault(object, toReturn);
 	}
 
-	private<T> Adapter<T> findAdapter(T object) {
+	private <T> Adapter<T> findAdapter(T object) {
 		List<Class<?>> allTypes = getAllTypes(object.getClass());
 		for (Class<?> type : allTypes) {
-			if(!adapterList.contains(type)) continue;
+			if (!adapterList.contains(type)) continue;
 			return adapterList.get(type);
 		}
 		return null;
