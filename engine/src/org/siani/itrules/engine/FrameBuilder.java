@@ -27,31 +27,27 @@ import org.siani.itrules.engine.framebuilder.AdapterContext;
 import org.siani.itrules.model.Frame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class FrameBuilder {
 
 	private final Frame frame;
 	private final ExclusionList exclusionList;
-	private final List<AdapterRegister> adapterRegisterList;
+	private final List<Register> registerList;
 
 	public static interface Adapter<T> {
 		public void execute(AdapterContext<T> context);
 	}
 
-	private static interface AdapterRegister {
-		boolean accept(Object object);
-		Adapter adapter();
-	}
-
 	public FrameBuilder() {
-		this(new Frame(null), new ExclusionList(), new ArrayList<AdapterRegister>());
+		this(new Frame(null), new ExclusionList(), new ArrayList<Register>());
 	}
 
-	private FrameBuilder(Frame frame, ExclusionList exclusionList, List<AdapterRegister> adapterRegisterList) {
+	private FrameBuilder(Frame frame, ExclusionList exclusionList, List<Register> registerList) {
 		this.frame = frame;
 		this.exclusionList = exclusionList;
-		this.adapterRegisterList = adapterRegisterList;
+		this.registerList = registerList;
 	}
 
 	public Frame build(Object object)  {
@@ -61,10 +57,10 @@ public final class FrameBuilder {
 	}
 
 	public <T> void register(final Class<T> aClass, final Adapter<T> adapter) {
-		adapterRegisterList.add(0, new AdapterRegister() {
+		registerList.add(0, new Register() {
 			@Override
-			public boolean accept(Object object) {
-				return aClass.equals(object.getClass());
+			public boolean accept(Class type) {
+				return type.equals(aClass);
 			}
 
 			@Override
@@ -87,12 +83,22 @@ public final class FrameBuilder {
 		adapterFor(object).execute(createTaskContext(object));
 	}
 
+
 	private Adapter adapterFor(Object object) {
-		//object.getClass()
-		//object.getInterface();
-		//object.super...
+        for (Class type : types(object.getClass())) {
+            Adapter adapter = adapterFor(type);
+            if (adapter != null) return adapter;
+        }
 		return new DefaultAdapter(exclusionList);
 	}
+
+    private Adapter adapterFor(Class type) {
+        for (Register register : registerList) {
+            if (register.accept(type)) return register.adapter();
+        }
+        return null;
+    }
+
 
 	private AdapterContext createTaskContext(final Object target) {
 		return new AdapterContext() {
@@ -108,7 +114,7 @@ public final class FrameBuilder {
 
 			@Override
 			public Frame build(Object object) {
-				return new FrameBuilder(new Frame(frame), exclusionList, adapterRegisterList).build(object);
+				return new FrameBuilder(new Frame(frame), exclusionList, registerList).build(object);
 			}
 
 			@Override
@@ -124,8 +130,6 @@ public final class FrameBuilder {
 		};
 	}
 
-
-
 	private String[] toArray(List<String> types) {
 		return types.toArray(new String[types.size()]);
 	}
@@ -137,15 +141,23 @@ public final class FrameBuilder {
 		return result;
 	}
 
-
 	private List<Class> types(Class aClass) {
-		List<Class> types = new ArrayList<>();
-		if (aClass == null) return types;
-		types.add(aClass);
-		types.addAll(types(aClass.getSuperclass()));
-		for (Class aInterface : aClass.getInterfaces())
-			types.addAll(types(aInterface));
-		return types;
+		if (aClass == null) return new ArrayList<>();
+        List<Class> types = new ArrayList<>();
+        types.add(aClass);
+        types.addAll(interfaces(aClass));
+        types.addAll(types(aClass.getSuperclass()));
+        return types;
 	}
+
+    private List<Class> interfaces(Class aClass) {
+        return Arrays.asList(aClass.getInterfaces());
+    }
+
+    private static interface Register {
+        boolean accept(Class aClass);
+        Adapter adapter();
+    }
+
 
 }

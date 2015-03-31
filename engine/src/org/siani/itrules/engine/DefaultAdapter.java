@@ -21,9 +21,8 @@ class DefaultAdapter implements FrameBuilder.Adapter {
     }
 
     @Override
-    public boolean execute(AdapterContext context) {
+    public void execute(AdapterContext context) {
         new Filler(context).execute();
-        return true;
     }
 
     private class Filler {
