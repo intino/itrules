@@ -27,14 +27,22 @@
         <module name="engine-itr (1)" />
         <module name="engine-itr (2)" />
         <module name="engine-json" />
-        <module name="reader-itr" />
         <module name="reader-json" />
         <module name="rule-engine-itr" />
         <module name="rule-engine-json" />
       </profile>
+      <profile default="false" name="Annotation profile for reader-itr" enabled="true">
+        <sourceOutputDir name="gen" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="reader-itr" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.7">
       <module name="engine" target="1.7" />
+      <module name="reader-itr" target="1.7" />
+      <module name="reader-json" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
