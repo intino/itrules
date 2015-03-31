@@ -41,6 +41,7 @@ public final class SlotNameFunction implements Function {
 	}
 
 	private AbstractFrame searchName(Trigger trigger) {
+//TODO
         return null;
 //		return parameters.length == 1 ? trigger.frame().searchByName(parameters[NAME]) : trigger.frame().deepSearchByName(parameters[NAME]);
 	}

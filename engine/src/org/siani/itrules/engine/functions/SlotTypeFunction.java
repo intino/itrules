@@ -40,6 +40,7 @@ public final class SlotTypeFunction implements Function {
 	}
 
 	private AbstractFrame searchFrame(Trigger trigger) {
+//TODO
         return null;
 //		return parameters.length == 1 ?
 //			trigger.frame().searchByType(parameters[TYPE]) : trigger.frame().deepSearchByType(parameters[TYPE]);
