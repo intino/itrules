@@ -4,7 +4,7 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.siani</groupId>
-    <artifactId>itrules-json</artifactId>
+    <artifactId>itrulesreader-json</artifactId>
     <version>1.0.2</version>
     <packaging>jar</packaging>
     <name>it rules. Template Engine</name>
