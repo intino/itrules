@@ -5,7 +5,7 @@ uiDesigner.xml
 .idea/artifacts/itrules_jar.xml
 .idea/artifacts/rules_engine_jar.xml
 release/
-target/
+source/
 .idea/artifacts/
 .idea/codeStyleSettings.xml
 .idea/artifacts/itrules_jar2.xml

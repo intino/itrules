@@ -28,21 +28,12 @@ public interface AbstractFrame {
 
 	public boolean is(String type);
 
-	public Frame container();
+	public Frame owner();
 
 	public boolean isPrimitive();
 
-	public Iterator<AbstractFrame> getFrames(String slot);
+	public Iterator<AbstractFrame> frames(String slot);
 
 	public Object value();
 
-	public AbstractFrame findFrame(String path);
-
-	public AbstractFrame searchByType(String type);
-
-	public AbstractFrame deepSearchByType(String type);
-
-	public AbstractFrame searchByName(String name);
-
-	public AbstractFrame deepSearchByName(String name);
 }

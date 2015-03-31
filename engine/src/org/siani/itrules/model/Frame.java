@@ -28,12 +28,12 @@ public class Frame implements AbstractFrame {
 
 	private final Set<String> types;
 	private final Map<String, List<AbstractFrame>> slots;
-	private final Frame container;
+	private final Frame owner;
 
-	public Frame(Frame container, String... types) {
-		this.types = createTypes(types);
-		this.slots = createSlots();
-		this.container = container;
+	public Frame(Frame owner) {
+		this.types = createTypeSet();
+		this.slots = createSlotMap();
+		this.owner = owner;
 	}
 
 	public boolean is(String type) {
@@ -41,46 +41,32 @@ public class Frame implements AbstractFrame {
 	}
 
 	@Override
-	public Frame container() {
-		return container;
+	public Frame owner() {
+		return owner;
 	}
 
-	public String[] getTypes() {
+	public String[] types() {
 		return types.toArray(new String[types.size()]);
 	}
 
-	public void add(String... types) {
-		Collections.addAll(this.types, types);
-	}
-
-	public String[] getSlots() {
+	public String[] slots() {
 		return slots.keySet().toArray(new String[slots.size()]);
 	}
 
-	public boolean isPrimitive() {
-		return false;
-	}
-
-	public Iterator<AbstractFrame> getFrames(String slot) {
+	public Iterator<AbstractFrame> frames(String slot) {
 		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
 	}
 
-	public Frame addFrame(String slot, Object... values) {
-//		if (containsNull(values)) throw new RuntimeException("Value of Slot '" + slot + "' has been Inserted as Null");
-		for (Object value : values)
-            slots.get(slot).add(frame(value));
+	public void addTypes(String... types) {
+		Collections.addAll(this.types, types);
+	}
+
+	public Frame addFrame(String slot, AbstractFrame frame) {
+		slots.get(slot).add(frame);
 		return this;
 	}
 
-	private AbstractFrame frame(Object value) {
-		if (value instanceof Frame)
-			return (Frame) value;
-		return new PrimitiveFrame(this, value);
-	}
-
-	private boolean containsNull(Object[] values) {
-		if (values == null) return true;
-		for (Object value : values) if (value == null) return true;
+	public boolean isPrimitive() {
 		return false;
 	}
 
@@ -88,53 +74,7 @@ public class Frame implements AbstractFrame {
 		return null;
 	}
 
-	public AbstractFrame findFrame(String path) {
-		String name = path.contains(".") ? path.substring(0, path.indexOf(".")) : path;
-		if (!slots.containsKey(name)) return null;
-		List<AbstractFrame> slot = slots.get(name);
-		return name.length() >= path.length() ? slot.get(0) :
-			slot.get(0).findFrame(path.substring(path.indexOf(".")));
-	}
-
-	public AbstractFrame searchByType(String type) {
-		return is(type) ? this : searchByType(slots.values(), type, false);
-	}
-
-	public AbstractFrame deepSearchByType(String type) {
-		return is(type) ? this : searchByType(slots.values(), type, true);
-	}
-
-	public AbstractFrame searchByName(String name) {
-		return getFrames(name).hasNext() ? this : searchByName(slots.values(), name, false);
-	}
-
-	public AbstractFrame deepSearchByName(String name) {
-		return getFrames(name).hasNext() ? this : searchByName(slots.values(), name, true);
-	}
-
-	private AbstractFrame searchByType(Collection<List<AbstractFrame>> slots, String type, boolean deep) {
-		for (List<AbstractFrame> slot : slots)
-			for (AbstractFrame frame : slot)
-				if (!frame.isPrimitive() && frame.is(type)) return frame;
-				else if (!frame.isPrimitive() && deep) {
-					AbstractFrame foundFrame = frame.deepSearchByType(type);
-					if (foundFrame != null) return foundFrame;
-				}
-		return null;
-	}
-
-	private AbstractFrame searchByName(Collection<List<AbstractFrame>> slots, String name, boolean deep) {
-		for (List<AbstractFrame> slot : slots)
-			for (AbstractFrame frame : slot)
-				if (!frame.isPrimitive() && frame.getFrames(name) != null) return frame;
-				else if (!frame.isPrimitive() && deep) {
-					AbstractFrame foundFrame = frame.deepSearchByName(name);
-					if (foundFrame != null) return foundFrame;
-				}
-		return null;
-	}
-
-	private static Map<String, List<AbstractFrame>> createSlots() {
+	private static Map<String, List<AbstractFrame>> createSlotMap() {
 		return new LinkedHashMap<String, List<AbstractFrame>>(){
 
 			@Override
@@ -155,7 +95,7 @@ public class Frame implements AbstractFrame {
 		};
 	}
 
-	private static Set<String> createTypes(String[] types) {
+	private static Set<String> createTypeSet() {
 		HashSet<String> result = new HashSet<String>() {
 			@Override
 			public boolean contains(Object o) {
@@ -167,7 +107,6 @@ public class Frame implements AbstractFrame {
 				return super.add(s.toLowerCase());
 			}
 		};
-		Collections.addAll(result, types);
 		return result;
 	}
 }

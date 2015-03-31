@@ -54,7 +54,7 @@ public final class EvalFunction implements Function {
 	}
 
 	private String trySolve(String op, AbstractFrame frame) {
-		AbstractFrame abstractFrame = frame.findFrame(op);
+		AbstractFrame abstractFrame = frame.frame(op);
 		return abstractFrame != null ? abstractFrame.value().toString() : op;
 	}
 }

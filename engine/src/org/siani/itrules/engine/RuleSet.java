@@ -22,11 +22,11 @@
 
 package org.siani.itrules.engine;
 
-import org.siani.itrules.model.*;
+import org.siani.itrules.model.Condition;
+import org.siani.itrules.model.Rule;
+import org.siani.itrules.model.Trigger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public final class RuleSet {
@@ -54,7 +54,7 @@ public final class RuleSet {
 	}
 
     public void add(RuleSet ruleSet) {
-        rules.addAll(ruleSet.rules);
+        rules.addAll(0, ruleSet.rules);
     }
 
     public void add(Rule rule) {

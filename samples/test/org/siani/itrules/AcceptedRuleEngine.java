@@ -43,10 +43,10 @@ public class AcceptedRuleEngine {
 	private static final String Template = "res/engine/templates/$case.itr";
 	private static final String Expected = "res/engine/expected/$case.txt";
 
-    public static final Person Gasol = new Person("Pau Gasol", "Spain", birthday(1980, JULY, 6));
+    public static final Person Gasol = new Person("Pau Gasol", "Spain", "L.A. Lakers", birthday(1980, JULY, 6));
     public static final Person Orenga = new Person("Juan Antonio Orenga", "Spain", birthday(1966, JULY, 29));
     public static final Person Rudy = new Person("Rudy Fernandez", "Spain", birthday(1985, APRIL, 4));
-    public static final Person Navarro = new Person("Juan Carlos Navarro", "Spain", birthday(1908, JUNE, 17));
+    public static final Person Navarro = new Person("Juan Carlos Navarro", "Spain", birthday(1980, JUNE, 17));
 
 
     public static final Message Frodo =

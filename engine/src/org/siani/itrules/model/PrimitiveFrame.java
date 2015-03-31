@@ -25,12 +25,11 @@ package org.siani.itrules.model;
 import java.util.Collections;
 import java.util.Iterator;
 
-class PrimitiveFrame implements AbstractFrame {
-	private static final String VALUE = "value";
+public class PrimitiveFrame implements AbstractFrame {
 	private final Object value;
 	private final Frame container;
 
-	PrimitiveFrame(Frame container, Object value) {
+	public PrimitiveFrame(Frame container, Object value) {
 		this.value = value;
 		this.container = container;
 	}
@@ -41,7 +40,7 @@ class PrimitiveFrame implements AbstractFrame {
 	}
 
 	@Override
-	public Frame container() {
+	public Frame owner() {
 		return this.container;
 	}
 
@@ -51,7 +50,7 @@ class PrimitiveFrame implements AbstractFrame {
 	}
 
 	@Override
-	public Iterator<AbstractFrame> getFrames(String slot) {
+	public Iterator<AbstractFrame> frames(String slot) {
 		return Collections.<AbstractFrame>emptyList().iterator();
 	}
 
@@ -60,28 +59,4 @@ class PrimitiveFrame implements AbstractFrame {
 		return value;
 	}
 
-	@Override
-	public AbstractFrame findFrame(String path) {
-		return path.equalsIgnoreCase(VALUE) ? this : null;
-	}
-
-	@Override
-	public AbstractFrame searchByType(String type) {
-		return null;
-	}
-
-	@Override
-	public AbstractFrame deepSearchByType(String type) {
-		return null;
-	}
-
-	@Override
-	public AbstractFrame searchByName(String name) {
-		return name.equalsIgnoreCase(VALUE) ? this : null;
-	}
-
-	@Override
-	public AbstractFrame deepSearchByName(String name) {
-		return name.equalsIgnoreCase(VALUE) ? this : null;
-	}
 }

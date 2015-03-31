@@ -47,22 +47,9 @@ public final class RuleEngine {
 		this.formatters.putAll(SystemFormatterRepository.formatters(locale));
     }
 
-
     public RuleEngine use(String filename) {
         this.ruleSet.add(RuleSetLoader.load(new File(filename)));
         return this;
-    }
-
-    public RuleEngine add(File file) {
-        this.ruleSet.add(RuleSetLoader.load(file));
-        return this;
-    }
-
-    private Rule defaultRule() {
-        Rule rule = new Rule();
-        rule.add(new Condition(Function.SlotName, new String[]{"value"}, false));
-        rule.add(new Mark("value"));
-        return rule;
     }
 
 	public void register(String name, Formatter formatter) {
@@ -70,8 +57,15 @@ public final class RuleEngine {
 	}
 
     public Document render(Object object) {
-        return render(new FrameBuilder().createFrame(object));
+        return render(new FrameBuilder().build(object));
     }
+
+	private Rule defaultRule() {
+		Rule rule = new Rule();
+		rule.add(new Condition(Function.SlotName, new String[]{"value"}, false));
+		rule.add(new Mark("value"));
+		return rule;
+	}
 
 	private Document render(AbstractFrame frame) {
 		Document document = new Document();
@@ -139,7 +133,7 @@ public final class RuleEngine {
 	}
 
 	private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
-		Iterator<AbstractFrame> frames = frame.getFrames(mark.getName());
+		Iterator<AbstractFrame> frames = frame.frames(mark.getName());
 		boolean rendered = false;
 		while (frames != null && frames.hasNext()) {
 			pushBuffer(mark.getIndentation());
