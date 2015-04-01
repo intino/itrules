@@ -31,21 +31,21 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public final class EvalFunction implements Function {
-	private final String op1;
+	private final String operand1;
 	private final String operator;
-	private final String op2;
+	private final String operand2;
 
-	public EvalFunction(String op1, String operator, String op2) {
-		this.op1 = op1;
+	public EvalFunction(String operand1, String operator, String operand2) {
+		this.operand1 = operand1;
 		this.operator = operator;
-		this.op2 = op2;
+		this.operand2 = operand2;
 	}
 
 	@Override
 	public boolean match(Trigger trigger) {
 		try {
 			ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
-			String expr = trySolve(op1, trigger.frame()) + operator + trySolve(op2, trigger.frame());
+			String expr = trySolve(operand1, trigger.frame()) + operator + trySolve(operand2, trigger.frame());
 			return (Boolean) engine.eval(expr);
 		} catch (ScriptException e) {
 			e.printStackTrace();

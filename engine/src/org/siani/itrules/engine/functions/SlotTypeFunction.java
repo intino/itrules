@@ -26,12 +26,15 @@ import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Function;
 import org.siani.itrules.model.Trigger;
 
-public final class SlotTypeFunction implements Function {
-	private static final int TYPE = 0;
-	private final String[] parameters;
+import static org.siani.itrules.engine.FrameFinder.byType;
+import static org.siani.itrules.engine.FrameFinder.with;
 
-	public SlotTypeFunction(String[] parameters) {
-		this.parameters = parameters;
+public final class SlotTypeFunction implements Function {
+
+    private final String type;
+
+    public SlotTypeFunction(String type) {
+		this.type = type;
 	}
 
 	@Override
@@ -40,9 +43,11 @@ public final class SlotTypeFunction implements Function {
 	}
 
 	private AbstractFrame searchFrame(Trigger trigger) {
-//TODO
-        return null;
-//		return parameters.length == 1 ?
-//			trigger.frame().searchByType(parameters[TYPE]) : trigger.frame().deepSearchByType(parameters[TYPE]);
+        return with(trigger.frame()).find(byType(type));
+//		return type.length == 1 ?
+//			 : trigger.frame().deepSearchByType(type);
 	}
+
+
+
 }

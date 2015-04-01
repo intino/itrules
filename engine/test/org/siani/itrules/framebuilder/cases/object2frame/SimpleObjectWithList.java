@@ -1,4 +1,4 @@
-package org.siani.itrules.cases.object2frame;
+package org.siani.itrules.framebuilder.cases.object2frame;
 
 import java.util.List;
 

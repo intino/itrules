@@ -26,17 +26,17 @@ import org.siani.itrules.model.Function;
 import org.siani.itrules.model.Trigger;
 
 public final class TriggerFunction implements Function {
-	private final String[] parameters;
+	private final String mark;
 
-	public TriggerFunction(String[] parameters) {
-		this.parameters = parameters;
+	public TriggerFunction(String mark) {
+		this.mark = mark;
 	}
 
 	@Override
 	public boolean match(Trigger trigger) {
-		if (parameters[0].equalsIgnoreCase(trigger.mark().getName())) return true;
-		for (String s : trigger.mark().getOptions())
-			if (parameters[0].equalsIgnoreCase(s)) return true;
+		if (mark.equalsIgnoreCase(trigger.mark().getName())) return true;
+		for (String option : trigger.mark().getOptions())
+			if (mark.equalsIgnoreCase(option)) return true;
 		return false;
 	}
 }

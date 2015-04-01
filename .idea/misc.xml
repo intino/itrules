@@ -16,8 +16,8 @@
         <option value="$PROJECT_DIR$/engine-itr/pom.xml" />
         <option value="$PROJECT_DIR$/engine-json/pom.xml" />
         <option value="$PROJECT_DIR$/engine/pom.xml" />
-        <option value="$PROJECT_DIR$/reader-itr/pom.xml" />
         <option value="$PROJECT_DIR$/reader-json/pom.xml" />
+        <option value="$PROJECT_DIR$/reader-itr/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

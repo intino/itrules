@@ -26,23 +26,26 @@ import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Function;
 import org.siani.itrules.model.Trigger;
 
+import static org.siani.itrules.engine.FrameFinder.byType;
+import static org.siani.itrules.engine.FrameFinder.with;
+
 public final class SlotNameFunction implements Function {
 
-	private final String[] parameters;
-	private static final int NAME = 0;
+    private final String name;
 
-	public SlotNameFunction(String[] parameters) {
-		this.parameters = parameters;
+    public SlotNameFunction(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public boolean match(Trigger trigger) {
-		return trigger.frame().isPrimitive() ? parameters[NAME].equalsIgnoreCase("value") : searchName(trigger) != null;
+		return trigger.frame().isPrimitive() ? name.equalsIgnoreCase("value") : searchName(trigger) != null;
 	}
 
 	private AbstractFrame searchName(Trigger trigger) {
-//TODO
-        return null;
+        return with(trigger.frame()).find(byType(name));
 //		return parameters.length == 1 ? trigger.frame().searchByName(parameters[NAME]) : trigger.frame().deepSearchByName(parameters[NAME]);
 	}
+
+
 }

@@ -29,8 +29,8 @@ public final class TypeFunction implements Function {
 
 	private final String type;
 
-	public TypeFunction(String[] type) {
-		this.type = type[0];
+	public TypeFunction(String type) {
+		this.type = type;
 	}
 
 	@Override

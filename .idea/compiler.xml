@@ -37,13 +37,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="reader-itr" />
+      </profile>
+      <profile default="false" name="Annotation profile for reader-itr1" enabled="true">
+        <sourceOutputDir name="gen" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="reader-itr1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.7">
       <module name="engine" target="1.7" />
       <module name="itrules-json" target="1.7" />
       <module name="reader-itr" target="1.7" />
+      <module name="reader-itr1" target="1.7" />
       <module name="reader-json" target="1.7" />
     </bytecodeTargetLevel>
   </component>

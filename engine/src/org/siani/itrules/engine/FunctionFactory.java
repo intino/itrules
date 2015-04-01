@@ -32,10 +32,10 @@ public final class FunctionFactory {
 
 	public static Function get(Condition condition) {
 		String[] parameters = condition.getParameters();
-		if (condition.is(Type)) return new TypeFunction(parameters);
-		if (condition.is(Trigger)) return new TriggerFunction(parameters);
-		if (condition.is(SlotName)) return new SlotNameFunction(parameters);
-		if (condition.is(SlotType)) return new SlotTypeFunction(parameters);
+		if (condition.is(Type)) return new TypeFunction(parameters[0]);
+		if (condition.is(Trigger)) return new TriggerFunction(parameters[0]);
+		if (condition.is(SlotName)) return new SlotNameFunction(parameters[0]);
+		if (condition.is(SlotType)) return new SlotTypeFunction(parameters[0]);
 		if (condition.is(Eval)) return new EvalFunction(parameters[0], parameters[1], parameters[2]);
 		return null;
 	}
