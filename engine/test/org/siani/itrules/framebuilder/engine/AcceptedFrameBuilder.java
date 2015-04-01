@@ -2,8 +2,8 @@ package org.siani.itrules.framebuilder.engine;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.siani.itrules.Adapter;
 import org.siani.itrules.engine.FrameBuilder;
-import org.siani.itrules.engine.framebuilder.AdapterContext;
 import org.siani.itrules.framebuilder.cases.object2frame.*;
 import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
@@ -120,7 +120,7 @@ public class AcceptedFrameBuilder {
     @Test
     public void testExcludeMap() throws Exception {
         FrameBuilder frameBuilder = new FrameBuilder();
-        frameBuilder.exclude("TwoAttributesObject", "field2");
+        frameBuilder.exclude(TwoAttributesObject.class, "field2");
         Frame frame = frameBuilder.build(new TwoAttributesObject("test", 1.0));
         Assert.assertEquals("test", frame.frames("field1").next().value());
         Assert.assertFalse(frame.frames("field2").hasNext());
@@ -151,9 +151,9 @@ public class AcceptedFrameBuilder {
 		FrameBuilder builder = new FrameBuilder();
 		builder.register(
                 TwoAttributesObject.class,
-                new FrameBuilder.Adapter<TwoAttributesObject>() {
+                new Adapter<TwoAttributesObject>() {
                     @Override
-                    public void execute(AdapterContext<TwoAttributesObject> context) {
+                    public void execute(Context<TwoAttributesObject> context) {
                         context.frame().addFrame("field1", context.build(context.source().getField1()));
                     }
                 });
@@ -167,9 +167,9 @@ public class AcceptedFrameBuilder {
 		FrameBuilder builder = new FrameBuilder();
 		builder.register(
                 SimpleObjectWithComplexList.class,
-                new FrameBuilder.Adapter<SimpleObjectWithComplexList>() {
+                new Adapter<SimpleObjectWithComplexList>() {
                     @Override
-                    public void execute(AdapterContext<SimpleObjectWithComplexList> context) {
+                    public void execute(Context<SimpleObjectWithComplexList> context) {
                         context.frame().addFrame("object2", context.build(context.source().get(1)));
                     }
                 });
@@ -192,12 +192,12 @@ public class AcceptedFrameBuilder {
 		FrameBuilder builder = new FrameBuilder();
 		builder.register(
                 SimpleObjectWithComplexList.class,
-                new FrameBuilder.Adapter<SimpleObjectWithComplexList>() {
+                new Adapter<SimpleObjectWithComplexList>() {
                     @Override
-                    public void execute(AdapterContext<SimpleObjectWithComplexList> context) {
-                        context.register(TwoAttributesObject.class, new FrameBuilder.Adapter<TwoAttributesObject>() {
+                    public void execute(Context<SimpleObjectWithComplexList> context) {
+                        context.register(TwoAttributesObject.class, new Adapter<TwoAttributesObject>() {
                             @Override
-                            public void execute(AdapterContext<TwoAttributesObject> context) {
+                            public void execute(Context<TwoAttributesObject> context) {
                                 context.frame().addFrame("field1", context.build(context.source().getField1()));
                             }
                         });
@@ -222,10 +222,10 @@ public class AcceptedFrameBuilder {
 		FrameBuilder builder = new FrameBuilder();
 		builder.register(
                 SimpleObjectWithComplexList.class,
-                new FrameBuilder.Adapter<SimpleObjectWithComplexList>() {
+                new Adapter<SimpleObjectWithComplexList>() {
                     @Override
-                    public void execute(AdapterContext<SimpleObjectWithComplexList> context) {
-                        context.exclude("TwoAttributesObject", "field2");
+                    public void execute(Context<SimpleObjectWithComplexList> context) {
+                        context.exclude(TwoAttributesObject.class, "field2");
                         context.frame().addFrame("object2", context.build(context.source().get(1)));
                     }
                 });

@@ -22,35 +22,21 @@
 
 package org.siani.itrules.engine;
 
-import org.siani.itrules.model.Condition;
 import org.siani.itrules.model.Rule;
-import org.siani.itrules.model.Trigger;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public final class RuleSet {
+public final class RuleSet implements Iterable<Rule> {
 
-	private final List<Rule> rules = new ArrayList<>();
+    private final List<Rule> rules = new ArrayList<>();
 
-	public RuleSet() {
-	}
+    public RuleSet() {}
 
     public RuleSet(List<Rule> rules) {
         this.rules.addAll(rules);
     }
-
-    public Rule match(Trigger trigger) {
-		for (Rule rule : rules)
-			if (match(rule, trigger)) return rule;
-		return null;
-	}
-
-	private boolean match(Rule rule, Trigger trigger) {
-		for (Condition condition : rule.getConditions())
-			if (!FunctionFactory.get(condition).match(trigger)) return false;
-		return true;
-	}
 
     public void add(RuleSet ruleSet) {
         rules.addAll(0, ruleSet.rules);
@@ -58,5 +44,10 @@ public final class RuleSet {
 
     public void add(Rule rule) {
         rules.add(rule);
+    }
+
+    @Override
+    public Iterator<Rule> iterator() {
+        return rules.iterator();
     }
 }

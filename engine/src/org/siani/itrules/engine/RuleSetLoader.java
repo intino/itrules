@@ -16,7 +16,7 @@ public class RuleSetLoader {
         try {
             return ruleSetReader(file).read();
         } catch (Exception e) {
-            new DebugLogger().debug(e.getMessage());
+            new DebugLogger().debug("RuleSet %s could not be load\n\t%s", file.getName(), e.getMessage());
             return new RuleSet();
         }
     }

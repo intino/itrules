@@ -22,19 +22,13 @@
 
 package org.siani.itrules.engine.functions;
 
-import org.siani.itrules.model.Function;
+import org.siani.itrules.Function;
 import org.siani.itrules.model.Trigger;
 
 public final class TypeFunction implements Function {
 
-	private final String type;
-
-	public TypeFunction(String type) {
-		this.type = type;
-	}
-
 	@Override
-	public boolean match(Trigger trigger) {
-		return trigger.frame().is(type);
+	public boolean match(Trigger trigger, String parameter) {
+		return trigger.frame().is(parameter);
 	}
 }

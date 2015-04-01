@@ -20,15 +20,19 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.model;
+package org.siani.itrules.engine.functions;
 
-public interface Function {
+import org.siani.itrules.Function;
+import org.siani.itrules.model.Trigger;
 
-	public static final String Type = "type";
-	public static final String Trigger = "trigger";
-	public static final String SlotName = "slot.name";
-	public static final String SlotType = "slot.type";
-	public static final String Eval = "eval";
+public final class SlotFunction implements Function {
 
-	public boolean match(Trigger trigger);
+	@Override
+	public boolean match(Trigger trigger, String parameter) {
+		return trigger.frame().isPrimitive() ?
+				parameter.equalsIgnoreCase("value") :
+				trigger.frame().frames(parameter).hasNext();
+	}
+
+
 }

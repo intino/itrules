@@ -20,34 +20,12 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.engine.functions;
+package org.siani.itrules;
 
-import org.siani.itrules.model.AbstractFrame;
-import org.siani.itrules.model.Function;
 import org.siani.itrules.model.Trigger;
 
-import static org.siani.itrules.engine.FrameFinder.byType;
-import static org.siani.itrules.engine.FrameFinder.with;
+public interface Function {
 
-public final class SlotTypeFunction implements Function {
-
-    private final String type;
-
-    public SlotTypeFunction(String type) {
-		this.type = type;
-	}
-
-	@Override
-	public boolean match(Trigger trigger) {
-		return !trigger.frame().isPrimitive() && searchFrame(trigger) != null;
-	}
-
-	private AbstractFrame searchFrame(Trigger trigger) {
-        return with(trigger.frame()).find(byType(type));
-//		return type.length == 1 ?
-//			 : trigger.frame().deepSearchByType(type);
-	}
-
-
+	public boolean match(Trigger trigger, String parameter);
 
 }

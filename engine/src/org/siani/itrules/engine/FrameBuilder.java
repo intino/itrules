@@ -22,7 +22,7 @@
 
 package org.siani.itrules.engine;
 
-import org.siani.itrules.engine.framebuilder.AdapterContext;
+import org.siani.itrules.Adapter;
 import org.siani.itrules.engine.framebuilder.ExclusionList;
 import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
@@ -37,10 +37,6 @@ public final class FrameBuilder {
 	private final Frame frame;
 	private final ExclusionList exclusionList;
 	private final List<Register> registerList;
-
-	public static interface Adapter<T> {
-		public void execute(AdapterContext<T> context);
-	}
 
 	public FrameBuilder() {
 		this(new Frame(null), new ExclusionList(), new ArrayList<Register>());
@@ -77,7 +73,7 @@ public final class FrameBuilder {
 		});
 	}
 
-	public void exclude(String aClass, String... fields) {
+	public void exclude(Class aClass, String... fields) {
 		exclusionList.exclude(aClass, fields);
 	}
 
@@ -107,8 +103,8 @@ public final class FrameBuilder {
     }
 
 
-	private AdapterContext createTaskContext(final Object target) {
-		return new AdapterContext() {
+	private Adapter.Context createTaskContext(final Object target) {
+		return new Adapter.Context() {
 			@Override
 			public Object source() {
 				return target;
@@ -121,17 +117,18 @@ public final class FrameBuilder {
 
 			@Override
 			public AbstractFrame build(Object object) {
-				if(isPrimitive(object.getClass())) return new PrimitiveFrame(frame, object);
-				return new FrameBuilder(new Frame(frame), exclusionList, registerList).fillFrame(object);
+				return isPrimitive(object.getClass()) ?
+					new PrimitiveFrame(frame, object):
+					new FrameBuilder(new Frame(frame), exclusionList, registerList).fillFrame(object);
 			}
 
 			@Override
-			public void register(Class aClass, FrameBuilder.Adapter adapter) {
+			public void register(Class aClass, Adapter adapter) {
 				FrameBuilder.this.register(aClass, adapter);
 			}
 
 			@Override
-			public void exclude(String aClass, String... fields) {
+			public void exclude(Class aClass, String... fields) {
 				FrameBuilder.this.exclude(aClass, fields);
 			}
 

@@ -22,11 +22,7 @@
 
 package org.siani.itrules;
 
-import org.siani.itrules.engine.Buffer;
-import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.engine.RuleSetLoader;
-import org.siani.itrules.formatter.SystemFormatterRepository;
-import org.siani.itrules.engine.FrameBuilder;
+import org.siani.itrules.engine.*;
 import org.siani.itrules.model.*;
 
 import java.io.File;
@@ -36,33 +32,49 @@ public final class RuleEngine {
 
 	private final RuleSet ruleSet = new RuleSet();
 	private final Stack<Buffer> buffers = new Stack<>();
-	private final Map<String, Formatter> formatters = new HashMap<>();
+	private final FormatterStore formatterStore;
+	private final FunctionStore functionStore;
+	private final FrameBuilder frameBuilder;
 
-    public RuleEngine() {
+	public RuleEngine() {
         this(Locale.getDefault());
     }
 
     public RuleEngine(Locale locale) {
-        this.ruleSet.add(defaultRule());
-		this.formatters.putAll(SystemFormatterRepository.formatters(locale));
-    }
+		this.ruleSet.add(defaultRule());
+		this.formatterStore = new FormatterStore(locale);
+		this.functionStore = new FunctionStore();
+		this.frameBuilder = new FrameBuilder();
+	}
 
-    public RuleEngine use(String filename) {
+	public RuleEngine use(String filename) {
         this.ruleSet.add(RuleSetLoader.load(new File(filename)));
         return this;
     }
 
 	public void register(String name, Formatter formatter) {
-		formatters.put(name.toLowerCase(), formatter);
+		formatterStore.add(name, formatter);
+	}
+
+	public void register(String name, Function function) {
+		functionStore.add(name, function);
+	}
+
+	public<T> void register(Class<T> aClass, Adapter<T> adapter) {
+		frameBuilder.register(aClass, adapter);
+	}
+
+	public<T> void exclude(Class<T> aClass, String... fields) {
+		frameBuilder.exclude(aClass, fields);
 	}
 
     public Document render(Object object) {
-        return render(new FrameBuilder().build(object));
+        return render(frameBuilder.build(object));
     }
 
 	private Rule defaultRule() {
 		Rule rule = new Rule();
-		rule.add(new Condition(Function.SlotName, "value"));
+		rule.add(new Condition("Slot", "value"));
 		rule.add(new Mark("value"));
 		return rule;
 	}
@@ -81,11 +93,23 @@ public final class RuleEngine {
 	}
 
 	private boolean execute(Trigger trigger) {
-		Rule rule = ruleSet.match(trigger);
+		Rule rule = match(trigger);
 		if (rule == null) return false;
 		boolean execute = execute(trigger, rule);
 		buffer().dedent();
 		return execute;
+	}
+
+	public Rule match(Trigger trigger) {
+		for (Rule rule : ruleSet)
+			if (match(rule, trigger)) return rule;
+		return null;
+	}
+
+	private boolean match(Rule rule, Trigger trigger) {
+		for (Condition condition : rule.getConditions())
+			if (!functionStore.get(condition).match(trigger, condition.parameter())) return false;
+		return true;
 	}
 
 	private Buffer buffer() {
@@ -123,7 +147,7 @@ public final class RuleEngine {
 		if (!mark.getName().equalsIgnoreCase("value")) return false;
 		Object value = frame.value();
 		for (String option : mark.getOptions()) {
-			Formatter formatter = formatters.get(option.toLowerCase());
+			Formatter formatter = formatterStore.get(option);
 			if (formatter == null) continue;
 			value = formatter.format(value);
 		}

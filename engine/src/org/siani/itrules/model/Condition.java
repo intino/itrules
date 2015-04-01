@@ -24,25 +24,20 @@ package org.siani.itrules.model;
 
 public class Condition {
 
-	public static final String TYPE = "type";
-	public static final String TRIGGER = "trigger";
-	public static final String SLOT_NAME = "slot-name";
-	public static final String SLOT_TYPE = "slot-type";
-	public static final String EVAL = "eval";
 	private final String name;
-	private String[] parameters;
+	private final String parameter;
 
-	public Condition(String name, String... parameters) {
+	public Condition(String name, String parameter) {
 		this.name = name;
-		this.parameters = parameters;
+		this.parameter = parameter;
 	}
 
 	public String name() {
 		return this.name;
 	}
 
-	public String[] getParameters() {
-		return parameters;
+	public String parameter() {
+		return parameter;
 	}
 
 	public boolean is(String type) {
@@ -55,8 +50,8 @@ public class Condition {
 
 	public static class Negated extends Condition {
 
-		public Negated(String name, String... parameters) {
-			super(name, parameters);
+		public Negated(String name, String parameter) {
+			super(name, parameter);
 		}
 
 		public boolean negated() {

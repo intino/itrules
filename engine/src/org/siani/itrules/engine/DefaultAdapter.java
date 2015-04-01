@@ -1,6 +1,6 @@
 package org.siani.itrules.engine;
 
-import org.siani.itrules.engine.framebuilder.AdapterContext;
+import org.siani.itrules.Adapter;
 import org.siani.itrules.engine.framebuilder.ExclusionList;
 import org.siani.itrules.model.Frame;
 
@@ -9,7 +9,7 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Map;
 
-class DefaultAdapter implements FrameBuilder.Adapter {
+class DefaultAdapter implements Adapter {
 
     private ExclusionList exclusionList;
 
@@ -18,16 +18,16 @@ class DefaultAdapter implements FrameBuilder.Adapter {
     }
 
     @Override
-    public void execute(AdapterContext context) {
+    public void execute(Context context) {
         new Filler(context).execute();
     }
 
     private class Filler {
-        private final AdapterContext context;
+        private final Context context;
 		private final Frame frame;
         private final Object source;
 
-        public Filler(AdapterContext context) {
+        public Filler(Context context) {
             this.context = context;
             this.frame = context.frame();
             this.source = context.source();

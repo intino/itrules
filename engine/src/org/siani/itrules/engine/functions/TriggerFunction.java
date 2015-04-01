@@ -22,21 +22,23 @@
 
 package org.siani.itrules.engine.functions;
 
-import org.siani.itrules.model.Function;
+import org.siani.itrules.Function;
 import org.siani.itrules.model.Trigger;
 
 public final class TriggerFunction implements Function {
-	private final String mark;
-
-	public TriggerFunction(String mark) {
-		this.mark = mark;
-	}
 
 	@Override
-	public boolean match(Trigger trigger) {
-		if (mark.equalsIgnoreCase(trigger.mark().getName())) return true;
-		for (String option : trigger.mark().getOptions())
-			if (mark.equalsIgnoreCase(option)) return true;
+	public boolean match(Trigger trigger, String parameter) {
+		return matchMark(trigger.mark().getName(), parameter) || matchOptions(trigger.mark().getOptions(), parameter);
+	}
+
+	private boolean matchMark(String mark, String parameter) {
+		return mark.equalsIgnoreCase(parameter);
+	}
+
+	private boolean matchOptions(String[] options, String parameter) {
+		for (String option : options)
+			if (matchMark(option, parameter)) return true;
 		return false;
 	}
 }
