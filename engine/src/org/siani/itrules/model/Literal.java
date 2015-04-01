@@ -22,7 +22,7 @@
 
 package org.siani.itrules.model;
 
-public class Literal extends Token {
+public class Literal extends BodyToken {
 
 	private final String literal;
 

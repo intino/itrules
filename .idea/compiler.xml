@@ -47,7 +47,7 @@
       </profile>
       <profile default="false" name="Annotation profile for itrulesreader-itr" enabled="true">
         <sourceOutputDir name="gen" />
-        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="itrulesreader-itr" />

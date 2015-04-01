@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Expression extends Token implements Iterable<Token> {
+public class Expression extends BodyToken implements Iterable<Token> {
 	private List<Token> tokens;
 
 	public Expression() {

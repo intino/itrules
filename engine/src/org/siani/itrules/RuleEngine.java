@@ -57,20 +57,24 @@ public final class RuleEngine {
 		return this;
 	}
 
-	public void register(String name, Formatter formatter) {
+	public RuleEngine add(String name, Formatter formatter) {
 		formatterStore.add(name, formatter);
+        return this;
 	}
 
-	public void register(String name, Function function) {
+	public RuleEngine add(String name, Function function) {
 		functionStore.add(name, function);
+        return this;
 	}
 
-	public<T> void register(Class<T> aClass, Adapter<T> adapter) {
+	public<T> RuleEngine add(Class<T> aClass, Adapter<T> adapter) {
 		frameBuilder.register(aClass, adapter);
+        return this;
 	}
 
-	public<T> void exclude(Class<T> aClass, String... fields) {
+	public<T> RuleEngine exclude(Class<T> aClass, String... fields) {
 		frameBuilder.exclude(aClass, fields);
+        return this;
 	}
 
     public Document render(Object object) {
@@ -112,7 +116,7 @@ public final class RuleEngine {
 	}
 
 	private boolean match(Rule rule, Trigger trigger) {
-		for (Condition condition : rule.getConditions())
+		for (Condition condition : rule.conditions())
 			if (!functionStore.get(condition).match(trigger, condition.parameter())) return false;
 		return true;
 	}
@@ -122,7 +126,7 @@ public final class RuleEngine {
 	}
 
 	private boolean execute(Trigger trigger, Rule rule) {
-		for (Token token : rule.getTokens())
+		for (Token token : rule.tokens())
 			execute(trigger, token);
 		return true;
 	}
@@ -149,9 +153,9 @@ public final class RuleEngine {
 	}
 
 	private boolean renderPrimitiveFrame(AbstractFrame frame, AbstractMark mark) {
-		if (!mark.getName().equalsIgnoreCase("value")) return false;
+		if (!mark.name().equalsIgnoreCase("value")) return false;
 		Object value = frame.value();
-		for (String option : mark.getOptions()) {
+		for (String option : mark.options()) {
 			Formatter formatter = formatterStore.get(option);
 			if (formatter == null) continue;
 			value = formatter.format(value);
@@ -162,10 +166,10 @@ public final class RuleEngine {
 	}
 
 	private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
-		Iterator<AbstractFrame> frames = frame.frames(mark.getName());
+		Iterator<AbstractFrame> frames = frame.frames(mark.name());
 		boolean rendered = false;
 		while (frames != null && frames.hasNext()) {
-			pushBuffer(mark.getIndentation());
+			pushBuffer(mark.indentation());
 			if (rendered && mark.isMultiple())
 				writeSeparator(mark);
 			if (execute(new Trigger(frames.next(), mark))) {
@@ -179,7 +183,7 @@ public final class RuleEngine {
 
 	private boolean execute(Trigger trigger, Expression expression) {
 		boolean result = true;
-		pushBuffer(trigger.mark().getIndentation());
+		pushBuffer(trigger.mark().indentation());
 		for (Token token : expression)
 			result &= execute(trigger, token);
 		popBuffer();
@@ -187,7 +191,7 @@ public final class RuleEngine {
 	}
 
 	private void writeSeparator(AbstractMark mark) {
-		write(mark.getSeparator());
+		write(mark.separator());
 	}
 
 	private void pushBuffer(String indentation) {
@@ -216,18 +220,18 @@ public final class RuleEngine {
 		}
 
 		@Override
-		public String getFullName() {
-			return this.mark.getFullName();
+		public String fullName() {
+			return this.mark.fullName();
 		}
 
 		@Override
-		public String getName() {
-			return mark.getName();
+		public String name() {
+			return mark.name();
 		}
 
 		@Override
-		public String getSeparator() {
-			return mark.getSeparator();
+		public String separator() {
+			return mark.separator();
 		}
 
 		@Override
@@ -236,13 +240,13 @@ public final class RuleEngine {
 		}
 
 		@Override
-		public String[] getOptions() {
-			return join(mark.getOptions(), heritage.getOptions());
+		public String[] options() {
+			return join(mark.options(), heritage.options());
 		}
 
 		@Override
-		public String getIndentation() {
-			return mark.getIndentation();
+		public String indentation() {
+			return mark.indentation();
 		}
 
 		private static String[] join(String[] a, String[] b) {

@@ -22,17 +22,17 @@
 
 package org.siani.itrules.model;
 
-public abstract class AbstractMark extends Token {
+public abstract class AbstractMark extends BodyToken {
 
-	public abstract String getFullName();
+	public abstract String fullName();
 
-	public abstract String getName();
+	public abstract String name();
 
-	public abstract String getSeparator();
+	public abstract String separator();
 
 	public abstract boolean isMultiple();
 
-	public abstract String[] getOptions();
+	public abstract String[] options();
 
-	public abstract String getIndentation();
+	public abstract String indentation();
 }
