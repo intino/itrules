@@ -15,31 +15,21 @@ import java.util.Iterator;
 public class AcceptedFrameBuilder {
 
     @Test
-    public void should_throw_an_exception_with() throws Exception {
-        try {
-            new FrameBuilder().build(1.0);
-            Assert.assertFalse(true);
-        } catch (RuntimeException e) {
-            Assert.assertTrue(true);
-        }
-    }
-
-    @Test
     public void should_create_a_frame_when_building_an_object_with_a_single_attribute() throws Exception {
-        Frame frame = new FrameBuilder().build(new SingleAttributeObject(1));
+        Frame frame = (Frame) new FrameBuilder().build(new SingleAttributeObject(1));
         Assert.assertEquals(1, frame.frames("field1").next().value());
     }
 
     @Test
     public void should_create_a_frame_when_building_an_object_with_two_attributes() throws Exception {
-        Frame frame = new FrameBuilder().build(new TwoAttributesObject("test", 1.0));
+        Frame frame = (Frame) new FrameBuilder().build(new TwoAttributesObject("test", 1.0));
         Assert.assertEquals("test", frame.frames("field1").next().value());
         Assert.assertEquals(1.0, frame.frames("field2").next().value());
     }
 
     @Test
     public void should_create_a_frame_when_building_an_object_with_two_array_attributes() throws Exception {
-        Frame frame = new FrameBuilder().build(
+        Frame frame = (Frame) new FrameBuilder().build(
                 new SimpleObjectWithArrays(new String[]{"test1", "test2"}, new Double[]{1.0, 2.0}));
 
         Iterator<AbstractFrame> field1 = frame.frames("field1");
@@ -55,7 +45,7 @@ public class AcceptedFrameBuilder {
 
     @Test
     public void testSimpleObjectWithListsToFrame() throws Exception {
-        Frame frame = new FrameBuilder().build(
+        Frame frame = (Frame) new FrameBuilder().build(
                 new SimpleObjectWithList(Arrays.asList("test1", "test2"), Arrays.asList(1.0, 2.0)));
 
         Iterator<AbstractFrame> field1 = frame.frames("field1");
@@ -71,7 +61,7 @@ public class AcceptedFrameBuilder {
 
     @Test
     public void testSimpleObjectWithComplexListsToFrame() throws Exception {
-        Frame frame = new FrameBuilder().build(
+        Frame frame = (Frame) new FrameBuilder().build(
                 new SimpleObjectWithComplexList(Arrays.asList(new Object[]{new TwoAttributesObject("t", 1.0)})));
         Assert.assertEquals("t", frame.frames("field1").next().frames("field1").next().value());
         Assert.assertEquals(1.0, frame.frames("field1").next().frames("field2").next().value());
@@ -79,7 +69,7 @@ public class AcceptedFrameBuilder {
 
     @Test
     public void testSimpleObjectWithMapToFrame() throws Exception {
-        Frame frame = new FrameBuilder().build(new SimpleObjectWithMap(Arrays.asList(new Object[]{"test1", "test2"}),
+        Frame frame = (Frame) new FrameBuilder().build(new SimpleObjectWithMap(Arrays.asList(new Object[]{"test1", "test2"}),
                 Arrays.asList(new Object[]{1.0, 2.0})));
         Assert.assertEquals(1.0, frame.frames("map.test1").next().value());
         Assert.assertEquals(2.0, frame.frames("map.test2").next().value());
@@ -88,7 +78,7 @@ public class AcceptedFrameBuilder {
     @Test
     public void testSimpleObjectWithComplexMapToFrame() throws Exception {
         TwoAttributesObject object = new TwoAttributesObject("t", 1.0);
-        Frame frame = new FrameBuilder().build(
+        Frame frame = (Frame) new FrameBuilder().build(
                 new SimpleObjectWithMap(
                         Arrays.asList(new Object[]{object}),
                         Arrays.asList(new Object[]{new TwoAttributesObject("t", 1.0)})));
@@ -99,7 +89,7 @@ public class AcceptedFrameBuilder {
 
     @Test
     public void testComplexObjectToFrame() throws Exception {
-        Frame frame = new FrameBuilder().build(new ComplexObject(new TwoAttributesObject("test", 1.0)));
+        Frame frame = (Frame) new FrameBuilder().build(new ComplexObject(new TwoAttributesObject("test", 1.0)));
         AbstractFrame field1 = frame.frames("field1").next();
         Assert.assertEquals("test", field1.frames("field1").next().value());
         Assert.assertEquals(1.0, field1.frames("field2").next().value());
@@ -107,7 +97,7 @@ public class AcceptedFrameBuilder {
 
     @Test
     public void testGetAllSuperClassesAndInterfaces() throws Exception {
-        Frame frame = new FrameBuilder().build(new PolymorphicClass());
+        Frame frame = (Frame) new FrameBuilder().build(new PolymorphicClass());
         Assert.assertTrue(frame.is("PolymorphicClass"));
         Assert.assertTrue(frame.is("ClassA"));
         Assert.assertTrue(frame.is("ClassB"));
@@ -121,20 +111,20 @@ public class AcceptedFrameBuilder {
     public void testExcludeMap() throws Exception {
         FrameBuilder frameBuilder = new FrameBuilder();
         frameBuilder.exclude(TwoAttributesObject.class, "field2");
-        Frame frame = frameBuilder.build(new TwoAttributesObject("test", 1.0));
+        Frame frame = (Frame) frameBuilder.build(new TwoAttributesObject("test", 1.0));
         Assert.assertEquals("test", frame.frames("field1").next().value());
         Assert.assertFalse(frame.frames("field2").hasNext());
     }
 
     @Test
     public void testRetrieveFieldsFromParentClasses() throws Exception {
-        Frame frame = new FrameBuilder().build(new PolymorphicClass());
+        Frame frame = (Frame) new FrameBuilder().build(new PolymorphicClass());
         Assert.assertEquals(0.0, frame.frames("field1").next().value());
     }
 
     @Test
     public void testRetrieveSameFieldsInCurrentAndParentClasses() throws Exception {
-        Frame frame = new FrameBuilder().build(new PolymorphicClass());
+        Frame frame = (Frame) new FrameBuilder().build(new PolymorphicClass());
         Iterator<AbstractFrame> field2 = frame.frames("field2");
         Assert.assertEquals(0.0, field2.next().value());
         Assert.assertEquals(1.0, field2.next().value());
@@ -142,7 +132,7 @@ public class AcceptedFrameBuilder {
 
     @Test
     public void testStaticFieldsShouldNotBeRendered() throws Exception {
-        Frame frame = new FrameBuilder().build(new SimpleObjectWithStaticField());
+        Frame frame = (Frame) new FrameBuilder().build(new SimpleObjectWithStaticField());
         Assert.assertFalse(frame.frames("staticField").hasNext());
     }
 
@@ -157,7 +147,7 @@ public class AcceptedFrameBuilder {
                         context.frame().addFrame("field1", context.build(context.source().getField1()));
                     }
                 });
-		Frame frame = builder.build(new TwoAttributesObject("test", 1.0));
+		Frame frame = (Frame) builder.build(new TwoAttributesObject("test", 1.0));
 		Assert.assertEquals("test", frame.frames("field1").next().value());
 		Assert.assertFalse(frame.frames("field2").hasNext());
 	}
@@ -175,7 +165,7 @@ public class AcceptedFrameBuilder {
                 });
 
 
-		Frame frame = builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
+		Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
                 new TwoAttributesObject("test1", 1.0),
                 new TwoAttributesObject("test2", 2.0),
                 new TwoAttributesObject("test3", 3.0)
@@ -205,7 +195,7 @@ public class AcceptedFrameBuilder {
                     }
                 });
 
-		Frame frame = builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
+		Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
                 new TwoAttributesObject("test1", 1.0),
                 new TwoAttributesObject("test2", 2.0),
                 new TwoAttributesObject("test3", 3.0)
@@ -229,7 +219,7 @@ public class AcceptedFrameBuilder {
                         context.frame().addFrame("object2", context.build(context.source().get(1)));
                     }
                 });
-		Frame frame = builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
+		Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
                 new TwoAttributesObject("test1", 1.0),
                 new TwoAttributesObject("test2", 2.0),
                 new TwoAttributesObject("test3", 3.0)

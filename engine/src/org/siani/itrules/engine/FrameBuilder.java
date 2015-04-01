@@ -48,12 +48,17 @@ public final class FrameBuilder {
 		this.registerList = registerList;
 	}
 
-	public Frame build(Object object)  {
-		if (isPrimitive(object.getClass())) throw new RuntimeException("Object cannot be primitive");
-		return fillFrame(object);
+	public AbstractFrame build(Object object)  {
+		return (isPrimitive(object.getClass())) ?
+			primitiveFrame(object) :
+			frame(object);
 	}
 
-	private Frame fillFrame(Object object) {
+	private PrimitiveFrame primitiveFrame(Object object) {
+		return new PrimitiveFrame(null, object);
+	}
+
+	private Frame frame(Object object) {
 		fillTypes(object);
 		fillSlots(object);
 		return frame;
@@ -119,7 +124,7 @@ public final class FrameBuilder {
 			public AbstractFrame build(Object object) {
 				return isPrimitive(object.getClass()) ?
 					new PrimitiveFrame(frame, object):
-					new FrameBuilder(new Frame(frame), exclusionList, registerList).fillFrame(object);
+					new FrameBuilder(new Frame(frame), exclusionList, registerList).frame(object);
 			}
 
 			@Override

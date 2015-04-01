@@ -52,6 +52,11 @@ public final class RuleEngine {
         return this;
     }
 
+	public RuleEngine add(Rule... rules) {
+		for (Rule rule : rules) this.ruleSet.add(rule);
+		return this;
+	}
+
 	public void register(String name, Formatter formatter) {
 		formatterStore.add(name, formatter);
 	}
