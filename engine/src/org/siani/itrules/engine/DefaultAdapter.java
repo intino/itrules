@@ -1,14 +1,11 @@
 package org.siani.itrules.engine;
 
-import org.siani.itrules.engine.framebuilder.ExclusionList;
 import org.siani.itrules.engine.framebuilder.AdapterContext;
-import org.siani.itrules.model.AbstractFrame;
+import org.siani.itrules.engine.framebuilder.ExclusionList;
 import org.siani.itrules.model.Frame;
-import org.siani.itrules.model.PrimitiveFrame;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +42,6 @@ class DefaultAdapter implements FrameBuilder.Adapter {
         }
 
         private void execute(Class aClass) throws IllegalAccessException {
-            if (isPrimitive(aClass)) throw new RuntimeException("Object cannot be primitive");
             while (aClass != null) {
                 processClass(aClass);
                 aClass = aClass.getSuperclass();
@@ -71,35 +67,23 @@ class DefaultAdapter implements FrameBuilder.Adapter {
             if (isArray(field.getType())) processArray(field);
             else if (isList(field.getType())) processList(field);
             else if (isMap(field.getType())) processMap(field);
-            else frame.addFrame(field.getName(), createFrame(field.get(source)));
-        }
-
-        private AbstractFrame createFrame(Object object) throws IllegalAccessException {
-            return isPrimitive(object.getClass()) ? createPrimitiveFrame(object) : createComplexFrame(object);
-        }
-
-        private PrimitiveFrame createPrimitiveFrame(Object object) {
-			return new PrimitiveFrame(frame, object);
-        }
-
-        private AbstractFrame createComplexFrame(Object object) {
-            return context.build(object);
+            else frame.addFrame(field.getName(), context.build(field.get(source)));
         }
 
         private void processArray(Field field) throws IllegalAccessException {
             for (Object item : (Object[]) field.get(source))
-				frame.addFrame(field.getName(), createFrame(item));
+				frame.addFrame(field.getName(), context.build(item));
         }
 
         private void processList(Field field) throws IllegalAccessException {
             for (Object item : (List) field.get(source))
-				frame.addFrame(field.getName(), createFrame(item));
+				frame.addFrame(field.getName(), context.build(item));
         }
 
         private void processMap(final Field field) throws IllegalAccessException {
             final Map map = (Map) field.get(source);
             for (Object key : map.keySet())
-				frame.addFrame(field.getName() + "." + key.toString(), createFrame(map.get(key)));
+				frame.addFrame(field.getName() + "." + key.toString(), context.build(map.get(key)));
         }
 
         private boolean fieldIsProcessable(Field field, Class<?> aClass) {
@@ -116,20 +100,6 @@ class DefaultAdapter implements FrameBuilder.Adapter {
 
         private boolean isArray(Class<?> aClass) {
             return aClass.isArray();
-        }
-
-        private boolean isPrimitive(Class aClass) {
-            return aClass.isPrimitive() ||
-                    String.class.isAssignableFrom(aClass) ||
-                    Byte.class.isAssignableFrom(aClass) ||
-                    Short.class.isAssignableFrom(aClass) ||
-                    Integer.class.isAssignableFrom(aClass) ||
-                    Long.class.isAssignableFrom(aClass) ||
-                    Float.class.isAssignableFrom(aClass) ||
-                    Double.class.isAssignableFrom(aClass) ||
-                    Boolean.class.isAssignableFrom(aClass) ||
-                    Date.class.isAssignableFrom(aClass) ||
-                    Character.class.isAssignableFrom(aClass);
         }
 
 	}

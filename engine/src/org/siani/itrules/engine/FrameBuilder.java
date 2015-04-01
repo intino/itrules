@@ -22,12 +22,14 @@
 
 package org.siani.itrules.engine;
 
-import org.siani.itrules.engine.framebuilder.ExclusionList;
 import org.siani.itrules.engine.framebuilder.AdapterContext;
+import org.siani.itrules.engine.framebuilder.ExclusionList;
+import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
+import org.siani.itrules.model.PrimitiveFrame;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public final class FrameBuilder {
@@ -51,6 +53,11 @@ public final class FrameBuilder {
 	}
 
 	public Frame build(Object object)  {
+		if (isPrimitive(object.getClass())) throw new RuntimeException("Object cannot be primitive");
+		return fillFrame(object);
+	}
+
+	private Frame fillFrame(Object object) {
 		fillTypes(object);
 		fillSlots(object);
 		return frame;
@@ -113,8 +120,9 @@ public final class FrameBuilder {
 			}
 
 			@Override
-			public Frame build(Object object) {
-				return new FrameBuilder(new Frame(frame), exclusionList, registerList).build(object);
+			public AbstractFrame build(Object object) {
+				if(isPrimitive(object.getClass())) return new PrimitiveFrame(frame, object);
+				return new FrameBuilder(new Frame(frame), exclusionList, registerList).fillFrame(object);
 			}
 
 			@Override
@@ -143,21 +151,30 @@ public final class FrameBuilder {
 
 	private List<Class> types(Class aClass) {
 		if (aClass == null) return new ArrayList<>();
-        List<Class> types = new ArrayList<>();
-        types.add(aClass);
-        types.addAll(interfaces(aClass));
-        types.addAll(types(aClass.getSuperclass()));
-        return types;
+		final List<Class> types = new ArrayList<>();
+		types.add(aClass);
+		for (Class aInterface : aClass.getInterfaces()) types.addAll(types(aInterface));
+		if (aClass.getSuperclass() != null) types.addAll(types(aClass.getSuperclass()));
+		return types;
 	}
-
-    private List<Class> interfaces(Class aClass) {
-        return Arrays.asList(aClass.getInterfaces());
-    }
 
     private static interface Register {
         boolean accept(Class aClass);
         Adapter adapter();
     }
 
+	private boolean isPrimitive(Class aClass) {
+		return aClass.isPrimitive() ||
+				String.class.isAssignableFrom(aClass) ||
+				Byte.class.isAssignableFrom(aClass) ||
+				Short.class.isAssignableFrom(aClass) ||
+				Integer.class.isAssignableFrom(aClass) ||
+				Long.class.isAssignableFrom(aClass) ||
+				Float.class.isAssignableFrom(aClass) ||
+				Double.class.isAssignableFrom(aClass) ||
+				Boolean.class.isAssignableFrom(aClass) ||
+				Date.class.isAssignableFrom(aClass) ||
+				Character.class.isAssignableFrom(aClass);
+	}
 
 }

@@ -92,15 +92,14 @@ public class AcceptedFrameBuilder {
                 new SimpleObjectWithMap(
                         Arrays.asList(new Object[]{object}),
                         Arrays.asList(new Object[]{new TwoAttributesObject("t", 1.0)})));
-        AbstractFrame map = frame.frames("map").next();
-        Assert.assertEquals("t", map.frames(object.toString()).next().frames("field1").next().value());
-        Assert.assertEquals(1.0, map.frames(object.toString()).next().frames("field2").next().value());
+        AbstractFrame map = frame.frames("map" + "." + object.toString()).next();
+        Assert.assertEquals("t", map.frames("field1").next().value());
+        Assert.assertEquals(1.0, map.frames("field2").next().value());
     }
 
     @Test
     public void testComplexObjectToFrame() throws Exception {
         Frame frame = new FrameBuilder().build(new ComplexObject(new TwoAttributesObject("test", 1.0)));
-
         AbstractFrame field1 = frame.frames("field1").next();
         Assert.assertEquals("test", field1.frames("field1").next().value());
         Assert.assertEquals(1.0, field1.frames("field2").next().value());
