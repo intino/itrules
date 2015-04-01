@@ -5,7 +5,6 @@ defrule type(Person)
     CamelCase: $Name+Camelcase
     LowerCamelCase: $Name+LowerCamelcase
 
-    Default: $Birthday
     Year: $Birthday+Year
     MonthYear: $Birthday+MonthYear
     ShortDate: $Birthday+ShortDate

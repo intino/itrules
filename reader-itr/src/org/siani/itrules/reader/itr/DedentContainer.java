@@ -53,8 +53,8 @@ public class DedentContainer {
             body[body.length-1] = analyze(normalize(line));
         }
 
-        private void close(String line) {
-            content = content + header + "\n" + body() + line + "\n" + "\n";
+        private void close(String footer) {
+            content = content + header + "\n" + body() + footer + "\n" + "\n";
         }
 
         private String body() {

@@ -23,10 +23,11 @@
 package org.siani.itrules.reader.itr;
 
 import org.junit.Test;
-import org.siani.itrules.reader.itr.DedentInputStream;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.Scanner;
+import java.io.InputStreamReader;
 
 import static org.junit.Assert.assertEquals;
 
@@ -40,84 +41,84 @@ public class AcceptedDedentInputStream {
     };
 
 	@Test
-	public void should_do_nothing_when_no_indentation() {
+	public void should_do_nothing_when_no_indentation() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/NoIndentation.itr"));
         InputStream expected = inputStream("/dedent/expected/NoIndentation.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_dedent_when_same_indentation() {
+	public void should_dedent_when_same_indentation() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/SameIndentation.itr"));
         InputStream expected = inputStream("/dedent/expected/SameIndentation.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_keep_indentation() {
+	public void should_keep_indentation() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/KeepIndentation.itr"));
         InputStream expected = inputStream("/dedent/expected/KeepIndentation.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_do_nothing_when_first_line_is_not_indented() {
+	public void should_do_nothing_when_first_line_is_not_indented() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/FirstLineWithoutIndentation.itr"));
         InputStream expected = inputStream("/dedent/expected/FirstLineWithoutIndentation.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_dedent_one_level_when_two_levels() {
+	public void should_dedent_one_level_when_two_levels() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/TwoIndentationLevel.itr"));
         InputStream expected = inputStream("/dedent/expected/TwoIndentationLevel.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_dedent_one_level_when_four_levels() {
+	public void should_dedent_one_level_when_four_levels() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/FourIndentationLevel.itr"));
         InputStream expected = inputStream("/dedent/expected/FourIndentationLevel.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_dedent_when_empty_lines_exists() {
+	public void should_dedent_when_empty_lines_exists() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/EmptyLines.itr"));
         InputStream expected = inputStream("/dedent/expected/EmptyLines.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_dedent_when_first_line_is_empty() {
+	public void should_dedent_when_first_line_is_empty() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/FirstLineEmpty.itr"));
         InputStream expected = inputStream("/dedent/expected/FirstLineEmpty.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_dedent_when_two_rules() {
+	public void should_dedent_when_two_rules() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/TwoRules.itr"));
         InputStream expected = inputStream("/dedent/expected/TwoRules.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_dedent_java_class_case() {
+	public void should_dedent_java_class_case() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/JavaClass.itr"));
         InputStream expected = inputStream("/dedent/expected/JavaClass.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_dedent_roster_case() {
+	public void should_dedent_roster_case() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/Roster.itr"));
         InputStream expected = inputStream("/dedent/expected/Roster.itr");
         assertEquals(text(expected), text(actual));
 	}
 
 	@Test
-	public void should_do_nothing_in_middle_earth_case() {
+	public void should_do_nothing_in_middle_earth_case() throws IOException {
         InputStream actual = new DedentInputStream(inputStream("/dedent/source/InMiddleEarth.itr"));
         InputStream expected = inputStream("/dedent/expected/InMiddleEarth.itr");
         assertEquals(text(expected), text(actual));
@@ -127,11 +128,16 @@ public class AcceptedDedentInputStream {
         return this.getClass().getResourceAsStream(fileName);
     }
 
-    private String text(InputStream inputStream) throws NullPointerException {
-		Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
-		String result = scanner.hasNext() ? scanner.next() : "";
-		scanner.close();
-		return result.trim();
+    private String text(InputStream inputStream) throws NullPointerException, IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String result = "";
+        while (true) {
+            String line = reader.readLine();
+            if (line == null) break;
+            result += line + "\n";
+        }
+        reader.close();
+        return result;
 	}
 
 

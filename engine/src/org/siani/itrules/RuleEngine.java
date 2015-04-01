@@ -62,7 +62,7 @@ public final class RuleEngine {
 
 	private Rule defaultRule() {
 		Rule rule = new Rule();
-		rule.add(new Condition(Function.SlotName, new String[]{"value"}, false));
+		rule.add(new Condition(Function.SlotName, "value"));
 		rule.add(new Mark("value"));
 		return rule;
 	}

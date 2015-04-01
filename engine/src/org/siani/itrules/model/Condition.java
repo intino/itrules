@@ -31,20 +31,14 @@ public class Condition {
 	public static final String EVAL = "eval";
 	private final String name;
 	private String[] parameters;
-	private final boolean negated;
 
-	public Condition(String name, String[] parameters, boolean negated) {
+	public Condition(String name, String... parameters) {
 		this.name = name;
 		this.parameters = parameters;
-		this.negated = negated;
 	}
 
 	public String name() {
 		return this.name;
-	}
-
-	public boolean negated() {
-		return this.negated;
 	}
 
 	public String[] getParameters() {
@@ -53,5 +47,20 @@ public class Condition {
 
 	public boolean is(String type) {
 		return name().equals(type);
+	}
+
+	public boolean negated() {
+		return false;
+	}
+
+	public static class Negated extends Condition {
+
+		public Negated(String name, String... parameters) {
+			super(name, parameters);
+		}
+
+		public boolean negated() {
+			return true;
+		}
 	}
 }

@@ -50,18 +50,18 @@ final class Interpreter extends ITRulesParserBaseListener {
 	@Override
 	public void enterSignature(@NotNull SignatureContext ctx) {
 		currentRule = new Rule();
-		currentRule.addAll(makeTypeFunctions(ctx.ruleType()));
+		currentRule.addAll(makeConditions(ctx.ruleType()));
 		if (!ctx.trigger().isEmpty())
-			currentRule.add(new Condition(Condition.TRIGGER, new String[]{ctx.trigger(0).triggerValue().getText()}, false));
+			currentRule.add(new Condition(Condition.TRIGGER, ctx.trigger(0).triggerValue().getText()));
 		if (!ctx.slotName().isEmpty())
 			for (SlotNameContext slotContext : ctx.slotName())
-				currentRule.add(new Condition(Condition.SLOT_NAME, getParameters(slotContext.slotParm()), false));
+				currentRule.add(new Condition(Condition.SLOT_NAME, getParameters(slotContext.slotParm())));
 		if (!ctx.slotType().isEmpty())
 			for (SlotTypeContext slotContext : ctx.slotType())
-				currentRule.add(new Condition(Condition.SLOT_TYPE, getParameters(slotContext.slotParm()), false));
+				currentRule.add(new Condition(Condition.SLOT_TYPE, getParameters(slotContext.slotParm())));
 		if (!ctx.eval().isEmpty())
 			for (EvalContext eval : ctx.eval())
-				currentRule.add(new Condition(Condition.EVAL, getParameters(eval.evalExpression()), false));
+				currentRule.add(new Condition(Condition.EVAL, getParameters(eval.evalExpression())));
 		rules.add(currentRule);
 	}
 
@@ -74,21 +74,35 @@ final class Interpreter extends ITRulesParserBaseListener {
 		return result.toArray(new String[result.size()]);
 	}
 
-	private List<Condition> makeTypeFunctions(List<RuleTypeContext> ruleTypes) {
+	private List<Condition> makeConditions(List<RuleTypeContext> ruleTypes) {
 		List<Condition> conditions = new ArrayList<>();
 		for (RuleTypeContext ruleType : ruleTypes)
-			conditions.add(new Condition(Condition.TYPE, new String[]{ruleType.value().ID().getText()}, ruleType.NOT() != null));
+			conditions.add(makeCondition(ruleType));
 		return conditions;
+	}
+
+	private Condition makeCondition(RuleTypeContext ruleType) {
+		return ruleType.NOT() == null ?
+				new Condition(Condition.TYPE, ruleType.value().ID().getText()) :
+				new Condition.Negated(Condition.TYPE, ruleType.value().ID().getText());
 	}
 
 	@Override
 	public void enterText(@NotNull TextContext ctx) {
-		if (BodyContext.class.isInstance(ctx.getParent())) {
-			if (ctx.SCAPED_CHAR() != null) {
-				currentRule.add(new Literal(ctx.getText().substring(1)));
-			} else
-				currentRule.add(new Literal(ctx.getText()));
-		}
+		if (BodyContext.class.isInstance(ctx.getParent()))
+			currentRule.add(makeLiteral(ctx));
+	}
+
+	private Literal makeLiteral(TextContext ctx) {
+		return ctx.SCAPED_CHAR() != null ? getToken(ctx) : getLiteral(ctx);
+	}
+
+	private Literal getLiteral(TextContext ctx) {
+		return new Literal(ctx.getText());
+	}
+
+	private Literal getToken(TextContext ctx) {
+		return new Literal(ctx.getText().substring(1));
 	}
 
 	@Override

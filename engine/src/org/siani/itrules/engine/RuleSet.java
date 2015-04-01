@@ -48,8 +48,7 @@ public final class RuleSet {
 
 	private boolean match(Rule rule, Trigger trigger) {
 		for (Condition condition : rule.getConditions())
-			if (FunctionFactory.get(condition).match(trigger) == condition.negated())
-				return false;
+			if (!FunctionFactory.get(condition).match(trigger)) return false;
 		return true;
 	}
 

@@ -23,14 +23,19 @@
 package org.siani.itrules.engine;
 
 import org.siani.itrules.engine.functions.*;
-import org.siani.itrules.model.Function;
 import org.siani.itrules.model.Condition;
+import org.siani.itrules.model.Function;
 
 import static org.siani.itrules.model.Function.*;
 
 public final class FunctionFactory {
 
 	public static Function get(Condition condition) {
+		Function function = getFunction(condition);
+		return condition.negated() ? negatedFunction(function) : function;
+	}
+
+	private static Function getFunction(Condition condition) {
 		String[] parameters = condition.getParameters();
 		if (condition.is(Type)) return new TypeFunction(parameters[0]);
 		if (condition.is(Trigger)) return new TriggerFunction(parameters[0]);
@@ -38,5 +43,14 @@ public final class FunctionFactory {
 		if (condition.is(SlotType)) return new SlotTypeFunction(parameters[0]);
 		if (condition.is(Eval)) return new EvalFunction(parameters[0], parameters[1], parameters[2]);
 		return null;
+	}
+
+	private static Function negatedFunction(final Function function) {
+		return new Function() {
+			@Override
+			public boolean match(org.siani.itrules.model.Trigger trigger) {
+				return !function.match(trigger);
+			}
+		};
 	}
 }
