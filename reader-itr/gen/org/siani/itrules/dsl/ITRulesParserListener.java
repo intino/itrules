@@ -1,4 +1,4 @@
-// Generated from /Users/oroncal/workspace/it-rules/engine-itr/src/org/siani/itrules/dsl/ITRulesParser.g4 by ANTLR 4.5
+// Generated from /Users/oroncal/workspace/itrules/reader-itr/src/org/siani/itrules/dsl/ITRulesParser.g4 by ANTLR 4.5
 package org.siani.itrules.dsl;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -39,55 +39,15 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 */
 	void exitSignature(@NotNull ITRulesParser.SignatureContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#ruleType}.
+	 * Enter a parse tree produced by {@link ITRulesParser#function}.
 	 * @param ctx the parse tree
 	 */
-	void enterRuleType(@NotNull ITRulesParser.RuleTypeContext ctx);
+	void enterFunction(@NotNull ITRulesParser.FunctionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#ruleType}.
+	 * Exit a parse tree produced by {@link ITRulesParser#function}.
 	 * @param ctx the parse tree
 	 */
-	void exitRuleType(@NotNull ITRulesParser.RuleTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#value}.
-	 * @param ctx the parse tree
-	 */
-	void enterValue(@NotNull ITRulesParser.ValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#value}.
-	 * @param ctx the parse tree
-	 */
-	void exitValue(@NotNull ITRulesParser.ValueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#eval}.
-	 * @param ctx the parse tree
-	 */
-	void enterEval(@NotNull ITRulesParser.EvalContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#eval}.
-	 * @param ctx the parse tree
-	 */
-	void exitEval(@NotNull ITRulesParser.EvalContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#evalExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterEvalExpression(@NotNull ITRulesParser.EvalExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#evalExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitEvalExpression(@NotNull ITRulesParser.EvalExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#composedID}.
-	 * @param ctx the parse tree
-	 */
-	void enterComposedID(@NotNull ITRulesParser.ComposedIDContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#composedID}.
-	 * @param ctx the parse tree
-	 */
-	void exitComposedID(@NotNull ITRulesParser.ComposedIDContext ctx);
+	void exitFunction(@NotNull ITRulesParser.FunctionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#trigger}.
 	 * @param ctx the parse tree
@@ -98,46 +58,6 @@ public interface ITRulesParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTrigger(@NotNull ITRulesParser.TriggerContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#triggerValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#triggerValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitTriggerValue(@NotNull ITRulesParser.TriggerValueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#slotName}.
-	 * @param ctx the parse tree
-	 */
-	void enterSlotName(@NotNull ITRulesParser.SlotNameContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#slotName}.
-	 * @param ctx the parse tree
-	 */
-	void exitSlotName(@NotNull ITRulesParser.SlotNameContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#slotType}.
-	 * @param ctx the parse tree
-	 */
-	void enterSlotType(@NotNull ITRulesParser.SlotTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#slotType}.
-	 * @param ctx the parse tree
-	 */
-	void exitSlotType(@NotNull ITRulesParser.SlotTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ITRulesParser#slotParm}.
-	 * @param ctx the parse tree
-	 */
-	void enterSlotParm(@NotNull ITRulesParser.SlotParmContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ITRulesParser#slotParm}.
-	 * @param ctx the parse tree
-	 */
-	void exitSlotParm(@NotNull ITRulesParser.SlotParmContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ITRulesParser#body}.
 	 * @param ctx the parse tree

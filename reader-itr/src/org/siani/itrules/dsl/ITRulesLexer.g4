@@ -38,32 +38,15 @@ ID                  : LETTER(DIGIT|LETTER)*                     -> skip;
 TEXT                : 'text'                                    -> skip;
 
 mode RULE_SIGNATURE;
-	OPTION          : '+';
-	LEFT_P          : '(';
-	RIGHT_P         : ')';
-	COMMA           : ',';
-	TYPE            : 'type';
-	TRIGGER         : 'trigger';
-	SLOT_NAME       : 'slot.name';
-	SLOT_TYPE       : 'slot.type';
-	DEEP            : 'deep';
+	CONDITIONS      : '(' ~')';
 	EVAL            : 'eval'                                    { setMode(EVAL_MODE); setLastMode(RULE_SIGNATURE);};
 	NOT             : '!';
-	RULE_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID);};
+	TRIGGER         : 'trigger';
+	RULE_FUNCTION   : LETTER(DIGIT|LETTER)*                     { setType(ID);};
 	NL              : (' '|'\t')* ('\r'? '\n' | '\n')           { setLastMode(RULE_SIGNATURE);} -> mode(RULE_BODY);
 	WS              : SP+                                       -> skip ;
 	RULE_ERROR      : .;
 
-mode EVAL_MODE;
-	EVAL_LEFT_P     : '('                                       { setType(LEFT_P);};
-    EVAL_RIGHT_P    : ')'                                       { setType(RIGHT_P); setMode(RULE_SIGNATURE); setLastMode(EVAL);};
-	EVAL_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID);};
-	DOT             : '.';
-	NUMBER          : DIGIT+;
-	STRING          : '\'' (~'\'')* '\'';
-	OPERATOR        : '>' | '<' | '==' | '!=';
-	E_WS            : SP+                                       -> skip ;
-	EVAL_ERROR      : .;
 
 mode RULE_BODY;
 	NULL_CHAR       : '~'                                       -> skip;

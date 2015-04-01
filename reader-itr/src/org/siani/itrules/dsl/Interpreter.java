@@ -22,7 +22,6 @@
 
 package org.siani.itrules.dsl;
 
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -50,41 +49,17 @@ final class Interpreter extends ITRulesParserBaseListener {
 	@Override
 	public void enterSignature(@NotNull SignatureContext ctx) {
 		currentRule = new Rule();
-		currentRule.addAll(makeConditions(ctx.ruleType()));
-		if (!ctx.trigger().isEmpty())
-			currentRule.add(new Condition(Condition.TRIGGER, ctx.trigger(0).triggerValue().getText()));
-		if (!ctx.slotName().isEmpty())
-			for (SlotNameContext slotContext : ctx.slotName())
-				currentRule.add(new Condition(Condition.SLOT_NAME, getParameters(slotContext.slotParm())));
-		if (!ctx.slotType().isEmpty())
-			for (SlotTypeContext slotContext : ctx.slotType())
-				currentRule.add(new Condition(Condition.SLOT_TYPE, getParameters(slotContext.slotParm())));
-		if (!ctx.eval().isEmpty())
-			for (EvalContext eval : ctx.eval())
-				currentRule.add(new Condition(Condition.EVAL, getParameters(eval.evalExpression())));
+	}
+
+	@Override
+	public void exitSignature(@NotNull SignatureContext ctx) {
 		rules.add(currentRule);
 	}
 
-	private String[] getParameters(ParserRuleContext ruleContext) {
-		String minorTokens = "(),";
-		List<String> result = new ArrayList<>();
-		for (ParseTree child : ruleContext.children)
-			if (!minorTokens.contains(child.getText()))
-				result.add(child.getText());
-		return result.toArray(new String[result.size()]);
-	}
-
-	private List<Condition> makeConditions(List<RuleTypeContext> ruleTypes) {
-		List<Condition> conditions = new ArrayList<>();
-		for (RuleTypeContext ruleType : ruleTypes)
-			conditions.add(makeCondition(ruleType));
-		return conditions;
-	}
-
-	private Condition makeCondition(RuleTypeContext ruleType) {
-		return ruleType.NOT() == null ?
-				new Condition(Condition.TYPE, ruleType.value().ID().getText()) :
-				new Condition.Negated(Condition.TYPE, ruleType.value().ID().getText());
+	@Override
+	public void enterFunction(@NotNull FunctionContext ctx) {
+		String conditions = ctx.CONDITIONS().getText();
+		currentRule.add(new Condition(ctx.ID().getText(), conditions.substring(1, conditions.length() - 1)));
 	}
 
 	@Override
