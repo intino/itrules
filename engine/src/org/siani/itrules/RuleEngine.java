@@ -82,10 +82,9 @@ public final class RuleEngine {
     }
 
 	private Rule defaultRule() {
-		Rule rule = new Rule();
-		rule.add(new Condition("Slot", "value"));
-		rule.add(new Mark("value"));
-		return rule;
+        return new Rule().
+                add(new Condition("Slot", "value")).
+                add(new Mark("value"));
 	}
 
 	private Document render(AbstractFrame frame) {
@@ -96,7 +95,7 @@ public final class RuleEngine {
 
 	private void render(AbstractFrame frame, Document document) {
 		buffers.clear();
-		this.buffers.push(new Buffer());
+		buffers.push(new Buffer());
 		execute(new Trigger(frame, new Mark("root")));
 		document.write(buffer());
 	}
@@ -117,11 +116,15 @@ public final class RuleEngine {
 
 	private boolean match(Rule rule, Trigger trigger) {
 		for (Condition condition : rule.conditions())
-			if (!functionStore.get(condition).match(trigger, condition.parameter())) return false;
+			if (!conditionMatchTrigger(trigger, condition)) return false;
 		return true;
 	}
 
-	private Buffer buffer() {
+    private boolean conditionMatchTrigger(Trigger trigger, Condition condition) {
+        return functionStore.get(condition).match(trigger, condition.parameter());
+    }
+
+    private Buffer buffer() {
 		return buffers.peek();
 	}
 
@@ -154,18 +157,28 @@ public final class RuleEngine {
 
 	private boolean renderPrimitiveFrame(AbstractFrame frame, AbstractMark mark) {
 		if (!mark.name().equalsIgnoreCase("value")) return false;
-		Object value = frame.value();
-		for (String option : mark.options()) {
-			Formatter formatter = formatterStore.get(option);
-			if (formatter == null) continue;
-			value = formatter.format(value);
-		}
-		write(value.toString());
+        write(options(frame.value(), mark).toString());
 		buffer().used();
 		return false;
 	}
 
-	private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
+    private Object options(Object value, AbstractMark mark) {
+        for (String option : mark.options())
+            value = format(value, formatterStore.get(option));
+        return value;
+    }
+
+    private Object format(Object value, Formatter formatter) {
+        try {
+            if (formatter == null) return value;
+            return formatter.format(value);
+        }
+        catch (Exception e) {
+            return value;
+        }
+    }
+
+    private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
 		Iterator<AbstractFrame> frames = frame.frames(mark.name());
 		boolean rendered = false;
 		while (frames != null && frames.hasNext()) {

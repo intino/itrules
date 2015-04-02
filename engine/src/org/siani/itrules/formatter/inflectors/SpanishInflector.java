@@ -26,7 +26,6 @@ import org.siani.itrules.formatter.Inflector;
 
 public class SpanishInflector extends Inflector {
 
-
     @Override
     public String plural(String word) {
         if (isIrregular(word)) return irregularPlural(word);

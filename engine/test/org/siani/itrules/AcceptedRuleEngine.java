@@ -29,6 +29,7 @@ import org.siani.itrules.model.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 
 public class AcceptedRuleEngine {
@@ -37,6 +38,18 @@ public class AcceptedRuleEngine {
     public void should_render_hello_world() throws Exception {
         Assert.assertEquals("Hello world",
                 ruleEngine().render("Hello world").content());
+    }
+
+    @Test
+    public void should_render_an_integer() throws Exception {
+        Assert.assertEquals("5000",
+                ruleEngine().render(5000).content());
+    }
+
+    @Test
+    public void should_render_a_double() throws Exception {
+        Assert.assertEquals("5000.0",
+                ruleEngine().render(5000.0).content());
     }
 
     @Test
@@ -93,10 +106,52 @@ public class AcceptedRuleEngine {
                 ruleEngine().add(personRuleWithCustomFormat()).add("Custom", customFormatter()).render(person()).content());
     }
 
+    @Test
+    public void should_render_person_ignoring_formats_that_dont_exist() throws Exception {
+        Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+                ruleEngine().add(personRuleWithCustomFormat()).render(person()).content());
+    }
+
     private Rule personRuleWithCustomFormat() {
         return new Rule().
                 add(condition("Type", "Person")).
                 add(mark("Name", "Custom"), literal(" was born in "), mark("Country", "Custom"), literal(" on "), mark("Birthday", "ShortDate"));
+    }
+
+    @Test
+    public void should_render_person_ignoring_date_formats_if_value_is_not_date() throws Exception {
+        Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+                ruleEngine().add(personRuleWithDateFormatOnString()).render(person()).content());
+    }
+
+    private Rule personRuleWithDateFormatOnString() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name","ShortDate"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday", "ShortDate"));
+    }
+
+    @Test
+    public void should_render_person_ignoring_number_formats_if_value_is_not_double() throws Exception {
+        Assert.assertEquals("Pau gasol was born in spain on 06/07/1980",
+                ruleEngine().add(personRuleWithDoubleFormatOnString()).render(person()).content());
+    }
+
+    private Rule personRuleWithDoubleFormatOnString() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name","TwoDecimals", "ProperCase"), literal(" was born in "), mark("Country", "Letter", "LowerCase"), literal(" on "), mark("Birthday", "Separators", "ShortDate"));
+    }
+
+    @Test
+    public void should_render_person_chaining_two_formats() throws Exception {
+        Assert.assertEquals("PauGasols was born in Spain on 06/07/1980",
+                ruleEngine().add(personRuleWithTwoFormats()).render(person()).content());
+    }
+
+    private Rule personRuleWithTwoFormats() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name","CamelCase","Plural"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday","ShortDate"));
     }
 
     @Test
@@ -184,7 +239,7 @@ public class AcceptedRuleEngine {
     }
 
     private RuleEngine ruleEngine() {
-        return new RuleEngine();
+        return new RuleEngine(Locale.ENGLISH);
     }
 
 
