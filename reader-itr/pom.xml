@@ -34,14 +34,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.siani.itrules</groupId>
-            <artifactId>itrules</artifactId>
-            <version>1.0.2</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../engine/target/itrules-1.0.2.jar</systemPath>
-        </dependency>
-
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>LATEST</version>
