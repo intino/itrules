@@ -1,22 +1,16 @@
 defrule type(Roster)
-<roster>
-  $Coach
-  <players>
-    $Player
-  </players>
-</roster>
+    <roster>
+        $Coach
+        <players>
+            $Player...[$NL]
+        </players>
+    </roster>
 endrule
 
-defrule type(org.siani.itrules.samples.Person) trigger(Coach)
-<coach name="$Name" year="$Birthday+format(yyyy)" country="$Country" />
+defrule type(Person) trigger(Coach)
+    <coach name="$Name" year="$Birthday+Year" country="$Country" />
 endrule
 
-defrule type(org.siani.itrules.samples.Person) trigger(Player)
-<player "$Name" year="$Birthday+format(yyyy)" country="$Country" club="$Club"/>
-  $Club
-</player>
-endrule
-
-defrule trigger(Club)
-<club name="$value" />
+defrule type(Person) trigger(Player)
+    <player name="$Name" year="$Birthday+Year" country="$Country"[ club="$Club"]/>
 endrule

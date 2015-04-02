@@ -1,4 +1,4 @@
-package org.siani.itrules.samples;
+package org.siani.itrules.cases;
 
 public class Message {
     private String from;

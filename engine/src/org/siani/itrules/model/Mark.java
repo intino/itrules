@@ -28,19 +28,17 @@ public class Mark extends AbstractMark {
 
 	private String name;
 	private String[] options;
-	private boolean multiple;
-	private String separator;
+	private String separator = null;
 
 	public Mark(String name, String... options) {
-        this(name, options, false, null);
-	}
-
-	public Mark(String name, String[] options, boolean multiple, String separator) {
 		this.name = name;
 		this.options = options;
-		this.multiple = multiple;
-		this.separator = separator;
 	}
+
+    public Mark multiple(String separator) {
+        this.separator = separator;
+        return this;
+    }
 
 	@Override
 	public String fullName() {
@@ -65,7 +63,7 @@ public class Mark extends AbstractMark {
 
 	@Override
 	public boolean isMultiple() {
-		return multiple;
+		return separator != null;
 	}
 
 	@Override
@@ -87,6 +85,6 @@ public class Mark extends AbstractMark {
 
 	@Override
 	public String toString() {
-		return name + (multiple ? "List" : "");
+		return name + (isMultiple() ? "List" : "");
 	}
 }

@@ -1,4 +1,4 @@
-package org.siani.itrules.samples;
+package org.siani.itrules.cases;
 
 import java.util.Date;
 import java.util.GregorianCalendar;

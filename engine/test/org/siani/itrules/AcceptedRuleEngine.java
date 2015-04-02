@@ -242,7 +242,6 @@ public class AcceptedRuleEngine {
         return new RuleEngine(Locale.ENGLISH);
     }
 
-
     private class Person {
         private final String name;
         private final Date birthday;

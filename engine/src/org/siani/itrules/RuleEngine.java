@@ -28,7 +28,7 @@ import org.siani.itrules.model.*;
 import java.io.File;
 import java.util.*;
 
-public final class RuleEngine {
+public class RuleEngine {
 
 	private final RuleSet ruleSet = new RuleSet();
 	private final Stack<Buffer> buffers = new Stack<>();

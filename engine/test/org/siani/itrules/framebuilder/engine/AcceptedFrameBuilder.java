@@ -3,8 +3,8 @@ package org.siani.itrules.framebuilder.engine;
 import org.junit.Assert;
 import org.junit.Test;
 import org.siani.itrules.Adapter;
+import org.siani.itrules.cases.framebuilder.*;
 import org.siani.itrules.engine.FrameBuilder;
-import org.siani.itrules.framebuilder.cases.object2frame.*;
 import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
 

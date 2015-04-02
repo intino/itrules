@@ -1,13 +1,13 @@
-package org.siani.itrules.samples;
+package org.siani.itrules.cases;
 
 public class Roster {
 
     private Person coach;
-    private final Person[] player;
+    private final Person[] players;
 
-    public Roster(Person coach, Person[] player) {
+    public Roster(Person coach, Person... players) {
         this.coach = coach;
-        this.player = player;
+        this.players = players;
     }
 
     public static Person[] players(Person... players) {
