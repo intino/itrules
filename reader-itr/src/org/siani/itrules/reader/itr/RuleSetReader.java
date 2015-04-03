@@ -24,15 +24,10 @@ package org.siani.itrules.reader.itr;
 
 import org.siani.itrules.dsl.TemplateCompiler;
 import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.model.Rule;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
+public final class RuleSetReader implements org.siani.itrules.reader.RuleSetReader {
 
     private InputStream inputStream;
 

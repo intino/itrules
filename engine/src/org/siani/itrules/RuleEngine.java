@@ -47,8 +47,8 @@ public class RuleEngine {
 		this.frameBuilder = new FrameBuilder();
 	}
 
-	public RuleEngine use(String filename) {
-        this.ruleSet.add(RuleSetLoader.load(new File(filename)));
+	public RuleEngine use(File file) {
+        this.ruleSet.add(RuleSetLoader.load(file));
         return this;
     }
 

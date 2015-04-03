@@ -34,7 +34,7 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
-public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
+public final class RuleSetReader implements org.siani.itrules.reader.RuleSetReader {
 
 	private final InputStream stream;
 

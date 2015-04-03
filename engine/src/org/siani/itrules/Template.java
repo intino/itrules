@@ -68,6 +68,4 @@ public abstract class Template {
         return engine.render(object);
     }
 
-
-
 }

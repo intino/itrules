@@ -79,7 +79,7 @@ public class AcceptedRuleLoader {
     }
 
     private RuleEngine ruleEngine(String name) {
-        return new RuleEngine().use(name);
+        return new RuleEngine().use(new File(name));
     }
 
     private String jsonTemplate(String name) {
