@@ -26,6 +26,9 @@ public abstract class Template {
     protected Condition condition(String name, String parameter) {
         return new Condition(name, parameter);
     }
+    protected Condition not(Condition condition) {
+        return new Condition.Negated(condition);
+    }
 
     protected Literal literal(String literal) {
         return new Literal(literal);

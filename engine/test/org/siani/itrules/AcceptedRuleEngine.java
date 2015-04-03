@@ -65,6 +65,18 @@ public class AcceptedRuleEngine {
     }
 
     @Test
+    public void should_render_person_defining_a_rule_with_negated_condition() throws Exception {
+        Assert.assertEquals("Pau Gasol was born in Spain on -",
+                ruleEngine().add(negatedConditionRule()).add(personRule()).render(person()).content());
+    }
+
+    private Rule negatedConditionRule() {
+        return new Rule().
+                add(not(condition("type", "String"))).
+                add(literal("-"));
+    }
+
+    @Test
     public void should_render_person_defining_a_rule_with_uppercase_tokens() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
                 ruleEngine().add(personRuleUppercase()).render(person()).content());
@@ -215,6 +227,10 @@ public class AcceptedRuleEngine {
 
     private Condition condition(String name, String parameter) {
         return new Condition(name,parameter);
+    }
+
+    private Condition not(Condition condition) {
+        return new Condition.Negated(condition);
     }
 
     private Mark mark(String name, String... options) {
