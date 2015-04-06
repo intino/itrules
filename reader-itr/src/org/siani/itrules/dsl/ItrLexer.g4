@@ -57,10 +57,9 @@ mode RULE_SIGNATURE;
 	CONDITIONS      : '(' ~(')')+ ')';
 	RULE_ERROR      : .;
 
-
 mode RULE_BODY;
 	NULL_CHAR       : '~'                                       -> skip;
-	INDENT          : '\t'                                      { if(indent()) skip();};
+	INDENT          : '\t'                                      { if(indent()) skip(); else setType(TEXT);};
 	RULE_END        : '\nendrule'                               { setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
 	NEWLINE         : '\n'                                      { newLine(); setType(NL);};
 	DOLLAR          : '$$'                                      { setText("$"); setType(TEXT);};
@@ -68,7 +67,7 @@ mode RULE_BODY;
 	RQ              : '$]'                                      { setText("]"); setType(TEXT);};
 	MARK_KEY        : '$'                                       { setMode(MARK); setLastMode(RULE_BODY);};
 	LEFT_SQ         : '['                                       { setMode(EXPRESSION); setLastMode(RULE_BODY);};
-	RULE_TEXT       : ~('$'| '[' | '\n' | '~')+                 { setType(TEXT);};
+	RULE_TEXT       : ~('$'| '['  | '\n' | '~')+                { setType(TEXT);};
 
 mode MARK;
 	LIST            : '...';

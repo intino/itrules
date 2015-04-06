@@ -27,10 +27,17 @@ public class TestSources {
 	public static final String NULL_FILE = "\n\n    \n\n";
 	public static final String MARK = "defrule type(Class) \t \t   \t\t\n$mark ññ\nendrule";
 	public static final String MARK_WITH_FORMAT = "defrule type(Attribute) trigger(attribute+Const) type(Const)\n" +
-		"public static final $name+UPPERCASE;\n" + "endrule";
-	public static final String OTHER_WITH_MARK = "defrule type(Class)\npublic class $attri alalasda $other \n" + "endrule";
-	public static final String ESCAPED_CHARACTERS = "defrule type(Class) \n\t \t   \t\t\n$] $$ \nendrule";
-	public static final String SIGNATURE = "defrule type(markca)\n\nendrule";
+		"\tpublic static final $name+UPPERCASE;\n" + "endrule";
+	public static final String OTHER_WITH_MARK =
+			"defrule type(Class)\n" +
+			"\tpublic class $attri alalasda $other \n" +
+			"endrule";
+	public static final String ESCAPED_CHARACTERS =
+			"defrule type(Class) \n" +
+				"\t \t   \t\t\n" +
+				"\t$] $$ \n" +
+			"endrule";
+	public static final String SIGNATURE = "defrule type(markca)\n\n\nendrule";
 	public static final String RULE_BEGIN = "\n\ndefrule";
 	public static final String RULE_WITH_MARKS = "defrule type(Attribute) trigger(attribute+Field) type(!Const) type(readonly)\npublic class $attri alalasda $other \nendrule";
 	public static final String MARK_WITH_MODIFIERS = "defrule type(Class)\npublic class $attribute+Const...[$NL] alalasda $other \nendrule";

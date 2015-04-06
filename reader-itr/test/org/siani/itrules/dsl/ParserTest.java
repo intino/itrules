@@ -35,6 +35,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -45,6 +46,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -55,6 +57,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -65,6 +68,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -75,6 +79,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -85,6 +90,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -95,6 +101,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -105,6 +112,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -115,6 +123,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -125,6 +134,7 @@ public class ParserTest {
 		try {
 			Assert.assertTrue(parse(parser));
 		} catch (Exception e) {
+			Assert.fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -138,7 +148,6 @@ public class ParserTest {
 		parser.setErrorHandler(new TemplateErrorStrategy());
 		return parser;
 	}
-
 
 	private boolean parse(ItrParser parser) throws Exception {
 		try {

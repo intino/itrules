@@ -76,7 +76,7 @@ public class LexerTest {
 
 	@Test
 	public void ruleSignatureTest() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "ID", "CONDITIONS", "BODY", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "ID", "CONDITIONS", "BODY", "NL", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.SIGNATURE);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
