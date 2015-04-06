@@ -25,11 +25,11 @@ package org.siani.itrules.dsl;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.siani.itrules.engine.logger.Logger;
 import org.siani.itrules.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.siani.itrules.dsl.ITRulesParser.*;
 
@@ -106,7 +106,9 @@ final class Interpreter extends ITRulesParserBaseListener {
 		String[] options = getOptions(child.option());
 		String separator = (child.SEPARATOR() != null) ? child.SEPARATOR().getText() : null;
 		if (separator != null) separator = format(separator);
-		return new Mark(child.ID().getText(), options, child.LIST() != null, separator);
+		Mark mark = new Mark(child.ID().getText(), options);
+		mark.multiple(separator);
+		return mark;
 	}
 
 	private String[] getOptions(List<OptionContext> option) {
@@ -130,6 +132,6 @@ final class Interpreter extends ITRulesParserBaseListener {
 	}
 
 	private void throwError(String textNode) {
-		logger.debug("Error reading template. Template not well formed: " + textNode.replace("\u0015", "endrule") + "\n\n");
+		logger.severe("Error reading template. Template not well formed: " + textNode.replace("\u0015", "endrule") + "\n\n");
 	}
 }
