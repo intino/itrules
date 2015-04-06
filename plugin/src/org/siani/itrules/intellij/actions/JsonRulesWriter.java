@@ -24,7 +24,6 @@ package org.siani.itrules.intellij.actions;
 
 import com.google.gson.*;
 import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.model.Rule;
 import org.siani.itrules.model.Token;
 
 import java.lang.reflect.Type;

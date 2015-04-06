@@ -23,14 +23,8 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="engine" />
-        <module name="reader-json" />
-      </profile>
-      <profile default="false" name="Annotation profile for reader-itr" enabled="true">
-        <sourceOutputDir name="gen" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="reader-itr" />
+        <module name="reader-json" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

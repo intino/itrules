@@ -20,20 +20,22 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.dsl;
+package org.siani.itrules.parser;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.siani.itrules.dsl.ItrParser;
+import org.siani.itrules.dsl.ItrParser.*;
+import org.siani.itrules.dsl.ItrParserBaseListener;
+import org.siani.itrules.engine.logger.Logger;
 import org.siani.itrules.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import static org.siani.itrules.dsl.ITRulesParser.*;
 
-final class Interpreter extends ITRulesParserBaseListener {
+public final class Interpreter extends ItrParserBaseListener {
 
 	private static String NL_SEPARATOR = "$NL";
 	private static String TAB_SEPARATOR = "$TAB";
@@ -57,7 +59,7 @@ final class Interpreter extends ITRulesParserBaseListener {
 	}
 
 	@Override
-	public void enterFunction(@NotNull FunctionContext ctx) {
+	public void enterFunction(@NotNull ItrParser.FunctionContext ctx) {
 		String conditions = ctx.CONDITIONS().getText();
 		currentRule.add(new Condition(ctx.ID().getText(), conditions.substring(1, conditions.length() - 1)));
 	}
@@ -69,15 +71,7 @@ final class Interpreter extends ITRulesParserBaseListener {
 	}
 
 	private Literal makeLiteral(TextContext ctx) {
-		return ctx.SCAPED_CHAR() != null ? getToken(ctx) : getLiteral(ctx);
-	}
-
-	private Literal getLiteral(TextContext ctx) {
 		return new Literal(ctx.getText());
-	}
-
-	private Literal getToken(TextContext ctx) {
-		return new Literal(ctx.getText().substring(1));
 	}
 
 	@Override
@@ -106,9 +100,7 @@ final class Interpreter extends ITRulesParserBaseListener {
 		String[] options = getOptions(child.option());
 		String separator = (child.SEPARATOR() != null) ? child.SEPARATOR().getText() : null;
 		if (separator != null) separator = format(separator);
-		Mark mark = new Mark(child.ID().getText(), options);
-		mark.multiple(separator);
-		return mark;
+		return new Mark(child.ID().getText(), options).multiple(separator);
 	}
 
 	private String[] getOptions(List<OptionContext> option) {
@@ -132,6 +124,6 @@ final class Interpreter extends ITRulesParserBaseListener {
 	}
 
 	private void throwError(String textNode) {
-		logger.severe("Error reading template. Template not well formed: " + textNode.replace("\u0015", "endrule") + "\n\n");
+		logger.debug("Error reading template. Template not well formed: " + textNode.replace("\u0015", "endrule") + "\n\n");
 	}
 }

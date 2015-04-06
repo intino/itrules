@@ -1,4 +1,4 @@
-// Generated from /Users/oroncal/workspace/itrules/reader-itr/src/org/siani/itrules/dsl/ITRulesParser.g4 by ANTLR 4.5
+// Generated from /Users/oroncal/workspace/itrules/reader-itr/src/org/siani/itrules/dsl/ItrParser.g4 by ANTLR 4.5
 package org.siani.itrules.dsl;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -7,131 +7,131 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link ITRulesParserListener},
+ * This class provides an empty implementation of {@link ItrParserListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class ITRulesParserBaseListener implements ITRulesParserListener {
+public class ItrParserBaseListener implements ItrParserListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRoot(@NotNull ITRulesParser.RootContext ctx) { }
+	@Override public void enterRoot(@NotNull ItrParser.RootContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRoot(@NotNull ITRulesParser.RootContext ctx) { }
+	@Override public void exitRoot(@NotNull ItrParser.RootContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterItrule(@NotNull ITRulesParser.ItruleContext ctx) { }
+	@Override public void enterDefintion(@NotNull ItrParser.DefintionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitItrule(@NotNull ITRulesParser.ItruleContext ctx) { }
+	@Override public void exitDefintion(@NotNull ItrParser.DefintionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSignature(@NotNull ITRulesParser.SignatureContext ctx) { }
+	@Override public void enterSignature(@NotNull ItrParser.SignatureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSignature(@NotNull ITRulesParser.SignatureContext ctx) { }
+	@Override public void exitSignature(@NotNull ItrParser.SignatureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction(@NotNull ITRulesParser.FunctionContext ctx) { }
+	@Override public void enterFunction(@NotNull ItrParser.FunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction(@NotNull ITRulesParser.FunctionContext ctx) { }
+	@Override public void exitFunction(@NotNull ItrParser.FunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrigger(@NotNull ITRulesParser.TriggerContext ctx) { }
+	@Override public void enterBody(@NotNull ItrParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTrigger(@NotNull ITRulesParser.TriggerContext ctx) { }
+	@Override public void exitBody(@NotNull ItrParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBody(@NotNull ITRulesParser.BodyContext ctx) { }
+	@Override public void enterLine(@NotNull ItrParser.LineContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBody(@NotNull ITRulesParser.BodyContext ctx) { }
+	@Override public void exitLine(@NotNull ItrParser.LineContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(@NotNull ITRulesParser.ExpressionContext ctx) { }
+	@Override public void enterExpression(@NotNull ItrParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(@NotNull ITRulesParser.ExpressionContext ctx) { }
+	@Override public void exitExpression(@NotNull ItrParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterText(@NotNull ITRulesParser.TextContext ctx) { }
+	@Override public void enterText(@NotNull ItrParser.TextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitText(@NotNull ITRulesParser.TextContext ctx) { }
+	@Override public void exitText(@NotNull ItrParser.TextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMark(@NotNull ITRulesParser.MarkContext ctx) { }
+	@Override public void enterMark(@NotNull ItrParser.MarkContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMark(@NotNull ITRulesParser.MarkContext ctx) { }
+	@Override public void exitMark(@NotNull ItrParser.MarkContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOption(@NotNull ITRulesParser.OptionContext ctx) { }
+	@Override public void enterOption(@NotNull ItrParser.OptionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOption(@NotNull ITRulesParser.OptionContext ctx) { }
+	@Override public void exitOption(@NotNull ItrParser.OptionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

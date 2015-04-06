@@ -22,12 +22,12 @@
 
 package org.siani.itrules.reader.itr;
 
-import org.siani.itrules.dsl.TemplateCompiler;
+import org.siani.itrules.parser.TemplateCompiler;
 import org.siani.itrules.engine.RuleSet;
 
 import java.io.*;
 
-public final class RuleSetReader implements org.siani.itrules.reader.RuleSetReader {
+public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
 
     private InputStream inputStream;
 

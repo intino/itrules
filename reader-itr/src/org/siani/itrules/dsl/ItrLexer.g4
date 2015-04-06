@@ -1,7 +1,8 @@
-lexer grammar ITRulesLexer;
+lexer grammar ItrLexer;
 
 @lexer::members {
 	int lastMode = 0;
+	boolean inBody = false;
 	private void setLastMode(int i) {
 		lastMode = i;
 	}
@@ -9,6 +10,16 @@ lexer grammar ITRulesLexer;
 	public int getLastMode() {
         return lastMode;
     }
+
+    public boolean indent() {
+        if (inBody) return false;
+        inBody= true;
+        return true;
+    }
+
+    public void newLine(){
+        inBody = false;
+	}
 
     public boolean markHasParameters() {
         if (getCharIndex() == this.getInputStream().toString().length()) return false;
@@ -36,29 +47,32 @@ RULE_BEGIN          : 'defrule'                                 { setMode(RULE_S
 WL                  : (' '|'\t')* ('\r'? '\n' | '\n')           -> skip;
 ID                  : LETTER(DIGIT|LETTER)*                     -> skip;
 TEXT                : 'text'                                    -> skip;
+BODY                : 'body'                                    -> skip;
 
 mode RULE_SIGNATURE;
-	CONDITIONS      : '(' ~')';
-	EVAL            : 'eval'                                    { setMode(EVAL_MODE); setLastMode(RULE_SIGNATURE);};
 	NOT             : '!';
-	TRIGGER         : 'trigger';
 	RULE_FUNCTION   : LETTER(DIGIT|LETTER)*                     { setType(ID);};
-	NL              : (' '|'\t')* ('\r'? '\n' | '\n')           { setLastMode(RULE_SIGNATURE);} -> mode(RULE_BODY);
+	NL              : (' '|'\t')* ('\r'? '\n' | '\n')           { setLastMode(RULE_SIGNATURE); setType(BODY);} -> mode(RULE_BODY);
 	WS              : SP+                                       -> skip ;
+	CONDITIONS      : '(' ~(')')+ ')';
 	RULE_ERROR      : .;
 
 
 mode RULE_BODY;
 	NULL_CHAR       : '~'                                       -> skip;
-	SCAPED_CHAR     : '$$'| '$[' | '$]';
-	MARK_KEY        : '$'                                       {setMode(MARK); setLastMode(RULE_BODY);};
-	LEFT_SQ         : '['                                       {setMode(EXPRESSION); setLastMode(RULE_BODY);};
-	RULE_END        : '\u0015'                                  {setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
-	RULE_TEXT       : ~('$'| '[' | '\u0015' | '~')+             {setType(TEXT);};
+	INDENT          : '\t'                                      { if(indent()) skip();};
+	RULE_END        : '\nendrule'                               { setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
+	NEWLINE         : '\n'                                      { newLine(); setType(NL);};
+	DOLLAR          : '$$'                                      { setText("$"); setType(TEXT);};
+	LQ              : '$['                                      { setText("["); setType(TEXT);};
+	RQ              : '$]'                                      { setText("]"); setType(TEXT);};
+	MARK_KEY        : '$'                                       { setMode(MARK); setLastMode(RULE_BODY);};
+	LEFT_SQ         : '['                                       { setMode(EXPRESSION); setLastMode(RULE_BODY);};
+	RULE_TEXT       : ~('$'| '[' | '\n' | '~')+                 { setType(TEXT);};
 
 mode MARK;
 	LIST            : '...';
-	MARK_OPTION     : '+'                                       { setType(OPTION);};
+	OPTION          : '+'                                       { setType(OPTION);};
     END             : '~'                                       { setMode(lastMode); setLastMode(MARK);};
 	SEPARATOR       : '[' (~']')* ']'                           { setMode(lastMode); setLastMode(MARK);};
 	MARK_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID); exitMark();};
@@ -66,10 +80,13 @@ mode MARK;
 
 mode EXPRESSION;
 	NULL_CH         : '~'                                       -> skip;
-	RIGHT_SQ        : ']'                                       {setLastMode(EXPRESSION);} -> mode(RULE_BODY);
-	EXP_SCAPED_CHAR : '$$'| '$[' | '$]'                         {setType(SCAPED_CHAR);};
-	EXPRESSION_MARK : '$'                                       {setType(MARK_KEY); setLastMode(EXPRESSION);} -> mode(MARK);
-	EXPRESSION_TEXT : ~('$'| '[' | ']')*                        {setType(TEXT);};
+	RIGHT_SQ        : ']'                                       { setLastMode(EXPRESSION);} -> mode(RULE_BODY);
+	EXPRESSION_DOLLAR  : '$$'                                   { setText("$");setType(TEXT);};
+    EXPRESSION_LQ      : '$['                                   { setText("[");setType(TEXT);};
+    EXPRESSION_RQ      : '$]'                                   { setText("]");setType(TEXT);};
+	EXPRESSION_MARK : '$'                                       { setType(MARK_KEY); setLastMode(EXPRESSION);} -> mode(MARK);
+	EXPRESSION_TEXT : ~('$'| '[' | ']' | '\n')*                 { setType(TEXT);};
+	EXPRESSION_ERROR: .;
 
 fragment
    	LN              : ('\r'? '\n' | '\n');

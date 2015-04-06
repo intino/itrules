@@ -20,12 +20,14 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.dsl;
+package org.siani.itrules.parser;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.siani.itrules.dsl.ItrLexer;
+import org.siani.itrules.dsl.ItrParser;
 import org.siani.itrules.engine.logger.DebugLogger;
 import org.siani.itrules.engine.logger.Logger;
 import org.siani.itrules.model.Rule;
@@ -52,15 +54,15 @@ public final class TemplateCompiler {
 	}
 
 	private void parseTemplate(ANTLRInputStream input) throws ITRulesSyntaxError {
-		ITRulesLexer lexer = new ITRulesLexer(input);
+		ItrLexer lexer = new ItrLexer(input);
 		lexer.reset();
 		lexer.setState(1);
-		ITRulesParser.RootContext root = parse(new ITRulesParser(new CommonTokenStream(lexer)));
+		ItrParser.RootContext root = parse(new ItrParser(new CommonTokenStream(lexer)));
 		ParseTreeWalker walker = new ParseTreeWalker();
 		walker.walk(new Interpreter(rules, logger), root);
 	}
 
-	private ITRulesParser.RootContext parse(ITRulesParser parser) throws ITRulesSyntaxError {
+	private ItrParser.RootContext parse(ItrParser parser) throws ITRulesSyntaxError {
 		try {
 			return parser.root();
 		} catch (RecognitionException e) {

@@ -20,7 +20,7 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.dsl;
+package org.siani.itrules.parser;
 
 public class ITRulesSyntaxError extends Exception {
 
