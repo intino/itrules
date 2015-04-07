@@ -33,10 +33,11 @@ public class Expression extends BodyToken implements Iterable<Token> {
 		tokens = new ArrayList<>();
 	}
 
-	public boolean add(Token token) {
-		if (AbstractMark.class.isInstance(token) || Literal.class.isInstance(token))
-			return tokens.add(token);
-		return false;
+	public Expression add(BodyToken token) {
+		if (!tokens.isEmpty())
+			token.prevToken(tokens.get(tokens.size() - 1));
+		tokens.add(token);
+		return this;
 	}
 
 	@Override

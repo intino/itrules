@@ -39,15 +39,15 @@ public interface ItrParserListener extends ParseTreeListener {
 	 */
 	void exitSignature(@NotNull ItrParser.SignatureContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ItrParser#function}.
+	 * Enter a parse tree produced by {@link ItrParser#condition}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunction(@NotNull ItrParser.FunctionContext ctx);
+	void enterCondition(@NotNull ItrParser.ConditionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ItrParser#function}.
+	 * Exit a parse tree produced by {@link ItrParser#condition}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunction(@NotNull ItrParser.FunctionContext ctx);
+	void exitCondition(@NotNull ItrParser.ConditionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#body}.
 	 * @param ctx the parse tree

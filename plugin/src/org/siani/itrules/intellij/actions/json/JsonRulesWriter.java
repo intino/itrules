@@ -20,7 +20,7 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.intellij.actions;
+package org.siani.itrules.intellij.actions.json;
 
 import com.google.gson.*;
 import org.siani.itrules.engine.RuleSet;

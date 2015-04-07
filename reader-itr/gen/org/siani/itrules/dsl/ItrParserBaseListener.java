@@ -53,13 +53,13 @@ public class ItrParserBaseListener implements ItrParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction(@NotNull ItrParser.FunctionContext ctx) { }
+	@Override public void enterCondition(@NotNull ItrParser.ConditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction(@NotNull ItrParser.FunctionContext ctx) { }
+	@Override public void exitCondition(@NotNull ItrParser.ConditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

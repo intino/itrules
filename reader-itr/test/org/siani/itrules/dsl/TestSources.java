@@ -24,18 +24,17 @@ package org.siani.itrules.dsl;
 
 public class TestSources {
 
-	public static final String NULL_FILE = "\n\n    \n\n";
 	public static final String MARK = "defrule type(Class) \t \t   \t\t\n$mark ññ\nendrule";
 	public static final String MARK_WITH_FORMAT = "defrule type(Attribute) trigger(attribute+Const) type(Const)\n" +
 		"\tpublic static final $name+UPPERCASE;\n" + "endrule";
 	public static final String OTHER_WITH_MARK =
-			"defrule type(Class)\n" +
+		"defrule type(Class)\n" +
 			"\tpublic class $attri alalasda $other \n" +
 			"endrule";
 	public static final String ESCAPED_CHARACTERS =
-			"defrule type(Class) \n" +
-				"\t \t   \t\t\n" +
-				"\t$] $$ \n" +
+		"defrule type(Class) \n" +
+			"\t \t   \t\t\n" +
+			"\t$] $$ \n" +
 			"endrule";
 	public static final String SIGNATURE = "defrule type(markca)\n\n\nendrule";
 	public static final String RULE_BEGIN = "\n\ndefrule";
@@ -44,13 +43,16 @@ public class TestSources {
 	public static final String MEDIUM_TEST = "defrule type(Class)\n" +
 		"\tpublic class [$static ]\nendrule";
 	public static final String TWO_RULES = "defrule type(Class)\n" +
-		"\tpublic class [$static ]\n" + "endrule\n" +
+		"\tpublic class [$static~A ]\n" + "endrule\n" +
 		"defrule type(class2)\n" +
 		"\tpublic class [$static ]\n" + "endrule";
 	public static final String RULE_WITH_EVAL = "defrule type(Class) eval(Class == 'sasa')\n" +
 		"public class [$static ]\n" + "endrule\n" +
 		"defrule type(class2)\n" +
 		"\tpublic class [$static ]\n" + "endrule";
+	public static final String ITRULES_TEST = "defrule type(token) type(mark) trigger(token)\n" +
+		"\t.add(mark(\"$name\"[, $options...[, ]])[.multiple(\"$separator\")])\n" +
+		"endrule";
 	public static final String LITTLE_BIG_TEST = "" +
 		"defrule type(Class)\n" +
 		"\tpublic class [$static ][$final ]$name [extends $SuperClass ][implements $Interface...[, ]]{\n" +
@@ -97,10 +99,5 @@ public class TestSources {
 		"defrule trigger(String+Interface)\n" +
 		"\t<interface name=\"$value\" />\n" +
 		"endrule";
-
-
-	public static final String[] TEST_SOURCES = new String[]{NULL_FILE, MARK, MARK_WITH_FORMAT,
-		MARK_WITH_MODIFIERS, MEDIUM_TEST, OTHER_WITH_MARK, RULE_BEGIN, RULE_WITH_MARKS, ESCAPED_CHARACTERS, SIGNATURE,
-		TWO_RULES, XML_TARA, LITTLE_BIG_TEST, LARGE_XML, LARGE_XML};
 
 }

@@ -24,8 +24,18 @@
   <depends>com.intellij.modules.lang</depends>
   -->
 
+
+  <actions>
+    <action id="toJson" class="org.siani.itrules.intellij.actions.json.JsonGeneration">
+      <add-to-group group-id="ToolsMenu" anchor="before" relative-to-action="com.intellij.tools.ExternalToolsGroup"/>
+    </action>
+    <action id="toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration">
+      <add-to-group group-id="ToolsMenu" anchor="before" relative-to-action="com.intellij.tools.ExternalToolsGroup"/>
+    </action>
+  </actions>
+
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
+
   </extensions>
 
   <application-components>

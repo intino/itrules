@@ -1,0 +1,33 @@
+defrule type(ruleset)
+	package $package;
+
+	import org.siani.itrules.*;
+
+	public class $name+FirstUpperCase extends Template {
+
+	    @Override
+	    public void definition() {
+	        $rule...[$NL]
+	    }
+	}
+endrule
+
+defrule type(rule) trigger(rule)
+	add(rule()$conditions...[]$tokens...[]);
+endrule
+
+defrule type(conditions) trigger(condition)
+	.add(condition("$name", "$parameter"))
+endrule
+
+defrule type(token) type(literal) trigger(token)
+	.add(literal("$literal"))
+endrule
+
+defrule type(token) type(mark) trigger(token)
+	.add(mark("$name"[, $options...[, ]])[.multiple("$separator")])
+endrule
+
+defrule type(token) type(expression) trigger(token)
+	.add(expression()$token...[])
+endrule

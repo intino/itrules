@@ -59,9 +59,9 @@ public final class Interpreter extends ItrParserBaseListener {
 	}
 
 	@Override
-	public void enterFunction(@NotNull ItrParser.FunctionContext ctx) {
-		String conditions = ctx.CONDITIONS().getText();
-		currentRule.add(new Condition(ctx.ID().getText(), conditions.substring(1, conditions.length() - 1)));
+	public void enterCondition(@NotNull ItrParser.ConditionContext ctx) {
+		String parameters = ctx.PARAMETERS().getText();
+		currentRule.add(new Condition(ctx.FUNCTION().getText(), parameters.substring(1, parameters.length() - 1)));
 	}
 
 	@Override
@@ -120,10 +120,7 @@ public final class Interpreter extends ItrParserBaseListener {
 
 	@Override
 	public void visitErrorNode(@NotNull ErrorNode node) {
-		throwError(node.getText());
+		logger.debug("Error reading template. Template not well formed: " + "\n\n");
 	}
 
-	private void throwError(String textNode) {
-		logger.debug("Error reading template. Template not well formed: " + textNode.replace("\u0015", "endrule") + "\n\n");
-	}
 }

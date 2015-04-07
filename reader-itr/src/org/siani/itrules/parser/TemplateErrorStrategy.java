@@ -40,19 +40,19 @@ public class TemplateErrorStrategy extends DefaultErrorStrategy {
 	@Override
 	public void recover(Parser recognizer, RecognitionException e) {
 		printParameters(recognizer);
-		throw new RuntimeException(e);
+		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
 	}
 
 	@Override
 	public Token recoverInline(Parser recognizer) throws RecognitionException {
 		printParameters(recognizer);
-		throw new RuntimeException(new InputMismatchException(recognizer));
+		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
 	}
 
 	@Override
 	public void reportError(Parser recognizer, RecognitionException e) {
 		printParameters(recognizer);
-		throw new RuntimeException(e);
+		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
 	}
 
 	@Override

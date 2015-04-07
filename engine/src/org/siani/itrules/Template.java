@@ -23,8 +23,8 @@ public abstract class Template {
         return new Rule();
     }
 
-    protected Condition condition(String name, String parameter) {
-        return new Condition(name, parameter);
+    protected Condition condition(String id, String parameter) {
+        return new Condition(id, parameter);
     }
     protected Condition not(Condition condition) {
         return new Condition.Negated(condition);
@@ -38,10 +38,8 @@ public abstract class Template {
         return new Mark(mark, options);
     }
 
-    protected Expression expression(BodyToken... tokens) {
-        Expression expression = new Expression();
-        for (BodyToken token : tokens) expression.add(token);
-        return expression;
+    protected Expression expression() {
+        return new Expression();
     }
 
     public RuleEngine add(Rule... rules) {

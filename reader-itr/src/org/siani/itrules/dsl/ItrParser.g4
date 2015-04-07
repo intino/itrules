@@ -4,13 +4,13 @@ options { tokenVocab=ItrLexer; }
 root            : defintion* EOF;
 defintion       : RULE_BEGIN signature body RULE_END;
 
-signature       : function+ BODY;
-function        : NOT? ID CONDITIONS;
+signature       : condition+ BODY;
+condition       : NOT? FUNCTION PARAMETERS;
 
 body            : (line NL)* line;
 line            : (text | mark | expression)*;
 
-expression      : LEFT_SQ (text | mark | expression)* RIGHT_SQ;
+expression      : LEFT_SB (text | mark | expression)* RIGHT_SB;
 text            : TEXT;
-mark            : MARK_KEY ID option* (LIST SEPARATOR)?;
+mark            : TRIGGER ID option* (LIST SEPARATOR)?;
 option          : OPTION ID;

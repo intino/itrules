@@ -37,55 +37,51 @@ lexer grammar ItrLexer;
     public void exitMark() {
         if(!markHasParameters()) {
 			setMode(lastMode);
-			setLastMode(MARK);
+			setLastMode(MARK_MODE);
         }
     }
 }
 
 
-RULE_BEGIN          : 'defrule'                                 { setMode(RULE_SIGNATURE); setLastMode(DEFAULT_MODE);};
+RULE_BEGIN          : 'defrule'                                 { setMode(SIGNATURE_MODE); setLastMode(DEFAULT_MODE);};
 WL                  : (' '|'\t')* ('\r'? '\n' | '\n')           -> skip;
-ID                  : LETTER(DIGIT|LETTER)*                     -> skip;
-TEXT                : 'text'                                    -> skip;
 BODY                : 'body'                                    -> skip;
 
-mode RULE_SIGNATURE;
+mode SIGNATURE_MODE;
 	NOT             : '!';
-	RULE_FUNCTION   : LETTER(DIGIT|LETTER)*                     { setType(ID);};
-	NL              : (' '|'\t')* ('\r'? '\n' | '\n')           { setLastMode(RULE_SIGNATURE); setType(BODY);} -> mode(RULE_BODY);
+	FUNCTION        : LETTER(DIGIT|LETTER)*;
+	NL              : (' '|'\t')* ('\r'? '\n' | '\n')           { setLastMode(SIGNATURE_MODE); setType(BODY);} -> mode(BODY_MODE);
 	WS              : SP+                                       -> skip ;
-	CONDITIONS      : '(' ~(')')+ ')';
+	PARAMETERS      : '(' ~(')')+ ')';
 	RULE_ERROR      : .;
 
-mode RULE_BODY;
-	NULL_CHAR       : '~'                                       -> skip;
+mode BODY_MODE;
 	INDENT          : '\t'                                      { if(indent()) skip(); else setType(TEXT);};
-	RULE_END        : '\nendrule'                               { setMode(DEFAULT_MODE); setLastMode(RULE_BODY);};
+	RULE_END        : '\nendrule'                               { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
 	NEWLINE         : '\n'                                      { newLine(); setType(NL);};
 	DOLLAR          : '$$'                                      { setText("$"); setType(TEXT);};
-	LQ              : '$['                                      { setText("["); setType(TEXT);};
-	RQ              : '$]'                                      { setText("]"); setType(TEXT);};
-	MARK_KEY        : '$'                                       { setMode(MARK); setLastMode(RULE_BODY);};
-	LEFT_SQ         : '['                                       { setMode(EXPRESSION); setLastMode(RULE_BODY);};
-	RULE_TEXT       : ~('$'| '['  | '\n' | '~')+                { setType(TEXT);};
+	LSB             : '$['                                      { setText("["); setType(TEXT);};
+	RSB             : '$]'                                      { setText("]"); setType(TEXT);};
+	TRIGGER         : '$'                                       { setMode(MARK_MODE); setLastMode(BODY_MODE);};
+	LEFT_SB         : '['                                       { setMode(EXPRESSION_MODE); setLastMode(BODY_MODE);};
+	TEXT            : ~('$'| '['  | '\n' | '~')+;
 
-mode MARK;
+mode MARK_MODE;
 	LIST            : '...';
 	OPTION          : '+'                                       { setType(OPTION);};
-    END             : '~'                                       { setMode(lastMode); setLastMode(MARK);};
-	SEPARATOR       : '[' (~']')* ']'                           { setMode(lastMode); setLastMode(MARK);};
-	MARK_ID         : LETTER(DIGIT|LETTER)*                     { setType(ID); exitMark();};
+    NULL            : '~'                                       { setMode(lastMode); setLastMode(MARK_MODE);};
+	SEPARATOR       : '[' (~']')* ']'                           { setMode(lastMode); setLastMode(MARK_MODE);};
+	ID              : LETTER(DIGIT|LETTER)*                     { setType(ID); exitMark();};
 	MARK_ERROR      : .;
 
-mode EXPRESSION;
-	NULL_CH         : '~'                                       -> skip;
-	RIGHT_SQ        : ']'                                       { setLastMode(EXPRESSION);} -> mode(RULE_BODY);
-	EXPRESSION_DOLLAR  : '$$'                                   { setText("$");setType(TEXT);};
-    EXPRESSION_LQ      : '$['                                   { setText("[");setType(TEXT);};
-    EXPRESSION_RQ      : '$]'                                   { setText("]");setType(TEXT);};
-	EXPRESSION_MARK : '$'                                       { setType(MARK_KEY); setLastMode(EXPRESSION);} -> mode(MARK);
-	EXPRESSION_TEXT : ~('$'| '[' | ']' | '\n')*                 { setType(TEXT);};
-	EXPRESSION_ERROR: .;
+mode EXPRESSION_MODE;
+	RIGHT_SB           : ']'                                    { setLastMode(EXPRESSION_MODE);} -> mode(BODY_MODE);
+	EXPRESSION_DOLLAR  : '$$'                                   { setText("$"); setType(TEXT);};
+    EXPRESSION_LSB     : '$['                                   { setText("["); setType(TEXT);};
+    EXPRESSION_RSB     : '$]'                                   { setText("]"); setType(TEXT);};
+	EXPRESSION_TRIGGER : '$'                                    { setType(TRIGGER); setLastMode(EXPRESSION_MODE);} -> mode(MARK_MODE);
+	EXPRESSION_TEXT    : ~('$'| '[' | ']' | '\n')*              { setType(TEXT);};
+	EXPRESSION_ERROR   : .;
 
 fragment
    	LN              : ('\r'? '\n' | '\n');
