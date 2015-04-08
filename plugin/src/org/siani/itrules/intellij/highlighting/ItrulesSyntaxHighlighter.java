@@ -29,7 +29,7 @@ public class ItrulesSyntaxHighlighter extends SyntaxHighlighterBase implements I
 		KEYS.put(ItrulesTypes.RULE_END, KEYWORD);
 		KEYS.put(ItrulesTypes.MARK, IDENTIFIER);
 		KEYS.put(ItrulesTypes.SCAPED_CHAR, IDENTIFIER);
-		KEYS.put(ItrulesTypes.EXPRESSION, KEYWORD);
+		KEYS.put(ItrulesTypes.LEFT_SQUARE, KEYWORD);
 	}
 
 	@NotNull

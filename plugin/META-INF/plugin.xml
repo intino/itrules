@@ -1,12 +1,21 @@
 <idea-plugin version="2">
-  <id>com.yourcompany.unique.plugin.id</id>
-  <name>Plugin display name here</name>
-  <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+  <id>siani.dev.itrules</id>
+  <name>Itrules</name>
+  <version>RC1</version>
+  <vendor email="support.itrules@siani.es" url="http://www.siani.es">Itrules: Intelligent Template Engine Rules Based
+  </vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+       Itrules is a rule-based template engine. Itrules can generate HTML, XML, SQL, JSON or any other documents from templates.
+       These templates are a compound of rules that are activated basing on a set of conditions that the users define. The rules have marks that can trigger other rules that define what and how the text will be rendered in this point.
+       Example:
+
+       defrule type(Person)
+
+          $Name was born in $Country on $Birthday+ShortDate
+
+       endrule
+
     ]]></description>
 
   <change-notes><![CDATA[
@@ -21,20 +30,30 @@
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
   <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
+  <depends>com.intellij.modules.lang</depends>-->
 
 
   <actions>
-    <action id="toJson" class="org.siani.itrules.intellij.actions.json.JsonGeneration">
+    <action id="NewItrFile" class="org.siani.itrules.intellij.actions.CreateItrFileAction">
+      <add-to-group group-id="NewGroup" anchor="first"/>
+    </action>
+    <action id="toJson" class="org.siani.itrules.intellij.actions.json.JsonGeneration" text="Generate JSON Object"
+            description="Generates a JSON Object of the actual itrules template">
       <add-to-group group-id="ToolsMenu" anchor="before" relative-to-action="com.intellij.tools.ExternalToolsGroup"/>
     </action>
-    <action id="toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration">
+    <action id="toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration"
+            text="Generate Java Template"
+            description="Generates the corresponding Java representation of the template">
       <add-to-group group-id="ToolsMenu" anchor="before" relative-to-action="com.intellij.tools.ExternalToolsGroup"/>
     </action>
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
+    <fileTypeFactory implementation="org.siani.itrules.intellij.lang.file.ItrulesFileTypeFactory"/>
+    <lang.syntaxHighlighterFactory key="Itrules"
+                                   implementationClass="org.siani.itrules.intellij.highlighting.ItrulesSyntaxHighlighterFactory"/>
+    <lang.braceMatcher language="Itrules"
+                       implementationClass="org.siani.itrules.intellij.highlighting.ItrulesBraceMatcher"/>
 
   </extensions>
 

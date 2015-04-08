@@ -15,6 +15,7 @@ import org.siani.itrules.reader.itr.RuleSetReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class RunTemplateGeneration extends Task.Modal {
 
@@ -55,9 +56,10 @@ public class RunTemplateGeneration extends Task.Modal {
 		return new RuleSetReader(this.rulesFile.getInputStream()).read();
 	}
 
-	private void toJava(RuleSet rules) throws IOException {
-		FileWriter writer = new FileWriter(this.destiny);
-		writer.write(new TemplateRulesWriter(rulesFile.getName(), aPackage).toJava(rules));
+	private void toJava(RuleSet rules) throws IOException, URISyntaxException {
+		FileWriter writer = new FileWriter(this.destiny, false);
+		String content = new TemplateRulesWriter(rulesFile.getName(), aPackage).toJava(rules);
+		writer.write(content);
 		writer.close();
 	}
 

@@ -61,8 +61,9 @@ public class TemplateGeneration extends GenerationAction {
 	private SourceFolder createGen(Module module) {
 		ContentEntry[] contentEntries = ModuleRootManager.getInstance(module).getModifiableModel().getContentEntries();
 		VirtualFile moduleDirectory = module.getModuleFile().getParent();
-		new File(moduleDirectory.getPath()).mkdirs();
-		final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(module.getModuleFile().getParent().getPath()));
+		String gen = moduleDirectory.getPath() + File.separator + "gen";
+		new File(gen).mkdirs();
+		final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
 		if (sourceRoot != null) {
 			JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", true);
 			return contentEntries[0].addSourceFolder(sourceRoot, JavaSourceRootType.SOURCE, properties);

@@ -23,10 +23,14 @@
 package org.siani.itrules.intellij.actions.java;
 
 import org.siani.itrules.Adapter;
+import org.siani.itrules.Formatter;
 import org.siani.itrules.RuleEngine;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.Rule;
+
+import java.io.File;
+import java.net.URISyntaxException;
 
 public class TemplateRulesWriter {
 
@@ -38,23 +42,25 @@ public class TemplateRulesWriter {
 		this.aPackage = aPackage;
 	}
 
-	public String toJava(final RuleSet rules) {
-		RuleEngine engine = new RuleEngine();
-		engine.add(RuleSet.class, new Adapter<RuleSet>() {
-
+	public String toJava(final RuleSet rules) throws URISyntaxException {
+		RuleEngine engine = new RuleEngine().use(new File(this.getClass().getResource("/templates/template.java.itr").toURI().getPath()));
+		engine.add("string", new Formatter() {
 			@Override
-			public void execute(Context<RuleSet> context) {
-				fillFrame(context.frame(), context);
+			public Object format(Object object) {
+				String value = object.toString();
+				value = value.replace("\n", "\\n").replace("\t", "\\t").replace("\"", "\\\"");
+				return '"' + value + '"';
 			}
-
-			private void fillFrame(Frame frame, Context<RuleSet> context) {
-				frame.addFrame("package", context.build(aPackage));
-				frame.addFrame("name", context.build(name));
+		});
+		engine.add(RuleSet.class, new Adapter<RuleSet>() {
+			@Override
+			public void execute(Frame frame, RuleSet source, Context<RuleSet> context) {
+				if (!aPackage.isEmpty()) frame.addFrame("package", aPackage);
+				frame.addFrame("name", name);
 				for (Rule rule : rules)
 					frame.addFrame("rule", context.build(rule));
 			}
 		});
 		return engine.render(rules).content();
 	}
-
 }
