@@ -76,7 +76,7 @@ public class LexerTest {
 
 	@Test
 	public void ruleSignatureTest() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "NL", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.SIGNATURE);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -98,7 +98,7 @@ public class LexerTest {
 	public void escapedCharacter() {
 		String[] expectedTypes = new String[]{
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
-			"TEXT", "NL",
+			"TEXT", "TEXT",
 			"TEXT", "TEXT", "TEXT", "TEXT",
 			"RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.ESCAPED_CHARACTERS);
@@ -187,15 +187,15 @@ public class LexerTest {
 		String[] expectedTypes = new String[]
 			{
 				"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
-				"TEXT", "LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "TRIGGER", "ID", "TEXT", "LEFT_SB", "TEXT", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "LEFT_SB", "TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "RIGHT_SB", "TEXT", "NL",
-				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "NL",
-				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "NL",
-				"NL",
-				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "NL",
-				"NL",
-				"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "NL",
-				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "NL",
-				"TEXT", "NL",
+				"TEXT", "LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "TRIGGER", "ID", "TEXT", "LEFT_SB", "TEXT", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "LEFT_SB", "TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "RIGHT_SB", "TEXT", "TEXT",
+				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+				"TEXT",
+				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+				"TEXT",
+				"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "TEXT",
+				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+				"TEXT", "TEXT",
 				"TEXT",
 				"RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.LITTLE_BIG_TEST);
@@ -214,13 +214,13 @@ public class LexerTest {
 		String[] expectedTypes = new String[]{
 
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
-			"TEXT", "NL",
-			"TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "NL",
+			"TEXT", "TEXT",
+			"TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "TEXT",
 			"TEXT",
 			"RULE_END",
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
-			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "NL",
-			"TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "NL",
+			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT",
+			"TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "TEXT",
 			"TEXT",
 			"RULE_END"
 		};
@@ -233,8 +233,8 @@ public class LexerTest {
 	public void xmlSmallTest() {
 		String[] expectedTypes = new String[]{
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
-			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "NL",
-			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "NL",
+			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT",
+			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "TEXT",
 			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR",
 			"RULE_END",
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "BODY",
@@ -249,10 +249,10 @@ public class LexerTest {
 	public void xmlCompleteTest() {
 		String[] expectedTypes = new String[]{
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
-			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "NL",
-			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "NL",
-			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "NL",
-			"NL",
+			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT",
+			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "TEXT",
+			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+			"TEXT",
 			"TEXT",
 			"RULE_END",
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",

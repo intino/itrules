@@ -19,15 +19,15 @@ public interface ItrParserListener extends ParseTreeListener {
 	 */
 	void exitRoot(@NotNull ItrParser.RootContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ItrParser#defintion}.
+	 * Enter a parse tree produced by {@link ItrParser#definition}.
 	 * @param ctx the parse tree
 	 */
-	void enterDefintion(@NotNull ItrParser.DefintionContext ctx);
+	void enterDefinition(@NotNull ItrParser.DefinitionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ItrParser#defintion}.
+	 * Exit a parse tree produced by {@link ItrParser#definition}.
 	 * @param ctx the parse tree
 	 */
-	void exitDefintion(@NotNull ItrParser.DefintionContext ctx);
+	void exitDefinition(@NotNull ItrParser.DefinitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#signature}.
 	 * @param ctx the parse tree

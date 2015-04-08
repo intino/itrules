@@ -29,13 +29,13 @@ public class ItrParserBaseListener implements ItrParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDefintion(@NotNull ItrParser.DefintionContext ctx) { }
+	@Override public void enterDefinition(@NotNull ItrParser.DefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDefintion(@NotNull ItrParser.DefintionContext ctx) { }
+	@Override public void exitDefinition(@NotNull ItrParser.DefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

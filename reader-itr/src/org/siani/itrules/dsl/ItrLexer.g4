@@ -11,16 +11,6 @@ lexer grammar ItrLexer;
         return lastMode;
     }
 
-    public boolean indent() {
-        if (inBody) return false;
-        inBody= true;
-        return true;
-    }
-
-    public void newLine(){
-        inBody = false;
-	}
-
     public boolean markHasParameters() {
         if (getCharIndex() == this.getInputStream().toString().length()) return false;
         char c = this.getInputStream().toString().charAt(getCharIndex());
@@ -50,15 +40,14 @@ BODY                : 'body'                                    -> skip;
 mode SIGNATURE_MODE;
 	NOT             : '!';
 	FUNCTION        : LETTER(DIGIT|LETTER)*;
-	NL              : (' '|'\t')* ('\r'? '\n' | '\n')           { setLastMode(SIGNATURE_MODE); setType(BODY);} -> mode(BODY_MODE);
-	WS              : SP+                                       -> skip ;
+	NL              : (' '|'\t')* ('\r'? '\n' | '\n') ('\t' | '    ')?   { setLastMode(SIGNATURE_MODE); setType(BODY);} -> mode(BODY_MODE);
+	WS              : SP+                                                -> skip;
 	PARAMETERS      : '(' ~(')')+ ')';
 	RULE_ERROR      : .;
 
 mode BODY_MODE;
-	INDENT          : '\t'                                      { if(indent()) skip(); else setType(TEXT);};
 	RULE_END        : '\nendrule'                               { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
-	NEWLINE         : '\n'                                      { newLine(); setType(NL);};
+	NEWLINE         : '\n' ('\t' | '    ')?                     { setText("\n"); setType(TEXT);};
 	DOLLAR          : '$$'                                      { setText("$"); setType(TEXT);};
 	LSB             : '$['                                      { setText("["); setType(TEXT);};
 	RSB             : '$]'                                      { setText("]"); setType(TEXT);};

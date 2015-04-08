@@ -22,6 +22,7 @@
 
 package org.siani.itrules.parser;
 
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -42,6 +43,7 @@ public final class Interpreter extends ItrParserBaseListener {
 	private final Logger logger;
 	private List<Rule> rules;
 	private Rule currentRule;
+	private StringBuilder currentText = new StringBuilder();
 
 	public Interpreter(List<Rule> rules, Logger logger) {
 		this.rules = rules;
@@ -51,27 +53,44 @@ public final class Interpreter extends ItrParserBaseListener {
 	@Override
 	public void enterSignature(@NotNull SignatureContext ctx) {
 		currentRule = new Rule();
-	}
-
-	@Override
-	public void exitSignature(@NotNull SignatureContext ctx) {
 		rules.add(currentRule);
 	}
 
 	@Override
+	public void exitDefinition(@NotNull DefinitionContext ctx) {
+		super.exitDefinition(ctx);
+	}
+
+	@Override
 	public void enterCondition(@NotNull ItrParser.ConditionContext ctx) {
-		String parameters = ctx.PARAMETERS().getText();
-		currentRule.add(new Condition(ctx.FUNCTION().getText(), parameters.substring(1, parameters.length() - 1)));
+		if (ctx.PARAMETERS() == null) {
+			String parameters = ctx.PARAMETERS().getText();
+			currentRule.add(new Condition(ctx.FUNCTION().getText(), parameters.substring(1, parameters.length() - 1)));
+		}
 	}
 
 	@Override
 	public void enterText(@NotNull TextContext ctx) {
-		if (BodyContext.class.isInstance(ctx.getParent()))
-			currentRule.add(makeLiteral(ctx));
+		if (LineContext.class.isInstance(ctx.getParent()))
+			currentText.append(ctx.getText()).append(isTheLast(ctx.getParent().children, ctx) && !isTheLast(ctx.getParent().getParent().children, ctx.getParent()) ? "\n" : "");
 	}
 
-	private Literal makeLiteral(TextContext ctx) {
-		return new Literal(ctx.getText());
+	private boolean isTheLast(List<ParseTree> children, ParserRuleContext ctx) {
+		return children.indexOf(ctx) == children.size() - 1;
+	}
+
+	@Override
+	public void exitText(@NotNull TextContext ctx) {
+		if (LineContext.class.isInstance(ctx.getParent()) && isEndTextSequence(ctx)) {
+			currentRule.add(new Literal(currentText.toString()));
+			currentText = new StringBuilder();
+		}
+	}
+
+	private boolean isEndTextSequence(TextContext ctx) {
+		LineContext parent = (LineContext) ctx.getParent();
+		List<ParseTree> children = parent.children;
+		return !(children.indexOf(ctx) + 1 < children.size() && children.get(children.indexOf(ctx) + 1) instanceof TextContext);
 	}
 
 	@Override
@@ -122,5 +141,4 @@ public final class Interpreter extends ItrParserBaseListener {
 	public void visitErrorNode(@NotNull ErrorNode node) {
 		logger.debug("Error reading template. Template not well formed: " + "\n\n");
 	}
-
 }

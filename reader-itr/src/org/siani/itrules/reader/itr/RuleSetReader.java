@@ -36,7 +36,7 @@ public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
     }
 
     private InputStream stream(InputStream stream) {
-        return new RuleSetInputStream(new DedentInputStream(stream));
+        return new RuleSetInputStream(stream);
     }
 
 	public RuleSet read() {
