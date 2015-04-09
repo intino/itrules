@@ -199,7 +199,7 @@ public class AcceptedRuleEngine {
     private Adapter<Person> customAdapter() {
         return new Adapter<Person>() {
             @Override
-            public void execute(Context<Person> context) {
+            public void execute(Frame frame, Person source, Context<Person> context) {
                 context.frame().addFrame("name", context.build(context.source().name));
                 context.frame().addFrame("country", context.build(context.source().country));
                 context.frame().addFrame("birthday", context.build(context.source().birthday));

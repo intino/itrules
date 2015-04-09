@@ -26,7 +26,9 @@ import org.siani.itrules.engine.*;
 import org.siani.itrules.model.*;
 
 import java.io.File;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Stack;
 
 public class RuleEngine {
 
@@ -37,10 +39,10 @@ public class RuleEngine {
 	private final FrameBuilder frameBuilder;
 
 	public RuleEngine() {
-        this(Locale.getDefault());
-    }
+		this(Locale.getDefault());
+	}
 
-    public RuleEngine(Locale locale) {
+	public RuleEngine(Locale locale) {
 		this.ruleSet.add(defaultRule());
 		this.formatterStore = new FormatterStore(locale);
 		this.functionStore = new FunctionStore();
@@ -48,9 +50,14 @@ public class RuleEngine {
 	}
 
 	public RuleEngine use(File file) {
-        this.ruleSet.add(RuleSetLoader.load(file));
-        return this;
-    }
+		this.ruleSet.add(RuleSetLoader.load(file));
+		return this;
+	}
+
+	public RuleEngine add(RuleSet ruleSet) {
+		this.ruleSet.add(ruleSet);
+		return this;
+	}
 
 	public RuleEngine add(Rule... rules) {
 		for (Rule rule : rules) this.ruleSet.add(rule);
@@ -59,32 +66,32 @@ public class RuleEngine {
 
 	public RuleEngine add(String name, Formatter formatter) {
 		formatterStore.add(name, formatter);
-        return this;
+		return this;
 	}
 
 	public RuleEngine add(String name, Function function) {
 		functionStore.add(name, function);
-        return this;
+		return this;
 	}
 
-	public<T> RuleEngine add(Class<T> aClass, Adapter<T> adapter) {
+	public <T> RuleEngine add(Class<T> aClass, Adapter<T> adapter) {
 		frameBuilder.register(aClass, adapter);
-        return this;
+		return this;
 	}
 
-	public<T> RuleEngine exclude(Class<T> aClass, String... fields) {
+	public <T> RuleEngine exclude(Class<T> aClass, String... fields) {
 		frameBuilder.exclude(aClass, fields);
-        return this;
+		return this;
 	}
 
-    public Document render(Object object) {
-        return render(frameBuilder.build(object));
-    }
+	public Document render(Object object) {
+		return render(frameBuilder.build(object));
+	}
 
 	private Rule defaultRule() {
-        return new Rule().
-                add(new Condition("Slot", "value")).
-                add(new Mark("value"));
+		return new Rule().
+			add(new Condition("Slot", "value")).
+			add(new Mark("value"));
 	}
 
 	private Document render(AbstractFrame frame) {
@@ -120,11 +127,11 @@ public class RuleEngine {
 		return true;
 	}
 
-    private boolean conditionMatchTrigger(Trigger trigger, Condition condition) {
-        return functionStore.get(condition).match(trigger, condition.parameter());
-    }
+	private boolean conditionMatchTrigger(Trigger trigger, Condition condition) {
+		return functionStore.get(condition).match(trigger, condition.parameter());
+	}
 
-    private Buffer buffer() {
+	private Buffer buffer() {
 		return buffers.peek();
 	}
 
@@ -157,28 +164,27 @@ public class RuleEngine {
 
 	private boolean renderPrimitiveFrame(AbstractFrame frame, AbstractMark mark) {
 		if (!mark.name().equalsIgnoreCase("value")) return false;
-        write(options(frame.value(), mark).toString());
+		write(options(frame.value(), mark).toString());
 		buffer().used();
 		return false;
 	}
 
-    private Object options(Object value, AbstractMark mark) {
-        for (String option : mark.options())
-            value = format(value, formatterStore.get(option));
-        return value;
-    }
+	private Object options(Object value, AbstractMark mark) {
+		for (String option : mark.options())
+			value = format(value, formatterStore.get(option));
+		return value;
+	}
 
-    private Object format(Object value, Formatter formatter) {
-        try {
-            if (formatter == null) return value;
-            return formatter.format(value);
-        }
-        catch (Exception e) {
-            return value;
-        }
-    }
+	private Object format(Object value, Formatter formatter) {
+		try {
+			if (formatter == null) return value;
+			return formatter.format(value);
+		} catch (Exception e) {
+			return value;
+		}
+	}
 
-    private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
+	private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
 		Iterator<AbstractFrame> frames = frame.frames(mark.name());
 		boolean rendered = false;
 		while (frames != null && frames.hasNext()) {

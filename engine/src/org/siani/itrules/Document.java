@@ -53,7 +53,7 @@ public final class Document {
 	}
 
 	public String content() {
-        return applyFormat(cleanEscapedChars(removeEmptyLines(text())));
+        return content.toString();//applyFormat(cleanEscapedChars(removeEmptyLines(text())));
 	}
 
     private String applyFormat(String result) {

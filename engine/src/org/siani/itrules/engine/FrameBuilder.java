@@ -88,7 +88,8 @@ public final class FrameBuilder {
 
 	@SuppressWarnings("unchecked")
 	private void fillSlots(Object object) {
-		adapterFor(object).execute(createTaskContext(object));
+		Adapter.Context context = createTaskContext(object);
+		adapterFor(object).execute(context.frame(), context.source(), context);
 	}
 
 

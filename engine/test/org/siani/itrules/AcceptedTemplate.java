@@ -43,9 +43,6 @@ public class AcceptedTemplate {
             this.country = country;
             this.birthday = birthday;
         }
-
-
-
     }
 
     public static class Player extends Person {
@@ -70,7 +67,7 @@ public class AcceptedTemplate {
     }
 
     private String expected(String name) throws IOException {
-        return read("test.res/" + name);
+        return read("engine/test.res/" + name);
     }
 
     private String read(String filename) throws IOException {
