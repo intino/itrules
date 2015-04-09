@@ -49,7 +49,12 @@
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceInterface="org.siani.itrules.intellij.sdk.ItrulesSdkManager"
+                        serviceImplementation="org.siani.itrules.intellij.sdk.impl.ItrulesSdkManagerImpl"/>
+    <facetType implementation="org.siani.itrules.intellij.facet.ItrulesFacetType"/>
+    <framework.type implementation="org.siani.itrules.intellij.framework.ItrulesFrameworkType"/>
     <fileTypeFactory implementation="org.siani.itrules.intellij.lang.file.ItrulesFileTypeFactory"/>
+    <!--<lang.parserDefinition language="Itrules" implementationClass="org.siani.itrules.intellij.lang.parser.ItrulesParserDefinition"/>-->
     <lang.syntaxHighlighterFactory key="Itrules"
                                    implementationClass="org.siani.itrules.intellij.highlighting.ItrulesSyntaxHighlighterFactory"/>
     <lang.braceMatcher language="Itrules"

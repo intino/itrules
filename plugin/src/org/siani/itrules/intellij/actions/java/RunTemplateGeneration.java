@@ -47,7 +47,7 @@ public class RunTemplateGeneration extends Task.Modal {
 			toJava(rules());
 		} catch (Throwable e) {
 			e.printStackTrace();
-			Notifications.Bus.notify(new Notification(groupDisplayId, "can't generate type for " + this.rulesFile.getName(), e.toString(), NotificationType.INFORMATION), this.project);
+			Notifications.Bus.notify(new Notification(groupDisplayId, "can't generate type for " + simpleFileName(), e.toString(), NotificationType.INFORMATION), this.project);
 		}
 	}
 
@@ -58,9 +58,14 @@ public class RunTemplateGeneration extends Task.Modal {
 
 	private void toJava(RuleSet rules) throws IOException, URISyntaxException {
 		FileWriter writer = new FileWriter(this.destiny, false);
-		String content = new TemplateRulesWriter(rulesFile.getName(), aPackage).toJava(rules);
+		String content = new TemplateRulesWriter(simpleFileName(), aPackage).toJava(rules);
 		writer.write(content);
 		writer.close();
+	}
+
+	@NotNull
+	private String simpleFileName() {
+		return rulesFile.getName().substring(0, rulesFile.getName().lastIndexOf("."));
 	}
 
 }

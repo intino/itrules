@@ -34,7 +34,7 @@ public class TemplateGeneration extends GenerationAction {
 		String title = "Generate Template";
 		if (checkDocument(project, rulesFile)) return;
 		Module moduleOf = getModuleOf(project, rulesFile);
-		File destiny = new File(findDestiny(project, moduleOf, rulesFile), rulesFile.getName() + JAVA);
+		File destiny = new File(findDestiny(project, moduleOf, rulesFile), ClassSimpleName(rulesFile.getName()) + JAVA);
 		RunTemplateGeneration gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, moduleOf.getModuleFile().getParent()));
 		ProgressManager.getInstance().run(gen);
 		refreshFiles(destiny);
@@ -71,4 +71,9 @@ public class TemplateGeneration extends GenerationAction {
 		return null;
 	}
 
+	@NotNull
+	private String ClassSimpleName(String rulesFile) {
+		String name = rulesFile.substring(0, rulesFile.lastIndexOf("."));
+		return name.substring(0, 1).toUpperCase() + name.substring(1);
+	}
 }

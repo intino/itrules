@@ -22,14 +22,15 @@
 
 package org.siani.itrules.intellij.actions.java;
 
+import org.jetbrains.annotations.NotNull;
 import org.siani.itrules.Adapter;
 import org.siani.itrules.Formatter;
 import org.siani.itrules.RuleEngine;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.Rule;
+import org.siani.itrules.reader.itr.RuleSetReader;
 
-import java.io.File;
 import java.net.URISyntaxException;
 
 public class TemplateRulesWriter {
@@ -43,24 +44,40 @@ public class TemplateRulesWriter {
 	}
 
 	public String toJava(final RuleSet rules) throws URISyntaxException {
-		RuleEngine engine = new RuleEngine().use(new File(this.getClass().getResource("/templates/template.java.itr").toURI().getPath()));
-		engine.add("string", new Formatter() {
+		RuleEngine engine = new RuleEngine().add(getRuleSet());
+		engine.add("string", buildStringFormatter());
+		engine.add(RuleSet.class, buildRuleSetAdapter(rules));
+		return engine.render(rules).content();
+	}
+
+	@NotNull
+	private Formatter buildStringFormatter() {
+		return new Formatter() {
 			@Override
 			public Object format(Object object) {
 				String value = object.toString();
 				value = value.replace("\n", "\\n").replace("\t", "\\t").replace("\"", "\\\"");
 				return '"' + value + '"';
 			}
-		});
-		engine.add(RuleSet.class, new Adapter<RuleSet>() {
+		};
+	}
+
+	@NotNull
+	private Adapter<RuleSet> buildRuleSetAdapter(final RuleSet rules) {
+		return new Adapter<RuleSet>() {
 			@Override
 			public void execute(Frame frame, RuleSet source, Context<RuleSet> context) {
-				if (!aPackage.isEmpty()) frame.addFrame("package", aPackage);
-				frame.addFrame("name", name);
+				if (!aPackage.isEmpty()) frame.addFrame("package", context.build(aPackage));
+				frame.addFrame("name", context.build(name));
 				for (Rule rule : rules)
 					frame.addFrame("rule", context.build(rule));
 			}
-		});
-		return engine.render(rules).content();
+
+		};
+	}
+
+	@NotNull
+	private RuleSet getRuleSet() {
+		return new RuleSetReader(this.getClass().getResourceAsStream("/templates/template.java.itr")).read();
 	}
 }

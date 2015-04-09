@@ -10,7 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
     <orderEntry type="jdk" jdkName="IC-141.177.4" jdkType="IDEA JDK" />
-    <orderEntry type="module" module-name="reader-itr" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="reader-itr" level="project" />
   </component>
 </module>
