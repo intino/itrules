@@ -24,18 +24,18 @@ public class FormatterStore {
     }
 
     private Formatter formatter(String name) {
-        return exists(name) ? map.get(name.toLowerCase()) : unkownFormatter(name);
+        return exists(name) ? map.get(name.toLowerCase()) : unknownFormatter(name);
     }
 
     private boolean exists(String name) {
         return map.containsKey(name.trim().toLowerCase());
     }
 
-    private Formatter unkownFormatter(final String name) {
+    private Formatter unknownFormatter(final String name) {
         return new Formatter() {
             @Override
             public Object format(Object value) {
-                return name + " formatter not found";
+                return "..." + name + " formatter not found";
             }
         };
     }

@@ -26,7 +26,6 @@ import org.siani.itrules.Function;
 import org.siani.itrules.engine.functions.SlotFunction;
 import org.siani.itrules.engine.functions.TriggerFunction;
 import org.siani.itrules.engine.functions.TypeFunction;
-import org.siani.itrules.engine.logger.DebugLogger;
 import org.siani.itrules.model.Condition;
 import org.siani.itrules.model.Trigger;
 
@@ -44,7 +43,7 @@ public final class FunctionStore {
 	}
 
 	public Function get(Condition condition) {
-		return exists(condition.name()) ? createFunction(condition) : nullFunction(condition);
+		return exists(condition.name()) ? createFunction(condition) : unknownFunction(condition);
 	}
 
 	private Function createFunction(Condition condition) {
@@ -65,14 +64,8 @@ public final class FunctionStore {
 		};
 	}
 
-	private Function nullFunction(final Condition condition) {
-		return new Function() {
-			@Override
-			public boolean match(Trigger trigger, String parameter) {
-				new DebugLogger().debug("Function %s doesn't exists", condition.name());
-				return false;
-			}
-		};
+	private Function unknownFunction(final Condition condition) {
+		throw new RuntimeException("Function " + condition.name() + " doesn't exists");
 	}
 
 	public void add(String name, Function function) {

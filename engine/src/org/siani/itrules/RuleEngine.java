@@ -132,7 +132,7 @@ public class RuleEngine {
 	}
 
 	private boolean executeRuleNotFound(Trigger trigger) {
-		buffer().write("No rule for " + trigger.mark() + " with " + trigger.frame());
+		buffer().write("...no rule for " + trigger.frame() + " with trigger " + trigger.mark());
 		buffer().dedent();
 		return true;
 	}
