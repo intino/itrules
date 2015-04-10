@@ -1,0 +1,14 @@
+defrule type(Person)
+    Default: $Name
+    UpperCase: $Name+Uppercase
+    LowerCase: $Name+Lowercase
+    CamelCase: $Name+Camelcase
+    LowerCamelCase: $Name+LowerCamelcase
+
+    Year: $Birthday+Year
+    MonthYear: $Birthday+MonthYear
+    ShortDate: $Birthday+ShortDate
+    FullDate: $Birthday+FullDate
+    DayOfWeek: $Birthday+DayOfWeek
+    Time: $Birthday+Time
+endrule

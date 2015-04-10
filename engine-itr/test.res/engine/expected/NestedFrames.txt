@@ -1,8 +1,0 @@
-<roster>
-    <coach name="Juan Antonio Orenga" year="1966" country="Spain"/>
-	<players>
-		<player name="Pau Gasol" year="1980" country="Spain"/>
-		<player name="Rudy Fernandez" year="1985" country="Spain"/>
-		<player name="Juan Carlos Navarro" year="1980" country="Spain"/>
-    </players>
-</roster>

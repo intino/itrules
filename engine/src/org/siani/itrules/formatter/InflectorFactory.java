@@ -1,0 +1,51 @@
+/*
+ * Copyright 2014 SIANI - ULPGC
+ * Octavio Roncal Andrés
+ * José Juan Hernández Cabrera
+ * José Évora Gomez
+ *
+ * This File is Part of itrules Project
+ *
+ * itrules Project is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * itrules Project is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package org.siani.itrules.formatter;
+
+import org.siani.itrules.formatter.inflectors.EnglishInflector;
+import org.siani.itrules.formatter.inflectors.SpanishInflector;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+public class InflectorFactory {
+
+	private static Map<String, Inflector> inflectors = new HashMap<>();
+
+	static {
+		{
+			inflectors.put("en", new EnglishInflector());
+			inflectors.put("es", new SpanishInflector());
+		}
+	}
+
+	public static Inflector getInflector(Locale locale) {
+        return getInflector(locale.toString().split("_")[0]);
+	}
+
+    private static Inflector getInflector(String key) {
+        return inflectors.containsKey(key) ? inflectors.get(key) : inflectors.get("en");
+    }
+
+}

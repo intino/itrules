@@ -1,0 +1,7 @@
+defrule type(Message)
+    From: $from
+    To: $to...[, ]
+    $subject
+
+    $text...[$NL]
+endrule
