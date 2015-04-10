@@ -15,8 +15,8 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 
 	public ItrulesFacetEditor(ItrulesFacetConfiguration facetConfiguration) {
 		myFacetConfiguration = facetConfiguration;
-		localeComboBox.addItem(Locale.ENGLISH);
-		localeComboBox.addItem(new Locale("Spanish", "Spain", "es_ES"));
+		localeComboBox.addItem("English");
+		localeComboBox.addItem("Español");
 	}
 
 	@Nls
@@ -35,7 +35,7 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 
 
 	public void apply() {
-		myFacetConfiguration.setLocale((Locale) localeComboBox.getSelectedItem());
+		myFacetConfiguration.setLocale(localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
 	}
 
 	public void reset() {
@@ -44,7 +44,6 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 
 	public void disposeUIResources() {
 	}
-
 
 
 	@Override

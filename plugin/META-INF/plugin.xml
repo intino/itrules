@@ -44,6 +44,7 @@
     <action id="toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration"
             text="Generate Java Template"
             description="Generates the corresponding Java representation of the template">
+      <keyboard-shortcut keymap="$default" first-keystroke="control shift J"/>
       <add-to-group group-id="ToolsMenu" anchor="before" relative-to-action="com.intellij.tools.ExternalToolsGroup"/>
     </action>
   </actions>

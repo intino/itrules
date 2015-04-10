@@ -3,7 +3,7 @@ defrule type(ruleset)
 
 	import org.siani.itrules.*;
 
-	public class $name+FirstUpperCase extends Template {
+	public class $name+FirstUpperCase~Template extends Template {
 
 	    @Override
 	    public void definition() {

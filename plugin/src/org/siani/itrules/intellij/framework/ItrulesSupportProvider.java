@@ -10,10 +10,10 @@ import com.intellij.ide.util.frameworkSupport.FrameworkSupportModelListener;
 import com.intellij.ide.util.frameworkSupport.FrameworkSupportProvider;
 import com.intellij.openapi.application.Result;
 import com.intellij.openapi.application.WriteAction;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.JavaModuleType;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleType;
+import com.intellij.openapi.roots.ContentEntry;
 import com.intellij.openapi.roots.ModifiableModelsProvider;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.OrderRootType;
@@ -22,6 +22,7 @@ import com.intellij.openapi.roots.libraries.LibraryTable;
 import com.intellij.openapi.roots.libraries.LibraryTablesRegistrar;
 import com.intellij.openapi.roots.ui.configuration.FacetsProvider;
 import com.intellij.openapi.vfs.JarFileSystem;
+import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import org.jetbrains.annotations.NotNull;
@@ -31,12 +32,13 @@ import org.siani.itrules.intellij.facet.ItrulesFacetConfiguration;
 import org.siani.itrules.intellij.sdk.ItrulesSdk;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
+import static java.io.File.separator;
 
-	private static final Logger LOG = Logger.getInstance("#com.intellij.itrules.facet.ItrulesSupportProvider");
+public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 	@NotNull
 	@Override
@@ -66,13 +68,22 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		facetConfiguration.setLocale(locale);
 		final Library apiJar = addProjectLibrary(module, "itrules", sdk.getUserLibraryPaths());
 		rootModel.addLibraryEntry(apiJar);
+		createTemplateDirectory(rootModel.getContentEntries()[0]);
+	}
 
+	private void createTemplateDirectory(ContentEntry contentEntry) {
+		try {
+			if (contentEntry.getFile() == null) return;
+			String modulePath = contentEntry.getFile().getPath();
+			VfsUtil.createDirectories(modulePath + separator + "templates");
+		} catch (IOException ignored) {
+		}
 	}
 
 
 	private static Library addProjectLibrary(final Module module, final String name, final List<String> jarDirectories) {
 		return new WriteAction<Library>() {
-			protected void run(final Result<Library> result) {
+			protected void run(@NotNull final Result<Library> result) {
 				final LibraryTable libraryTable = LibraryTablesRegistrar.getInstance().getLibraryTable(module.getProject());
 				Library library = libraryTable.getLibraryByName(name);
 				if (library == null) library = addLibrary(libraryTable);
@@ -102,15 +113,13 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 
 	private class ItrulesSupportConfigurable extends FrameworkSupportInModuleConfigurable implements FrameworkSupportModelListener {
-		private final FrameworkSupportModel myFrameworkSupportModel;
 		private JPanel myMainPanel;
 		private JComboBox localeComboBox;
 
 		private ItrulesSupportConfigurable(FrameworkSupportModel model) {
-			myFrameworkSupportModel = model;
 			model.addFrameworkListener(this);
-			localeComboBox.addItem(Locale.ENGLISH);
-			localeComboBox.addItem(new Locale("Spanish", "Spain", "es_ES"));
+			localeComboBox.addItem("English");
+			localeComboBox.addItem("Español");
 		}
 
 
@@ -130,7 +139,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		public void addSupport(@NotNull Module module,
 		                       @NotNull ModifiableRootModel rootModel,
 		                       @NotNull ModifiableModelsProvider modifiableModelsProvider) {
-			ItrulesSupportProvider.this.addSupport(module, rootModel, "##PATH##", Locale.ENGLISH);
+			ItrulesSupportProvider.this.addSupport(module, rootModel, "##PATH##", localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
 		}
 
 		@Nullable

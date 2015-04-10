@@ -75,7 +75,7 @@ public class ItrulesSdkImpl implements ItrulesSdk {
 		if (!libDirectory.exists())
 			libDirectory = new File(PathManager.getPluginsPath() + separator + "itrules" + separator + "lib" + separator);
 		List<String> libs = new ArrayList<>();
-		libs.add(libDirectory.getPath() + separator + "reader-itr.jar");
+		libs.add(libDirectory.getPath() + separator + "engine.jar");
 		return libs;
 	}
 

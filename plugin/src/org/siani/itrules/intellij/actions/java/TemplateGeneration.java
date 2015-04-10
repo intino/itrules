@@ -22,6 +22,8 @@ import org.siani.itrules.intellij.actions.GenerationAction;
 
 import java.io.File;
 
+import static java.io.File.separator;
+
 public class TemplateGeneration extends GenerationAction {
 
 	private static final String JAVA = ".java";
@@ -33,10 +35,20 @@ public class TemplateGeneration extends GenerationAction {
 		if (rulesFile == null) return;
 		String title = "Generate Template";
 		if (checkDocument(project, rulesFile)) return;
-		Module moduleOf = getModuleOf(project, rulesFile);
-		File destiny = new File(findDestiny(project, moduleOf, rulesFile), ClassSimpleName(rulesFile.getName()) + JAVA);
-		RunTemplateGeneration gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, moduleOf.getModuleFile().getParent()));
+		File destiny = getDestinyFile(project, rulesFile);
+		RunTemplateGeneration gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, getModuleOf(project, rulesFile).getModuleFile().getParent()));
 		ProgressManager.getInstance().run(gen);
+		refreshAndNotify(project, rulesFile, destiny);
+	}
+
+	@NotNull
+	private File getDestinyFile(Project project, VirtualFile rulesFile) {
+		File file = new File(findDestiny(project, getModuleOf(project, rulesFile), rulesFile), classSimpleName(rulesFile.getName()) + "Template" + JAVA);
+		file.getParentFile().mkdirs();
+		return file;
+	}
+
+	private void refreshAndNotify(Project project, VirtualFile rulesFile, File destiny) {
 		refreshFiles(destiny);
 		notify(project, rulesFile, destiny);
 	}
@@ -46,22 +58,22 @@ public class TemplateGeneration extends GenerationAction {
 			new Notification("Itrules Template Generation", "Template for " + rulesFile.getName() + " generated", "to " + destiny.getPath(), NotificationType.INFORMATION), project);
 	}
 
-	protected String findDestiny(Project project, Module module, VirtualFile file) { //TODO PACKAGE
+	protected String findDestiny(Project project, Module module, VirtualFile file) {
 		if (module == null) return project.getBasePath();
 		VirtualFile moduleDir = module.getModuleFile().getParent();
 		String filePackage = getPackage(file, moduleDir);
 		SourceFolder gen = createGen(module);
-		return gen.getFile().getPath() + File.separator + filePackage;
+		return gen.getFile().getPath() + separator + filePackage;
 	}
 
 	private String getPackage(VirtualFile file, VirtualFile moduleDir) {
-		return file.getParent().getPath().replace(moduleDir.getPath() + File.separator + "templates", "");
+		return file.getParent().getPath().replace(moduleDir.getPath() + separator + "templates" + separator, "").replace(separator, ".");
 	}
 
 	private SourceFolder createGen(Module module) {
 		ContentEntry[] contentEntries = ModuleRootManager.getInstance(module).getModifiableModel().getContentEntries();
 		VirtualFile moduleDirectory = module.getModuleFile().getParent();
-		String gen = moduleDirectory.getPath() + File.separator + "gen";
+		String gen = moduleDirectory.getPath() + separator + "gen";
 		new File(gen).mkdirs();
 		final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
 		if (sourceRoot != null) {
@@ -72,7 +84,7 @@ public class TemplateGeneration extends GenerationAction {
 	}
 
 	@NotNull
-	private String ClassSimpleName(String rulesFile) {
+	private String classSimpleName(String rulesFile) {
 		String name = rulesFile.substring(0, rulesFile.lastIndexOf("."));
 		return name.substring(0, 1).toUpperCase() + name.substring(1);
 	}
