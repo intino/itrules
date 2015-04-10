@@ -20,11 +20,11 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.formatter.inflectors;
+package org.siani.itrules.engine.formatters.inflectors;
 
-import org.siani.itrules.formatter.Inflector;
+import org.siani.itrules.engine.formatters.PluralFormatter;
 
-public class EnglishInflector extends Inflector {
+public class EnglishInflector extends PluralFormatter.Inflector {
 
     @Override
     public String plural(String word) {

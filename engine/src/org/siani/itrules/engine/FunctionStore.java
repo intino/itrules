@@ -44,34 +44,33 @@ public final class FunctionStore {
 	}
 
 	public Function get(Condition condition) {
-		try {
-			return createFunction(condition);
-		} catch (Exception e) {
-			new DebugLogger().debug("Function not valid: %s\n\t%s", condition.name(), e.getMessage());
-			return nullFunction();
-		}
+		return exists(condition.name()) ? createFunction(condition) : nullFunction(condition);
 	}
 
-	private Function nullFunction() {
-		return new Function() {
-			@Override
-			public boolean match(Trigger trigger, String parameter) {
-				return false;
-			}
-		};
-	}
-
-	private Function createFunction(Condition condition) throws InstantiationException, IllegalAccessException {
+	private Function createFunction(Condition condition) {
 		Function function = map.get(condition.name().toLowerCase());
 		return condition.negated() ? negatedFunction(function) : function;
 	}
 
+	private boolean exists(String function) {
+		return map.containsKey(function.toLowerCase());
+	}
 
 	private Function negatedFunction(final Function function) {
 		return new Function() {
 			@Override
 			public boolean match(Trigger trigger, String parameter) {
 				return !function.match(trigger, parameter);
+			}
+		};
+	}
+
+	private Function nullFunction(final Condition condition) {
+		return new Function() {
+			@Override
+			public boolean match(Trigger trigger, String parameter) {
+				new DebugLogger().debug("Function %s doesn't exists", condition.name());
+				return false;
 			}
 		};
 	}

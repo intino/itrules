@@ -3,11 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>org.siani</groupId>
     <artifactId>itrulesreader-json</artifactId>
-    <version>1.0.2</version>
-    <packaging>jar</packaging>
-    <name>it rules. Template Engine</name>
+    <version>1</version>
 
     <dependencies>
         <dependency>

@@ -1,7 +1,8 @@
-package org.siani.itrules.formatter.inflectors;
+package org.siani.itrules;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.siani.itrules.engine.formatters.inflectors.SpanishInflector;
 
 import static org.junit.Assert.assertEquals;
 

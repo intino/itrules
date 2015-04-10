@@ -35,4 +35,9 @@ public abstract class AbstractMark extends BodyToken {
 	public abstract String[] options();
 
 	public abstract String indentation();
+
+	@Override
+	public String toString() {
+		return "[" + name() + "]";
+	}
 }

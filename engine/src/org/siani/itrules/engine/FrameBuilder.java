@@ -23,6 +23,7 @@
 package org.siani.itrules.engine;
 
 import org.siani.itrules.Adapter;
+import org.siani.itrules.engine.adapters.DefaultAdapter;
 import org.siani.itrules.engine.framebuilder.ExclusionList;
 import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;

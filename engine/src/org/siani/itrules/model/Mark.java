@@ -85,6 +85,6 @@ public class Mark extends AbstractMark {
 
 	@Override
 	public String toString() {
-		return name + (isMultiple() ? "List" : "");
+		return "[" + name + (isMultiple() ? "List" : "") + "]";
 	}
 }

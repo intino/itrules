@@ -130,4 +130,9 @@ public class Frame implements AbstractFrame {
 		};
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return types.toString().replace(", object","");
+	}
 }

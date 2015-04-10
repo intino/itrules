@@ -1,4 +1,4 @@
-package org.siani.itrules.engine;
+package org.siani.itrules.engine.adapters;
 
 import org.siani.itrules.Adapter;
 import org.siani.itrules.engine.framebuilder.ExclusionList;
@@ -9,7 +9,7 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Map;
 
-class DefaultAdapter implements Adapter {
+public class DefaultAdapter implements Adapter {
 
     private ExclusionList exclusionList;
 
