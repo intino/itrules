@@ -20,7 +20,7 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.formatter;
+package org.siani.itrules.engine.formatters;
 
 import org.siani.itrules.Formatter;
 
@@ -32,13 +32,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public final class SystemFormatterRepository {
+public final class FormatterRepository {
 
 	private static Locale locale;
     private static Map<String, Formatter> map = null;
 
 	public static Map<? extends String, ? extends Formatter> formatters(Locale locale) {
-		SystemFormatterRepository.locale = locale;
+		FormatterRepository.locale = locale;
         if (map == null) createFormatters();
 		return map;
 	}
@@ -51,7 +51,7 @@ public final class SystemFormatterRepository {
 		add("FirstLowerCase", firstLowerCase());
 		add("Camelcase", camelCase());
 		add("LowerCamelCase", lowerCamelCase());
-		add("ProperCase", properCase());
+		add("Capitalize", capitalize());
 		add("Year", year());
 		add("MonthYear", monthYear());
 		add("ShortDate", shortDate());
@@ -94,7 +94,7 @@ public final class SystemFormatterRepository {
 			public Object format(Object value) {
 				String[] parts = value.toString().split(" ");
 				String caseString = "";
-				for (String part : parts) caseString = caseString + properCase().format(part);
+				for (String part : parts) caseString = caseString + capitalize().format(part);
 				return caseString;
 			}
 		};
@@ -107,7 +107,7 @@ public final class SystemFormatterRepository {
 				String[] parts = value.toString().split(" ");
 				String caseString = "";
 				for (String part : parts)
-					caseString = caseString + properCase().format(part);
+					caseString = caseString + capitalize().format(part);
 				return caseString.substring(0, 1).toLowerCase() + caseString.substring(1);
 			}
 		};
@@ -131,7 +131,7 @@ public final class SystemFormatterRepository {
 		};
 	}
 
-	private static Formatter properCase() {
+	private static Formatter capitalize() {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
@@ -141,12 +141,7 @@ public final class SystemFormatterRepository {
 	}
 
 	private static Formatter plural() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return InflectorFactory.getInflector(locale).plural(value.toString());
-			}
-		};
+		return new PluralFormatter(locale);
 	}
 
 	private static Formatter year() {
@@ -265,4 +260,5 @@ public final class SystemFormatterRepository {
                 new SimpleDateFormat(format, locale).format((Date) value) :
                 value.toString();
     }
+
 }

@@ -37,6 +37,7 @@ public class RuleEngine {
 	private final FormatterStore formatterStore;
 	private final FunctionStore functionStore;
 	private final FrameBuilder frameBuilder;
+	private boolean closed = false;
 
 	public RuleEngine() {
 		this(Locale.getDefault());
@@ -49,17 +50,20 @@ public class RuleEngine {
 		this.frameBuilder = new FrameBuilder();
 	}
 
-	public RuleEngine use(File file) {
-		this.ruleSet.add(RuleSetLoader.load(file));
+	public RuleEngine use(File... files) {
+		ifClosedThrowException();
+		for (File file : files) this.ruleSet.add(RuleSetLoader.load(file));
 		return this;
 	}
 
 	public RuleEngine add(RuleSet ruleSet) {
+		ifClosedThrowException();
 		this.ruleSet.add(ruleSet);
 		return this;
 	}
 
 	public RuleEngine add(Rule... rules) {
+		ifClosedThrowException();
 		for (Rule rule : rules) this.ruleSet.add(rule);
 		return this;
 	}
@@ -84,14 +88,23 @@ public class RuleEngine {
 		return this;
 	}
 
+	private void ifClosedThrowException() {
+		if (closed) throw new RuntimeException("Can not add more rules");
+	}
+
+	private void close() {
+		if (closed) return;
+		this.ruleSet.add(defaultRule());
+		closed = true;
+	}
+
 	public Document render(Object object) {
+		close();
 		return render(frameBuilder.build(object));
 	}
 
 	private Rule defaultRule() {
-		return new Rule().
-			add(new Condition("Slot", "value")).
-			add(new Mark("value"));
+		return new Rule().add(new Condition("Slot", "value")).add(new Mark("value"));
 	}
 
 	private Document render(AbstractFrame frame) {
@@ -109,10 +122,19 @@ public class RuleEngine {
 
 	private boolean execute(Trigger trigger) {
 		Rule rule = match(trigger);
-		if (rule == null) return false;
-		boolean execute = execute(trigger, rule);
+		return rule != null ? executeRule(trigger, rule) : executeRuleNotFound(trigger);
+	}
+
+	private boolean executeRule(Trigger trigger, Rule rule) {
+		boolean executed = execute(trigger, rule);
 		buffer().dedent();
-		return execute;
+		return executed;
+	}
+
+	private boolean executeRuleNotFound(Trigger trigger) {
+		buffer().write("No rule for " + trigger.mark() + " with " + trigger.frame());
+		buffer().dedent();
+		return true;
 	}
 
 	public Rule match(Trigger trigger) {
@@ -176,12 +198,7 @@ public class RuleEngine {
 	}
 
 	private Object format(Object value, Formatter formatter) {
-		try {
-			if (formatter == null) return value;
-			return formatter.format(value);
-		} catch (Exception e) {
-			return value;
-		}
+		return formatter.format(value);
 	}
 
 	private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {

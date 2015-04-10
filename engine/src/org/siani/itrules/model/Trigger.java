@@ -22,9 +22,6 @@
 
 package org.siani.itrules.model;
 
-import org.siani.itrules.model.AbstractFrame;
-import org.siani.itrules.model.AbstractMark;
-
 public final class Trigger {
 	private final AbstractFrame frame;
 	private AbstractMark mark;

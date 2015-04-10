@@ -42,24 +42,29 @@ public abstract class Template {
         return new Expression();
     }
 
-    public RuleEngine add(Rule... rules) {
-        return engine.add(rules);
+    public Template add(Rule... rules) {
+        engine.add(rules);
+        return this;
     }
 
-    public RuleEngine add(String name, Formatter formatter) {
-        return engine.add(name, formatter);
+    public Template add(String name, Formatter formatter) {
+        engine.add(name, formatter);
+        return this;
     }
 
-    public RuleEngine add(String name, Function function) {
-        return engine.add(name, function);
+    public Template add(String name, Function function) {
+        engine.add(name, function);
+        return this;
     }
 
-    public <T> RuleEngine add(Class<T> aClass, Adapter<T> adapter) {
-        return engine.add(aClass, adapter);
+    public <T> Template add(Class<T> aClass, Adapter<T> adapter) {
+        engine.add(aClass, adapter);
+        return this;
     }
 
-    public <T> RuleEngine exclude(Class<T> aClass, String... fields) {
-        return engine.exclude(aClass, fields);
+    public <T> Template exclude(Class<T> aClass, String... fields) {
+        engine.exclude(aClass, fields);
+        return this;
     }
 
     public Document render(Object object) {
