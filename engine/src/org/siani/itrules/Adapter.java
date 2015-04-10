@@ -4,15 +4,15 @@ import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
 
 public interface Adapter<T> {
-    public void execute(Context<T> context);
+    void execute(Frame frame, T source, Context<T> context);
 
 	interface Context<T> {
-        public T source();
-        public Frame frame();
+        T source();
+        Frame frame();
 
-        public AbstractFrame build(Object object);
-        public <S> void register(Class<S> aClass, Adapter<S> adapter);
-        public void exclude(Class aClass, String... fields);
+        AbstractFrame build(Object object);
+        <S> void register(Class<S> aClass, Adapter<S> adapter);
+        void exclude(Class aClass, String... fields);
 
     }
 }

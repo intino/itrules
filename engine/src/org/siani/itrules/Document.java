@@ -34,14 +34,9 @@ public final class Document {
 
 	public enum LineSeparator {LF, CRLF}
 
-	private static final String NL = "(\\r?\\n|\\r)";
-	private static final String EMPTY_LINE_WITH_SLASH = "(" + NL + "(\\t| )*)\\\\+(\\t| )*" + NL;
-	private static final String TAB = "(\t| )";
-	private static final String EMPTY_LINE_WITH_TAB = NL + TAB + "+" + NL;
 	private final Charset charset;
 	private final LineSeparator lineSeparator;
-
-	private StringBuilder content = new StringBuilder("");
+	private final StringBuilder content;
 
 	public Document() {
 		this(Charset.forName("UTF-8"), LF);
@@ -50,28 +45,73 @@ public final class Document {
 	public Document(Charset charset, LineSeparator lineSeparator) {
 		this.charset = charset;
 		this.lineSeparator = lineSeparator;
-	}
+        this.content = new StringBuilder("");
+    }
 
 	public void write(Buffer buffer) {
 		content.append(buffer);
 	}
 
 	public String content() {
-		try {
-			String result = new String(content.toString().getBytes(), "UTF-8").replaceAll(EMPTY_LINE_WITH_TAB, "\n\n");
-			String previous;
-			do {
-				previous = result;
-				result = result.replaceAll(EMPTY_LINE_WITH_SLASH, "\n");
-			} while (previous.length() > result.length());
-			if (result.startsWith("\\\n") || result.startsWith("\\\r\n") || result.startsWith("\\\r")) {
-				result = result.replaceFirst(NL, "");
-			}
-			result = result.replaceAll(NL + TAB + "+" + "\\Z", "");
-			result = result.replaceAll("\\\\", "").replaceAll(EMPTY_LINE_WITH_TAB, "\n\n");
-			return new String(result.getBytes(), charset).replaceAll(NL, lineSeparator == CRLF ? "\r\n" : "\n");
-		} catch (UnsupportedEncodingException e) {
-			return "";
-		}
+        return content.toString();//applyFormat(cleanEscapedChars(removeEmptyLines(text())));
 	}
+
+    private String applyFormat(String result) {
+        return applyLineSeparator(applyCharset(result));
+    }
+
+    private String cleanEscapedChars(String result) {
+        return cleanEscapedLines(cleanEscapedTokens(cleanEscapedFirstLines(result)));
+    }
+
+    private String removeEmptyLines(String text) {
+        return removeEmptyLinesWithSlash(removeEmptyLinesWithTab(text));
+    }
+
+    private String text()  {
+        try {
+            return new String(content.toString().getBytes(), "UTF-8");
+        }
+        catch (UnsupportedEncodingException e) {
+            return "";
+        }
+    }
+    private static final String NewLine = "(\\r?\\n|\\r)";
+    private static final String Tab = "(\t| )";
+    private static final String EmptyLineWithSlash = "(" + NewLine + "(\\t| )*)\\\\+(\\t| )*" + NewLine;
+    private static final String EmptyLineWithTab = NewLine + Tab + "+" + NewLine;
+
+    private String applyCharset(String result) {
+        return new String(result.getBytes(), charset);
+    }
+
+    private String applyLineSeparator(String result) {
+        return result.replaceAll(NewLine, lineSeparator == CRLF ? "\r\n" : "\n");
+    }
+
+    private String cleanEscapedFirstLines(String result) {
+        if (result.startsWith("\\\n") || result.startsWith("\\\r\n") || result.startsWith("\\\r")) {
+            result = result.replaceFirst(NewLine, "");
+        }
+        return result;
+    }
+
+    private String cleanEscapedLines(String result) {
+        return result.replaceAll("\\\\", "").replaceAll(EmptyLineWithTab, "\n\n");
+    }
+
+    private String cleanEscapedTokens(String result) {
+        return result.replaceAll(NewLine + Tab + "+" + "\\Z", "");
+    }
+
+    private String removeEmptyLinesWithTab(String text) {
+        return text.replaceAll(EmptyLineWithTab, "\n\n");
+    }
+
+    private String removeEmptyLinesWithSlash(String text) {
+        while (true) {
+            String result = text.replaceAll(EmptyLineWithSlash, "\n");
+            if (result.length() == text.length()) return result;
+        }
+    }
 }

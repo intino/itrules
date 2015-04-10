@@ -29,7 +29,7 @@ public final class TriggerFunction implements Function {
 
 	@Override
 	public boolean match(Trigger trigger, String parameter) {
-		return matchMark(trigger.mark().getName(), parameter) || matchOptions(trigger.mark().getOptions(), parameter);
+		return matchMark(trigger.mark().name(), parameter) || matchOptions(trigger.mark().options(), parameter);
 	}
 
 	private boolean matchMark(String mark, String parameter) {

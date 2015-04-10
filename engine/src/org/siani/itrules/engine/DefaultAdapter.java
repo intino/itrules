@@ -18,7 +18,7 @@ class DefaultAdapter implements Adapter {
     }
 
     @Override
-    public void execute(Context context) {
+    public void execute(Frame frame, Object source, Context context) {
         new Filler(context).execute();
     }
 

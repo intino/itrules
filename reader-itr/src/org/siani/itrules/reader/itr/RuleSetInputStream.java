@@ -27,13 +27,11 @@ import java.nio.charset.StandardCharsets;
 
 final class RuleSetInputStream extends InputStream {
 
-	protected static final String ENDRULE_FOR_LEXER = "\u0015";
-	private static final String ENDRULE_FOR_USER = "(\n|\r|\r\n)endrule";
 	private int index = 0;
 	private byte[] content;
 
 	public RuleSetInputStream(InputStream source) {
-		content = read(source).replaceAll(ENDRULE_FOR_USER, ENDRULE_FOR_LEXER).getBytes(StandardCharsets.UTF_8);
+		content = read(source).getBytes(StandardCharsets.UTF_8);
 	}
 
 	@Override

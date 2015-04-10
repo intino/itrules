@@ -31,16 +31,21 @@ import java.util.Map;
 
 public class InflectorFactory {
 
-	private static Map<Locale, Inflector> inflectors = new HashMap<>();
+	private static Map<String, Inflector> inflectors = new HashMap<>();
 
 	static {
 		{
-			inflectors.put(Locale.ENGLISH, new EnglishInflector());
-			inflectors.put(Locale.getDefault(), new SpanishInflector());
+			inflectors.put("en", new EnglishInflector());
+			inflectors.put("es", new SpanishInflector());
 		}
 	}
 
 	public static Inflector getInflector(Locale locale) {
-		return inflectors.get(locale) != null ? inflectors.get(locale) : new SpanishInflector();
+        return getInflector(locale.toString().split("_")[0]);
 	}
+
+    private static Inflector getInflector(String key) {
+        return inflectors.containsKey(key) ? inflectors.get(key) : inflectors.get("en");
+    }
+
 }

@@ -23,42 +23,13 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="engine" />
-        <module name="engine-itr" />
-        <module name="engine-itr (1)" />
-        <module name="engine-itr (2)" />
-        <module name="engine-json" />
-        <module name="itrules-json" />
+        <module name="reader-itr" />
         <module name="reader-json" />
-        <module name="rule-engine-itr" />
-        <module name="rule-engine-json" />
-      </profile>
-      <profile default="false" name="Annotation profile for reader-itr" enabled="true">
-        <sourceOutputDir name="gen" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-      </profile>
-      <profile default="false" name="Annotation profile for reader-itr1" enabled="true">
-        <sourceOutputDir name="gen" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="reader-itr1" />
-      </profile>
-      <profile default="false" name="Annotation profile for itrulesreader-itr" enabled="true">
-        <sourceOutputDir name="gen" />
-        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="itrulesreader-itr" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.7">
+    <bytecodeTargetLevel>
       <module name="engine" target="1.7" />
-      <module name="itrules-json" target="1.7" />
-      <module name="itrulesreader-itr" target="1.7" />
       <module name="reader-itr" target="1.7" />
-      <module name="reader-itr1" target="1.7" />
       <module name="reader-json" target="1.7" />
     </bytecodeTargetLevel>
   </component>

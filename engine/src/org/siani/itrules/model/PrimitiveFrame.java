@@ -29,7 +29,7 @@ public class PrimitiveFrame implements AbstractFrame {
 	private final Object value;
 	private final Frame container;
 
-	public PrimitiveFrame(Frame container, Object value) {
+	public  PrimitiveFrame(Frame container, Object value) {
 		this.value = value;
 		this.container = container;
 	}

@@ -35,35 +35,41 @@ import java.util.Map;
 public final class SystemFormatterRepository {
 
 	private static Locale locale;
+    private static Map<String, Formatter> map = null;
 
 	public static Map<? extends String, ? extends Formatter> formatters(Locale locale) {
 		SystemFormatterRepository.locale = locale;
-		return formatters();
+        if (map == null) createFormatters();
+		return map;
 	}
 
-	private static Map<String, Formatter> formatters() {
-		Map<String, Formatter> formatters = new HashMap<>();
-		formatters.put("uppercase", upperCase());
-		formatters.put("lowercase", lowerCase());
-		formatters.put("firstuppercase", firstUpperCase());
-		formatters.put("firstlowercase", firstLowerCase());
-		formatters.put("camelcase", camelCase());
-		formatters.put("lowercamelcase", lowerCamelCase());
-		formatters.put("year", year());
-		formatters.put("monthyear", monthYear());
-		formatters.put("shortdate", shortDate());
-		formatters.put("fulldate", fullDate());
-		formatters.put("dayofweek", dayOfWeek());
-		formatters.put("time", time());
-		formatters.put("letters", letters());
-		formatters.put("separators", separators());
-		formatters.put("count", count());
-		formatters.put("twodecimals", twoDecimals());
-		formatters.put("plural", plural());
-		return formatters;
+	private static void createFormatters() {
+		map = new HashMap<>();
+		add("UpperCase", upperCase());
+		add("LowerCase", lowerCase());
+		add("FirstUpperCase", firstUpperCase());
+		add("FirstLowerCase", firstLowerCase());
+		add("Camelcase", camelCase());
+		add("LowerCamelCase", lowerCamelCase());
+		add("ProperCase", properCase());
+		add("Year", year());
+		add("MonthYear", monthYear());
+		add("ShortDate", shortDate());
+		add("FullDate", fullDate());
+		add("DayOfWeek", dayOfWeek());
+		add("Time", time());
+		add("Letters", letters());
+		add("Separators", separators());
+		add("Count", count());
+		add("TwoDecimals", twoDecimals());
+		add("Plural", plural());
 	}
 
-	private static Formatter upperCase() {
+    private static void add(String name, Formatter formatter) {
+        map.put(name.toLowerCase(), formatter);
+    }
+
+    private static Formatter upperCase() {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
@@ -129,8 +135,7 @@ public final class SystemFormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				String s = value.toString();
-				return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+                return value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
 			}
 		};
 	}
@@ -148,35 +153,35 @@ public final class SystemFormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return new SimpleDateFormat("yyyy", Locale.ENGLISH).format((Date) value);
+                return formatDate(value, "yyyy");
 			}
 		};
 	}
 
-	private static Formatter monthYear() {
+    private static Formatter monthYear() {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH).format((Date) value);
+				return formatDate(value, "MMMM yyyy");
 			}
 		};
 	}
-
 
 	private static Formatter shortDate() {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format((Date) value);
+                return formatDate(value, "dd/MM/yyyy");
 			}
 		};
 	}
+
 
 	private static Formatter fullDate() {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH).format((Date) value);
+				return formatDate(value, "dd MMMM yyyy");
 			}
 		};
 	}
@@ -185,7 +190,7 @@ public final class SystemFormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return new SimpleDateFormat("EEEE", Locale.ENGLISH).format((Date) value);
+				return formatDate(value, "EEEE");
 			}
 		};
 	}
@@ -194,7 +199,7 @@ public final class SystemFormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return new SimpleDateFormat("HH:mm", Locale.ENGLISH).format((Date) value);
+				return formatDate(value, "HH:mm");
 			}
 		};
 	}
@@ -203,9 +208,9 @@ public final class SystemFormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				int n = (Integer) value;
-				return (words(n / 1000000, " million " + and(n % 1000000)) +
-					words((n % 1000000) / 1000, " thousand " + and(n % 1000)) + words(n % 1000, "")).replace("  ", " ").trim();
+                int n = ((Number) value).intValue();
+                return (words(n / 1000000, " million " + and(n % 1000000)) +
+                        words((n % 1000000) / 1000, " thousand " + and(n % 1000)) + words(n % 1000, "")).replace("  ", " ").trim();
 			}
 
 			private String words(int n, String ending) {
@@ -228,7 +233,7 @@ public final class SystemFormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return value;
+				return String.valueOf(value.toString().length());
 			}
 		};
 	}
@@ -237,7 +242,8 @@ public final class SystemFormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return String.format("%.2f", (Double) value);
+                double n = ((Number) value).doubleValue();
+                return String.format(locale, "%.2f", n);
 			}
 		};
 	}
@@ -246,11 +252,17 @@ public final class SystemFormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
-				DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+				DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(locale);
 				df.setGroupingUsed(true);
 				df.setGroupingSize(3);
 				return df.format(value);
 			}
 		};
 	}
+
+    private static String formatDate(Object value, String format) {
+        return value instanceof Date ?
+                new SimpleDateFormat(format, locale).format((Date) value) :
+                value.toString();
+    }
 }

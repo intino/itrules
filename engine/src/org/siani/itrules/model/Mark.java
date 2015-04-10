@@ -23,69 +23,68 @@
 package org.siani.itrules.model;
 
 public class Mark extends AbstractMark {
-	private static final String NEW_LINE = "\n";
-	private static final String OPTION_TOKEN = "+";
+	private static final String NewLine = "\n";
+	private static final String OptionSeparator = "+";
+
 	private String name;
 	private String[] options;
-	private boolean multiple;
-	private String separator;
+	private String separator = null;
 
-	public Mark(String name) {
-		this(name, null, false, null);
-	}
-
-	public Mark(String name, String[] options, boolean multiple, String separator) {
+	public Mark(String name, String... options) {
 		this.name = name;
-		this.options = (options != null) ? options : new String[0];
-		this.multiple = multiple;
-		this.separator = separator;
+		this.options = options;
 	}
+
+    public Mark multiple(String separator) {
+        this.separator = separator;
+        return this;
+    }
 
 	@Override
-	public String getFullName() {
-		return name + optionsToString();
+	public String fullName() {
+		return name + optionsText();
 	}
 
-	private String optionsToString() {
+	private String optionsText() {
 		String result = "";
-		for (String option : options) result += OPTION_TOKEN + option;
+		for (String option : options) result += OptionSeparator + option;
 		return result;
 	}
 
 	@Override
-	public String getName() {
+	public String name() {
 		return name;
 	}
 
 	@Override
-	public String getSeparator() {
+	public String separator() {
 		return separator;
 	}
 
 	@Override
 	public boolean isMultiple() {
-		return multiple;
+		return separator != null;
 	}
 
 	@Override
-	public String[] getOptions() {
+	public String[] options() {
 		return options;
 	}
 
 	@Override
-	public String getIndentation() {
+	public String indentation() {
 		return prevToken() instanceof Literal ? calculateIndentation(prevToken()) : "";
 	}
 
 	private String calculateIndentation(Token token) {
-		int i = token.as(Literal.class).literal().lastIndexOf(NEW_LINE);
+		int i = token.as(Literal.class).literal().lastIndexOf(NewLine);
 		if (i < 0) return "";
-		String[] split = ((Literal) token).literal().substring(i).split(NEW_LINE);
+		String[] split = ((Literal) token).literal().substring(i).split(NewLine);
 		return split.length > 1 ? split[1] : "";
 	}
 
 	@Override
 	public String toString() {
-		return name + (multiple ? "List" : "");
+		return name + (isMultiple() ? "List" : "");
 	}
 }

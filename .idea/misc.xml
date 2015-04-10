@@ -3,30 +3,27 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
-  <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$" />
-  </component>
-  <component name="IdProvider" IDEtalkID="5CFBA9B69F1A8332D183B3C05E40DD0F" />
+  <component name="IdProvider" IDEtalkID="D79235C157456867755FB7FB8395702C" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/itrules-plugin/pom.xml" />
-        <option value="$PROJECT_DIR$/rule-engine-itr/pom.xml" />
-        <option value="$PROJECT_DIR$/rule-engine-json/pom.xml" />
-        <option value="$PROJECT_DIR$/engine-itr/pom.xml" />
-        <option value="$PROJECT_DIR$/engine-json/pom.xml" />
         <option value="$PROJECT_DIR$/engine/pom.xml" />
-        <option value="$PROJECT_DIR$/reader-json/pom.xml" />
         <option value="$PROJECT_DIR$/reader-itr/pom.xml" />
+        <option value="$PROJECT_DIR$/reader-json/pom.xml" />
       </list>
     </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/itrules-plugin/pom.xml" />
-      </set>
-    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

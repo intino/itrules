@@ -66,6 +66,27 @@ public class Frame implements AbstractFrame {
 		return this;
 	}
 
+	public Frame addFrame(String slot, String value) {
+		return addPrimitiveFrame(slot, value);
+	}
+
+	public Frame addFrame(String slot, Integer value) {
+		return addPrimitiveFrame(slot, value);
+	}
+
+	public Frame addFrame(String slot, Double value) {
+		return addPrimitiveFrame(slot, value);
+	}
+
+	public Frame addFrame(String slot, Date value) {
+		return addPrimitiveFrame(slot, value);
+	}
+
+	private Frame addPrimitiveFrame(String slot, Object value) {
+		slots.get(slot).add(new PrimitiveFrame(this, value));
+		return this;
+	}
+
 	public boolean isPrimitive() {
 		return false;
 	}

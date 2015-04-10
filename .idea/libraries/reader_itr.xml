@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="reader-itr">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/plugin/lib/reader-itr.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

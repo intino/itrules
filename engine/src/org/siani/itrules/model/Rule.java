@@ -37,27 +37,29 @@ public class Rule extends Token {
 		conditions = new ArrayList<>();
 	}
 
-	public void add(Token token) {
-		if (Expression.class.isInstance(token) || AbstractMark.class.isInstance(token) || Literal.class.isInstance(token)) {
-			if (!tokens.isEmpty())
-				token.prevToken(tokens.get(tokens.size() - 1));
-			tokens.add(token);
-		}
+    public Rule add(Condition condition) {
+        this.conditions.add(condition);
+        return this;
+    }
+
+	public Rule add(BodyToken token) {
+        if (!tokens.isEmpty())
+            token.prevToken(tokens.get(tokens.size() - 1));
+        tokens.add(token);
+        return this;
 	}
 
-	public void add(Condition condition) {
-		this.conditions.add(condition);
-	}
+    public Rule add(BodyToken... tokens) {
+        for (BodyToken token : tokens) add(token);
+        return this;
+    }
 
-	public boolean addAll(Collection<? extends Condition> c) {
-		return conditions.addAll(c);
-	}
 
-	public Iterable<Token> getTokens() {
+    public Iterable<Condition> conditions() {
+        return conditions;
+    }
+
+	public Iterable<Token> tokens() {
 		return tokens;
-	}
-
-	public Iterable<Condition> getConditions() {
-		return conditions;
 	}
 }

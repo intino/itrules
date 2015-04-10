@@ -26,17 +26,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Expression extends Token implements Iterable<Token> {
+public class Expression extends BodyToken implements Iterable<Token> {
 	private List<Token> tokens;
 
 	public Expression() {
 		tokens = new ArrayList<>();
 	}
 
-	public boolean add(Token token) {
-		if (AbstractMark.class.isInstance(token) || Literal.class.isInstance(token))
-			return tokens.add(token);
-		return false;
+	public Expression add(BodyToken token) {
+		if (!tokens.isEmpty())
+			token.prevToken(tokens.get(tokens.size() - 1));
+		tokens.add(token);
+		return this;
 	}
 
 	@Override

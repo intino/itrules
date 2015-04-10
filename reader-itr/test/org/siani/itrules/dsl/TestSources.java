@@ -24,85 +24,80 @@ package org.siani.itrules.dsl;
 
 public class TestSources {
 
-	public static final String NULL_FILE = "\n\n    \n\n";
-	public static final String MARK = "defrule type(Class) \t \t   \t\t\n$mark ññ\n\u0015";
+	public static final String MARK = "defrule type(Class) \t \t   \t\t\n$mark ññ\nendrule";
 	public static final String MARK_WITH_FORMAT = "defrule type(Attribute) trigger(attribute+Const) type(Const)\n" +
-		"public static final $name+UPPERCASE;\n" + "\u0015";
-	public static final String OTHER_WITH_MARK = "defrule type(Class)\npublic class $attri alalasda $other \n" + "\u0015";
-	public static final String SCAPED_CHARACTERS = "defrule type(Class) \t \t   \t\t\n$] $$ \u0015";
-	public static final String SIGNATURE = "defrule type(markca) \n\u0015";
+		"\tpublic static final $name+UPPERCASE;\n" + "endrule";
+	public static final String OTHER_WITH_MARK =
+		"defrule type(Class)\n" +
+			"\tpublic class $attri alalasda $other \n" +
+			"endrule";
+	public static final String ESCAPED_CHARACTERS =
+		"defrule type(Class) \n" +
+			"\t \t   \t\t\n" +
+			"\t$] $$ \n" +
+			"endrule";
+	public static final String SIGNATURE = "defrule type(markca)\n\n\nendrule";
 	public static final String RULE_BEGIN = "\n\ndefrule";
-	public static final String RULE_WITH_MARKS = "defrule type(Attribute) trigger(attribute+Field) type(!Const) type(readonly)\npublic class $attri alalasda $other \n\u0015";
-	public static final String MARK_WITH_MODIFIERS = "defrule type(Class)\npublic class $attribute+Const...[$NL] alalasda $other \n\u0015";
+	public static final String RULE_WITH_MARKS = "defrule type(Attribute) trigger(attribute+Field) type(!Const) type(readonly)\npublic class $attri alalasda $other \nendrule";
+	public static final String MARK_WITH_MODIFIERS = "defrule type(Class)\npublic class $attribute+Const...[$NL] alalasda $other \nendrule";
 	public static final String MEDIUM_TEST = "defrule type(Class)\n" +
-		"public class [$static ]\n\u0015";
+		"\tpublic class [$static ]\nendrule";
 	public static final String TWO_RULES = "defrule type(Class)\n" +
-		"public class [$static ]\n" + "\u0015\n" +
+		"\tpublic class [$static~A ]\n" + "endrule\n" +
 		"defrule type(class2)\n" +
-		"\tpublic class [$static ]\n" + "\u0015";
+		"\tpublic class [$static ]\n" + "endrule";
 	public static final String RULE_WITH_EVAL = "defrule type(Class) eval(Class == 'sasa')\n" +
-		"public class [$static ]\n" + "\u0015\n" +
+		"public class [$static ]\n" + "endrule\n" +
 		"defrule type(class2)\n" +
-		"\tpublic class [$static ]\n" + "\u0015";
+		"\tpublic class [$static ]\n" + "endrule";
+	public static final String ITRULES_TEST = "defrule type(token) type(mark) trigger(token)\n" +
+		"\t.add(mark(\"$name\"[, $options...[, ]])[.multiple(\"$separator\")])\n" +
+		"endrule";
 	public static final String LITTLE_BIG_TEST = "" +
 		"defrule type(Class)\n" +
-		"public class [$static ][$final ]$name [extends $SuperClass ][implements $Interface...[, ]]{\n" +
-		"\t$attribute+Const...[$NL]\n" +
-		"\t$attribute+Field...[$NL]\n" +
-		"\n" +
-		"\t$attribute+Getter...[$NL]\n" +
-		"\n" +
-		"\tpublic $Name($attribute+Injection...[,]) {\n" +
-		"\t\t$attribute+Initialize...[$NL]\n" +
+		"\tpublic class [$static ][$final ]$name [extends $SuperClass ][implements $Interface...[, ]]{\n" +
+		"\t\t$attribute+Const...[$NL]\n" +
+		"\t\t$attribute+Field...[$NL]\n" +
+		"\t\n" +
+		"\t\t$attribute+Getter...[$NL]\n" +
+		"\t\n" +
+		"\t\tpublic $Name($attribute+Injection...[,]) {\n" +
+		"\t\t\t$attribute+Initialize...[$NL]\n" +
+		"\t\t}\n" +
 		"\t}\n" +
-		"}\n" +
-		"\u0015";
+		"endrule";
 	public static final String XML_TARA = "defrule type(Theasurus)\n" +
-		"<thesaurus>\n" +
-		"\t$terms...[$NL]\n" +
-		"</thesaurus>\n" +
-		"\u0015\n" +
+		"\t<thesaurus>\n" +
+		"\t\t$terms...[$NL]\n" +
+		"\t</thesaurus>\n" +
+		"endrule\n" +
 		"defrule type(Term)\n" +
-		"<term code=\"$code\" value=\"$value\">\n" +
-		"\t$terms...[$NL]\n" +
-		"</term>\n" +
-		"\u0015";
+		"\t<term code=\"$code\" value=\"$value\">\n" +
+		"\t\t$terms...[$NL]\n" +
+		"\t</term>\n" +
+		"endrule";
 	public static final String XML_SMALL =
 		"defrule type(Class)\n" +
-			"<class name=\"$Name\" type=\"$Type\">\n" +
-			"\t$superclass+Superclass\n" +
-			"\t$interface+Interface...[$NL]\n" +
-			"\u0015\n" +
+			"\t<class name=\"$Name\" type=\"$Type\">\n" +
+			"\t\t$superclass+Superclass\n" +
+			"\t\t$interface+Interface...[$NL]\n" +
+			"endrule\n" +
 			"defrule type(String) trigger(String+Interface)\n" +
-			"<interface name=\"$value\" />\n" +
-			"\u0015";
+			"\t<interface name=\"$value\" />\n" +
+			"endrule";
 	public static final String LARGE_XML = "defrule type(Class)\n" +
-		"<class name=\"$Name\" type=\"$Type\">\n" +
-		"\t$superclass+Superclass\n" +
-		"\t$interface+Interface...[$NL]\n" +
+		"\t<class name=\"$Name\" type=\"$Type\">\n" +
+		"\t\t$superclass+Superclass\n" +
+		"\t\t$interface+Interface...[$NL]\n" +
 		"\n" +
-		"</class>\n" +
-		"\u0015\n" +
+		"\t</class>\n" +
+		"endrule\n" +
 		"\n" +
 		"defrule trigger(String+Superclass)\n" +
-		"<superclass name=\"$value\" />\n" +
-		"\u0015\n" +
+		"\t<superclass name=\"$value\" />\n" +
+		"endrule\n" +
 		"defrule trigger(String+Interface)\n" +
-		"<interface name=\"$value\" />\n" +
-		"\u0015";
-
-	public static final String TARA = "defrule type(declarednode)\n" +
-		"\n" +
-		"\t[$aggregable\n" +
-		"\tpublic Definition$[$] aggregables() {\n" +
-		"        return definition().aggregables();\n" +
-		"    }]\n" +
-		"}\n" +
-		"\n" +
-		"\u0015";
-
-	public static final String[] TEST_SOURCES = new String[]{NULL_FILE, MARK, MARK_WITH_FORMAT,
-		MARK_WITH_MODIFIERS, MEDIUM_TEST, OTHER_WITH_MARK, RULE_BEGIN, RULE_WITH_MARKS, SCAPED_CHARACTERS, SIGNATURE,
-		TWO_RULES, XML_TARA, LITTLE_BIG_TEST, LARGE_XML, LARGE_XML, TARA};
+		"\t<interface name=\"$value\" />\n" +
+		"endrule";
 
 }

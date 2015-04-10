@@ -31,6 +31,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
+
 public class LexerTest {
 
 
@@ -49,7 +51,7 @@ public class LexerTest {
 			String receivedToken;
 			ArrayList<String> receivedTypes = new ArrayList<>();
 			CharStream stream = new ANTLRInputStream(query);
-			ITRulesLexer lexer = new ITRulesLexer(stream);
+			ItrLexer lexer = new ItrLexer(stream);
 			lexer.reset();
 			setRulesNameList(lexer.getRuleNames());
 			Token currentToken = lexer.nextToken();
@@ -69,12 +71,12 @@ public class LexerTest {
 	public void ruleBeginTest() {
 		String expectedType = "RULE_BEGIN";
 		String[] receivedTypes = lexerTest(TestSources.RULE_BEGIN);
-		Assert.assertEquals(receivedTypes[0], (expectedType));
+		assertEquals(receivedTypes[0], (expectedType));
 	}
 
 	@Test
 	public void ruleSignatureTest() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.SIGNATURE);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -87,42 +89,44 @@ public class LexerTest {
 
 	@Test
 	public void mark() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "MARK_KEY", "ID", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TRIGGER", "ID", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.MARK);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
 	@Test
-	public void scapeCharacter() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "SCAPED_CHAR", "TEXT",
-			"SCAPED_CHAR", "TEXT", "RULE_END"};
-		String[] receivedTypes = lexerTest(TestSources.SCAPED_CHARACTERS);
+	public void escapedCharacter() {
+		String[] expectedTypes = new String[]{
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TEXT",
+			"TEXT", "TEXT", "TEXT", "TEXT",
+			"RULE_END"};
+		String[] receivedTypes = lexerTest(TestSources.ESCAPED_CHARACTERS);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
 	@Test
 	public void OtherWithMark() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"MARK_KEY", "ID", "TEXT", "MARK_KEY", "ID", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT",
+			"TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.OTHER_WITH_MARK);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
 	@Test
 	public void MarkWithFormat() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P",
-			"TRIGGER", "LEFT_P", "ID", "OPTION", "ID", "RIGHT_P", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"MARK_KEY", "ID", "OPTION", "ID", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "TEXT",
+			"RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.MARK_WITH_FORMAT);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
 	@Test
 	public void classWithMarks() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P",
-			"TRIGGER", "LEFT_P", "ID", "OPTION", "ID", "RIGHT_P",
-			"TYPE", "LEFT_P", "NOT", "ID", "RIGHT_P", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL",
-			"TEXT", "MARK_KEY", "ID", "TEXT", "MARK_KEY", "ID", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(
 			TestSources.RULE_WITH_MARKS
 		);
@@ -132,38 +136,49 @@ public class LexerTest {
 
 	@Test
 	public void markWithModifiers() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"MARK_KEY", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "MARK_KEY", "ID", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT",
+			"TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "TRIGGER", "ID", "TEXT", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.MARK_WITH_MODIFIERS);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
 	@Test
 	public void mediumTest() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT",
+			"LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.MEDIUM_TEST);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
 	@Test
 	public void twoRules() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END",
-			"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT",
+			"LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "RULE_END",
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT",
+			"LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.TWO_RULES);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
 	@Test
 	public void ruleWithEval() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P",
-			"EVAL", "LEFT_P", "ID", "OPERATOR", "STRING", "RIGHT_P", "NL", "TEXT",
-			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END",
-			"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS",
+			"FUNCTION", "PARAMETERS", "BODY", "TEXT",
+			"LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "RULE_END",
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT",
+			"LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.RULE_WITH_EVAL);
+		Assert.assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
+	@Test
+	public void ruleWithListMarkInExpression() {
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS",
+			"FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "TEXT", "LEFT_SB", "TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "RIGHT_SB", "TEXT",
+			"LEFT_SB", "TEXT", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "TEXT",
+			"RULE_END"};
+		String[] receivedTypes = lexerTest(TestSources.ITRULES_TEST);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
@@ -171,24 +186,43 @@ public class LexerTest {
 	public void littleBigTest() {
 		String[] expectedTypes = new String[]
 			{
-				"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-				"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ", "LEFT_SQ", "MARK_KEY", "ID",
-				"TEXT", "RIGHT_SQ", "MARK_KEY", "ID", "TEXT", "LEFT_SQ", "TEXT", "MARK_KEY", "ID", "TEXT", "RIGHT_SQ",
-				"LEFT_SQ", "TEXT", "MARK_KEY", "ID", "LIST", "SEPARATOR", "RIGHT_SQ", "TEXT", "MARK_KEY", "ID", "OPTION",
-				"ID", "LIST", "SEPARATOR", "TEXT", "MARK_KEY", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "MARK_KEY",
-				"ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "MARK_KEY", "ID", "TEXT", "MARK_KEY", "ID", "OPTION", "ID",
-				"LIST", "SEPARATOR", "TEXT", "MARK_KEY", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "RULE_END"};
+				"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+				"TEXT", "LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "LEFT_SB", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "TRIGGER", "ID", "TEXT", "LEFT_SB", "TEXT", "TRIGGER", "ID", "TEXT", "RIGHT_SB", "LEFT_SB", "TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "RIGHT_SB", "TEXT", "TEXT",
+				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+				"TEXT",
+				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+				"TEXT",
+				"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "TEXT",
+				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+				"TEXT", "TEXT",
+				"TEXT",
+				"RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.LITTLE_BIG_TEST);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
+	private void compare(String[] expectedTypes, String[] receivedTypes) {
+		for (int i = 0; i < expectedTypes.length; i++) {
+			System.out.println(i + ", " + receivedTypes[i]);
+			assertEquals(expectedTypes[i], receivedTypes[i]);
+		}
+	}
+
 	@Test
 	public void xmlTaraTest() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL",
-			"TEXT", "MARK_KEY", "ID", "LIST", "SEPARATOR", "TEXT", "RULE_END",
-			"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL",
-			"TEXT", "MARK_KEY", "ID", "TEXT", "MARK_KEY", "ID", "TEXT",
-			"MARK_KEY", "ID", "LIST", "SEPARATOR", "TEXT", "RULE_END"
+		String[] expectedTypes = new String[]{
+
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TEXT",
+			"TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "TEXT",
+			"TEXT",
+			"RULE_END",
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT",
+			"TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "TEXT",
+			"TEXT",
+			"RULE_END"
 		};
 		String[] receivedTypes = lexerTest(
 			TestSources.XML_TARA);
@@ -197,13 +231,15 @@ public class LexerTest {
 
 	@Test
 	public void xmlSmallTest() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL",
-			"TEXT", "MARK_KEY", "ID",
-			"TEXT", "MARK_KEY", "ID",
-			"TEXT", "MARK_KEY", "ID", "OPTION", "ID",
-			"TEXT", "MARK_KEY", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "RULE_END",
-			"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "TRIGGER", "LEFT_P", "ID", "OPTION", "ID", "RIGHT_P", "NL",
-			"TEXT", "MARK_KEY", "ID", "TEXT", "RULE_END"
+		String[] expectedTypes = new String[]{
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT",
+			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "TEXT",
+			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR",
+			"RULE_END",
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "TEXT",
+			"RULE_END"
 		};
 		String[] receivedTypes = lexerTest(TestSources.XML_SMALL);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
@@ -211,24 +247,23 @@ public class LexerTest {
 
 	@Test
 	public void xmlCompleteTest() {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"MARK_KEY", "ID", "TEXT", "MARK_KEY", "ID",
-			"TEXT", "MARK_KEY", "ID", "OPTION", "ID",
-			"TEXT", "MARK_KEY", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "RULE_END",
-			"RULE_BEGIN", "TRIGGER", "LEFT_P", "ID", "OPTION", "ID", "RIGHT_P", "NL", "TEXT",
-			"MARK_KEY", "ID", "TEXT", "RULE_END",
-			"RULE_BEGIN", "TRIGGER", "LEFT_P", "ID", "OPTION", "ID", "RIGHT_P", "NL", "TEXT",
-			"MARK_KEY", "ID", "TEXT", "RULE_END"};
+		String[] expectedTypes = new String[]{
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT",
+			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "TEXT",
+			"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
+			"TEXT",
+			"TEXT",
+			"RULE_END",
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "TEXT",
+			"RULE_END",
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TRIGGER", "ID", "TEXT",
+			"RULE_END"};
 
 		String[] receivedTypes = lexerTest(TestSources.LARGE_XML);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
-	@Test
-	public void testTara() throws Exception {
-		String[] expectedTypes = new String[]{"RULE_BEGIN", "TYPE", "LEFT_P", "ID", "RIGHT_P", "NL", "TEXT",
-			"LEFT_SQ", "MARK_KEY", "ID", "TEXT", "EXP_SCAPED_CHAR", "SCAPED_CHAR", "TEXT", "RIGHT_SQ", "TEXT", "RULE_END"};
-		String[] receivedTypes = lexerTest(TestSources.TARA);
-		Assert.assertArrayEquals(expectedTypes, receivedTypes);
-	}
 }

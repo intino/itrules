@@ -7,8 +7,8 @@ import javax.swing.*;
 public class ItrulesIcons {
 
 
-	public static Icon ICON_13 = IconLoader.getIcon("/icons/itrules_13.png");
-	public static Icon ICON_100 = IconLoader.getIcon("/icons/itrules_25.png");
+	public static Icon ICON_13 = IconLoader.getIcon("/icons/icon_13.png");
+	public static Icon ICON_25 = IconLoader.getIcon("/icons/icon_25.png");
 
 	private ItrulesIcons() {
 	}
