@@ -1,5 +1,6 @@
 package org.siani.itrules;
 
+import org.siani.itrules.engine.Document;
 import org.siani.itrules.model.*;
 
 import java.util.Locale;
