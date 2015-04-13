@@ -4,8 +4,8 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.siani</groupId>
-    <artifactId>itrulesreader-json</artifactId>
+    <groupId>org.siani.itrules</groupId>
+    <artifactId>itrules-jsonreader</artifactId>
     <version>1</version>
 
     <dependencies>
@@ -21,6 +21,5 @@
             <version>2.3.1</version>
         </dependency>
     </dependencies>
-
 
 </project>

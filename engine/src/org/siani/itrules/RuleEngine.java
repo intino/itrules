@@ -92,15 +92,14 @@ public class RuleEngine {
 		if (closed) throw new RuntimeException("Can not add more rules");
 	}
 
-	private void close() {
+	private void closeRuleSet() {
 		if (closed) return;
 		this.ruleSet.add(defaultRule());
 		closed = true;
 	}
 
-	public Document render(Object object) {
-		close();
-		return render(frameBuilder.build(object));
+	public String render(Object object) {
+		return render(frameBuilder.build(object)).content();
 	}
 
 	private Rule defaultRule() {
@@ -114,8 +113,9 @@ public class RuleEngine {
 	}
 
 	private void render(AbstractFrame frame, Document document) {
-		buffers.clear();
-		buffers.push(new Buffer());
+        this.closeRuleSet();
+		this.buffers.clear();
+		this.buffers.push(new Buffer());
 		execute(new Trigger(frame, new Mark("root")));
 		document.write(buffer());
 	}
@@ -132,7 +132,7 @@ public class RuleEngine {
 	}
 
 	private boolean executeRuleNotFound(Trigger trigger) {
-		buffer().write("No rule for " + trigger.mark() + " with " + trigger.frame());
+		buffer().write("...no rule for " + trigger.frame() + " with trigger " + trigger.mark());
 		buffer().dedent();
 		return true;
 	}

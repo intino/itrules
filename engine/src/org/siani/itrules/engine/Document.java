@@ -20,15 +20,13 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules;
-
-import org.siani.itrules.engine.Buffer;
+package org.siani.itrules.engine;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
-import static org.siani.itrules.Document.LineSeparator.CRLF;
-import static org.siani.itrules.Document.LineSeparator.LF;
+import static org.siani.itrules.engine.Document.LineSeparator.CRLF;
+import static org.siani.itrules.engine.Document.LineSeparator.LF;
 
 public final class Document {
 
