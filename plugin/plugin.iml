@@ -10,6 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/res" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
+    <orderEntry type="module" module-name="itrules" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

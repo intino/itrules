@@ -60,22 +60,22 @@ public class AcceptedRuleLoader {
 
     @Test
     public void should_render_template_with_marks_and_formatters() throws Exception {
-        Assert.assertEquals(expected("Person"), ruleEngine(template("Person")).render(Gasol).content());
+        Assert.assertEquals(expected("Person"), ruleEngine(template("Person")).render(Gasol));
     }
 
     @Test
     public void should_render_template_with_multiple_marks() throws Exception {
-        Assert.assertEquals(expected("Message"), ruleEngine(template("Message")).render(Frodo).content());
+        Assert.assertEquals(expected("Message"), ruleEngine(template("Message")).render(Frodo));
     }
 
     @Test
     public void should_render_template_with_uppercase_marks_and_multiple_formatters() throws Exception {
-        Assert.assertEquals(expected("Formatting"), ruleEngine(template("Formatting")).render(Gasol).content());
+        Assert.assertEquals(expected("Formatting"), ruleEngine(template("Formatting")).render(Gasol));
     }
 
     @Test
     public void should_render_template_with_optional_attributes() throws Exception {
-        Assert.assertEquals(expected("OptionalAttributes"), ruleEngine(template("OptionalAttributes")).render(Spain).content());
+        Assert.assertEquals(expected("OptionalAttributes"), ruleEngine(template("OptionalAttributes")).render(Spain));
     }
 
     private RuleEngine ruleEngine(String name) {
@@ -113,7 +113,7 @@ public class AcceptedRuleLoader {
         return text.trim();
     }
 
-    private static final Date date(int year, int month, int day) {
+    private static Date date(int year, int month, int day) {
         return new GregorianCalendar(year, month, day).getTime();
     }
 

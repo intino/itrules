@@ -1,6 +1,5 @@
 package org.siani.itrules;
 
-import org.siani.itrules.engine.Document;
 import org.siani.itrules.model.*;
 
 import java.util.Locale;
@@ -68,7 +67,7 @@ public abstract class Template {
         return this;
     }
 
-    public Document render(Object object) {
+    public String render(Object object) {
         return engine.render(object);
     }
 

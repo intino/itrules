@@ -36,7 +36,7 @@ public class TemplateGeneration extends GenerationAction {
 		String title = "Generate Template";
 		if (checkDocument(project, rulesFile)) return;
 		File destiny = getDestinyFile(project, rulesFile);
-		RunTemplateGeneration gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, getModuleOf(project, rulesFile).getModuleFile().getParent()));
+		RunTemplateGeneration gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, new File(getModuleOf(project, rulesFile).getModuleFilePath()).getParentFile()));
 		ProgressManager.getInstance().run(gen);
 		refreshAndNotify(project, rulesFile, destiny);
 	}
@@ -60,19 +60,21 @@ public class TemplateGeneration extends GenerationAction {
 
 	protected String findDestiny(Project project, Module module, VirtualFile file) {
 		if (module == null) return project.getBasePath();
-		VirtualFile moduleDir = module.getModuleFile().getParent();
+		File moduleDir = new File(module.getModuleFilePath()).getParentFile();
 		String filePackage = getPackage(file, moduleDir);
 		SourceFolder gen = createGen(module);
 		return gen.getFile().getPath() + separator + filePackage;
 	}
 
-	private String getPackage(VirtualFile file, VirtualFile moduleDir) {
-		return file.getParent().getPath().replace(moduleDir.getPath() + separator + "templates" + separator, "").replace(separator, ".");
+	private String getPackage(VirtualFile file, File moduleDir) {
+		String path = file.getParent().getPath();
+		String modulePath = new File(moduleDir.getPath(), "templates").getPath();
+		return new File(path).toURI().getPath().replace(new File(modulePath).toURI().getPath(), "").replace(separator, ".");
 	}
 
 	private SourceFolder createGen(Module module) {
 		ContentEntry[] contentEntries = ModuleRootManager.getInstance(module).getModifiableModel().getContentEntries();
-		VirtualFile moduleDirectory = module.getModuleFile().getParent();
+		File moduleDirectory = new File(module.getModuleFilePath()).getParentFile();
 		String gen = moduleDirectory.getPath() + separator + "gen";
 		new File(gen).mkdirs();
 		final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
