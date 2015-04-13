@@ -27,5 +27,10 @@
         <module name="reader-json" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="engine" target="1.5" />
+      <module name="reader-itr" target="1.5" />
+      <module name="reader-json" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
