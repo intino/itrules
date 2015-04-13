@@ -4,3 +4,4 @@ reader-itr/target
 reader-json/target
 out
 .idea/workspace.xml
+.directory

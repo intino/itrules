@@ -50,7 +50,7 @@ function generate_artifact {
   
  cd ../$1
  mvn clean install -f dist.pom #-s settings.xml
-# rm dist.pom
+ rm dist.pom
 }
 
 generate_artifact engine
