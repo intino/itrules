@@ -39,19 +39,25 @@ function get_last_release {
 
 function generate_artifact {
   cp -f $1.dist.pom dist.pom 
+  sed -i "s/#version#/$(get_last_release)/g" dist.pom
+
   echo "<project>" > /tmp/pom.tmp
   sed -n "/<version>/,/<\version>/p" ../$1/pom.xml >> /tmp/pom.tmp
   dependencies=`xmllint --xpath "//dependencies" /tmp/pom.tmp` 
+  rm /tmp/pom.tmp
   dependencies_escaped=$(sed 's/\//\\\//g' <<< "$dependencies") 
   perl -pi -e "s/#dependencies#/$dependencies_escaped/g" dist.pom
-#  perl -pi -e "s/#dependencies#//g" dist.pom
-  sed -i "s/#version#/$(get_last_release)/g" dist.pom
-  mv dist.pom ../$1/dist.pom
   
- cd ../$1
- mvn clean install -f dist.pom #-s settings.xml
- rm dist.pom
+  module_dependencies=`xmllint --xpath "string(//orderEntry/@module-name)" ../$1/$1.iml`
+  perl -pi -e "s/#module_dependencies#/<source>..\/$module_dependencies\/src<\/source>/g" dist.pom
+
+  mv dist.pom ../$1/dist.pom
+  cd ../$1
+  mvn clean install -f dist.pom #-s settings.xml
+  rm dist.pom
+  cd ../deploy
 }
 
 generate_artifact engine
-#generate_artifact reader-itr
+generate_artifact reader-itr
+generate_artifact reader-json

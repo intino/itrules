@@ -2,9 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.siani.itrules</groupId>
-  <artifactId>itrules-itr-reader</artifactId>
+  <artifactId>itrules-json-reader</artifactId>
   <version>#version#</version>
-  <name>itrules-itr-reader</name>
+  <name>itrules-json-reader</name>
   <packaging>jar</packaging>
 
   <description>itrules is a Java-based Template Engine. It can generate HTML, XML, SQL, JSON or any other documents from templates. Java code can be separated from the View, allowing to develop applications according to the Model View Controller (MVC).</description>
