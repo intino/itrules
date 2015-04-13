@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.siani.itrules</groupId>
-    <artifactId>itrules-json-reader</artifactId>
+    <artifactId>reader-json</artifactId>
     <version>1</version>
 
     <dependencies>
