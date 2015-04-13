@@ -22,7 +22,6 @@ function get_release {
   done
 }
 
-
 function get_stable_release {
   get_release;
   echo "$STABLE";
@@ -38,5 +37,21 @@ function get_last_release {
   echo "$LAST";
 }
 
-cp -f template.pom dist.pom
-sed -i "s/#version#/$(get_last_release)/g" dist.pom
+function generate_artifact {
+  cp -f $1.dist.pom dist.pom 
+  echo "<project>" > /tmp/pom.tmp
+  sed -n "/<version>/,/<\version>/p" ../$1/pom.xml >> /tmp/pom.tmp
+  dependencies=`xmllint --xpath "//dependencies" /tmp/pom.tmp` 
+  dependencies_escaped=$(sed 's/\//\\\//g' <<< "$dependencies") 
+  perl -pi -e "s/#dependencies#/$dependencies_escaped/g" dist.pom
+#  perl -pi -e "s/#dependencies#//g" dist.pom
+  sed -i "s/#version#/$(get_last_release)/g" dist.pom
+  mv dist.pom ../$1/dist.pom
+  
+ cd ../$1
+ mvn clean install -f dist.pom #-s settings.xml
+# rm dist.pom
+}
+
+generate_artifact engine
+#generate_artifact reader-itr

@@ -1,5 +1,6 @@
 uiDesigner.xml
 engine/target
-out
 reader-itr/target
+reader-json/target
+out
 .idea/workspace.xml
