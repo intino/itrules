@@ -25,7 +25,7 @@ package org.siani.itrules.intellij.actions.java;
 import org.jetbrains.annotations.NotNull;
 import org.siani.itrules.Adapter;
 import org.siani.itrules.Formatter;
-import org.siani.itrules.RuleEngine;
+import org.siani.itrules.TemplateEngine;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.Rule;
@@ -44,10 +44,10 @@ public class TemplateRulesWriter {
 	}
 
 	public String toJava(final RuleSet rules) throws URISyntaxException {
-		RuleEngine engine = new RuleEngine().add(getRuleSet());
+		TemplateEngine engine = new TemplateEngine().add(getRuleSet());
 		engine.add("string", buildStringFormatter());
 		engine.add(RuleSet.class, buildRuleSetAdapter(rules));
-		return engine.render(rules).content();
+		return engine.render(rules);
 	}
 
 	@NotNull
