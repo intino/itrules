@@ -126,7 +126,6 @@
             <configuration>
               <sources>
                 <source>gen</source>
-                #module_dependencies#
               </sources>
             </configuration>
           </execution>
