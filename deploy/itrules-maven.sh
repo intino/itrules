@@ -48,8 +48,15 @@ function generate_artifact {
   dependencies_escaped=$(sed 's/\//\\\//g' <<< "$dependencies") 
   perl -pi -e "s/#dependencies#/$dependencies_escaped/g" dist.pom
   
-  module_dependencies=`xmllint --xpath "string(//orderEntry/@module-name)" ../$1/$1.iml`
-  perl -pi -e "s/#module_dependencies#/<source>..\/$module_dependencies\/src<\/source>/g" dist.pom
+  module_dependencies=`xmllint --xpath "//orderEntry/@module-name" ../$1/$1.iml`
+  modules_array=(`echo $module_dependencies | sed -e 's/"//g' | sed -e 's/ /\n/g'`)
+  module_dependencies=""
+  for module in $modules_array; do 
+    name_array=(`echo $module | sed -e 's/=/\n/g'`)
+    name=${name_array[1]}
+    module_dependencies="$module_dependencies<source>..\/$name\/src<\/source>"
+  done
+  perl -pi -e "s/#module_dependencies#/$module_dependencies/g" dist.pom   
 
   mv dist.pom ../$1/dist.pom
   cd ../$1
