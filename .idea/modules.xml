@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/engine/engine.iml" filepath="$PROJECT_DIR$/engine/engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/itrules.iml" filepath="$PROJECT_DIR$/itrules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugin/plugin.iml" filepath="$PROJECT_DIR$/plugin/plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/reader-itr/reader-itr.iml" filepath="$PROJECT_DIR$/reader-itr/reader-itr.iml" />
       <module fileurl="file://$PROJECT_DIR$/reader-json/reader-json.iml" filepath="$PROJECT_DIR$/reader-json/reader-json.iml" />
       <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />

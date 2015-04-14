@@ -9,8 +9,9 @@
       <sourceFolder url="file://$MODULE_DIR$/test.res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/res" type="java-resource" />
     </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="module" module-name="itrules" />
+    <orderEntry type="jdk" jdkName="IC-141.177.4" jdkType="IDEA JDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="engine" />
+    <orderEntry type="module" module-name="reader-itr" />
   </component>
 </module>
