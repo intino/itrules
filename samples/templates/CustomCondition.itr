@@ -1,0 +1,20 @@
+defrule type(Person)
+    $Name has $PetsCount+Letters pets:
+      * $Pets...[$NL]
+endrule
+
+defrule type(Dog)
+    $Name, a $Age dog
+endrule
+
+defrule type(Cat)
+    $Name, a $Age kitty
+endrule
+
+defrule trigger(Age) one(s)
+    one year old
+endrule
+
+defrule trigger(Age)
+    $value+Letters years old
+endrule

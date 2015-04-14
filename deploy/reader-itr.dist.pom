@@ -126,13 +126,11 @@
             <configuration>
               <sources>
                 <source>gen</source>
-                #module_dependencies#
               </sources>
             </configuration>
           </execution>
         </executions>
       </plugin>      
-      
     </plugins>
 
     <sourceDirectory>src</sourceDirectory>

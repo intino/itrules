@@ -1,14 +1,7 @@
 defrule type(Person)
-    Default: $Name
-    UpperCase: $Name+Uppercase
-    LowerCase: $Name+Lowercase
-    CamelCase: $Name+Camelcase
-    LowerCamelCase: $Name+LowerCamelcase
+    Name: $Name+Uppercase
+    BirthYear: $Birthday+Year
 
-    Year: $Birthday+Year
-    MonthYear: $Birthday+MonthYear
-    ShortDate: $Birthday+ShortDate
-    FullDate: $Birthday+FullDate
-    DayOfWeek: $Birthday+DayOfWeek
-    Time: $Birthday+Time
+    Height: $Height ($Height+Letters) cm
+    Salary: $$$Salary+Separators
 endrule

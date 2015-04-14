@@ -35,11 +35,11 @@ public final class RuleSet implements Iterable<Rule> {
     public RuleSet() {}
 
     public RuleSet(List<Rule> rules) {
-        this.rules.addAll(rules);
+        this.rules.addAll(0, rules);
     }
 
     public void add(RuleSet ruleSet) {
-        rules.addAll(ruleSet.rules);
+        rules.addAll(0, ruleSet.rules);
     }
 
     public void add(Rule rule) {

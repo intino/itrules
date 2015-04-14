@@ -60,7 +60,7 @@ public final class FormatterRepository {
 		add("Time", time());
 		add("Letters", letters());
 		add("Separators", separators());
-		add("Count", count());
+		add("Length", length());
 		add("TwoDecimals", twoDecimals());
 		add("Plural", plural());
 	}
@@ -225,7 +225,7 @@ public final class FormatterRepository {
 		};
 	}
 
-	private static Formatter count() {
+	private static Formatter length() {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {

@@ -23,7 +23,7 @@
 package org.siani.itrules.engine.functions;
 
 import org.siani.itrules.Function;
-import org.siani.itrules.model.Trigger;
+import org.siani.itrules.engine.Trigger;
 
 public final class TriggerFunction implements Function {
 

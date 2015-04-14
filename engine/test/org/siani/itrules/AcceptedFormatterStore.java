@@ -1,8 +1,6 @@
 package org.siani.itrules;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.siani.itrules.Formatter;
 import org.siani.itrules.engine.FormatterStore;
 
 import java.util.Calendar;
@@ -10,7 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class AcceptedFormatterStore {
 
@@ -76,7 +74,7 @@ public class AcceptedFormatterStore {
 
     @Test
     public void should_render_letter_counts() throws Exception {
-        assertEquals("5", formatter("Count").format("Hello"));
+        assertEquals("5", formatter("Length").format("Hello"));
     }
 
     private Formatter formatter(String name) {

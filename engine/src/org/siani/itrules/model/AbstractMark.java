@@ -22,7 +22,7 @@
 
 package org.siani.itrules.model;
 
-public abstract class AbstractMark extends BodyToken {
+public abstract class AbstractMark extends Token.Body {
 
 	public abstract String fullName();
 

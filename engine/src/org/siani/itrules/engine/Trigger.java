@@ -20,7 +20,10 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.model;
+package org.siani.itrules.engine;
+
+import org.siani.itrules.model.AbstractFrame;
+import org.siani.itrules.model.AbstractMark;
 
 public final class Trigger {
 	private final AbstractFrame frame;

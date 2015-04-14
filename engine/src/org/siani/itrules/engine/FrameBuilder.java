@@ -24,7 +24,6 @@ package org.siani.itrules.engine;
 
 import org.siani.itrules.Adapter;
 import org.siani.itrules.engine.adapters.DefaultAdapter;
-import org.siani.itrules.engine.framebuilder.ExclusionList;
 import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.PrimitiveFrame;
@@ -36,16 +35,14 @@ import java.util.List;
 public final class FrameBuilder {
 
 	private final Frame frame;
-	private final ExclusionList exclusionList;
 	private final List<Register> registerList;
 
 	public FrameBuilder() {
-		this(new Frame(null), new ExclusionList(), new ArrayList<Register>());
+		this(new Frame(null), new ArrayList<Register>());
 	}
 
-	private FrameBuilder(Frame frame, ExclusionList exclusionList, List<Register> registerList) {
+	private FrameBuilder(Frame frame, List<Register> registerList) {
 		this.frame = frame;
-		this.exclusionList = exclusionList;
 		this.registerList = registerList;
 	}
 
@@ -79,10 +76,6 @@ public final class FrameBuilder {
 		});
 	}
 
-	public void exclude(Class aClass, String... fields) {
-		exclusionList.exclude(aClass, fields);
-	}
-
 	private void fillTypes(Object object) {
 		frame.addTypes(toArray(types(object)));
 	}
@@ -99,7 +92,7 @@ public final class FrameBuilder {
             Adapter adapter = adapterFor(type);
             if (adapter != null) return adapter;
         }
-		return new DefaultAdapter(exclusionList);
+		return new DefaultAdapter();
 	}
 
     private Adapter adapterFor(Class type) {
@@ -126,17 +119,12 @@ public final class FrameBuilder {
 			public AbstractFrame build(Object object) {
 				return isPrimitive(object.getClass()) ?
 					new PrimitiveFrame(frame, object):
-					new FrameBuilder(new Frame(frame), exclusionList, registerList).frame(object);
+					new FrameBuilder(new Frame(frame), registerList).frame(object);
 			}
 
 			@Override
 			public void register(Class aClass, Adapter adapter) {
 				FrameBuilder.this.register(aClass, adapter);
-			}
-
-			@Override
-			public void exclude(Class aClass, String... fields) {
-				FrameBuilder.this.exclude(aClass, fields);
 			}
 
 		};

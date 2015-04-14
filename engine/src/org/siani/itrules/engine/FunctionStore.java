@@ -27,7 +27,6 @@ import org.siani.itrules.engine.functions.SlotFunction;
 import org.siani.itrules.engine.functions.TriggerFunction;
 import org.siani.itrules.engine.functions.TypeFunction;
 import org.siani.itrules.model.Condition;
-import org.siani.itrules.model.Trigger;
 
 import java.util.HashMap;
 import java.util.Map;

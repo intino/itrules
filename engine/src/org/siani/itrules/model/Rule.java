@@ -41,15 +41,15 @@ public class Rule extends Token {
         return this;
     }
 
-	public Rule add(BodyToken token) {
+	public Rule add(Body token) {
         if (!tokens.isEmpty())
             token.prevToken(tokens.get(tokens.size() - 1));
         tokens.add(token);
         return this;
 	}
 
-    public Rule add(BodyToken... tokens) {
-        for (BodyToken token : tokens) add(token);
+    public Rule add(Body... tokens) {
+        for (Body token : tokens) add(token);
         return this;
     }
 

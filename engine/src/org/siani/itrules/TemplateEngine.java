@@ -49,17 +49,17 @@ public class TemplateEngine {
 		this.frameBuilder = new FrameBuilder();
 	}
 
-	public TemplateEngine use(File... files) {
-		for (File file : files) this.ruleSet.add(RuleSetLoader.load(file));
+	public TemplateEngine use(File template) {
+		this.ruleSet.add(RuleSetLoader.load(template));
 		return this;
 	}
 
-	public TemplateEngine add(RuleSet ruleSet) {
+	TemplateEngine add(RuleSet ruleSet) {
 		this.ruleSet.add(ruleSet);
 		return this;
 	}
 
-	public TemplateEngine add(Rule... rules) {
+	TemplateEngine add(Rule... rules) {
 		for (Rule rule : rules) this.ruleSet.add(rule);
 		return this;
 	}
@@ -74,13 +74,8 @@ public class TemplateEngine {
 		return this;
 	}
 
-	public <T> TemplateEngine add(Class<T> aClass, Adapter<T> adapter) {
+	public TemplateEngine add(Class aClass, Adapter adapter) {
 		frameBuilder.register(aClass, adapter);
-		return this;
-	}
-
-	public <T> TemplateEngine exclude(Class<T> aClass, String... fields) {
-		frameBuilder.exclude(aClass, fields);
 		return this;
 	}
 
@@ -122,7 +117,7 @@ public class TemplateEngine {
 		return true;
 	}
 
-	public Rule match(Trigger trigger) {
+	private Rule match(Trigger trigger) {
 		for (Rule rule : ruleSet)
 			if (match(rule, trigger)) return rule;
 		return null;

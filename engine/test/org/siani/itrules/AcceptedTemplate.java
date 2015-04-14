@@ -10,9 +10,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static java.util.Calendar.APRIL;
-import static java.util.Calendar.JULY;
-import static java.util.Calendar.JUNE;
+import static java.util.Calendar.*;
 
 public class AcceptedTemplate {
 

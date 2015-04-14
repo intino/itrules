@@ -35,14 +35,21 @@ public class TemplateGeneration extends GenerationAction {
 		if (rulesFile == null) return;
 		String title = "Generate Template";
 		if (checkDocument(project, rulesFile)) return;
-		File destiny = getDestinyFile(project, rulesFile);
-		RunTemplateGeneration gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, new File(getModuleOf(project, rulesFile).getModuleFilePath()).getParentFile()));
-		ProgressManager.getInstance().run(gen);
-		refreshAndNotify(project, rulesFile, destiny);
+		RunTemplateGeneration gen = null;
+		try {
+			File destiny = getDestinyFile(project, rulesFile);
+			gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, new File(getModuleOf(project, rulesFile).getModuleFilePath()).getParentFile()));
+			ProgressManager.getInstance().run(gen);
+			refreshAndNotify(project, rulesFile, destiny);
+		} catch (Exception exception) {
+			Notifications.Bus.notify(
+				new Notification("Itrules Template Generation", "Error occurred during template generation", exception.getMessage(), NotificationType.ERROR), project);
+		}
+
 	}
 
 	@NotNull
-	private File getDestinyFile(Project project, VirtualFile rulesFile) {
+	private File getDestinyFile(Project project, VirtualFile rulesFile) throws Exception {
 		File file = new File(findDestiny(project, getModuleOf(project, rulesFile), rulesFile), classSimpleName(rulesFile.getName()) + "Template" + JAVA);
 		file.getParentFile().mkdirs();
 		return file;
@@ -58,7 +65,7 @@ public class TemplateGeneration extends GenerationAction {
 			new Notification("Itrules Template Generation", "Template for " + rulesFile.getName() + " generated", "to " + destiny.getPath(), NotificationType.INFORMATION), project);
 	}
 
-	protected String findDestiny(Project project, Module module, VirtualFile file) {
+	protected String findDestiny(Project project, Module module, VirtualFile file) throws Exception {
 		if (module == null) return project.getBasePath();
 		File moduleDir = new File(module.getModuleFilePath()).getParentFile();
 		String filePackage = getPackage(file, moduleDir);
@@ -66,8 +73,9 @@ public class TemplateGeneration extends GenerationAction {
 		return gen.getFile().getPath() + separator + filePackage;
 	}
 
-	private String getPackage(VirtualFile file, File moduleDir) {
+	private String getPackage(VirtualFile file, File moduleDir) throws Exception {
 		String path = file.getParent().getPath();
+		if (!new File(moduleDir.getPath(), "templates").exists()) throw new Exception("templates directory not found");
 		String modulePath = new File(moduleDir.getPath(), "templates").getPath();
 		return new File(path).toURI().getPath().replace(new File(modulePath).toURI().getPath(), "").replace(separator, ".");
 	}

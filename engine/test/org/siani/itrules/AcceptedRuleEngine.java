@@ -24,6 +24,8 @@ package org.siani.itrules;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.siani.itrules.engine.Trigger;
+import org.siani.itrules.engine.adapters.ExcludeAdapter;
 import org.siani.itrules.model.*;
 
 import java.util.Calendar;
@@ -193,7 +195,7 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_excluding_a_field() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on ",
-                ruleEngine().add(personRule()).exclude(Person.class, "birthday").render(person()));
+                ruleEngine().add(personRule()).add(Person.class, new ExcludeAdapter("birthday")).render(person()));
     }
 
     private Adapter<Person> customAdapter() {

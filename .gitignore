@@ -5,3 +5,6 @@ reader-json/target
 out
 .idea/workspace.xml
 .directory
+plugin/itrules/engine.jar
+plugin/itrules/reader-itr.jar
+target

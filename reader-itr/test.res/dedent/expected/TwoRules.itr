@@ -1,8 +1,0 @@
-defrule type(Person)
-write something
-endrule
-
-defrule type(Other)
-	primera línea
-	segunda línea
-endrule

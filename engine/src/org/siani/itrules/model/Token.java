@@ -39,4 +39,7 @@ public abstract class Token implements Link {
 	public void prevToken(Token previous) {
 		this.previous = previous;
 	}
+
+    public static class Body extends Token {
+    }
 }

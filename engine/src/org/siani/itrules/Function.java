@@ -22,7 +22,7 @@
 
 package org.siani.itrules;
 
-import org.siani.itrules.model.Trigger;
+import org.siani.itrules.engine.Trigger;
 
 public interface Function {
 

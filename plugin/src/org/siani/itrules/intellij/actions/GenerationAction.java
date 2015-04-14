@@ -25,7 +25,7 @@ public abstract class GenerationAction extends AnAction implements DumbAware {
 		ActionUtils.selectedFileIsItrules(e);
 	}
 
-	protected abstract String findDestiny(Project project, Module module, VirtualFile file);
+	protected abstract String findDestiny(Project project, Module module, VirtualFile file) throws Exception;
 
 	protected VirtualFile getVirtualFile(AnActionEvent e) {
 		VirtualFile rulesFile = ActionUtils.getItrulesFileFromEvent(e);

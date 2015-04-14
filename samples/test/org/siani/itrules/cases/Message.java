@@ -4,13 +4,13 @@ public class Message {
     private String from;
     private String[] to;
     private String subject;
-    private String[] text;
+    private String[] body;
 
-    public Message(String from, String[] to, String subject, String[] text) {
+    public Message(String from, String[] to, String subject, String[] body) {
         this.from = from;
         this.to = to;
         this.subject = subject;
-        this.text = text;
+        this.body = body;
     }
 
     public static String from(String recipient) {

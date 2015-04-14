@@ -12,6 +12,7 @@
       <entry name="!?*.flex" />
       <entry name="!?*.kt" />
       <entry name="!?*.clj" />
+      <entry name="!?*.aj" />
     </wildcardResourcePatterns>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="false">
@@ -27,5 +28,11 @@
         <module name="reader-json" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="engine" target="1.7" />
+      <module name="itrules" target="1.7" />
+      <module name="reader-itr" target="1.7" />
+      <module name="reader-json" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
