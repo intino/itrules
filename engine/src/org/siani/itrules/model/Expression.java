@@ -26,14 +26,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Expression extends BodyToken implements Iterable<Token> {
+public class Expression extends Token.Body implements Iterable<Token> {
 	private List<Token> tokens;
 
 	public Expression() {
 		tokens = new ArrayList<>();
 	}
 
-	public Expression add(BodyToken token) {
+	public Expression add(Body token) {
 		if (!tokens.isEmpty())
 			token.prevToken(tokens.get(tokens.size() - 1));
 		tokens.add(token);

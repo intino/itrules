@@ -22,7 +22,10 @@
 
 package org.siani.itrules.parser;
 
-import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.DefaultErrorStrategy;
+import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Token;
 
 public class TemplateErrorStrategy extends DefaultErrorStrategy {
 

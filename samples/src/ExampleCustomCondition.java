@@ -1,34 +1,58 @@
+import org.siani.itrules.Function;
 import org.siani.itrules.TemplateEngine;
+import org.siani.itrules.engine.Trigger;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class ExampleCustomCondition {
 
     public static class Person {
         private String name;
-        private Date birthday;
-        private String country;
+        private Pet[] pets;
 
-        public Person(String name, Date birthday, String country) {
+        public Person(String name, Pet... pets) {
             this.name = name;
-            this.birthday = birthday;
-            this.country = country;
+            this.pets = pets;
+        }
+
+        public static abstract class Pet {
+            private String name;
+            private int age;
+
+            public Pet(String name, int age) {
+                this.name = name;
+                this.age = age;
+            }
+        }
+
+        public static class Dog extends Pet {
+            public Dog(String name, int age) {
+                super(name, age);
+            }
+        }
+
+        public static class Cat extends Pet {
+            public Cat(String name, int age) {
+                super(name, age);
+            }
+        }
+
+        public static void main(String[] args) {
+            Person person = new Person("Roger Dickens",
+                    new Dog("Ruffo", 5),
+                    new Cat("Missy", 1),
+                    new Dog("Toby", 3)
+            );
+            TemplateEngine engine = new TemplateEngine().use(new File("samples/templates/CustomCondition.itr"));
+            engine.add("one", new Function() {
+                @Override
+                public boolean match(Trigger trigger, String parameter) {
+                    return trigger.frame().isPrimitive() && trigger.frame().value().equals(1);
+                }
+
+            });
+            System.out.println(engine.render(person));
         }
     }
-
-    public static void main(String[] args) {
-        Person person = new Person("Pau Gasol", date(1980, Calendar.JULY, 6), "spain");
-
-        TemplateEngine engine = new TemplateEngine().use(new File("samples/templates/Person.itr"));
-        System.out.println(engine.render(person));
-    }
-
-    private static Date date(int year, int month, int day) {
-        return new GregorianCalendar(year, month, day).getTime();
-    }
-
 
 }

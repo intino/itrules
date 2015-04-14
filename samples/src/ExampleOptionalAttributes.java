@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ExampleOptional {
+public class ExampleOptionalAttributes {
     public static class Roster {
         private Person coach;
         private Person[] players;

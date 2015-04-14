@@ -7,3 +7,4 @@ out
 .directory
 plugin/itrules/engine.jar
 plugin/itrules/reader-itr.jar
+target

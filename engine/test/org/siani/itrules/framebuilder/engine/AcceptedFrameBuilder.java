@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.siani.itrules.Adapter;
 import org.siani.itrules.cases.framebuilder.*;
 import org.siani.itrules.engine.FrameBuilder;
+import org.siani.itrules.engine.adapters.ExcludeAdapter;
 import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
 
@@ -110,7 +111,7 @@ public class AcceptedFrameBuilder {
     @Test
     public void testExcludeMap() throws Exception {
         FrameBuilder frameBuilder = new FrameBuilder();
-        frameBuilder.exclude(TwoAttributesObject.class, "field2");
+        frameBuilder.register(TwoAttributesObject.class, new ExcludeAdapter<TwoAttributesObject>("field2"));
         Frame frame = (Frame) frameBuilder.build(new TwoAttributesObject("test", 1.0));
         Assert.assertEquals("test", frame.frames("field1").next().value());
         Assert.assertFalse(frame.frames("field2").hasNext());
@@ -215,7 +216,7 @@ public class AcceptedFrameBuilder {
                 new Adapter<SimpleObjectWithComplexList>() {
                     @Override
                     public void execute(Frame frame, SimpleObjectWithComplexList source, Context<SimpleObjectWithComplexList> context) {
-                        context.exclude(TwoAttributesObject.class, "field2");
+                        context.register(TwoAttributesObject.class, new ExcludeAdapter<TwoAttributesObject>("field2"));
                         context.frame().addFrame("object2", context.build(context.source().get(1)));
                     }
                 });

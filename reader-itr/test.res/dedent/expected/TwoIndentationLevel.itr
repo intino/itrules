@@ -1,4 +1,0 @@
-defrule type(Person)
-	primera línea
-	segunda línea
-endrule

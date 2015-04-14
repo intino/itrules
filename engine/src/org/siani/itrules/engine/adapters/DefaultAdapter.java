@@ -1,7 +1,6 @@
 package org.siani.itrules.engine.adapters;
 
 import org.siani.itrules.Adapter;
-import org.siani.itrules.engine.framebuilder.ExclusionList;
 import org.siani.itrules.model.Frame;
 
 import java.lang.reflect.Field;
@@ -9,13 +8,7 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Map;
 
-public class DefaultAdapter implements Adapter {
-
-    private ExclusionList exclusionList;
-
-    public DefaultAdapter(ExclusionList exclusionList) {
-        this.exclusionList = exclusionList;
-    }
+public class DefaultAdapter<T> implements Adapter<T> {
 
     @Override
     public void execute(Frame frame, Object source, Context context) {
@@ -26,6 +19,7 @@ public class DefaultAdapter implements Adapter {
         private final Context context;
 		private final Frame frame;
         private final Object source;
+        private final String Count = "Count";
 
         public Filler(Context context) {
             this.context = context;
@@ -50,7 +44,7 @@ public class DefaultAdapter implements Adapter {
 
         private void processClass(Class aClass) throws IllegalAccessException {
             for (Field field : aClass.getDeclaredFields()) {
-                if (!fieldIsProcessable(field, aClass)) continue;
+                if (!fieldIsProcessable(field)) continue;
                 processField(field);
             }
         }
@@ -71,23 +65,24 @@ public class DefaultAdapter implements Adapter {
         }
 
         private void processArray(Field field) throws IllegalAccessException {
-            for (Object item : (Object[]) field.get(source))
+            Object[] objects = (Object[]) field.get(source);
+            frame.addFrame(field.getName()+ Count, objects.length);
+            for (Object item : objects)
 				frame.addFrame(field.getName(), context.build(item));
         }
 
         private void processList(Field field) throws IllegalAccessException {
-            for (Object item : (List) field.get(source))
+            List list = (List) field.get(source);
+            frame.addFrame(field.getName()+ Count, list.size());
+            for (Object item : list)
 				frame.addFrame(field.getName(), context.build(item));
         }
 
         private void processMap(final Field field) throws IllegalAccessException {
             final Map map = (Map) field.get(source);
+            frame.addFrame(field.getName() + Count, map.keySet().size());
             for (Object key : map.keySet())
 				frame.addFrame(field.getName() + "." + key.toString(), context.build(map.get(key)));
-        }
-
-        private boolean fieldIsProcessable(Field field, Class<?> aClass) {
-            return !(Modifier.isStatic(field.getModifiers()) || exclusionList.isExcluded(aClass, field));
         }
 
         private boolean isMap(Class<?> aClass) {
@@ -103,5 +98,10 @@ public class DefaultAdapter implements Adapter {
         }
 
 	}
+
+    protected boolean fieldIsProcessable(Field field) {
+        return !(Modifier.isStatic(field.getModifiers()));
+    }
+
 
 }

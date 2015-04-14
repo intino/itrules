@@ -42,7 +42,7 @@ public abstract class Template {
         return new Expression();
     }
 
-    public Template add(Rule... rules) {
+    protected Template add(Rule... rules) {
         engine.add(rules);
         return this;
     }
@@ -59,11 +59,6 @@ public abstract class Template {
 
     public <T> Template add(Class<T> aClass, Adapter<T> adapter) {
         engine.add(aClass, adapter);
-        return this;
-    }
-
-    public <T> Template exclude(Class<T> aClass, String... fields) {
-        engine.exclude(aClass, fields);
         return this;
     }
 

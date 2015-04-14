@@ -12,7 +12,6 @@ public interface Adapter<T> {
 
         AbstractFrame build(Object object);
         <S> void register(Class<S> aClass, Adapter<S> adapter);
-        void exclude(Class aClass, String... fields);
 
     }
 }
