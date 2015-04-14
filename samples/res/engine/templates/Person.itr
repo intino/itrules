@@ -1,3 +1,0 @@
-defrule type(Person)
-    $name was born in $country on $birthday+ShortDate
-endrule

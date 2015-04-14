@@ -30,72 +30,58 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Stack;
 
-public class RuleEngine {
+public class TemplateEngine {
 
 	private final RuleSet ruleSet = new RuleSet();
 	private final Stack<Buffer> buffers = new Stack<>();
 	private final FormatterStore formatterStore;
 	private final FunctionStore functionStore;
 	private final FrameBuilder frameBuilder;
-	private boolean closed = false;
 
-	public RuleEngine() {
+	public TemplateEngine() {
 		this(Locale.getDefault());
 	}
 
-	public RuleEngine(Locale locale) {
+	public TemplateEngine(Locale locale) {
 		this.ruleSet.add(defaultRule());
 		this.formatterStore = new FormatterStore(locale);
 		this.functionStore = new FunctionStore();
 		this.frameBuilder = new FrameBuilder();
 	}
 
-	public RuleEngine use(File... files) {
-		ifClosedThrowException();
+	public TemplateEngine use(File... files) {
 		for (File file : files) this.ruleSet.add(RuleSetLoader.load(file));
 		return this;
 	}
 
-	public RuleEngine add(RuleSet ruleSet) {
-		ifClosedThrowException();
+	public TemplateEngine add(RuleSet ruleSet) {
 		this.ruleSet.add(ruleSet);
 		return this;
 	}
 
-	public RuleEngine add(Rule... rules) {
-		ifClosedThrowException();
+	public TemplateEngine add(Rule... rules) {
 		for (Rule rule : rules) this.ruleSet.add(rule);
 		return this;
 	}
 
-	public RuleEngine add(String name, Formatter formatter) {
+	public TemplateEngine add(String name, Formatter formatter) {
 		formatterStore.add(name, formatter);
 		return this;
 	}
 
-	public RuleEngine add(String name, Function function) {
+	public TemplateEngine add(String name, Function function) {
 		functionStore.add(name, function);
 		return this;
 	}
 
-	public <T> RuleEngine add(Class<T> aClass, Adapter<T> adapter) {
+	public <T> TemplateEngine add(Class<T> aClass, Adapter<T> adapter) {
 		frameBuilder.register(aClass, adapter);
 		return this;
 	}
 
-	public <T> RuleEngine exclude(Class<T> aClass, String... fields) {
+	public <T> TemplateEngine exclude(Class<T> aClass, String... fields) {
 		frameBuilder.exclude(aClass, fields);
 		return this;
-	}
-
-	private void ifClosedThrowException() {
-		if (closed) throw new RuntimeException("Can not add more rules");
-	}
-
-	private void closeRuleSet() {
-		if (closed) return;
-		this.ruleSet.add(defaultRule());
-		closed = true;
 	}
 
 	public String render(Object object) {
@@ -113,7 +99,6 @@ public class RuleEngine {
 	}
 
 	private void render(AbstractFrame frame, Document document) {
-        this.closeRuleSet();
 		this.buffers.clear();
 		this.buffers.push(new Buffer());
 		execute(new Trigger(frame, new Mark("root")));

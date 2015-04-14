@@ -31,6 +31,7 @@ import org.siani.itrules.cases.Message;
 import java.io.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import static java.util.Calendar.APRIL;
 import static java.util.Calendar.JULY;
@@ -40,8 +41,8 @@ import static org.siani.itrules.cases.Message.*;
 
 public class AcceptedRuleLoader {
 
-    private static final String Template = "res/engine/templates/$case.itr";
-	private static final String Expected = "res/engine/expected/$case.txt";
+    private static final String Template = "samples/res/engine/templates/$case.itr";
+	private static final String Expected = "samples/res/engine/expected/$case.txt";
 
     public static final Person Gasol = new Person("Pau Gasol", "Spain", "L.A. Lakers", date(1980, JULY, 6));
     public static final Person Orenga = new Person("Juan Antonio Orenga", "Spain", date(1966, JULY, 29));
@@ -78,8 +79,8 @@ public class AcceptedRuleLoader {
         Assert.assertEquals(expected("OptionalAttributes"), ruleEngine(template("OptionalAttributes")).render(Spain));
     }
 
-    private RuleEngine ruleEngine(String name) {
-        return new RuleEngine().use(new File(name));
+    private TemplateEngine ruleEngine(String name) {
+        return new TemplateEngine(Locale.ENGLISH).use(new File(name));
     }
 
     private String jsonTemplate(String name) {

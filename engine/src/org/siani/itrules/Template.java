@@ -6,15 +6,15 @@ import java.util.Locale;
 
 public abstract class Template {
 
-    private final RuleEngine engine;
+    private final TemplateEngine engine;
 
     public Template() {
-        this.engine = new RuleEngine(Locale.getDefault());
+        this.engine = new TemplateEngine(Locale.getDefault());
         this.definition();
     }
 
     public Template(Locale locale) {
-        this.engine = new RuleEngine(locale);
+        this.engine = new TemplateEngine(locale);
     }
 
     public abstract void definition();

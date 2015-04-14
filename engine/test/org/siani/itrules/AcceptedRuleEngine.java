@@ -103,7 +103,7 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_defining_rule_with_a_trigger_condition() throws Exception {
         Assert.assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
-                ruleEngine().add(personRule()).add(triggerConditionRule()).render(person()));
+                ruleEngine().add(triggerConditionRule()).add(personRule()).render(person()));
     }
 
     private Rule triggerConditionRule() {
@@ -119,8 +119,8 @@ public class AcceptedRuleEngine {
     }
 
     @Test
-    public void should_render_person_ignoring_formats_that_dont_exist() throws Exception {
-        Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+    public void should_render_person_displaying_error_message_for_formats_that_dont_exist() throws Exception {
+        Assert.assertEquals("...Custom formatter not found was born in ...Custom formatter not found on 06/07/1980",
                 ruleEngine().add(personRuleWithCustomFormat()).render(person()));
     }
 
@@ -151,7 +151,7 @@ public class AcceptedRuleEngine {
     private Rule personRuleWithDoubleFormatOnString() {
         return new Rule().
                 add(condition("Type", "Person")).
-                add(mark("Name","TwoDecimals", "ProperCase"), literal(" was born in "), mark("Country", "Letter", "LowerCase"), literal(" on "), mark("Birthday", "Separators", "ShortDate"));
+                add(mark("Name","TwoDecimals", "Capitalize"), literal(" was born in "), mark("Country", "Letters", "LowerCase"), literal(" on "), mark("Birthday", "Separators", "ShortDate"));
     }
 
     @Test
@@ -175,7 +175,7 @@ public class AcceptedRuleEngine {
     private Rule personRuleWithCustomCondition() {
         return new Rule().
                 add(condition("Custom", "Gasol")).
-                add(mark("Name", "Custom"), literal(" was born in "), mark("Country", "Custom"), literal(" on "), mark("Birthday", "ShortDate"));
+                add(mark("Name"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday", "ShortDate"));
     }
 
     @Test
@@ -187,7 +187,7 @@ public class AcceptedRuleEngine {
     private Rule personRuleWithCustomAdapter() {
         return new Rule().
                 add(condition("Type", "Person")).
-                add(mark("Name", "Custom"), literal(" was born in "), mark("Country", "Custom"), literal(" and he is "), mark("age"), literal(" years old"));
+                add(mark("Name"), literal(" was born in "), mark("Country"), literal(" and he is "), mark("age"), literal(" years old"));
     }
 
     @Test
@@ -254,8 +254,8 @@ public class AcceptedRuleEngine {
         return new GregorianCalendar(year,month,day).getTime();
     }
 
-    private RuleEngine ruleEngine() {
-        return new RuleEngine(Locale.ENGLISH);
+    private TemplateEngine ruleEngine() {
+        return new TemplateEngine(Locale.ENGLISH);
     }
 
     private class Person {
