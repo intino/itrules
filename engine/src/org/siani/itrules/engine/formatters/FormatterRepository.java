@@ -203,6 +203,7 @@ public final class FormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
+				if (!isNumber(value)) return value;
                 int n = ((Number) value).intValue();
                 return (words(n / 1000000, " million " + and(n % 1000000)) +
                         words((n % 1000000) / 1000, " thousand " + and(n % 1000)) + words(n % 1000, "")).replace("  ", " ").trim();
@@ -237,16 +238,22 @@ public final class FormatterRepository {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
+				if (!isNumber(value)) return value;
                 double n = ((Number) value).doubleValue();
                 return String.format(locale, "%.2f", n);
 			}
 		};
 	}
 
+	private static boolean isNumber(Object value) {
+		return Number.class.isAssignableFrom(value.getClass());
+	}
+
 	private static Formatter separators() {
 		return new Formatter() {
 			@Override
 			public Object format(Object value) {
+				if (!isNumber(value)) return value;
 				DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(locale);
 				df.setGroupingUsed(true);
 				df.setGroupingSize(3);

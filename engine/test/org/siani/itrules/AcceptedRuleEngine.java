@@ -37,25 +37,25 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_hello_world() throws Exception {
         Assert.assertEquals("Hello world",
-                ruleEngine().render("Hello world").content());
+                ruleEngine().render("Hello world"));
     }
 
     @Test
     public void should_render_an_integer() throws Exception {
         Assert.assertEquals("5000",
-                ruleEngine().render(5000).content());
+                ruleEngine().render(5000));
     }
 
     @Test
     public void should_render_a_double() throws Exception {
         Assert.assertEquals("5000.0",
-                ruleEngine().render(5000.0).content());
+                ruleEngine().render(5000.0));
     }
 
     @Test
     public void should_render_person_defining_a_rule() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRule()).render(person()).content());
+                ruleEngine().add(personRule()).render(person()));
     }
 
     private Rule personRule() {
@@ -67,7 +67,7 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_defining_a_rule_with_negated_condition() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on -",
-                ruleEngine().add(negatedConditionRule()).add(personRule()).render(person()).content());
+                ruleEngine().add(negatedConditionRule()).add(personRule()).render(person()));
     }
 
     private Rule negatedConditionRule() {
@@ -79,7 +79,7 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_defining_a_rule_with_uppercase_tokens() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleUppercase()).render(person()).content());
+                ruleEngine().add(personRuleUppercase()).render(person()));
     }
 
     private Rule personRuleUppercase() {
@@ -91,7 +91,7 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_defining_a_rule_with_formatted_marks() throws Exception {
         Assert.assertEquals("PAU GASOL was born in spain on 06/07/1980",
-                ruleEngine().add(personRuleWithFormatMarks()).render(person()).content());
+                ruleEngine().add(personRuleWithFormatMarks()).render(person()));
     }
 
     private Rule personRuleWithFormatMarks() {
@@ -103,7 +103,7 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_defining_rule_with_a_trigger_condition() throws Exception {
         Assert.assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
-                ruleEngine().add(personRule()).add(triggerConditionRule()).render(person()).content());
+                ruleEngine().add(triggerConditionRule()).add(personRule()).render(person()));
     }
 
     private Rule triggerConditionRule() {
@@ -115,13 +115,13 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_defining_a_rule_with_a_custom_formatter() throws Exception {
         Assert.assertEquals("9 was born in 5 on 06/07/1980",
-                ruleEngine().add(personRuleWithCustomFormat()).add("Custom", customFormatter()).render(person()).content());
+                ruleEngine().add(personRuleWithCustomFormat()).add("Custom", customFormatter()).render(person()));
     }
 
     @Test
-    public void should_render_person_ignoring_formats_that_dont_exist() throws Exception {
-        Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleWithCustomFormat()).render(person()).content());
+    public void should_render_person_displaying_error_message_for_formats_that_dont_exist() throws Exception {
+        Assert.assertEquals("...Custom formatter not found was born in ...Custom formatter not found on 06/07/1980",
+                ruleEngine().add(personRuleWithCustomFormat()).render(person()));
     }
 
     private Rule personRuleWithCustomFormat() {
@@ -133,7 +133,7 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_ignoring_date_formats_if_value_is_not_date() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleWithDateFormatOnString()).render(person()).content());
+                ruleEngine().add(personRuleWithDateFormatOnString()).render(person()));
     }
 
     private Rule personRuleWithDateFormatOnString() {
@@ -145,19 +145,19 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_ignoring_number_formats_if_value_is_not_double() throws Exception {
         Assert.assertEquals("Pau gasol was born in spain on 06/07/1980",
-                ruleEngine().add(personRuleWithDoubleFormatOnString()).render(person()).content());
+                ruleEngine().add(personRuleWithDoubleFormatOnString()).render(person()));
     }
 
     private Rule personRuleWithDoubleFormatOnString() {
         return new Rule().
                 add(condition("Type", "Person")).
-                add(mark("Name","TwoDecimals", "ProperCase"), literal(" was born in "), mark("Country", "Letter", "LowerCase"), literal(" on "), mark("Birthday", "Separators", "ShortDate"));
+                add(mark("Name","TwoDecimals", "Capitalize"), literal(" was born in "), mark("Country", "Letters", "LowerCase"), literal(" on "), mark("Birthday", "Separators", "ShortDate"));
     }
 
     @Test
     public void should_render_person_chaining_two_formats() throws Exception {
         Assert.assertEquals("PauGasols was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleWithTwoFormats()).render(person()).content());
+                ruleEngine().add(personRuleWithTwoFormats()).render(person()));
     }
 
     private Rule personRuleWithTwoFormats() {
@@ -169,31 +169,31 @@ public class AcceptedRuleEngine {
     @Test
     public void should_render_person_defining_rule_with_a_custom_condition_function() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleWithCustomCondition()).add("Custom", customConditionFunction()).render(person()).content());
+                ruleEngine().add(personRuleWithCustomCondition()).add("Custom", customConditionFunction()).render(person()));
     }
 
     private Rule personRuleWithCustomCondition() {
         return new Rule().
                 add(condition("Custom", "Gasol")).
-                add(mark("Name", "Custom"), literal(" was born in "), mark("Country", "Custom"), literal(" on "), mark("Birthday", "ShortDate"));
+                add(mark("Name"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday", "ShortDate"));
     }
 
     @Test
     public void should_render_person_defining_rule_with_a_custom_adapter() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain and he is 34 years old",
-                ruleEngine().add(personRuleWithCustomAdapter()).add(Person.class, customAdapter()).render(person()).content());
+                ruleEngine().add(personRuleWithCustomAdapter()).add(Person.class, customAdapter()).render(person()));
     }
 
     private Rule personRuleWithCustomAdapter() {
         return new Rule().
                 add(condition("Type", "Person")).
-                add(mark("Name", "Custom"), literal(" was born in "), mark("Country", "Custom"), literal(" and he is "), mark("age"), literal(" years old"));
+                add(mark("Name"), literal(" was born in "), mark("Country"), literal(" and he is "), mark("age"), literal(" years old"));
     }
 
     @Test
     public void should_render_person_excluding_a_field() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on ",
-                ruleEngine().add(personRule()).exclude(Person.class, "birthday").render(person()).content());
+                ruleEngine().add(personRule()).exclude(Person.class, "birthday").render(person()));
     }
 
     private Adapter<Person> customAdapter() {
@@ -254,8 +254,8 @@ public class AcceptedRuleEngine {
         return new GregorianCalendar(year,month,day).getTime();
     }
 
-    private RuleEngine ruleEngine() {
-        return new RuleEngine(Locale.ENGLISH);
+    private TemplateEngine ruleEngine() {
+        return new TemplateEngine(Locale.ENGLISH);
     }
 
     private class Person {

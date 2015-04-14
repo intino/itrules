@@ -2,8 +2,8 @@ defrule type(Roster)
 	<roster>
 		$Coach
 		<players>
-            $Player...[$NL]
-        </players>
+			$Players...[$NL]
+		</players>
     </roster>
 endrule
 
@@ -11,6 +11,6 @@ defrule type(Person) trigger(Coach)
     <coach name="$Name" year="$Birthday+Year" country="$Country" />
 endrule
 
-defrule type(Person) trigger(Player)
+defrule type(Person)
     <player name="$Name" year="$Birthday+Year" country="$Country" [club="$Club" ]/>
 endrule

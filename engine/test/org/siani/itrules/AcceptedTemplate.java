@@ -18,7 +18,7 @@ public class AcceptedTemplate {
 
     @Test
     public void should_render_roster() throws Exception {
-        Assert.assertEquals(expected("roster.txt"), new RosterTemplate().render(createRoster()).content());
+        Assert.assertEquals(expected("roster.txt"), new RosterTemplate().render(createRoster()));
     }
 
     private Roster createRoster() {
@@ -29,7 +29,7 @@ public class AcceptedTemplate {
         return new Roster(orenga, gasol, rudy, navarro);
     }
 
-    private static final Date date(int year, int month, int day) {
+    private static Date date(int year, int month, int day) {
         return new GregorianCalendar(year, month, day).getTime();
     }
 

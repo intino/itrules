@@ -27,6 +27,9 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.jps.model.java.JavaSourceRootProperties;
+import org.jetbrains.jps.model.java.JavaSourceRootType;
+import org.jetbrains.jps.model.java.JpsJavaExtensionService;
 import org.siani.itrules.intellij.facet.ItrulesFacet;
 import org.siani.itrules.intellij.facet.ItrulesFacetConfiguration;
 import org.siani.itrules.intellij.sdk.ItrulesSdk;
@@ -75,7 +78,11 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		try {
 			if (contentEntry.getFile() == null) return;
 			String modulePath = contentEntry.getFile().getPath();
-			VfsUtil.createDirectories(modulePath + separator + "templates");
+			VirtualFile templates = VfsUtil.createDirectories(modulePath + separator + "templates");
+			if (templates != null) {
+				JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", false);
+				contentEntry.addSourceFolder(templates, JavaSourceRootType.SOURCE, properties);
+			}
 		} catch (IOException ignored) {
 		}
 	}

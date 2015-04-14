@@ -43,7 +43,7 @@ public final class RuleSet implements Iterable<Rule> {
     }
 
     public void add(Rule rule) {
-        rules.add(rule);
+        rules.add(0, rule);
     }
 
     @Override

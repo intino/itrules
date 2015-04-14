@@ -1,21 +1,20 @@
 package org.siani.itrules;
 
-import org.siani.itrules.engine.Document;
 import org.siani.itrules.model.*;
 
 import java.util.Locale;
 
 public abstract class Template {
 
-    private final RuleEngine engine;
+    private final TemplateEngine engine;
 
     public Template() {
-        this.engine = new RuleEngine(Locale.getDefault());
+        this.engine = new TemplateEngine(Locale.getDefault());
         this.definition();
     }
 
     public Template(Locale locale) {
-        this.engine = new RuleEngine(locale);
+        this.engine = new TemplateEngine(locale);
     }
 
     public abstract void definition();
@@ -68,7 +67,7 @@ public abstract class Template {
         return this;
     }
 
-    public Document render(Object object) {
+    public String render(Object object) {
         return engine.render(object);
     }
 

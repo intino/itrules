@@ -56,7 +56,9 @@ public class TemplateRulesWriter {
 			@Override
 			public Object format(Object object) {
 				String value = object.toString();
-				value = value.replace("\n", "\\n").replace("\t", "\\t").replace("\"", "\\\"");
+				if (value.contains("\r")) value = value.replace("\r", "\\r");
+				value = value.replace("\n", "\\n");
+				value = value.replace("\t", "\\t").replace("\"", "\\\"");
 				return '"' + value + '"';
 			}
 		};

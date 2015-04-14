@@ -31,6 +31,7 @@ import org.siani.itrules.cases.Message;
 import java.io.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import static java.util.Calendar.APRIL;
 import static java.util.Calendar.JULY;
@@ -40,8 +41,8 @@ import static org.siani.itrules.cases.Message.*;
 
 public class AcceptedRuleLoader {
 
-    private static final String Template = "res/engine/templates/$case.itr";
-	private static final String Expected = "res/engine/expected/$case.txt";
+    private static final String Template = "samples/res/engine/templates/$case.itr";
+	private static final String Expected = "samples/res/engine/expected/$case.txt";
 
     public static final Person Gasol = new Person("Pau Gasol", "Spain", "L.A. Lakers", date(1980, JULY, 6));
     public static final Person Orenga = new Person("Juan Antonio Orenga", "Spain", date(1966, JULY, 29));
@@ -60,26 +61,26 @@ public class AcceptedRuleLoader {
 
     @Test
     public void should_render_template_with_marks_and_formatters() throws Exception {
-        Assert.assertEquals(expected("Person"), ruleEngine(template("Person")).render(Gasol).content());
+        Assert.assertEquals(expected("Person"), ruleEngine(template("Person")).render(Gasol));
     }
 
     @Test
     public void should_render_template_with_multiple_marks() throws Exception {
-        Assert.assertEquals(expected("Message"), ruleEngine(template("Message")).render(Frodo).content());
+        Assert.assertEquals(expected("Message"), ruleEngine(template("Message")).render(Frodo));
     }
 
     @Test
     public void should_render_template_with_uppercase_marks_and_multiple_formatters() throws Exception {
-        Assert.assertEquals(expected("Formatting"), ruleEngine(template("Formatting")).render(Gasol).content());
+        Assert.assertEquals(expected("Formatting"), ruleEngine(template("Formatting")).render(Gasol));
     }
 
     @Test
     public void should_render_template_with_optional_attributes() throws Exception {
-        Assert.assertEquals(expected("OptionalAttributes"), ruleEngine(template("OptionalAttributes")).render(Spain).content());
+        Assert.assertEquals(expected("OptionalAttributes"), ruleEngine(template("OptionalAttributes")).render(Spain));
     }
 
-    private RuleEngine ruleEngine(String name) {
-        return new RuleEngine().use(new File(name));
+    private TemplateEngine ruleEngine(String name) {
+        return new TemplateEngine(Locale.ENGLISH).use(new File(name));
     }
 
     private String jsonTemplate(String name) {
@@ -113,7 +114,7 @@ public class AcceptedRuleLoader {
         return text.trim();
     }
 
-    private static final Date date(int year, int month, int day) {
+    private static Date date(int year, int month, int day) {
         return new GregorianCalendar(year, month, day).getTime();
     }
 
