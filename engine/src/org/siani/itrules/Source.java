@@ -1,12 +1,16 @@
 package org.siani.itrules;
 
+import java.io.File;
 import java.nio.charset.Charset;
 
-public class File extends java.io.File {
+public class Source extends File {
 
     private Charset charset;
 
-    public File(String pathname, Charset charset) {
+    public Source(String pathname) {
+        this(pathname, Encoding.getDefault().charset());
+    }
+    public Source(String pathname, Charset charset) {
         super(pathname);
         this.charset = charset;
     }

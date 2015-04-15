@@ -5,7 +5,7 @@ root            : definition* EOF;
 definition       : RULE_BEGIN signature body RULE_END;
 
 signature       : condition+ BODY;
-condition       : NOT? FUNCTION PARAMETERS;
+condition       : NOT? FUNCTION PARAMETERS?;
 
 body            : (line NL)* line;
 line            : (text | mark | expression)*;

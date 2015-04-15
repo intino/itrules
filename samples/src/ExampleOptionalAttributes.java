@@ -1,6 +1,5 @@
 import org.siani.itrules.TemplateEngine;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -43,7 +42,7 @@ public class ExampleOptionalAttributes {
                 new Person("Juan Carlos Navarro", date(1980, Calendar.JUNE, 17), "Spain")
         );
 
-        TemplateEngine engine = new TemplateEngine().use(new File("samples/templates/OptionalAttributes.itr"));
+        TemplateEngine engine = new TemplateEngine().use("samples/templates/OptionalAttributes.itr");
         System.out.println(engine.render(roster));
     }
 

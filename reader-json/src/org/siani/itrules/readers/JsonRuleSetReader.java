@@ -20,10 +20,11 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.reader.json;
+package org.siani.itrules.readers;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import org.siani.itrules.RuleSetReader;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.model.Rule;
 import org.siani.itrules.model.Token;
@@ -31,19 +32,20 @@ import org.siani.itrules.model.Token;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.List;
 
-public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
+public final class JsonRuleSetReader implements RuleSetReader {
 
 	private final InputStream stream;
 
-	public RuleSetReader(InputStream stream) {
+	public JsonRuleSetReader(InputStream stream) {
 		this.stream = stream;
 	}
 
-	public RuleSet read() {
-        return new RuleSet(rules(gsonBuilder()));
+	public RuleSet read(Charset charset) {
+        return new RuleSet(read(gsonBuilder(), charset));
     }
 
     private GsonBuilder gsonBuilder() {
@@ -52,8 +54,8 @@ public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
         return gb;
     }
 
-    private List<Rule> rules(GsonBuilder gb) {
-        return gb.create().fromJson(new InputStreamReader(stream), getType());
+    private List<Rule> read(GsonBuilder gb, Charset charset) {
+        return gb.create().fromJson(new InputStreamReader(stream, charset), getType());
     }
 
     private static Type getType() {

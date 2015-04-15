@@ -24,7 +24,9 @@ package org.siani.itrules;
 
 import org.siani.itrules.engine.RuleSet;
 
+import java.nio.charset.Charset;
+
 public interface RuleSetReader {
 
-	public RuleSet read();
+	RuleSet read(Charset charset);
 }

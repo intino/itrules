@@ -2,8 +2,6 @@ import org.siani.itrules.Function;
 import org.siani.itrules.TemplateEngine;
 import org.siani.itrules.engine.Trigger;
 
-import java.io.File;
-
 public class ExampleCustomCondition {
 
     public static class Person {
@@ -43,7 +41,7 @@ public class ExampleCustomCondition {
                     new Cat("Missy", 1),
                     new Dog("Toby", 3)
             );
-            TemplateEngine engine = new TemplateEngine().use(new File("samples/templates/CustomCondition.itr"));
+            TemplateEngine engine = new TemplateEngine().use("samples/templates/CustomCondition.itr");
             engine.add("one", new Function() {
                 @Override
                 public boolean match(Trigger trigger, String parameter) {

@@ -1,6 +1,6 @@
 package org.siani.itrules.engine;
 
-import org.siani.itrules.File;
+import org.siani.itrules.Source;
 import org.siani.itrules.RuleSetReader;
 import org.siani.itrules.engine.logger.DebugLogger;
 
@@ -12,31 +12,35 @@ import java.lang.reflect.InvocationTargetException;
 
 public class RuleSetLoader {
 
-    public static RuleSet load(File file) {
+    public static RuleSet load(Source source) {
         try {
-            return ruleSetReader(file).read();
+            return ruleSetReader(source).read(source.charset());
         } catch (Exception e) {
-            new DebugLogger().debug("RuleSet %s could not be load\n\t%s", file.getName(), e.getMessage());
+            new DebugLogger().debug("RuleSet %s could not be load\n\t%s", source.getName(), e.getMessage());
             return new RuleSet();
         }
     }
 
-    private static RuleSetReader ruleSetReader(File file) throws ClassNotFoundException, NoSuchMethodException, FileNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Constructor<RuleSetReader> constructor = ruleSetReaderClass(file).getConstructor(InputStream.class);
-        return constructor.newInstance(new FileInputStream(file));
+    private static RuleSetReader ruleSetReader(Source source) throws ClassNotFoundException, NoSuchMethodException, FileNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Constructor<RuleSetReader> constructor = ruleSetReaderClass(source).getConstructor(InputStream.class);
+        return constructor.newInstance(new FileInputStream(source));
     }
 
     @SuppressWarnings("unchecked")
-    private static Class<RuleSetReader> ruleSetReaderClass(File file) throws ClassNotFoundException {
-        return (Class<RuleSetReader>) Class.forName(of(file));
+    private static Class<RuleSetReader> ruleSetReaderClass(Source source) throws ClassNotFoundException {
+        return (Class<RuleSetReader>) Class.forName(of(source));
     }
 
-    private static String of(File file) {
-        return "org.siani.itrules.reader." + extension(file.getName()) + ".RuleSetReader";
+    private static String of(Source source) {
+        return "org.siani.itrules.readers." + capitalize(extension(source.getName())) + "RuleSetReader";
     }
 
     private static String extension(String name) {
-        return name.substring(name.lastIndexOf(".") + 1).toLowerCase();
+        return name.substring(name.lastIndexOf(".") + 1);
+    }
+
+    private static String capitalize(String text) {
+        return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
     }
 
 }

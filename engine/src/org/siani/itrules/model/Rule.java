@@ -24,6 +24,7 @@ package org.siani.itrules.model;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Rule extends Token {
@@ -36,8 +37,8 @@ public class Rule extends Token {
 		conditions = new ArrayList<>();
 	}
 
-    public Rule add(Condition condition) {
-        this.conditions.add(condition);
+    public Rule add(Condition... conditions) {
+        Collections.addAll(this.conditions, conditions);
         return this;
     }
 

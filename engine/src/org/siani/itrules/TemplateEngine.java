@@ -25,9 +25,7 @@ package org.siani.itrules;
 import org.siani.itrules.engine.*;
 import org.siani.itrules.model.*;
 
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Stack;
+import java.util.*;
 
 public class TemplateEngine {
 
@@ -42,12 +40,12 @@ public class TemplateEngine {
 		this(Locale.getDefault(), Encoding.getDefault());
 	}
 
-	public TemplateEngine(Locale locale, Encoding encoding) {
+	public TemplateEngine(Locale locale, Encoding outEncoding) {
 		this.ruleSet.add(defaultRule());
 		this.formatterStore = new FormatterStore(locale);
 		this.functionStore = new FunctionStore();
 		this.frameBuilder = new FrameBuilder();
-		this.encoding = encoding;
+		this.encoding = outEncoding;
 	}
 
 	private TemplateEngine(TemplateEngine engine) {
@@ -58,23 +56,35 @@ public class TemplateEngine {
 		this.encoding = engine.encoding;
 	}
 
-	public TemplateEngine use(File template) {
-		this.ruleSet.add(RuleSetLoader.load(template));
+	public TemplateEngine use(String pathname) {
+		return use(new Source(pathname));
+	}
+
+	public TemplateEngine use(String pathname, String format) {
+		return use(new Source(pathname), format);
+	}
+
+	public TemplateEngine use(Source source) {
+		this.ruleSet.add(RuleSetLoader.load(source));
 		return this;
 	}
 
-	public TemplateEngine use(final File template, String formatter) {
-		formatterStore.add(formatter, new Formatter() {
+	public TemplateEngine use(final Source source, String format) {
+		formatterStore.add(format, new Formatter() {
 			@Override
 			public Object format(Object value) {
-				return new TemplateEngine(TemplateEngine.this).use(template).render(value);
+				return new TemplateEngine(TemplateEngine.this).use(source).render(value);
 			}
 		});
 		return this;
 	}
 
 	TemplateEngine add(Rule... rules) {
-		for (Rule rule : rules) this.ruleSet.add(rule);
+		return add(Arrays.asList(rules));
+	}
+
+	TemplateEngine add(List<Rule> rules) {
+		this.ruleSet.add(rules);
 		return this;
 	}
 
@@ -88,8 +98,8 @@ public class TemplateEngine {
 		return this;
 	}
 
-	public TemplateEngine add(Class aClass, Adapter adapter) {
-		frameBuilder.register(aClass, adapter);
+	public TemplateEngine add(Class class_, Adapter adapter) {
+		frameBuilder.register(class_, adapter);
 		return this;
 	}
 
@@ -238,6 +248,7 @@ public class TemplateEngine {
 			buffer().used();
 		}
 	}
+
 
 	private static class TriggerMark extends AbstractMark {
 

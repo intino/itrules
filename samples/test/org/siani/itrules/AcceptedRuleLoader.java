@@ -27,12 +27,8 @@ import org.junit.Test;
 import org.siani.itrules.cases.Message;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import static org.siani.itrules.cases.Message.*;
 
@@ -58,7 +54,7 @@ public class AcceptedRuleLoader {
     }
 
     private TemplateEngine ruleEngine(String name) {
-        return new TemplateEngine(Locale.ENGLISH).use(new File(name));
+        return new TemplateEngine().use(new Source(name));
     }
 
     private String template(String name) {

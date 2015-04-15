@@ -1,6 +1,5 @@
 import org.siani.itrules.TemplateEngine;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -22,7 +21,7 @@ public class Example {
     public static void main(String[] args) {
         Person person = new Person("Pau Gasol", date(1980, Calendar.JULY, 6), "spain");
 
-        TemplateEngine engine = new TemplateEngine().use(new File("samples/templates/Person.itr"));
+        TemplateEngine engine = new TemplateEngine().use("samples/templates/Person.itr");
         System.out.println(engine.render(person));
     }
 

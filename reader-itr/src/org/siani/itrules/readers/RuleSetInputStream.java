@@ -20,18 +20,25 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.reader.itr;
+package org.siani.itrules.readers;
+
+import org.siani.itrules.engine.logger.DebugLogger;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 
 final class RuleSetInputStream extends InputStream {
 
 	private int index = 0;
 	private byte[] content;
 
-	public RuleSetInputStream(InputStream source) {
-		content = read(source).getBytes(StandardCharsets.UTF_8);
+	public RuleSetInputStream(InputStream source, Charset charset) {
+		try {
+			content = read(source, charset).getBytes(charset);
+		} catch (IOException e) {
+			new DebugLogger().debug(e.getMessage());
+			content = new byte[0];
+		}
 	}
 
 	@Override
@@ -39,33 +46,20 @@ final class RuleSetInputStream extends InputStream {
 		return index >= content.length ? -1 : content[index++];
 	}
 
-	private String read(InputStream source) {
+	private String read(InputStream source, Charset charset) throws IOException {
 		StringBuilder out = new StringBuilder();
-		try {
-			Reader in = new InputStreamReader(source, "UTF-8");
-			try {
-				while (true) {
-					int rsz = in.read();
-					if (rsz < 0)
-						break;
-					out.append((char) rsz);
-				}
-			} finally {
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		try (Reader in = new InputStreamReader(source, charset)) {
+			read(in, out);
 		}
-		try {
-			return new String(out.toString().getBytes(), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		return new String(out.toString().getBytes(), charset);
+	}
+
+	private void read(Reader in, StringBuilder out) throws IOException {
+		while (true) {
+			int code = in.read();
+			if (code < 0) break;
+			out.append((char) code);
 		}
-		return null;
 	}
 
 }
