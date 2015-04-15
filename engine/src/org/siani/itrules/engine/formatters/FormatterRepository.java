@@ -23,6 +23,7 @@
 package org.siani.itrules.engine.formatters;
 
 import org.siani.itrules.Formatter;
+import org.siani.itrules.engine.formatters.inflectors.TemplateFormatter;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -63,9 +64,10 @@ public final class FormatterRepository {
 		add("Length", length());
 		add("TwoDecimals", twoDecimals());
 		add("Plural", plural());
+		add("Template", template());
 	}
 
-    private static void add(String name, Formatter formatter) {
+	private static void add(String name, Formatter formatter) {
         map.put(name.toLowerCase(), formatter);
     }
 
@@ -78,7 +80,6 @@ public final class FormatterRepository {
 		};
 	}
 
-
 	private static Formatter lowerCase() {
 		return new Formatter() {
 			@Override
@@ -87,6 +88,7 @@ public final class FormatterRepository {
 			}
 		};
 	}
+
 
 	private static Formatter camelCase() {
 		return new Formatter() {
@@ -142,6 +144,10 @@ public final class FormatterRepository {
 
 	private static Formatter plural() {
 		return new PluralFormatter(locale);
+	}
+
+	private static Formatter template() {
+		return new TemplateFormatter();
 	}
 
 	private static Formatter year() {

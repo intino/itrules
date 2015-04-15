@@ -23,7 +23,7 @@
 package org.siani.itrules.reader.itr;
 
 import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.parser.TemplateCompiler;
+import org.siani.itrules.parser.TemplateParser;
 
 import java.io.InputStream;
 
@@ -40,6 +40,6 @@ public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
     }
 
 	public RuleSet read() {
-        return new RuleSet(new TemplateCompiler().compile(stream(inputStream)));
+        return new RuleSet(new TemplateParser().parse(stream(inputStream)));
 	}
 }

@@ -22,31 +22,21 @@
 
 package org.siani.itrules.engine;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
+import org.siani.itrules.Encoding;
 
-import static org.siani.itrules.engine.Document.LineSeparator.CRLF;
-import static org.siani.itrules.engine.Document.LineSeparator.LF;
+import java.io.UnsupportedEncodingException;
 
 public final class Document {
 
-	public enum LineSeparator {LF, CRLF}
-
-	private final Charset charset;
-	private final LineSeparator lineSeparator;
 	private final StringBuilder content;
+    private final Encoding encoding;
 
-	public Document() {
-		this(Charset.forName("UTF-8"), LF);
-	}
-
-	public Document(Charset charset, LineSeparator lineSeparator) {
-		this.charset = charset;
-		this.lineSeparator = lineSeparator;
-        this.content = new StringBuilder("");
+    public Document(Encoding encoding) {
+        this.content = new StringBuilder();
+        this.encoding = encoding;
     }
 
-	public void write(Buffer buffer) {
+    public void write(Buffer buffer) {
 		content.append(buffer);
 	}
 
@@ -80,11 +70,11 @@ public final class Document {
     private static final String EmptyLineWithTab = NewLine + Tab + "+" + NewLine;
 
     private String applyCharset(String result) {
-        return new String(result.getBytes(), charset);
+        return new String(result.getBytes(), encoding.charset());
     }
 
     private String applyLineSeparator(String result) {
-        return result.replaceAll(NewLine, lineSeparator == CRLF ? "\r\n" : "\n");
+        return result.replaceAll(NewLine, encoding.lineSeparator());
     }
 
     private String cleanEscapedFirstLines(String result) {

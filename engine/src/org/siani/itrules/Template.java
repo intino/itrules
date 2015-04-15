@@ -8,16 +8,12 @@ public abstract class Template {
 
     private final TemplateEngine engine;
 
-    public Template() {
-        this.engine = new TemplateEngine(Locale.getDefault());
+    public Template(Locale locale, Encoding encoding) {
+        this.engine = new TemplateEngine(locale, encoding);
         this.definition();
     }
 
-    public Template(Locale locale) {
-        this.engine = new TemplateEngine(locale);
-    }
-
-    public abstract void definition();
+    protected abstract void definition();
 
     protected Rule rule() {
         return new Rule();

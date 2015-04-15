@@ -1,9 +1,9 @@
 package org.siani.itrules.engine;
 
+import org.siani.itrules.File;
 import org.siani.itrules.RuleSetReader;
 import org.siani.itrules.engine.logger.DebugLogger;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;

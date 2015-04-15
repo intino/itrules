@@ -37,13 +37,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class TemplateCompiler {
+public final class TemplateParser {
 
 	private final Logger logger = new DebugLogger();
 	private final List<Rule> rules = new ArrayList<>();
 
 
-	public List<Rule> compile(InputStream stream) {
+	public List<Rule> parse(InputStream stream) {
 		try {
 			parseTemplate(new ANTLRInputStream(stream));
 			return rules;
