@@ -1,5 +1,6 @@
 <idea-plugin version="2">
   <id>siani.dev.itrules</id>
+  <depends>org.jetbrains.idea.maven</depends>
   <name>Itrules</name>
   <version>RC1</version>
   <vendor email="support.itrules@siani.es" url="http://www.siani.es">Itrules: Intelligent Template Engine Rules Based
@@ -32,23 +33,29 @@
   <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>-->
 
-
   <actions>
     <action id="NewItrFile" class="org.siani.itrules.intellij.actions.CreateItrFileAction">
       <add-to-group group-id="NewGroup" anchor="first"/>
     </action>
-    <action id="toJson" class="org.siani.itrules.intellij.actions.json.JsonGeneration" text="Generate JSON Object"
-            description="Generates a JSON Object of the actual itrules template">
-      <add-to-group group-id="ToolsMenu" anchor="before" relative-to-action="com.intellij.tools.ExternalToolsGroup"/>
-    </action>
-    <action id="toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration"
-            text="Generate Java Template"
-            description="Generates the corresponding Java representation of the template">
-      <keyboard-shortcut keymap="$default" first-keystroke="control shift J"/>
-      <add-to-group group-id="ToolsMenu" anchor="before" relative-to-action="com.intellij.tools.ExternalToolsGroup"/>
-      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
-      <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
-    </action>
+
+    <group id="ItrulesMenu" text="Itrules" description="Itrules Menu">
+      <add-to-group group-id="MainMenu" anchor="last"/>
+      <action id="itrules.toJson" class="org.siani.itrules.intellij.actions.json.JsonGeneration"
+              text="Generate JSON Object"
+              description="Generates a JSON Object of the actual itrules template">
+        <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+      </action>
+
+      <action id="itrules.toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration"
+              text="Generate Java Template"
+              description="Generates the corresponding Java representation of the template">
+        <keyboard-shortcut keymap="$default" first-keystroke="control shift J"/>
+        <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+      </action>
+    </group>
+
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
@@ -57,7 +64,7 @@
     <facetType implementation="org.siani.itrules.intellij.facet.ItrulesFacetType"/>
     <framework.type implementation="org.siani.itrules.intellij.framework.ItrulesFrameworkType"/>
     <fileTypeFactory implementation="org.siani.itrules.intellij.lang.file.ItrulesFileTypeFactory"/>
-    <!--<lang.parserDefinition language="Itrules" implementationClass="org.siani.itrules.intellij.lang.parser.ItrulesParserDefinition"/>-->
+    <lang.parserDefinition language="Itrules" implementationClass="org.siani.itrules.intellij.lang.parser.ItrulesParserDefinition"/>
     <lang.syntaxHighlighterFactory key="Itrules"
                                    implementationClass="org.siani.itrules.intellij.highlighting.ItrulesSyntaxHighlighterFactory"/>
     <lang.braceMatcher language="Itrules"

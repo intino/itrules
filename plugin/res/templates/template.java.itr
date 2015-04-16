@@ -5,19 +5,29 @@ defrule type(ruleset)
 
 	public class $name+FirstUpperCase~Template extends Template {
 
+		public $name+FirstUpperCase~Template(Locale locale, Encoding encoding) {
+			super(locale, encoding);
+		}
+
+		public $name+FirstUpperCase~Template() {
+            super(Locale.getDefault(), Encoding.getDefault());
+        }
+
 	    @Override
 	    public void definition() {
-	        $rule...[$NL]
+	        add(
+	            $rule...[,$NL]
+	        );
 	    }
 	}
 endrule
 
 defrule type(rule) trigger(rule)
-	add(rule()$conditions...[]$tokens...[]);
+	rule()[.add($conditions...[, ])]$tokens...[]
 endrule
 
 defrule type(condition) trigger(conditions)
-	.add(condition($name+string, $parameter+string))
+	condition($name+string, $parameter+string)
 endrule
 
 defrule type(token) type(literal) trigger(tokens)

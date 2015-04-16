@@ -2,7 +2,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.intellij.actions.java.TemplateRulesWriter;
-import org.siani.itrules.reader.itr.RuleSetReader;
+import org.siani.itrules.readers.ItrRuleSetReader;
+
+import java.nio.charset.Charset;
 
 public class TemplateGeneration {
 
@@ -22,8 +24,8 @@ public class TemplateGeneration {
 
 	@Test
 	public void accept_generate_template_for_roster_itr() throws Exception {
-		RuleSetReader reader = new RuleSetReader(TemplateGeneration.class.getResourceAsStream("/Roster.itr"));
-		RuleSet read = reader.read();
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Roster.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
 		Assert.assertEquals(expected, new TemplateRulesWriter("Roster", "org.sample").toJava(read));
 	}
 }

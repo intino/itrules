@@ -25,11 +25,9 @@ package org.siani.itrules.intellij.actions.java;
 import org.jetbrains.annotations.NotNull;
 import org.siani.itrules.Adapter;
 import org.siani.itrules.Formatter;
-import org.siani.itrules.TemplateEngine;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.Rule;
-import org.siani.itrules.reader.itr.RuleSetReader;
 
 import java.net.URISyntaxException;
 
@@ -43,11 +41,12 @@ public class TemplateRulesWriter {
 		this.aPackage = aPackage;
 	}
 
+	@NotNull
 	public String toJava(final RuleSet rules) throws URISyntaxException {
-		TemplateEngine engine = new TemplateEngine().add(getRuleSet());
-		engine.add("string", buildStringFormatter());
-		engine.add(RuleSet.class, buildRuleSetAdapter(rules));
-		return engine.render(rules);
+		JavaItrulesTemplate template = new JavaItrulesTemplate();
+		template.add("string", buildStringFormatter());
+		template.add(RuleSet.class, buildRuleSetAdapter(rules));
+		return template.render(rules);
 	}
 
 	@NotNull
@@ -76,10 +75,5 @@ public class TemplateRulesWriter {
 			}
 
 		};
-	}
-
-	@NotNull
-	private RuleSet getRuleSet() {
-		return new RuleSetReader(this.getClass().getResourceAsStream("/templates/template.java.itr")).read();
 	}
 }

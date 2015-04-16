@@ -10,7 +10,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.reader.itr.RuleSetReader;
+import org.siani.itrules.readers.ItrRuleSetReader;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -53,7 +53,7 @@ public class RunTemplateGeneration extends Task.Modal {
 
 	@NotNull
 	private RuleSet rules() throws IOException {
-		return new RuleSetReader(this.rulesFile.getInputStream()).read();
+		return new ItrRuleSetReader(this.rulesFile.getInputStream()).read(rulesFile.getCharset());
 	}
 
 	private void toJava(RuleSet rules) throws IOException, URISyntaxException {

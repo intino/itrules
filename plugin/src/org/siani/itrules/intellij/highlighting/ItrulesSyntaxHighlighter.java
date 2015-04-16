@@ -8,7 +8,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.openapi.util.Pair;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
-import org.siani.itrules.intellij.lang.lexer.LexerAdapter;
+import org.siani.itrules.intellij.lang.lexer.ItrulesLexerAdapter;
 import org.siani.itrules.intellij.lang.psi.ItrulesTypes;
 
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class ItrulesSyntaxHighlighter extends SyntaxHighlighterBase implements I
 	@NotNull
 	@Override
 	public Lexer getHighlightingLexer() {
-		return new LexerAdapter();
+		return new ItrulesLexerAdapter();
 	}
 
 	@NotNull
