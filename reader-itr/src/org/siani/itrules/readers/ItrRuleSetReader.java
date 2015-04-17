@@ -24,6 +24,7 @@ package org.siani.itrules.readers;
 
 import org.siani.itrules.RuleSetReader;
 import org.siani.itrules.engine.RuleSet;
+import org.siani.itrules.parser.ITRulesSyntaxError;
 import org.siani.itrules.parser.TemplateParser;
 
 import java.io.InputStream;
@@ -41,7 +42,7 @@ public final class ItrRuleSetReader implements RuleSetReader {
         return new RuleSetInputStream(stream, charset);
     }
 
-	public RuleSet read(Charset charset) {
+	public RuleSet read(Charset charset) throws ITRulesSyntaxError {
         return new RuleSet(new TemplateParser().parse(stream(inputStream, charset)));
 	}
 }

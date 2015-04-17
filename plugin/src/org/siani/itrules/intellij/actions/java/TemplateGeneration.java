@@ -34,20 +34,31 @@ public class TemplateGeneration extends GenerationAction {
 		Project project = e.getData(PlatformDataKeys.PROJECT);
 		if (projectExists(e, project)) return;
 		VirtualFile rulesFile = getVirtualFile(e);
-		if (rulesFile == null) return;
-		String title = "Generate Template";
-		if (checkDocument(project, rulesFile)) return;
-		RunTemplateGeneration gen = null;
+		if (rulesFile == null || checkDocument(project, rulesFile)) return;
+		RunTemplateGeneration javaGeneration;
+		File destiny;
 		try {
-			File destiny = getDestinyFile(project, rulesFile);
-			gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, new File(getModuleOf(project, rulesFile).getModuleFilePath()).getParentFile()));
-			ProgressManager.getInstance().run(gen);
-			refreshAndNotify(project, rulesFile, destiny);
-		} catch (Exception exception) {
-			Notifications.Bus.notify(
-				new Notification("Itrules Template Generation", "Error occurred during template generation", exception.getMessage(), NotificationType.ERROR), project);
+			destiny = getDestinyFile(project, rulesFile);
+			javaGeneration = createTask(project, rulesFile, "Generate Template", destiny);
+		} catch (Exception e1) {
+			error(project, e1.getMessage());
+			return;
 		}
+		ProgressManager manager = ProgressManager.getInstance();
+		manager.run(javaGeneration);
+		if (!javaGeneration.getIndicator().isCanceled()) refreshAndNotify(project, rulesFile, destiny);
+		else error(project, javaGeneration.getIndicator().getText());
 
+	}
+
+	@NotNull
+	private RunTemplateGeneration createTask(Project project, VirtualFile rulesFile, String title, File destiny) throws Exception {
+		return new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, new File(getModuleOf(project, rulesFile).getModuleFilePath()).getParentFile()));
+	}
+
+	private void error(Project project, String message) {
+		Notifications.Bus.notify(
+			new Notification("Itrules Template Generation", "Error occurred during template generation", message, NotificationType.ERROR), project);
 	}
 
 	@NotNull

@@ -1,0 +1,27 @@
+{
+	parserClass='org.siani.itrules.intellij.lang.parser.ItrulesParser'
+	parserUtilClass="org.siani.itrules.intellij.lang.parser.ItrulesParserUtil"
+	psiVisitorName="ItrulesVisitor"
+	extends='com.intellij.extapi.psi.ASTWrapperPsiElement'
+	implements='org.siani.itrules.intellij.lang.psi.ItrulesPsiElement'
+	psiClassPrefix='Itrules'
+	psiImplClassSuffix='Impl'
+	psiPackage='org.siani.itrules.intellij.lang.psi'
+	psiImplPackage='org.siani.itrules.intellij.lang.psi.impl'
+
+	elementTypeHolderClass='org.siani.itrules.intellij.lang.psi.ItrulesTypes'
+	elementTypeClass='org.siani.itrules.intellij.lang.psi.ItrulesElementType'
+	tokenTypeClass='org.siani.itrules.intellij.lang.psi.ItrulesTokenType'
+
+}
+
+root ::= (SCAPED_CHAR
+         | RULE_BEGIN
+         | RULE_END
+         | DASH
+         | UNDERDASH
+         | MARK
+         | LEFT_SQUARE
+         | RIGHT_SQUARE
+         | IDENTIFIER_KEY
+         | TEXT)*;

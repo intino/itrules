@@ -35,5 +35,5 @@ IDENTIFIER_KEY      = [:jletter:] ([:jletterdigit:] | {UNDERDASH} | {DASH})*
 	{SCAPED_CHAR}                   {   return ItrulesTypes.SCAPED_CHAR; }
 }
 
-[^]                                 { return TokenType.BAD_CHARACTER;}
-.                                   { return TokenType.BAD_CHARACTER;}
+[^]                                 { return ItrulesTypes.TEXT;}
+.                                   { return ItrulesTypes.TEXT;}
