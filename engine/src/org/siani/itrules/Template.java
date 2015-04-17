@@ -44,23 +44,13 @@ public abstract class Template {
 		return this;
 	}
 
-	public Template add(String format, Formatter formatter) {
-		engine.add(format, formatter);
+	public Template add(String name, Formatter formatter) {
+		engine.add(name, formatter);
 		return this;
 	}
 
-	public Template add(String format, final Template template) {
-		engine.add(format, new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return template.render(value);
-			}
-		});
-		return this;
-	}
-
-	public Template add(String function, Function instance) {
-		engine.add(function, instance);
+	public Template add(String name, Function function) {
+		engine.add(name, function);
 		return this;
 	}
 
