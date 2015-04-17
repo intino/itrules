@@ -1,9 +1,5 @@
 #!/bin/bash
 
-FILE_CURRENT=`readlink -e $0`
-DIR_CURRENT=`dirname $FILE_CURRENT`
-DIR_PARENT=`dirname $DIR_CURRENT`
-
 function get_release {
   TAGS=`git tag`
   STABLE=""
