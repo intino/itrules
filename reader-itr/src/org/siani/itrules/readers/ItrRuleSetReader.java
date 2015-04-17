@@ -20,26 +20,29 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.reader.itr;
+package org.siani.itrules.readers;
 
+import org.siani.itrules.RuleSetReader;
 import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.parser.TemplateCompiler;
+import org.siani.itrules.parser.ITRulesSyntaxError;
+import org.siani.itrules.parser.TemplateParser;
 
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
-public final class RuleSetReader implements org.siani.itrules.RuleSetReader {
+public final class ItrRuleSetReader implements RuleSetReader {
 
     private InputStream inputStream;
 
-    public RuleSetReader(InputStream inputStream) {
+    public ItrRuleSetReader(InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
-    private InputStream stream(InputStream stream) {
-        return new RuleSetInputStream(stream);
+    private InputStream stream(InputStream stream,Charset charset) {
+        return new RuleSetInputStream(stream, charset);
     }
 
-	public RuleSet read() {
-        return new RuleSet(new TemplateCompiler().compile(stream(inputStream)));
+	public RuleSet read(Charset charset) throws ITRulesSyntaxError {
+        return new RuleSet(new TemplateParser().parse(stream(inputStream, charset)));
 	}
 }

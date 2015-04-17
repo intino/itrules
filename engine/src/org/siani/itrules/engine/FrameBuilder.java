@@ -57,6 +57,7 @@ public final class FrameBuilder {
 	}
 
 	private Frame frame(Object object) {
+		if (object instanceof Frame) return (Frame) object;
 		fillTypes(object);
 		fillSlots(object);
 		return frame;

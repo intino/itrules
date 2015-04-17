@@ -24,7 +24,10 @@ package org.siani.itrules.parser;
 
 public class ITRulesSyntaxError extends Exception {
 
+
 	public ITRulesSyntaxError(String message) {
 		super(message);
 	}
+
+
 }

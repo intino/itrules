@@ -1,6 +1,5 @@
 import org.siani.itrules.TemplateEngine;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class ExampleMultivalue {
         message.addLine("I wish the Ring had never come to me.");
         message.addLine("I wish none of this had happened.");
 
-        TemplateEngine engine = new TemplateEngine().use(new File("samples/templates/Multivalue.itr"));
+        TemplateEngine engine = new TemplateEngine().use("samples/templates/Multivalue.itr");
         System.out.println(engine.render(message));
     }
 

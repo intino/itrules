@@ -26,15 +26,22 @@ public class JsonGeneration extends GenerationAction {
 		if (checkDocument(project, rulesFile)) return;
 		Module moduleOf = getModuleOf(project, rulesFile);
 		File destiny = new File(findDestiny(project, moduleOf, rulesFile), rulesFile.getName() + JSON);
-		RunJsonGeneration gen = new RunJsonGeneration(rulesFile, project, title, destiny);
-		ProgressManager.getInstance().run(gen);
+		RunJsonGeneration jsonGeneration = new RunJsonGeneration(rulesFile, project, title, destiny);
+		ProgressManager.getInstance().run(jsonGeneration);
 		refreshFiles(destiny);
-		notify(project, rulesFile, destiny);
+		if (!jsonGeneration.getIndicator().isCanceled())
+			notify(project, rulesFile, destiny);
+		else error(project, jsonGeneration.getIndicator().getText());
 	}
 
 	private void notify(Project project, VirtualFile rulesFile, File destiny) {
 		Notifications.Bus.notify(
 			new Notification("Itrules JSON Generation", "JSON for " + rulesFile.getName() + " generated", "to " + destiny.getPath(), NotificationType.INFORMATION), project);
+	}
+
+	private void error(Project project, String message) {
+		Notifications.Bus.notify(
+			new Notification("Itrules JSON Generation", "Error occurred during template generation", message, NotificationType.ERROR), project);
 	}
 
 	protected String findDestiny(Project project, Module module, VirtualFile file) {

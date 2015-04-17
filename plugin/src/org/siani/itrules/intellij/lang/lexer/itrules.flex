@@ -27,13 +27,13 @@ IDENTIFIER_KEY      = [:jletter:] ([:jletterdigit:] | {UNDERDASH} | {DASH})*
 
 %%
 <YYINITIAL> {
-	{RULE_BEGIN}                        {   return ItrulesTypes.RULE_BEGIN; }
-	{RULE_END}                          {   return ItrulesTypes.RULE_END; }
-	{MARK}                              {   return ItrulesTypes.MARK; }
-	{LEFT_SQUARE}                       {   return ItrulesTypes.LEFT_SQUARE; }
-	{RIGHT_SQUARE}                      {   return ItrulesTypes.RIGHT_SQUARE; }
-	{SCAPED_CHAR}                       {   return ItrulesTypes.SCAPED_CHAR; }
+	{RULE_BEGIN}                    {   return ItrulesTypes.RULE_BEGIN; }
+	{RULE_END}                      {   return ItrulesTypes.RULE_END; }
+	{MARK}                          {   return ItrulesTypes.MARK; }
+	{LEFT_SQUARE}                   {   return ItrulesTypes.LEFT_SQUARE; }
+	{RIGHT_SQUARE}                  {   return ItrulesTypes.RIGHT_SQUARE; }
+	{SCAPED_CHAR}                   {   return ItrulesTypes.SCAPED_CHAR; }
 }
 
-[^]                                 { return TokenType.BAD_CHARACTER;}
-.                                   { return TokenType.BAD_CHARACTER;}
+[^]                                 { return ItrulesTypes.TEXT;}
+.                                   { return ItrulesTypes.TEXT;}

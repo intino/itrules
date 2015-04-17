@@ -57,8 +57,9 @@ public class Frame implements AbstractFrame {
 		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
 	}
 
-	public void addTypes(String... types) {
+	public Frame addTypes(String... types) {
 		Collections.addAll(this.types, types);
+		return this;
 	}
 
 	public Frame addFrame(String slot, AbstractFrame frame) {

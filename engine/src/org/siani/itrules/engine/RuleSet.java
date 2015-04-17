@@ -30,24 +30,29 @@ import java.util.List;
 
 public final class RuleSet implements Iterable<Rule> {
 
-    private final List<Rule> rules = new ArrayList<>();
+	private final List<Rule> rules = new ArrayList<>();
 
-    public RuleSet() {}
+	public RuleSet() {
+	}
 
-    public RuleSet(List<Rule> rules) {
-        this.rules.addAll(0, rules);
-    }
+	public RuleSet(List<Rule> rules) {
+		this.rules.addAll(0, rules);
+	}
 
-    public void add(RuleSet ruleSet) {
-        rules.addAll(0, ruleSet.rules);
-    }
+	public void add(RuleSet ruleSet) {
+		add(ruleSet.rules);
+	}
 
-    public void add(Rule rule) {
-        rules.add(0, rule);
-    }
+	public void add(List<Rule> rules) {
+		this.rules.addAll(0, rules);
+	}
 
-    @Override
-    public Iterator<Rule> iterator() {
-        return rules.iterator();
-    }
+	public void add(Rule rule) {
+		rules.add(0, rule);
+	}
+
+	@Override
+	public Iterator<Rule> iterator() {
+		return rules.iterator();
+	}
 }

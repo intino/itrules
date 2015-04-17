@@ -5,10 +5,12 @@ import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ContentEntry;
+import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.roots.SourceFolder;
 import com.intellij.openapi.util.io.FileUtil;
@@ -32,20 +34,31 @@ public class TemplateGeneration extends GenerationAction {
 		Project project = e.getData(PlatformDataKeys.PROJECT);
 		if (projectExists(e, project)) return;
 		VirtualFile rulesFile = getVirtualFile(e);
-		if (rulesFile == null) return;
-		String title = "Generate Template";
-		if (checkDocument(project, rulesFile)) return;
-		RunTemplateGeneration gen = null;
+		if (rulesFile == null || checkDocument(project, rulesFile)) return;
+		RunTemplateGeneration javaGeneration;
+		File destiny;
 		try {
-			File destiny = getDestinyFile(project, rulesFile);
-			gen = new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, new File(getModuleOf(project, rulesFile).getModuleFilePath()).getParentFile()));
-			ProgressManager.getInstance().run(gen);
-			refreshAndNotify(project, rulesFile, destiny);
-		} catch (Exception exception) {
-			Notifications.Bus.notify(
-				new Notification("Itrules Template Generation", "Error occurred during template generation", exception.getMessage(), NotificationType.ERROR), project);
+			destiny = getDestinyFile(project, rulesFile);
+			javaGeneration = createTask(project, rulesFile, "Generate Template", destiny);
+		} catch (Exception e1) {
+			error(project, e1.getMessage());
+			return;
 		}
+		ProgressManager manager = ProgressManager.getInstance();
+		manager.run(javaGeneration);
+		if (!javaGeneration.getIndicator().isCanceled()) refreshAndNotify(project, rulesFile, destiny);
+		else error(project, javaGeneration.getIndicator().getText());
 
+	}
+
+	@NotNull
+	private RunTemplateGeneration createTask(Project project, VirtualFile rulesFile, String title, File destiny) throws Exception {
+		return new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, new File(getModuleOf(project, rulesFile).getModuleFilePath()).getParentFile()));
+	}
+
+	private void error(Project project, String message) {
+		Notifications.Bus.notify(
+			new Notification("Itrules Template Generation", "Error occurred during template generation", message, NotificationType.ERROR), project);
 	}
 
 	@NotNull
@@ -77,20 +90,35 @@ public class TemplateGeneration extends GenerationAction {
 		String path = file.getParent().getPath();
 		if (!new File(moduleDir.getPath(), "templates").exists()) throw new Exception("templates directory not found");
 		String modulePath = new File(moduleDir.getPath(), "templates").getPath();
-		return new File(path).toURI().getPath().replace(new File(modulePath).toURI().getPath(), "").replace(separator, ".");
+		return format(path, modulePath);
 	}
 
-	private SourceFolder createGen(Module module) {
-		ContentEntry[] contentEntries = ModuleRootManager.getInstance(module).getModifiableModel().getContentEntries();
-		File moduleDirectory = new File(module.getModuleFilePath()).getParentFile();
-		String gen = moduleDirectory.getPath() + separator + "gen";
-		new File(gen).mkdirs();
-		final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
-		if (sourceRoot != null) {
-			JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", true);
-			return contentEntries[0].addSourceFolder(sourceRoot, JavaSourceRootType.SOURCE, properties);
-		}
-		return null;
+	private String format(String path, String modulePath) {
+		String name = new File(path).toURI().getPath().replace(new File(modulePath).toURI().getPath(), "");
+		if (name.endsWith(separator)) name = name.substring(0, name.length() - 1);
+		return name.replace(separator, ".");
+	}
+
+	private SourceFolder createGen(final Module module) {
+		final SourceFolder[] sourceFolder = {null};
+		ApplicationManager.getApplication().runWriteAction(new Runnable() {
+			@Override
+			public void run() {
+				ModifiableRootModel modifiableModel = ModuleRootManager.getInstance(module).getModifiableModel();
+				ContentEntry[] contentEntries = modifiableModel.getContentEntries();
+				File moduleDirectory = new File(module.getModuleFilePath()).getParentFile();
+				String gen = moduleDirectory.getPath() + separator + "gen";
+				new File(gen).mkdirs();
+				final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
+				if (sourceRoot != null) {
+					JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", true);
+					sourceFolder[0] = contentEntries[0].addSourceFolder(sourceRoot, JavaSourceRootType.SOURCE, properties);
+				}
+				modifiableModel.commit();
+			}
+		});
+
+		return sourceFolder[0];
 	}
 
 	@NotNull

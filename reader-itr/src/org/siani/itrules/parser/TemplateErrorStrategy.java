@@ -22,14 +22,11 @@
 
 package org.siani.itrules.parser;
 
-import org.antlr.v4.runtime.DefaultErrorStrategy;
-import org.antlr.v4.runtime.Parser;
-import org.antlr.v4.runtime.RecognitionException;
-import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.*;
 
 public class TemplateErrorStrategy extends DefaultErrorStrategy {
 
-	private void printParameters(Parser recognizer) {
+	private void debugParameters(Parser recognizer) {
 		Token token = recognizer.getCurrentToken();
 		String[] nameList = recognizer.getTokenNames();
 		System.out.println("Line: " + token.getLine());
@@ -41,24 +38,37 @@ public class TemplateErrorStrategy extends DefaultErrorStrategy {
 	}
 
 	@Override
-	public void recover(Parser recognizer, RecognitionException e) {
-		printParameters(recognizer);
-		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
-	}
-
-	@Override
-	public Token recoverInline(Parser recognizer) throws RecognitionException {
-		printParameters(recognizer);
-		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
-	}
-
-	@Override
 	public void reportError(Parser recognizer, RecognitionException e) {
-		printParameters(recognizer);
 		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
 	}
 
 	@Override
-	public void sync(Parser recognizer) {
+	protected void reportNoViableAlternative(Parser recognizer, NoViableAltException e) {
+		super.reportNoViableAlternative(recognizer, e);
+		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
+	}
+
+	@Override
+	protected void reportInputMismatch(Parser recognizer, InputMismatchException e) {
+		super.reportInputMismatch(recognizer, e);
+		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
+	}
+
+	@Override
+	protected void reportFailedPredicate(Parser recognizer, FailedPredicateException e) {
+		super.reportFailedPredicate(recognizer, e);
+		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
+	}
+
+	@Override
+	protected void reportUnwantedToken(Parser recognizer) {
+		super.reportUnwantedToken(recognizer);
+		throw new RecognitionException(recognizer, recognizer.getInputStream(), recognizer.getContext());
+
+	}
+
+	@Override
+	protected void reportMissingToken(Parser recognizer) {
+		super.reportMissingToken(recognizer);
 	}
 }
