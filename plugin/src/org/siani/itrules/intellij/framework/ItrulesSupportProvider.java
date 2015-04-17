@@ -68,7 +68,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 	private void addSupport(final Module module,
 	                        final ModifiableRootModel rootModel,
-	                        Locale locale) {
+	                        Locale locale, String encoding) {
 		createTemplateDirectory(rootModel.getContentEntries()[0]);
 		List<VirtualFile> pomFiles = createPoms(module);
 		MavenProjectsManager manager = MavenProjectsManager.getInstance(module.getProject());
@@ -79,6 +79,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		ItrulesFacet itrulesFacet = FacetManager.getInstance(module).addFacet(facetType, facetType.getDefaultFacetName(), null);
 		final ItrulesFacetConfiguration facetConfiguration = itrulesFacet.getConfiguration();
 		facetConfiguration.setLocale(locale);
+		facetConfiguration.setEncoding(encoding);
 		rootModel.commit();
 	}
 
@@ -177,23 +178,30 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	private class ItrulesSupportConfigurable extends FrameworkSupportInModuleConfigurable implements FrameworkSupportModelListener {
 		private JPanel myMainPanel;
 		private JComboBox<String> localeComboBox;
+		private JComboBox<String> encodingBox;
 
 		private ItrulesSupportConfigurable(FrameworkSupportModel model) {
 			model.addFrameworkListener(this);
 			localeComboBox.addItem("English");
 			localeComboBox.addItem("Español");
 			localeComboBox.setEnabled(false);
+			encodingBox.setEnabled(false);
+			encodingBox.addItem("UTF-8");
+			encodingBox.addItem("UTF-16");
+			encodingBox.addItem("ISO-8859-1");
 		}
 
 
 		@Override
 		public void frameworkSelected(@NotNull FrameworkSupportProvider frameworkSupportProvider) {
 			localeComboBox.setEnabled(true);
+			encodingBox.setEnabled(true);
 		}
 
 		@Override
 		public void frameworkUnselected(@NotNull FrameworkSupportProvider frameworkSupportProvider) {
 			localeComboBox.setEnabled(false);
+			encodingBox.setEnabled(false);
 		}
 
 		@Override
@@ -204,7 +212,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		public void addSupport(@NotNull Module module,
 		                       @NotNull ModifiableRootModel rootModel,
 		                       @NotNull ModifiableModelsProvider modifiableModelsProvider) {
-			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
+			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"), (String) encodingBox.getSelectedItem());
 		}
 
 		@Nullable

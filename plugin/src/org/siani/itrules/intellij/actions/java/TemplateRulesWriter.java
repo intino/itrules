@@ -35,10 +35,14 @@ public class TemplateRulesWriter {
 
 	private final String name;
 	private final String aPackage;
+	private final String locale;
+	private final String encoding;
 
-	public TemplateRulesWriter(String name, String aPackage) {
+	public TemplateRulesWriter(String name, String aPackage, String locale, String encoding) {
 		this.name = name;
 		this.aPackage = aPackage;
+		this.locale = locale;
+		this.encoding = encoding;
 	}
 
 	@NotNull
@@ -70,6 +74,8 @@ public class TemplateRulesWriter {
 			public void execute(Frame frame, RuleSet source, Context<RuleSet> context) {
 				if (!aPackage.isEmpty()) frame.addFrame("package", context.build(aPackage));
 				frame.addFrame("name", context.build(name));
+				frame.addFrame("locale", context.build(locale));
+				frame.addFrame("encoding", context.build(encoding));
 				for (Rule rule : rules)
 					frame.addFrame("rule", context.build(rule));
 			}

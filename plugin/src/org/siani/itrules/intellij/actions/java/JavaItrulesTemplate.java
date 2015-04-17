@@ -37,7 +37,7 @@ public class JavaItrulesTemplate extends Template {
 				"\t}\n" +
 				"\n" +
 				"\tprivate static TemplateEngine engine() {\n" +
-				"\t\treturn new TemplateEngine(Locale.ENGLISH, Encoding.with(\"UTF-8\", LF));\n" +
+				"\t\treturn new TemplateEngine(")).add(mark("locale")).add(literal(", Encoding.with(\"")).add(mark("encoding")).add(literal("\", LF));\n" +
 				"\t}" +
 				"    @Override\n" +
 				"    public void definition() {\n" +

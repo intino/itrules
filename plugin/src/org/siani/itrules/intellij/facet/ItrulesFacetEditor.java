@@ -10,13 +10,17 @@ import java.util.Locale;
 public class ItrulesFacetEditor extends FacetEditorTab {
 
 	private final ItrulesFacetConfiguration myFacetConfiguration;
-	private JComboBox localeComboBox;
+	private JComboBox<String> localeComboBox;
 	private JPanel myMainPanel;
+	private JComboBox<String> encodingBox;
 
 	public ItrulesFacetEditor(ItrulesFacetConfiguration facetConfiguration) {
 		myFacetConfiguration = facetConfiguration;
 		localeComboBox.addItem("English");
 		localeComboBox.addItem("Español");
+		encodingBox.addItem("UTF-8");
+		encodingBox.addItem("UTF-16");
+		encodingBox.addItem("ISO-8859-1");
 	}
 
 	@Nls
@@ -30,12 +34,13 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 	}
 
 	public boolean isModified() {
-		return localeComboBox.getSelectedIndex() != 0;
+		return localeComboBox.getSelectedIndex() != 0 || encodingBox.getSelectedIndex() != 0;
 	}
 
 
 	public void apply() {
 		myFacetConfiguration.setLocale(localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
+		myFacetConfiguration.setEncoding((String) encodingBox.getSelectedItem());
 	}
 
 	public void reset() {
@@ -44,7 +49,6 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 
 	public void disposeUIResources() {
 	}
-
 
 	@Override
 	public String getHelpTopic() {

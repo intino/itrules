@@ -4,10 +4,6 @@ import com.intellij.facet.*;
 import com.intellij.openapi.module.Module;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.siani.itrules.intellij.sdk.ItrulesSdk;
-import org.siani.itrules.intellij.sdk.ItrulesSdkManager;
-
-import java.util.Locale;
 
 public class ItrulesFacet extends Facet<ItrulesFacetConfiguration> {
 	public static final FacetTypeId<ItrulesFacet> ID = new FacetTypeId<>("itrules");
@@ -29,12 +25,4 @@ public class ItrulesFacet extends Facet<ItrulesFacetConfiguration> {
 		return FacetManager.getInstance(module).getFacetByType(ID);
 	}
 
-	@NotNull
-	public ItrulesSdk getSdk() {
-		return ItrulesSdkManager.getInstance().findSdk(getConfiguration().getSdkHomePath());
-	}
-
-	public Locale getLocale() {
-		return null;
-	}
 }

@@ -39,21 +39,19 @@ public class TemplateGeneration extends GenerationAction {
 		File destiny;
 		try {
 			destiny = getDestinyFile(project, rulesFile);
-			javaGeneration = createTask(project, rulesFile, "Generate Template", destiny);
+			javaGeneration = createTask(getModuleOf(project, rulesFile), rulesFile, "Generate Template", destiny);
 		} catch (Exception e1) {
 			error(project, e1.getMessage());
 			return;
 		}
-		ProgressManager manager = ProgressManager.getInstance();
-		manager.run(javaGeneration);
+		ProgressManager.getInstance().run(javaGeneration);
 		if (!javaGeneration.getIndicator().isCanceled()) refreshAndNotify(project, rulesFile, destiny);
 		else error(project, javaGeneration.getIndicator().getText());
-
 	}
 
 	@NotNull
-	private RunTemplateGeneration createTask(Project project, VirtualFile rulesFile, String title, File destiny) throws Exception {
-		return new RunTemplateGeneration(rulesFile, project, title, destiny, getPackage(rulesFile, new File(getModuleOf(project, rulesFile).getModuleFilePath()).getParentFile()));
+	private RunTemplateGeneration createTask(Module module, VirtualFile rulesFile, String title, File destiny) throws Exception {
+		return new RunTemplateGeneration(rulesFile, module, title, destiny, getPackage(rulesFile, new File(module.getModuleFilePath()).getParentFile()));
 	}
 
 	private void error(Project project, String message) {

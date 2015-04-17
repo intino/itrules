@@ -36,19 +36,21 @@ public class ItrulesFacetConfiguration implements FacetConfiguration, Persistent
 		myProperties = state;
 	}
 
-	public String getSdkHomePath() {
-		return myProperties.mySdkHomePath;
-	}
-
 	public Locale getLocale() {
 		return myProperties.locale.equals("en") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES");
 	}
 
-	public void setSdkHomePath(String sdkHomePath) {
-		myProperties.mySdkHomePath = sdkHomePath;
+	public String getEncoding() {
+		return myProperties.encoding;
 	}
+
 
 	public void setLocale(Locale locale) {
 		myProperties.locale = locale.equals(Locale.ENGLISH) ? "en" : "es";
 	}
+
+	public void setEncoding(String encoding) {
+		myProperties.encoding = encoding;
+	}
+
 }
