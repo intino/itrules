@@ -1,41 +1,6 @@
 #!/bin/bash
 
-function get_release {
-  TAGS=`git tag`
-  STABLE=""
-  CANDIDATE=""
-  LAST=""
-  for tag in $TAGS; do 
-    version_array=(`echo $tag | sed -e 's/\./\n/g'`)
-  
-    version=${version_array[0]}
-    release=${version_array[1]}
-    path=${version_array[2]}
-    if [ "$path" == "" ]; then path="0"; fi
-
-    if [ $((release%2)) -eq 0 ]; then
-      STABLE="$version.$release.$path"
-    else
-      CANDIDATE="$version.$release.$path"
-    fi
-    LAST="$version.$release.$path"
-  done
-}
-
-function get_stable_release {
-  get_release;
-  echo "$STABLE";
-}
-
-function get_candidate_release {
-  get_release;
-  echo "$CANDIDATE";
-}
-
-function get_last_release {
-  get_release;
-  echo "$LAST";
-}
+source ./lib/git.sh
 
 function get_main_dependencies {
   echo "<project>" > /tmp/pom.tmp
@@ -115,7 +80,7 @@ function generate_artifact {
   
   mv dist.pom ../$1/dist.pom
   cd ../$1
-  mvn clean deploy -f dist.pom -s ../deploy/settings.xml
+  mvn clean deploy -f dist.pom -s ../deploy/maven-settings.xml
   rm dist.pom
   cd ../deploy
 }
