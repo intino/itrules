@@ -44,3 +44,4 @@ fi
 
 	echo "done? maybe. *crosses fingers* signing out, closing session!"
 	curl -k -c cookies.txt -b cookies.txt --progress-bar -o /dev/null -L https://bitbucket.org/account/signout/
+  rm -f cookies.txt > /dev/null
