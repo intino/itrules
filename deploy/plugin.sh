@@ -17,11 +17,7 @@ mkdir -p tmp/resources/META-INF
 cp ../plugin/META-INF/*.* tmp/resources/META-INF -r
 cp ../plugin/res/* tmp/resources -r
 sed -i "s/#version#/$version/g" tmp/resources/META-INF/plugin.xml
-
-cp ../CHANGELOG.txt /tmp/deploy-plugin.tmp
-perl -pi -e "s/\n/<br>/g" /tmp/deploy-plugin.tmp
-changelog_escaped=$(sed 's/\//\\\//g' <<< `cat /tmp/deploy-plugin.tmp`)
-rm -f /tmp/deploy-plugin.tmp
+changelog_escaped=$(sed 's/\//\\\//g' <<< `markdown ../CHANGELOG.md`)
 sed -i "s/#change-notes#/$changelog_escaped/g" tmp/resources/META-INF/plugin.xml
 
 # Intellij libraries 
