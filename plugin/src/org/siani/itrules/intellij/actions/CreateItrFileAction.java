@@ -9,8 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.siani.itrules.intellij.lang.ItrulesIcons;
 import org.siani.itrules.intellij.lang.file.ItrulesFileType;
+import org.siani.itrules.intellij.lang.psi.ItrulesTemplateImpl;
 
-public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<PsiPlainTextFile> {
+public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<ItrulesTemplateImpl> {
 
 	public CreateItrFileAction() {
 		super("ItRules Template", "Creates new Itrules Model", ItrulesIcons.ICON_13, true);
@@ -29,13 +30,13 @@ public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<PsiPl
 
 	@Nullable
 	@Override
-	protected PsiElement getNavigationElement(@NotNull PsiPlainTextFile psiPlainTextFile) {
-		return psiPlainTextFile;
+	protected PsiElement getNavigationElement(@NotNull ItrulesTemplateImpl template) {
+		return template;
 	}
 
 	@Nullable
 	@Override
-	protected PsiPlainTextFile doCreate(PsiDirectory directory, String newName, String templateName) throws IncorrectOperationException {
+	protected ItrulesTemplateImpl doCreate(PsiDirectory directory, String newName, String templateName) throws IncorrectOperationException {
 		final PsiFileFactory factory = PsiFileFactory.getInstance(directory.getProject());
 		String fileName = newName + "." + ItrulesFileType.INSTANCE.getDefaultExtension();
 		PsiFile file = factory.createFileFromText(fileName, ItrulesFileType.INSTANCE, "defrule\n" +
@@ -43,6 +44,6 @@ public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<PsiPl
 			"\n" +
 			"endrule");
 		directory.add(file);
-		return (PsiPlainTextFile) file;
+		return (ItrulesTemplateImpl) file;
 	}
 }

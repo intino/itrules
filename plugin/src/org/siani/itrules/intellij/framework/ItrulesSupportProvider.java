@@ -18,9 +18,11 @@ import com.intellij.openapi.roots.ContentEntry;
 import com.intellij.openapi.roots.ModifiableModelsProvider;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.ui.configuration.FacetsProvider;
+import com.intellij.openapi.startup.StartupManager;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.vcsUtil.VcsUtil;
@@ -70,17 +72,30 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	                        final ModifiableRootModel rootModel,
 	                        Locale locale, String encoding) {
 		createTemplateDirectory(rootModel.getContentEntries()[0]);
-		List<VirtualFile> pomFiles = createPoms(module);
-		MavenProjectsManager manager = MavenProjectsManager.getInstance(module.getProject());
-		manager.addManagedFilesOrUnignore(pomFiles);
-		manager.importProjects();
-		manager.forceUpdateAllProjectsOrFindAllAvailablePomFiles();
+		if (rootModel.getProject().isInitialized()) addMavenToProject(module);
+		else startWithMaven(module);
 		FacetType<ItrulesFacet, ItrulesFacetConfiguration> facetType = ItrulesFacet.getFacetType();
 		ItrulesFacet itrulesFacet = FacetManager.getInstance(module).addFacet(facetType, facetType.getDefaultFacetName(), null);
 		final ItrulesFacetConfiguration facetConfiguration = itrulesFacet.getConfiguration();
 		facetConfiguration.setLocale(locale);
 		facetConfiguration.setEncoding(encoding);
-		rootModel.commit();
+	}
+
+	private void startWithMaven(final Module module) {
+		StartupManager.getInstance(module.getProject()).registerPostStartupActivity(new Runnable() {
+			@Override
+			public void run() {
+				addMavenToProject(module);
+			}
+		});
+	}
+
+	private void addMavenToProject(final Module module) {
+		List<VirtualFile> pomFiles = createPoms(module);
+		MavenProjectsManager manager = MavenProjectsManager.getInstance(module.getProject());
+		manager.addManagedFilesOrUnignore(pomFiles);
+		manager.importProjects();
+		manager.forceUpdateAllProjectsOrFindAllAvailablePomFiles();
 	}
 
 	private List<VirtualFile> createPoms(Module module) {
@@ -96,12 +111,19 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 			@Override
 			public void run() {
 				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(module.getModuleFile().getParent());
-				new File(root.getVirtualFile().getPath(), "pom.xml").delete();
-				file[0] = root.createFile("pom.xml");
+				file[0] = findPom(root);
+				if (file[0] == null) file[0] = root.createFile("pom.xml");
 				createPom(file[0].getVirtualFile().getPath(), new ModulePomTemplate().render(createModuleFrame(module)));
 			}
 		});
 		return file[0].getVirtualFile();
+	}
+
+	private PsiFile findPom(PsiDirectory root) {
+		for (PsiElement element : root.getChildren())
+			if (element instanceof PsiFile && "pom.xml".equals(((PsiFile) element).getVirtualFile().getName()))
+				return (PsiFile) element;
+		return null;
 	}
 
 	private File createPom(String path, String text) {
@@ -119,14 +141,13 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	private VirtualFile projectPom(final Module module) {
 		final PsiFile[] file = new PsiFile[1];
 		ApplicationManager.getApplication().runWriteAction(new Runnable() {
-
 			@Override
 			public void run() {
 				File pomFile = new File(module.getProject().getBaseDir().getPath() + separator + POM_XML);
 				VirtualFile directory = VcsUtil.getVcsRootFor(module.getProject(), VcsUtil.getFilePath(pomFile));
 				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
-				pomFile.delete();
-				file[0] = root.createFile("pom.xml");
+				file[0] = findPom(root);
+				if (file[0] == null) file[0] = root.createFile("pom.xml");
 				createPom(file[0].getVirtualFile().getPath(), new ProjectPomTemplate().render(createProjectFrame(module, getModulesOf(module.getProject()))));
 			}
 		});
@@ -141,6 +162,8 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	private Frame createModuleFrame(Module module) {
 		Frame frame = new Frame(null).addTypes("pom");
 		frame.addFrame("project", module.getProject().getName());
+		if (!module.getModuleFile().getParent().equals(module.getProject().getBaseDir()))
+			frame.addFrame("parent", new Frame(frame).addTypes("parent").addFrame("project", module.getProject().getName()).addFrame("module", module.getName()));
 		frame.addFrame("module", module.getName());
 		return frame;
 	}
