@@ -30,7 +30,7 @@
 
   <actions>
     <action id="NewItrFile" class="org.siani.itrules.intellij.actions.CreateItrFileAction">
-      <add-to-group group-id="NewGroup" anchor="first"/>
+      <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
     </action>
 
     <group id="ItrulesMenu" text="Itrules" description="Itrules Menu">
