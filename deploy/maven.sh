@@ -4,25 +4,33 @@ source ./lib/git.sh
 
 function get_main_dependencies {
   echo "<project>" > /tmp/pom.tmp
-  sed -n "/<version>/,/<\version>/p" ../pom.xml >> /tmp/pom.tmp
-  dependencies=`xmllint --xpath "//dependencies" /tmp/pom.tmp | sed -e 's/<dependencies>//g' | sed -e 's/<\/dependencies>//g' ` 
-  rm /tmp/pom.tmp
+  if [ -f ../pom.xml ]; then
+    sed -n "/<version>/,/<\version>/p" ../pom.xml >> /tmp/pom.tmp
+    dependencies=`xmllint --xpath "//dependencies" /tmp/pom.tmp | sed -e 's/<dependencies>//g' | sed -e 's/<\/dependencies>//g' ` 
+    rm /tmp/pom.tmp
+  fi
   echo $dependencies
 }
 
 function get_module_list {
-  echo "<project>" > /tmp/pom.tmp
-  sed -n "/<version>/,/<\version>/p" ../pom.xml >> /tmp/pom.tmp
-  modules=`xmllint --xpath "//modules/module" /tmp/pom.tmp | sed -e 's/<module>//g' | sed -e 's/<\/module>/\n/g'`
-  rm /tmp/pom.tmp
+  modules=""
+  if [ -f ../pom.xml ]; then
+    echo "<project>" > /tmp/pom.tmp
+    sed -n "/<version>/,/<\version>/p" ../pom.xml >> /tmp/pom.tmp
+    modules=`xmllint --xpath "//modules/module" /tmp/pom.tmp | sed -e 's/<module>//g' | sed -e 's/<\/module>/\n/g'`
+    rm /tmp/pom.tmp
+  fi
   echo $modules
 }
 
 function get_local_groupId {
-  echo "<project>" > /tmp/pom.dist.tmp
-  sed -n "/<modelVersion>/,/<\modelVersion>/p" ../$1/pom.xml >> /tmp/pom.dist.tmp
-  groupId=`xmllint --xpath "string(//groupId)" /tmp/pom.dist.tmp`
-  rm -f /tmp/pom.dist.tmp
+  groupId=""
+  if [ -f ../$1/pom.xml ]; then  
+    echo "<project>" > /tmp/pom.dist.tmp
+    sed -n "/<modelVersion>/,/<\modelVersion>/p" ../$1/pom.xml >> /tmp/pom.dist.tmp
+    groupId=`xmllint --xpath "string(//groupId)" /tmp/pom.dist.tmp`
+    rm -f /tmp/pom.dist.tmp
+  fi
   echo $groupId
 }
 
@@ -63,9 +71,11 @@ function replace_module_dependencies {
 
 function get_module_dependencies {
   echo "<project>" > /tmp/pom.tmp
-  sed -n "/<modelVersion>/,/<\modelVersion>/p" ../$1/pom.xml >> /tmp/pom.tmp
-  dependencies=`xmllint --xpath "//dependencies" /tmp/pom.tmp | sed -e 's/<dependencies>//g' | sed -e 's/<\/dependencies>/\n/g'` 
-  rm /tmp/pom.tmp
+  if [ -f ../$1/pom.xml ]; then    
+    sed -n "/<modelVersion>/,/<\modelVersion>/p" ../$1/pom.xml >> /tmp/pom.tmp
+    dependencies=`xmllint --xpath "//dependencies" /tmp/pom.tmp | sed -e 's/<dependencies>//g' | sed -e 's/<\/dependencies>/\n/g'` 
+    rm /tmp/pom.tmp
+  fi
   echo $dependencies
 }
 
@@ -80,11 +90,15 @@ function generate_artifact {
   
   mv dist.pom ../$1/dist.pom
   cd ../$1
-  mvn clean deploy -f dist.pom -s ../deploy/local/maven-settings.xml
+  mvn clean install -f dist.pom -s ../deploy/local/maven-settings.xml
   rm dist.pom
   cd ../deploy
 }
 
-generate_artifact engine
-generate_artifact reader-itr
-generate_artifact reader-json
+if [ -z $1 ]; then
+  generate_artifact engine
+  generate_artifact reader-itr
+  generate_artifact reader-json
+else
+  generate_artifact $1
+fi
