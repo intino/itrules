@@ -1,8 +1,7 @@
 <idea-plugin version="2">
   <id>siani.dev.itrules</id>
-  <depends>org.jetbrains.idea.maven</depends>
   <name>Itrules</name>
-  <version>RC1</version>
+  <version>#version#</version>
   <vendor email="support.itrules@siani.es" url="http://www.siani.es">Itrules: Intelligent Template Engine Rules Based
   </vendor>
 
@@ -20,22 +19,18 @@
     ]]></description>
 
   <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+      #change-notes#
     ]]>
   </change-notes>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
   <idea-version since-build="131"/>
 
-  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>-->
+  <depends>org.jetbrains.idea.maven</depends>
 
   <actions>
     <action id="NewItrFile" class="org.siani.itrules.intellij.actions.CreateItrFileAction">
-      <add-to-group group-id="NewGroup" anchor="first"/>
+      <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
     </action>
 
     <group id="ItrulesMenu" text="Itrules" description="Itrules Menu">

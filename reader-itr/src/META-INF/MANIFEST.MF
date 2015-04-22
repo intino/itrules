@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: antlr-runtime-3.5.2.jar antlr4-runtime-4.5.jar antlr4-4.5.
- jar org.abego.treelayout.core-1.0.1.jar ST4-4.0.8.jar itrules-engine.
- jar
-
