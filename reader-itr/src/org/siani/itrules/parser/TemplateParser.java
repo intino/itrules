@@ -26,7 +26,6 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.siani.itrules.dsl.ItrLexer;
 import org.siani.itrules.dsl.ItrParser;
-import org.siani.itrules.engine.logger.DebugLogger;
 import org.siani.itrules.engine.logger.Logger;
 import org.siani.itrules.model.Rule;
 
@@ -37,7 +36,7 @@ import java.util.List;
 
 public final class TemplateParser {
 
-	private final Logger logger = new DebugLogger();
+	private final Logger logger = new Logger();
 	private final List<Rule> rules = new ArrayList<>();
 
 
@@ -69,7 +68,7 @@ public final class TemplateParser {
 		} catch (RecognitionException e) {
 			org.antlr.v4.runtime.Token token = ((org.antlr.v4.runtime.Parser) e.getRecognizer()).getCurrentToken();
 			Token currentToken = ((Parser) e.getRecognizer()).getCurrentToken();
-			logger.debug("Rules not well formed. Error in: " + token.getLine() + ": " + token.getCharPositionInLine());
+			logger.log("Rules not well formed. Error in: " + token.getLine() + ": " + token.getCharPositionInLine());
 			throw new ITRulesSyntaxError("Template not well formed. Line:" + currentToken.getLine() + "; Column: " + currentToken.getCharPositionInLine());
 		}
 	}
