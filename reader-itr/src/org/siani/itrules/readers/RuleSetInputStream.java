@@ -22,7 +22,7 @@
 
 package org.siani.itrules.readers;
 
-import org.siani.itrules.engine.logger.DebugLogger;
+import org.siani.itrules.engine.logger.Logger;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -36,7 +36,7 @@ final class RuleSetInputStream extends InputStream {
 		try {
 			content = read(source, charset).getBytes(charset);
 		} catch (IOException e) {
-			new DebugLogger().debug(e.getMessage());
+			new Logger().log(e.getMessage());
 			content = new byte[0];
 		}
 	}

@@ -139,6 +139,6 @@ public final class Interpreter extends ItrParserBaseListener {
 
 	@Override
 	public void visitErrorNode(@NotNull ErrorNode node) {
-		logger.debug("Error reading template. Template not well formed: " + node.getText() + "\n\n");
+		logger.log("Error reading template. Template not well formed: " + node.getText() + "\n\n");
 	}
 }
