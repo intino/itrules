@@ -33,12 +33,12 @@ public class JavaItrulesTemplate extends Template {
 				"\t}\n" +
 				"\n" +
 				"\tpublic static String format(Object object) {\n" +
-				"\t\treturn engine().render(object);\n" +
+				"\t\treturn template().render(object);\n" +
 				"\t}\n" +
 				"\n" +
-				"\tprivate static TemplateEngine engine() {\n" +
-				"\t\treturn new TemplateEngine(")).add(mark("locale")).add(literal(", Encoding.with(\"")).add(mark("encoding")).add(literal("\", LF));\n" +
-				"\t}" +
+				"\tprivate static Template template() {\n" +
+				"\t\treturn new ")).add(mark("name", "FirstUpperCase")).add(literal("Template(")).add(mark("locale")).add(literal(", Encoding.with(\"")).add(mark("encoding")).add(literal("\", LF));\n" +
+				"\t}\n\n" +
 				"    @Override\n" +
 				"    public void definition() {\n" +
 				"        add(\n" +

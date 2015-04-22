@@ -2,7 +2,7 @@ package org.siani.itrules.engine;
 
 import org.siani.itrules.Source;
 import org.siani.itrules.RuleSetReader;
-import org.siani.itrules.engine.logger.DebugLogger;
+import org.siani.itrules.engine.logger.Logger;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ public class RuleSetLoader {
         try {
             return ruleSetReader(source).read(source.charset());
         } catch (Exception e) {
-            new DebugLogger().debug("RuleSet %s could not be load\n\t%s", source.getName(), e.getMessage());
+            new Logger().log("Source %s could not be loaded\n", source.getName(), e.getMessage());
             return new RuleSet();
         }
     }
