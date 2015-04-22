@@ -90,7 +90,7 @@ function generate_artifact {
   
   mv dist.pom ../$1/dist.pom
   cd ../$1
-  mvn clean install -f dist.pom -s ../deploy/local/maven-settings.xml
+  mvn clean deploy -f dist.pom -s ../deploy/local/maven-settings.xml
   rm dist.pom
   cd ../deploy
 }
