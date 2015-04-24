@@ -25,6 +25,7 @@ if [ ! -f local/$IDEAFILE ]; then
   mkdir local
   cd local
   wget http://download.jetbrains.com/idea/$IDEAFILE
+  cd ..
 fi
 
 mkdir -p tmp/lib

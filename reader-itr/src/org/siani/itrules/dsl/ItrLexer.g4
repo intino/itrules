@@ -41,8 +41,8 @@ mode SIGNATURE_MODE;
 	NOT             : '!';
 	FUNCTION        : LETTER(DIGIT|LETTER)*;
 	NL              : (' '|'\t')* ('\r'? '\n' | '\n') ('\t' | '    ')?   { setLastMode(SIGNATURE_MODE); setType(BODY);} -> mode(BODY_MODE);
-	WS              : SP+                                                -> skip;
-	PARAMETERS      : '(' ~(')')+ ')';
+	WS              : SP+                                       -> skip;
+	PARAMETERS      : ('(' ~(')')+ ')')| ('('')');
 	RULE_ERROR      : .;
 
 mode BODY_MODE;

@@ -36,6 +36,10 @@ public class TestSources {
 			"\t \t   \t\t\n" +
 			"\t$] $$ \n" +
 			"endrule";
+
+	public static final String FUNCTION_WITHOUT_PARAMETERS = "defrule one() trigger(Age)\n" +
+		"    one year old\n" +
+		"endrule";
 	public static final String SIGNATURE = "defrule type(markca)\n\n\nendrule";
 	public static final String RULE_BEGIN = "\n\ndefrule";
 	public static final String RULE_WITH_MARKS = "defrule type(Attribute) trigger(attribute+Field) type(!Const) type(readonly)\npublic class $attri alalasda $other \nendrule";
