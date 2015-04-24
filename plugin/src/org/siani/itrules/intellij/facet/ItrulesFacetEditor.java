@@ -40,7 +40,6 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 			!encodingBox.getSelectedItem().equals(myFacetConfiguration.getEncoding());
 	}
 
-
 	public void apply() {
 		myFacetConfiguration.setLocale(localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
 		myFacetConfiguration.setEncoding((String) encodingBox.getSelectedItem());

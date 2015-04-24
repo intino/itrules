@@ -1,4 +1,4 @@
-package org.siani.itrules.intellij.module.impl;
+package org.siani.itrules.intellij.module;
 
 import com.intellij.util.xmlb.annotations.Tag;
 
