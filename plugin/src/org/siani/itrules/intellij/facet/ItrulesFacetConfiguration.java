@@ -8,7 +8,7 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import org.jdom.Element;
-import org.siani.itrules.intellij.module.impl.ItrulesModuleExtensionProperties;
+import org.siani.itrules.intellij.module.ItrulesModuleExtensionProperties;
 
 import java.util.Locale;
 

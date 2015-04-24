@@ -21,6 +21,8 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 		encodingBox.addItem("UTF-8");
 		encodingBox.addItem("UTF-16");
 		encodingBox.addItem("ISO-8859-1");
+		localeComboBox.setSelectedItem(myFacetConfiguration.getLocale().equals(Locale.ENGLISH) ? "English" : "Español");
+		encodingBox.setSelectedItem(myFacetConfiguration.getEncoding());
 	}
 
 	@Nls
@@ -34,9 +36,9 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 	}
 
 	public boolean isModified() {
-		return localeComboBox.getSelectedIndex() != 0 || encodingBox.getSelectedIndex() != 0;
+		return !localeComboBox.getSelectedItem().equals(myFacetConfiguration.getLocale().equals(Locale.ENGLISH) ? "English" : "Español") ||
+			!encodingBox.getSelectedItem().equals(myFacetConfiguration.getEncoding());
 	}
-
 
 	public void apply() {
 		myFacetConfiguration.setLocale(localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
