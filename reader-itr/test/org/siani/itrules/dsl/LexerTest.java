@@ -106,6 +106,16 @@ public class LexerTest {
 	}
 
 	@Test
+	public void noParametersFunction() {
+		String[] expectedTypes = new String[]{
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT",
+			"RULE_END"};
+		String[] receivedTypes = lexerTest(TestSources.FUNCTION_WITHOUT_PARAMETERS);
+		Assert.assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
+	@Test
 	public void OtherWithMark() {
 		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY", "TEXT",
 			"TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "RULE_END"};
