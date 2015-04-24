@@ -23,6 +23,7 @@ public abstract class GenerationAction extends AnAction implements DumbAware {
 
 	public void update(@NotNull AnActionEvent e) {
 		ActionUtils.selectedFileIsItrules(e);
+		ActionUtils.selectedFilesIsInItrulesModule(e);
 	}
 
 	protected abstract String findDestiny(Project project, Module module, VirtualFile file) throws Exception;

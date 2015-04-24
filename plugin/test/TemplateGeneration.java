@@ -26,6 +26,6 @@ public class TemplateGeneration {
 	public void accept_generate_template_for_roster_itr() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Roster.itr"));
 		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected, new TemplateRulesWriter("org.sample", "Roster", "Spanish", "UTF-8").toJava(read));
+		Assert.assertEquals(expected, new TemplateRulesWriter("Roster","org.sample", "Spanish", "UTF-8").toJava(read));
 	}
 }

@@ -8,10 +8,6 @@ import java.util.Locale;
 public class JavaItrulesTemplate extends Template {
 
 
-	public JavaItrulesTemplate() {
-		super(Locale.getDefault(), Encoding.getDefault());
-	}
-
 	public JavaItrulesTemplate(Locale locale, Encoding encoding) {
 		super(locale, encoding);
 	}

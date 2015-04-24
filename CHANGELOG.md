@@ -2,6 +2,8 @@
 -	Fixed lexicon to recognize functions without parameters
 -	Added tests for it.
 -	Improved module-pom.
+-   A module without itrules facet cannot generate java code.
+-   Facet configuration dialog fixed.
 
 ##1.1.9##
 -	Removed unnecessary loggers.
