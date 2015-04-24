@@ -1,3 +1,8 @@
+##1.1.10##
+-	Fixed lexicon to recognize functions without parameters
+-	Added tests for it.
+-	Improved module-pom.
+
 ##1.1.9##
 -	Removed unnecessary loggers.
 -	Fixed Java template generation.
