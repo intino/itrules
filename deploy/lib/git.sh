@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function get_release {
-  TAGS=`git tag`
+  TAGS=`git for-each-ref --sort=taggerdate --format '%(tag)' refs/tags`
   STABLE=""
   CANDIDATE=""
   LAST=""
