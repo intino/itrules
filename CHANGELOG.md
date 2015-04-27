@@ -1,3 +1,10 @@
+##1.1.11##
+-	Fixed UNICODE Bug
+-   Improved Frame API
+-   Renamed Context to FrameContext
+-   Hidden Json generation action in Intellij
+-   pom Maven file updated.
+
 ##1.1.10##
 -	Fixed lexicon to recognize functions without parameters
 -	Added tests for it.

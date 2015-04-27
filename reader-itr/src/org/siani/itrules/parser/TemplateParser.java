@@ -31,6 +31,8 @@ import org.siani.itrules.model.Rule;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +42,9 @@ public final class TemplateParser {
 	private final List<Rule> rules = new ArrayList<>();
 
 
-	public List<Rule> parse(InputStream stream) throws ITRulesSyntaxError {
+	public List<Rule> parse(InputStream stream, Charset charset) throws ITRulesSyntaxError {
 		try {
-			parseTemplate(new ANTLRInputStream(stream));
+			parseTemplate(new ANTLRInputStream(new InputStreamReader(stream, charset)));
 			return rules;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -69,8 +71,7 @@ public final class TemplateParser {
 			org.antlr.v4.runtime.Token token = ((org.antlr.v4.runtime.Parser) e.getRecognizer()).getCurrentToken();
 			Token currentToken = ((Parser) e.getRecognizer()).getCurrentToken();
 			logger.log("Rules not well formed. Error in: " + token.getLine() + ": " + token.getCharPositionInLine());
-			throw new ITRulesSyntaxError("Template not well formed. Line:" + currentToken.getLine() + "; Column: " + currentToken.getCharPositionInLine());
+			throw new ITRulesSyntaxError("Template not well formed. Line:" + currentToken.getLine() + "; Column: " + currentToken.getCharPositionInLine() + ": " + e.getMessage());
 		}
 	}
-
 }

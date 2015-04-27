@@ -83,7 +83,7 @@ public final class FrameBuilder {
 
 	@SuppressWarnings("unchecked")
 	private void fillSlots(Object object) {
-		Adapter.Context context = createTaskContext(object);
+		Adapter.FrameContext context = createTaskContext(object);
 		adapterFor(object).execute(context.frame(), context.source(), context);
 	}
 
@@ -104,8 +104,8 @@ public final class FrameBuilder {
     }
 
 
-	private Adapter.Context createTaskContext(final Object target) {
-		return new Adapter.Context() {
+	private Adapter.FrameContext createTaskContext(final Object target) {
+		return new Adapter.FrameContext() {
 			@Override
 			public Object source() {
 				return target;

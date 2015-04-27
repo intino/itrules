@@ -144,7 +144,7 @@ public class AcceptedFrameBuilder {
                 TwoAttributesObject.class,
                 new Adapter<TwoAttributesObject>() {
                     @Override
-                    public void execute(Frame frame, TwoAttributesObject source, Context<TwoAttributesObject> context) {
+                    public void execute(Frame frame, TwoAttributesObject source, FrameContext<TwoAttributesObject> context) {
                         context.frame().addFrame("field1", context.build(context.source().getField1()));
                     }
                 });
@@ -160,7 +160,7 @@ public class AcceptedFrameBuilder {
                 SimpleObjectWithComplexList.class,
                 new Adapter<SimpleObjectWithComplexList>() {
                     @Override
-                    public void execute(Frame frame, SimpleObjectWithComplexList source, Context<SimpleObjectWithComplexList> context) {
+                    public void execute(Frame frame, SimpleObjectWithComplexList source, FrameContext<SimpleObjectWithComplexList> context) {
                         context.frame().addFrame("object2", context.build(context.source().get(1)));
                     }
                 });
@@ -185,10 +185,10 @@ public class AcceptedFrameBuilder {
                 SimpleObjectWithComplexList.class,
                 new Adapter<SimpleObjectWithComplexList>() {
                     @Override
-                    public void execute(Frame frame, SimpleObjectWithComplexList source, Context<SimpleObjectWithComplexList> context) {
+                    public void execute(Frame frame, SimpleObjectWithComplexList source, FrameContext<SimpleObjectWithComplexList> context) {
                         context.register(TwoAttributesObject.class, new Adapter<TwoAttributesObject>() {
                             @Override
-                            public void execute(Frame frame, TwoAttributesObject source, Context<TwoAttributesObject> context) {
+                            public void execute(Frame frame, TwoAttributesObject source, FrameContext<TwoAttributesObject> context) {
                                 context.frame().addFrame("field1", context.build(context.source().getField1()));
                             }
                         });
@@ -215,7 +215,7 @@ public class AcceptedFrameBuilder {
                 SimpleObjectWithComplexList.class,
                 new Adapter<SimpleObjectWithComplexList>() {
                     @Override
-                    public void execute(Frame frame, SimpleObjectWithComplexList source, Context<SimpleObjectWithComplexList> context) {
+                    public void execute(Frame frame, SimpleObjectWithComplexList source, FrameContext<SimpleObjectWithComplexList> context) {
                         context.register(TwoAttributesObject.class, new ExcludeAdapter<TwoAttributesObject>("field2"));
                         context.frame().addFrame("object2", context.build(context.source().get(1)));
                     }
