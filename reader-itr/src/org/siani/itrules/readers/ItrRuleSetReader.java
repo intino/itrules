@@ -38,11 +38,8 @@ public final class ItrRuleSetReader implements RuleSetReader {
         this.inputStream = inputStream;
     }
 
-    private InputStream stream(InputStream stream,Charset charset) {
-        return new RuleSetInputStream(stream, charset);
-    }
 
 	public RuleSet read(Charset charset) throws ITRulesSyntaxError {
-        return new RuleSet(new TemplateParser().parse(stream(inputStream, charset)));
+        return new RuleSet(new TemplateParser().parse(inputStream, charset));
 	}
 }
