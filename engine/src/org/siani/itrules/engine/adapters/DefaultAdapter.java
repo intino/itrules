@@ -11,17 +11,17 @@ import java.util.Map;
 public class DefaultAdapter<T> implements Adapter<T> {
 
     @Override
-    public void execute(Frame frame, Object source, Context context) {
+    public void execute(Frame frame, Object source, FrameContext context) {
         new Filler(context).execute();
     }
 
     private class Filler {
-        private final Context context;
+        private final FrameContext context;
 		private final Frame frame;
         private final Object source;
         private final String Count = "Count";
 
-        public Filler(Context context) {
+        public Filler(FrameContext context) {
             this.context = context;
             this.frame = context.frame();
             this.source = context.source();

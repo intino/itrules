@@ -23,7 +23,6 @@
     ]]>
   </change-notes>
 
-  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
   <idea-version since-build="131"/>
 
   <depends>org.jetbrains.idea.maven</depends>
@@ -35,17 +34,10 @@
 
     <group id="ItrulesMenu" text="Itrules" description="Itrules Menu">
       <add-to-group group-id="MainMenu" anchor="last"/>
-      <action id="itrules.toJson" class="org.siani.itrules.intellij.actions.json.JsonGeneration"
-              text="Generate JSON Object"
-              description="Generates a JSON Object of the actual itrules template">
-        <add-to-group group-id="EditorPopupMenu" anchor="last"/>
-        <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
-      </action>
-
       <action id="itrules.toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration"
               text="Generate Java Template"
               description="Generates the corresponding Java representation of the template">
-        <keyboard-shortcut keymap="$default" first-keystroke="control shift J"/>
+        <keyboard-shortcut keymap="$default" first-keystroke="control shift F11"/>
         <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
       </action>

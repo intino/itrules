@@ -28,12 +28,16 @@ public class Frame implements AbstractFrame {
 
 	private final Set<String> types;
 	private final Map<String, List<AbstractFrame>> slots;
-	private final Frame owner;
+	private Frame owner;
 
 	public Frame(Frame owner) {
 		this.types = createTypeSet();
 		this.slots = createSlotMap();
 		this.owner = owner;
+	}
+
+	public Frame() {
+		this(null);
 	}
 
 	public boolean is(String type) {
@@ -62,25 +66,46 @@ public class Frame implements AbstractFrame {
 		return this;
 	}
 
-	public Frame addFrame(String slot, AbstractFrame frame) {
-		slots.get(slot).add(frame);
+	public Frame addFrame(String slot, AbstractFrame... frames) {
+		for (AbstractFrame frame : frames) slots.get(slot).add(frame);
 		return this;
 	}
 
-	public Frame addFrame(String slot, String value) {
-		return addPrimitiveFrame(slot, value);
+	public Frame addFrame(String slot, Object... values) {
+		for (Object value : values) addPrimitiveFrame(slot, value.toString());
+		return this;
 	}
 
-	public Frame addFrame(String slot, Integer value) {
-		return addPrimitiveFrame(slot, value);
+	public Frame addFrame(String slot, String... values) {
+		for (String value : values) addPrimitiveFrame(slot, value);
+		return this;
 	}
 
-	public Frame addFrame(String slot, Double value) {
-		return addPrimitiveFrame(slot, value);
+	public Frame addFrame(String slot, Integer... values) {
+		for (Integer value : values) addPrimitiveFrame(slot, value);
+		return this;
 	}
 
-	public Frame addFrame(String slot, Date value) {
-		return addPrimitiveFrame(slot, value);
+	public Frame addFrame(String slot, Boolean... values) {
+		for (Boolean value : values) addPrimitiveFrame(slot, value);
+		return this;
+	}
+
+	public Frame addFrame(String slot, Long... values) {
+		for (Long value : values) addPrimitiveFrame(slot, value);
+		return this;
+	}
+
+	public Frame addFrame(String slot, Double... values) {
+		for (Double value : values)
+			addPrimitiveFrame(slot, value);
+		return this;
+	}
+
+	public Frame addFrame(String slot, Date... values) {
+		for (Date value : values)
+			addPrimitiveFrame(slot, value);
+		return this;
 	}
 
 	private Frame addPrimitiveFrame(String slot, Object value) {
@@ -97,7 +122,7 @@ public class Frame implements AbstractFrame {
 	}
 
 	private static Map<String, List<AbstractFrame>> createSlotMap() {
-		return new LinkedHashMap<String, List<AbstractFrame>>(){
+		return new LinkedHashMap<String, List<AbstractFrame>>() {
 
 			@Override
 			public List<AbstractFrame> put(String key, List<AbstractFrame> value) {
@@ -134,6 +159,6 @@ public class Frame implements AbstractFrame {
 
 	@Override
 	public String toString() {
-		return types.toString().replace(", object","");
+		return types.toString().replace(", object", "");
 	}
 }

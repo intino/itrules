@@ -29,8 +29,8 @@ public class ModulePomTemplate extends Template {
 				"  <properties>\n" +
 				"    <maven.compiler.source>1.7</maven.compiler.source>\n" +
 				"    <maven.compiler.target>1.7</maven.compiler.target>\n" +
-				"  </properties>" +
-				"  <groupId>org.")).add(mark("module")).add(literal("</groupId>\n\n" +
+				"  </properties>\n\n" +
+				"  <groupId>org.")).add(mark("module")).add(literal("</groupId>\n" +
 				"  <artifactId>")).add(mark("module")).add(literal("</artifactId>\n" +
 				"\n" +
 				"  <dependencies>\n" +
@@ -39,11 +39,6 @@ public class ModulePomTemplate extends Template {
 				"      <artifactId>itrules</artifactId>\n" +
 				"      <version>LATEST</version>\n" +
 				"    </dependency>\n" +
-				"    <dependency>\n" +
-				"      <groupId>org.siani.itrules</groupId>\n" +
-				"      <artifactId>itrules-itr-reader</artifactId>\n" +
-				"      <version>LATEST</version>\n" +
-				"    </dependency>" +
 				"  </dependencies>\n" +
 				"\n" +
 				"</project>")),

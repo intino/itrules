@@ -74,7 +74,7 @@ public class TemplateRulesWriter {
 	private Adapter<RuleSet> buildRuleSetAdapter(final RuleSet rules) {
 		return new Adapter<RuleSet>() {
 			@Override
-			public void execute(Frame frame, RuleSet source, Context<RuleSet> context) {
+			public void execute(Frame frame, RuleSet source, FrameContext<RuleSet> context) {
 				if (!aPackage.isEmpty()) frame.addFrame("package", context.build(aPackage));
 				frame.addFrame("name", context.build(name));
 				frame.addFrame("locale", context.build(locale));

@@ -4,9 +4,9 @@ import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
 
 public interface Adapter<T> {
-    void execute(Frame frame, T source, Context<T> context);
+    void execute(Frame frame, T source, FrameContext<T> context);
 
-	interface Context<T> {
+	interface FrameContext<T> {
         T source();
         Frame frame();
 

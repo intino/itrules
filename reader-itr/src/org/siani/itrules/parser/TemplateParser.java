@@ -71,8 +71,7 @@ public final class TemplateParser {
 			org.antlr.v4.runtime.Token token = ((org.antlr.v4.runtime.Parser) e.getRecognizer()).getCurrentToken();
 			Token currentToken = ((Parser) e.getRecognizer()).getCurrentToken();
 			logger.log("Rules not well formed. Error in: " + token.getLine() + ": " + token.getCharPositionInLine());
-			throw new ITRulesSyntaxError("Template not well formed. Line:" + currentToken.getLine() + "; Column: " + currentToken.getCharPositionInLine());
+			throw new ITRulesSyntaxError("Template not well formed. Line:" + currentToken.getLine() + "; Column: " + currentToken.getCharPositionInLine() + ": " + e.getMessage());
 		}
 	}
-
 }

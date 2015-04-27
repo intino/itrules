@@ -29,9 +29,6 @@ import com.intellij.vcsUtil.VcsUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.idea.maven.project.MavenProjectsManager;
-import org.jetbrains.jps.model.java.JavaSourceRootProperties;
-import org.jetbrains.jps.model.java.JavaSourceRootType;
-import org.jetbrains.jps.model.java.JpsJavaExtensionService;
 import org.siani.itrules.intellij.facet.ItrulesFacet;
 import org.siani.itrules.intellij.facet.ItrulesFacetConfiguration;
 import org.siani.itrules.intellij.framework.maven.ModulePomTemplate;
@@ -184,10 +181,6 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 			if (contentEntry.getFile() == null) return;
 			String modulePath = contentEntry.getFile().getPath();
 			VirtualFile templates = VfsUtil.createDirectories(modulePath + separator + "templates");
-			if (templates != null) {
-				JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", false);
-				contentEntry.addSourceFolder(templates, JavaSourceRootType.SOURCE, properties);
-			}
 		} catch (IOException ignored) {
 		}
 	}
