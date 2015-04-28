@@ -26,6 +26,7 @@ import org.siani.itrules.Function;
 import org.siani.itrules.engine.functions.SlotFunction;
 import org.siani.itrules.engine.functions.TriggerFunction;
 import org.siani.itrules.engine.functions.TypeFunction;
+import org.siani.itrules.engine.functions.ValueFunction;
 import org.siani.itrules.model.Condition;
 
 import java.util.HashMap;
@@ -39,6 +40,7 @@ public final class FunctionStore {
 		add("Type", new TypeFunction());
 		add("Trigger", new TriggerFunction());
 		add("Slot", new SlotFunction());
+		add("Value", new ValueFunction());
 	}
 
 	public Function get(Condition condition) {
