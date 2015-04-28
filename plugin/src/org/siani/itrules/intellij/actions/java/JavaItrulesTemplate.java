@@ -17,7 +17,7 @@ public class JavaItrulesTemplate extends Template {
 		add(
 			rule().add(condition("type", "ruleset")).add(expression().add(literal("package ")).add(mark("package")).add(literal(";"))).add(literal("\n" +
 				"\n" +
-				"import org.siani.itrules.*;\n" +
+				"import org.siani.itrules.*;\n\n" +
 				"import java.util.Locale;\n" +
 				"\n" +
 				"import static org.siani.itrules.Encoding.LineSeparator.*;\n" +
@@ -32,13 +32,13 @@ public class JavaItrulesTemplate extends Template {
 				"\t\treturn template().render(object);\n" +
 				"\t}\n" +
 				"\n" +
-				"\tprivate static Template template() {\n" +
+				"\tpublic static Template template() {\n" +
 				"\t\treturn new ")).add(mark("name", "FirstUpperCase")).add(literal("Template(")).add(mark("locale")).add(literal(", Encoding.with(\"")).add(mark("encoding")).add(literal("\", LF));\n" +
 				"\t}\n\n" +
 				"    @Override\n" +
 				"    public void definition() {\n" +
 				"        add(\n" +
-				"        ")).add(mark("rule").multiple(",\n")).add(literal("\n" +
+				"            ")).add(mark("rule").multiple(",\n")).add(literal("\n" +
 				"        );\n" +
 				"    }\n" +
 				"}")),

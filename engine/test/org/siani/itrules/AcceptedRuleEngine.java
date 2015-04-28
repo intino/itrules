@@ -60,12 +60,6 @@ public class AcceptedRuleEngine {
                 ruleEngine().add(personRule()).render(person()));
     }
 
-    private Rule personRule() {
-        return new Rule().
-                add(condition("type", "Person")).
-                add(new Mark("name"), literal(" was born in "), new Mark("country"), literal(" on "), mark("birthday", "shortdate"));
-    }
-
     @Test
     public void should_render_person_defining_a_rule_with_negated_condition() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on -",
@@ -103,6 +97,18 @@ public class AcceptedRuleEngine {
     }
 
     @Test
+    public void should_render_person_defining_a_rule_with_value_function() throws Exception {
+        Assert.assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
+                ruleEngine().add(personRule(), valueRule()).render(person()));
+    }
+
+    private Rule valueRule() {
+        return new Rule().
+                add(condition("value", "Pau Gasol")).
+                add(literal("*"), mark("value"), literal("*"));
+    }
+
+    @Test
     public void should_render_person_defining_rule_with_a_trigger_condition() throws Exception {
         Assert.assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
                 ruleEngine().add(triggerConditionRule()).add(personRule()).render(person()));
@@ -110,20 +116,35 @@ public class AcceptedRuleEngine {
 
     private Rule triggerConditionRule() {
         return new Rule().
-                add(condition("Trigger", "Name")).
-                add(literal("*"), mark("value"), literal("*"));
+            add(condition("Trigger", "Name")).
+            add(literal("*"), mark("value"), literal("*"));
+    }
+
+    @Test
+    public void should_render_person_defining_rule_with_a_trigger_format_condition() throws Exception {
+        Assert.assertEquals("Pau Gasol was born in Spain on \"06/07/1980\"",
+                ruleEngine().add(
+                        personRule(),
+                        triggerFormatConditionRule()
+                ).render(person()));
+    }
+
+    private Rule personRule() {
+        return new Rule().
+            add(condition("type", "Person")).
+            add(new Mark("name"), literal(" was born in "), new Mark("country"), literal(" on "), mark("Birthday", "quoted", "ShortDate"));
+    }
+
+    private Rule triggerFormatConditionRule() {
+        return new Rule().
+            add(condition("Trigger", "quoted")).
+            add(literal("\""), mark("value"), literal("\""));
     }
 
     @Test
     public void should_render_person_defining_a_rule_with_a_custom_formatter() throws Exception {
         Assert.assertEquals("9 was born in 5 on 06/07/1980",
                 ruleEngine().add(personRuleWithCustomFormat()).add("Custom", customFormatter()).render(person()));
-    }
-
-    @Test
-    public void should_render_person_displaying_error_message_for_formats_that_dont_exist() throws Exception {
-        Assert.assertEquals("...Custom formatter not found was born in ...Custom formatter not found on 06/07/1980",
-                ruleEngine().add(personRuleWithCustomFormat()).render(person()));
     }
 
     private Rule personRuleWithCustomFormat() {

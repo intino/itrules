@@ -105,6 +105,18 @@ public class LexerTest {
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
+
+	@Test
+	public void expressionWithNewLines() {
+		String[] expectedTypes = new String[]{
+			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TEXT", "TEXT",
+			"TEXT", "TEXT", "TEXT", "TEXT",
+			"RULE_END"};
+		String[] receivedTypes = lexerTest(TestSources.EXPRESION_WITH_NEW_LINES);
+		Assert.assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
 	@Test
 	public void noParametersFunction() {
 		String[] expectedTypes = new String[]{

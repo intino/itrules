@@ -70,6 +70,7 @@ mode EXPRESSION_MODE;
     EXPRESSION_RSB     : '$]'                                   { setText("]"); setType(TEXT);};
 	EXPRESSION_TRIGGER : '$'                                    { setType(TRIGGER); setLastMode(EXPRESSION_MODE);} -> mode(MARK_MODE);
 	EXPRESSION_TEXT    : ~('$'| '[' | ']' | '\n')*              { setType(TEXT);};
+	EXPRESSION_NEWLINE : '\n' ('\t' | '    ')?                  { setText("\n"); setType(TEXT);};
 	EXPRESSION_ERROR   : .;
 
 fragment

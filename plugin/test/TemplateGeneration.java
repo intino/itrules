@@ -28,4 +28,11 @@ public class TemplateGeneration {
 		RuleSet read = reader.read(Charset.forName("UTF-8"));
 		Assert.assertEquals(expected, new TemplateRulesWriter("Roster","org.sample", "Spanish", "UTF-8").toJava(read));
 	}
+
+	@Test
+	public void accept_generate_template_for_morph_itr() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/morph.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected, new TemplateRulesWriter("Morph", "org.sample", "Spanish", "UTF-8").toJava(read));
+	}
 }

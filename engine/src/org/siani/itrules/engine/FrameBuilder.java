@@ -167,6 +167,7 @@ public final class FrameBuilder {
 				Double.class.isAssignableFrom(aClass) ||
 				Boolean.class.isAssignableFrom(aClass) ||
 				Date.class.isAssignableFrom(aClass) ||
+				Enum.class.isAssignableFrom(aClass) ||
 				Character.class.isAssignableFrom(aClass);
 	}
 

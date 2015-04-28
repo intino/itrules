@@ -25,24 +25,12 @@ package org.siani.itrules.engine.functions;
 import org.siani.itrules.Function;
 import org.siani.itrules.engine.Trigger;
 
-public final class TriggerFunction implements Function {
+public final class ValueFunction implements Function {
 
 	@Override
 	public boolean match(Trigger trigger, String parameter) {
-		return matchMark(trigger.mark().name(), parameter) || matchOptions(trigger.mark().options(), parameter);
+		return trigger.frame().isPrimitive() && parameter.equalsIgnoreCase(trigger.frame().value().toString());
 	}
 
-	private boolean matchMark(String mark, String parameter) {
-		return mark.equalsIgnoreCase(parameter);
-	}
 
-	private boolean matchOptions(String[] options, String parameter) {
-		for (String option : options)
-			if (matchOption(option, parameter)) return true;
-		return false;
-	}
-
-	private boolean matchOption(String option, String parameter) {
-		return option.equalsIgnoreCase(parameter);
-	}
 }
