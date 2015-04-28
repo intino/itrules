@@ -1,3 +1,9 @@
+##1.1.12##
+-	Added value function
+-   Support for enums at frame builder
+-   Formatters not found do not provide any error
+-   Improved Java template
+
 ##1.1.11##
 -	Fixed UNICODE Bug
 -   Improved Frame API
