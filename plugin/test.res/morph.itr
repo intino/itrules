@@ -1,0 +1,6 @@
+defrule type(nodeimpl)
+    public
+        [$aggregable
+        public Definition$[$] aggregables() {
+        }]
+endrule

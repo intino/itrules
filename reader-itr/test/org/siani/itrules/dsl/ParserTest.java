@@ -23,9 +23,15 @@
 package org.siani.itrules.dsl;
 
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Assert;
 import org.junit.Test;
+import org.siani.itrules.model.Rule;
+import org.siani.itrules.parser.Interpreter;
 import org.siani.itrules.parser.TemplateErrorStrategy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParserTest {
 
@@ -139,6 +145,18 @@ public class ParserTest {
 		}
 	}
 
+	@Test
+	public void test11() {
+		ItrParser parser = init(TestSources.EXPRESION_WITH_NEW_LINES);
+		try {
+			Assert.assertTrue(parse(parser));
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 	private ItrParser init(String query) {
 		CharStream stream = new ANTLRInputStream(query);
 		ItrLexer lexer = new ItrLexer(stream);
@@ -151,7 +169,10 @@ public class ParserTest {
 
 	private boolean parse(ItrParser parser) throws Exception {
 		try {
-			ItrParser.RootContext rootContext = parser.root();
+			List<Rule> rules = new ArrayList<>();
+			ItrParser.RootContext root = parser.root();
+			ParseTreeWalker walker = new ParseTreeWalker();
+			walker.walk(new Interpreter(rules, null), root);
 			return true;
 		} catch (RecognitionException e) {
 			Token token = ((org.antlr.v4.runtime.Parser) e.getRecognizer()).getCurrentToken();
