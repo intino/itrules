@@ -53,7 +53,7 @@ public class TemplateRulesWriter {
 		JavaItrulesTemplate template = new JavaItrulesTemplate(Locale.getDefault(), new Encoding(Charset.defaultCharset(), Encoding.LineSeparator.LF));
 		template.add("string", buildStringFormatter());
 		template.add(RuleSet.class, buildRuleSetAdapter(rules));
-		return template.render(rules);
+		return template.format(rules);
 	}
 
 	@NotNull

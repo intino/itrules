@@ -110,7 +110,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(module.getModuleFile().getParent());
 				file[0] = findPom(root);
 				if (file[0] == null) file[0] = root.createFile("pom.xml");
-				createPom(file[0].getVirtualFile().getPath(), new ModulePomTemplate().render(createModuleFrame(module)));
+				createPom(file[0].getVirtualFile().getPath(), new ModulePomTemplate().format(createModuleFrame(module)));
 			}
 		});
 		return file[0].getVirtualFile();
@@ -145,7 +145,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
 				file[0] = findPom(root);
 				if (file[0] == null) file[0] = root.createFile("pom.xml");
-				createPom(file[0].getVirtualFile().getPath(), new ProjectPomTemplate().render(createProjectFrame(module, getModulesOf(module.getProject()))));
+				createPom(file[0].getVirtualFile().getPath(), new ProjectPomTemplate().format(createProjectFrame(module, getModulesOf(module.getProject()))));
 			}
 		});
 		return file[0].getVirtualFile();

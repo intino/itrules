@@ -24,17 +24,11 @@ public class JavaItrulesTemplate extends Template {
 				"\n" +
 				"public class ")).add(mark("name", "FirstUpperCase")).add(literal("Template extends Template {\n" +
 				"\n" +
-				"public ")).add(mark("name", "FirstUpperCase")).add(literal("Template(Locale locale, Encoding encoding) {\n" +
+				"\tpublic static final Template This = new ")).add(mark("name", "FirstUpperCase")).add(literal("Template(")).add(mark("locale")).add(literal(", Encoding.with(\"")).add(mark("encoding")).add(literal("\", LF));\n\n" +
+				"\tpublic ")).add(mark("name", "FirstUpperCase")).add(literal("Template(Locale locale, Encoding encoding) {\n" +
 				"\t\tsuper(locale, encoding);\n" +
 				"\t}\n" +
 				"\n" +
-				"\tpublic static String format(Object object) {\n" +
-				"\t\treturn template().render(object);\n" +
-				"\t}\n" +
-				"\n" +
-				"\tpublic static Template template() {\n" +
-				"\t\treturn new ")).add(mark("name", "FirstUpperCase")).add(literal("Template(")).add(mark("locale")).add(literal(", Encoding.with(\"")).add(mark("encoding")).add(literal("\", LF));\n" +
-				"\t}\n\n" +
 				"    @Override\n" +
 				"    public void definition() {\n" +
 				"        add(\n" +
