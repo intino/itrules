@@ -35,7 +35,6 @@ import static org.junit.Assert.assertEquals;
 
 public class LexerTest {
 
-
 	public static String[] ruleNamesList;
 
 	public static void setRulesNameList(String[] list) {

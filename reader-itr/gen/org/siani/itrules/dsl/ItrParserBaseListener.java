@@ -77,18 +77,6 @@ public class ItrParserBaseListener implements ItrParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLine(@NotNull ItrParser.LineContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLine(@NotNull ItrParser.LineContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExpression(@NotNull ItrParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}

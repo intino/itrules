@@ -71,7 +71,7 @@ public final class Interpreter extends ItrParserBaseListener {
 
 	@Override
 	public void enterText(@NotNull TextContext ctx) {
-		if (LineContext.class.isInstance(ctx.getParent()))
+		if (BodyContext.class.isInstance(ctx.getParent()))
 			currentText.append(ctx.getText()).append(isTheLast(ctx.getParent().children, ctx) && !isTheLast(ctx.getParent().getParent().children, ctx.getParent()) ? "\n" : "");
 	}
 
@@ -81,14 +81,14 @@ public final class Interpreter extends ItrParserBaseListener {
 
 	@Override
 	public void exitText(@NotNull TextContext ctx) {
-		if (LineContext.class.isInstance(ctx.getParent()) && isEndTextSequence(ctx)) {
+		if (BodyContext.class.isInstance(ctx.getParent()) && isEndTextSequence(ctx)) {
 			currentRule.add(new Literal(currentText.toString()));
 			currentText = new StringBuilder();
 		}
 	}
 
 	private boolean isEndTextSequence(TextContext ctx) {
-		LineContext parent = (LineContext) ctx.getParent();
+		BodyContext parent = (BodyContext) ctx.getParent();
 		List<ParseTree> children = parent.children;
 		return !(children.indexOf(ctx) + 1 < children.size() && children.get(children.indexOf(ctx) + 1) instanceof TextContext);
 	}

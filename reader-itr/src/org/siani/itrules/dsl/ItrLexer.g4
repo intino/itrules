@@ -40,14 +40,14 @@ BODY                : 'body'                                    -> skip;
 mode SIGNATURE_MODE;
 	NOT             : '!';
 	FUNCTION        : LETTER(DIGIT|LETTER)*;
-	NL              : (' '|'\t')* ('\r'? '\n' | '\n') ('\t' | '    ')?   { setLastMode(SIGNATURE_MODE); setType(BODY);} -> mode(BODY_MODE);
+	END_SIGNATURE   : (' '|'\t')* NL ('\t' | '    ')?           { setLastMode(SIGNATURE_MODE); setType(BODY);} -> mode(BODY_MODE);
 	WS              : SP+                                       -> skip;
 	PARAMETERS      : ('(' ~(')')+ ')')| ('('')');
 	RULE_ERROR      : .;
 
 mode BODY_MODE;
 	RULE_END        : '\nendrule'                               { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
-	NEWLINE         : '\n' ('\t' | '    ')?                     { setText("\n"); setType(TEXT);};
+	NEWLINE         : NL ('\t' | '    ')?                       { setText("\n"); setType(TEXT);};
 	DOLLAR          : '$$'                                      { setText("$"); setType(TEXT);};
 	LSB             : '$['                                      { setText("["); setType(TEXT);};
 	RSB             : '$]'                                      { setText("]"); setType(TEXT);};
@@ -70,11 +70,11 @@ mode EXPRESSION_MODE;
     EXPRESSION_RSB     : '$]'                                   { setText("]"); setType(TEXT);};
 	EXPRESSION_TRIGGER : '$'                                    { setType(TRIGGER); setLastMode(EXPRESSION_MODE);} -> mode(MARK_MODE);
 	EXPRESSION_TEXT    : ~('$'| '[' | ']' | '\n')*              { setType(TEXT);};
-	EXPRESSION_NEWLINE : '\n' ('\t' | '    ')?                  { setText("\n"); setType(TEXT);};
+	EXPRESSION_NL      : NL ('\t' | '    ')?                     { setText("\n"); setType(TEXT);};
 	EXPRESSION_ERROR   : .;
 
 fragment
-   	LN              : ('\r'? '\n' | '\n');
+   	NL              : ('\r'? '\n' | '\n');
 fragment
 	SP              : (' ' | '\t');
 fragment
