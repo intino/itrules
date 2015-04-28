@@ -37,6 +37,12 @@ import java.util.Locale;
 public class AcceptedRuleEngine {
 
     @Test
+    public void should_render_null() throws Exception {
+        Assert.assertEquals("Hello world",
+                ruleEngine().render(null));
+    }
+
+    @Test
     public void should_render_hello_world() throws Exception {
         Assert.assertEquals("Hello world",
                 ruleEngine().render("Hello world"));
@@ -64,6 +70,12 @@ public class AcceptedRuleEngine {
     public void should_render_person_defining_a_rule() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
                 renderPerson(personRule()));
+    }
+
+    @Test
+    public void should_render_person_with_null_attributes_defining_a_rule() throws Exception {
+        Assert.assertEquals("Pau Gasol was born",
+                renderPersonWithNullAttributes(personRuleWithExpressions()));
     }
 
     @Test
@@ -180,6 +192,12 @@ public class AcceptedRuleEngine {
         return new Literal(literal);
     }
 
+    private Expression expression(Token.Body... tokens) {
+        Expression expression = new Expression();
+        for (Token.Body token : tokens) expression.add(token);
+        return expression;
+    }
+
     private Condition condition(String name, String parameter) {
         return new Condition(name,parameter);
     }
@@ -219,6 +237,10 @@ public class AcceptedRuleEngine {
     
     private String renderPerson(Rule... rules) {
         return ruleEngine().add(rules).render(person());
+    }
+
+    private String renderPersonWithNullAttributes(Rule... rules) {
+        return ruleEngine().add(rules).render(new Person("Pau Gasol",null,null,null));
     }
 
     private String renderPersonWithCustomFormat(Rule... rules) {
@@ -286,6 +308,12 @@ public class AcceptedRuleEngine {
         return new Rule().
                 add(condition("type", "Person")).
                 add(new Mark("name"), literal(" was born in "), new Mark("country"), literal(" on "), mark("Birthday", "quoted", "ShortDate"));
+    }
+
+    private Rule personRuleWithExpressions() {
+        return new Rule().
+                add(condition("type", "Person")).
+                add(new Mark("name"), literal(" was born"), expression(new Literal(" in "), new Mark("country")), expression(literal(" on "), mark("Birthday", "ShortDate")));
     }
 
     private Rule personRuleWithSex() {
