@@ -260,7 +260,7 @@ public class AcceptedRuleEngine {
 
     private Rule sexRule() {
         return new Rule().
-                add(condition("value", "Male")).
+                add(condition("type", "Sex"), condition("value", "Male")).
                 add(literal("a man"));
     }
 
