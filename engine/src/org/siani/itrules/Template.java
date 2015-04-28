@@ -8,9 +8,8 @@ public abstract class Template {
 
 	protected final TemplateEngine engine;
 
-	public Template(Locale locale, LineSeparator lineSeparator) {
+	protected Template(Locale locale, LineSeparator lineSeparator) {
 		this.engine = new TemplateEngine(locale, lineSeparator);
-		this.definition();
 	}
 
 	public String format(Object object) {
@@ -31,8 +30,6 @@ public abstract class Template {
 		engine.add(name, function);
 		return this;
 	}
-
-	protected abstract void definition();
 
 	protected Rule rule() {
 		return new Rule();

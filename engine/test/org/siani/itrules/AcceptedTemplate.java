@@ -16,7 +16,7 @@ public class AcceptedTemplate {
 
     @Test
     public void should_render_roster() throws Exception {
-        Assert.assertEquals(expected("roster.txt"), RosterTemplate.This.format(createRoster()));
+        Assert.assertEquals(expected("roster.txt"), RosterTemplate.create().format(createRoster()));
     }
 
     private Roster createRoster() {

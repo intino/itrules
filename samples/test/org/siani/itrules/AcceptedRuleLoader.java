@@ -31,6 +31,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Locale;
 
+import static org.siani.itrules.LineSeparator.*;
 import static org.siani.itrules.cases.Message.*;
 
 
@@ -55,7 +56,7 @@ public class AcceptedRuleLoader {
     }
 
     private TemplateEngine templateEngine(String name) {
-        return new TemplateEngine(Locale.ENGLISH, Encoding.with("UTF-8", Encoding.LineSeparator.CRLF)).use(new Source(name));
+        return new TemplateEngine(Locale.ENGLISH, LF).use(new Source(name));
     }
 
     private String template(String name) {
