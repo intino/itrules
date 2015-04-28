@@ -6,11 +6,30 @@ import java.util.Locale;
 
 public abstract class Template {
 
-	private final TemplateEngine engine;
+	protected final TemplateEngine engine;
 
 	public Template(Locale locale, Encoding encoding) {
 		this.engine = new TemplateEngine(locale, encoding);
 		this.definition();
+	}
+
+	public String format(Object object) {
+		return engine.render(object);
+	}
+
+	public Template add(String name, Formatter formatter) {
+		engine.add(name, formatter);
+		return this;
+	}
+
+	public Template add(Class class_, Adapter adapter) {
+		engine.add(class_, adapter);
+		return this;
+	}
+
+	public Template add(String name, Function function) {
+		engine.add(name, function);
+		return this;
 	}
 
 	protected abstract void definition();
@@ -42,25 +61,6 @@ public abstract class Template {
 	protected Template add(Rule... rules) {
 		engine.add(rules);
 		return this;
-	}
-
-	public Template add(String name, Formatter formatter) {
-		engine.add(name, formatter);
-		return this;
-	}
-
-	public Template add(String name, Function function) {
-		engine.add(name, function);
-		return this;
-	}
-
-	public <T> Template add(Class<T> aClass, Adapter<T> adapter) {
-		engine.add(aClass, adapter);
-		return this;
-	}
-
-	public String render(Object object) {
-		return engine.render(object);
 	}
 
 }
