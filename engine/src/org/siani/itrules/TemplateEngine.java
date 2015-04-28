@@ -27,33 +27,36 @@ import org.siani.itrules.model.*;
 
 import java.util.*;
 
+import static org.siani.itrules.LineSeparator.*;
+import static org.siani.itrules.LineSeparator.CRLF;
+
 public class TemplateEngine {
 
+	private final LineSeparator lineSeparator;
 	private final RuleSet ruleSet = new RuleSet();
 	private final Stack<Buffer> buffers = new Stack<>();
 	private final FormatterStore formatterStore;
 	private final FunctionStore functionStore;
 	private final FrameBuilder frameBuilder;
-	private final Encoding encoding;
 
 	public TemplateEngine() {
-		this(Locale.getDefault(), Encoding.getDefault());
+		this(Locale.getDefault(), LF);
 	}
 
-	public TemplateEngine(Locale locale, Encoding outEncoding) {
+	public TemplateEngine(Locale locale, LineSeparator lineSeparator) {
+		this.lineSeparator = lineSeparator;
 		this.ruleSet.add(defaultRule());
 		this.formatterStore = new FormatterStore(locale);
 		this.functionStore = new FunctionStore();
 		this.frameBuilder = new FrameBuilder();
-		this.encoding = outEncoding;
 	}
 
 	private TemplateEngine(TemplateEngine engine) {
+		this.lineSeparator = engine.lineSeparator;
 		this.ruleSet.add(defaultRule());
 		this.formatterStore = engine.formatterStore;
 		this.functionStore = engine.functionStore;
 		this.frameBuilder = engine.frameBuilder;
-		this.encoding = engine.encoding;
 	}
 
 	public TemplateEngine use(String pathname) {
@@ -104,24 +107,27 @@ public class TemplateEngine {
 	}
 
 	public String render(Object object) {
-		return render(frameBuilder.build(object)).content();
+		return encode(render(frameBuilder.build(object)));
+	}
+
+	private String encode(String string) {
+		return lineSeparator == CRLF ? toCRLF(string) : string;
+	}
+
+	private String toCRLF(String string) {
+		return string.replace("\n", "\r\n");
 	}
 
 	private Rule defaultRule() {
 		return new Rule().add(new Condition("Slot", "value")).add(new Mark("value"));
 	}
 
-	private Document render(AbstractFrame frame) {
-		Document document = new Document(encoding);
-		render(frame, document);
-		return document;
-	}
-
-	private void render(AbstractFrame frame, Document document) {
+	private String render(AbstractFrame frame) {
+		StringBuilder document = new StringBuilder();
 		this.buffers.clear();
 		this.buffers.push(new Buffer());
 		execute(new Trigger(frame, new Mark("root")));
-		document.write(buffer());
+		return document.append(buffer()).toString();
 	}
 
 	private boolean execute(Trigger trigger) {

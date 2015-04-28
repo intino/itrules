@@ -8,8 +8,8 @@ public abstract class Template {
 
 	protected final TemplateEngine engine;
 
-	public Template(Locale locale, Encoding encoding) {
-		this.engine = new TemplateEngine(locale, encoding);
+	public Template(Locale locale, LineSeparator lineSeparator) {
+		this.engine = new TemplateEngine(locale, lineSeparator);
 		this.definition();
 	}
 

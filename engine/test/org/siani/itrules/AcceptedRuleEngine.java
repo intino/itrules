@@ -278,7 +278,7 @@ public class AcceptedRuleEngine {
     }
 
     private TemplateEngine ruleEngine() {
-        return new TemplateEngine(Locale.ENGLISH, Encoding.with("UTF-8", Encoding.LineSeparator.LF));
+        return new TemplateEngine(Locale.ENGLISH, LineSeparator.LF);
     }
 
     private class Person {

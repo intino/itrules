@@ -4,14 +4,12 @@ import org.siani.itrules.*;
 
 import java.util.Locale;
 
-import static org.siani.itrules.Encoding.LineSeparator.LF;
-
 public class RosterTemplate extends Template {
 
-	public static final Template This = new RosterTemplate(Locale.ENGLISH, Encoding.with("UTF-8", LF));
+	public static final Template This = new RosterTemplate(Locale.ENGLISH, LineSeparator.LF);
 
-	private RosterTemplate(Locale locale, Encoding encoding) {
-		super(locale, encoding);
+	private RosterTemplate(Locale locale, LineSeparator lineSeparator) {
+		super(locale, lineSeparator);
 	}
 
 	@Override
