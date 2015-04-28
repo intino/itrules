@@ -60,12 +60,6 @@ public class AcceptedRuleEngine {
                 ruleEngine().add(personRule()).render(person()));
     }
 
-    private Rule personRule() {
-        return new Rule().
-                add(condition("type", "Person")).
-                add(new Mark("name"), literal(" was born in "), new Mark("country"), literal(" on "), mark("birthday", "shortdate"));
-    }
-
     @Test
     public void should_render_person_defining_a_rule_with_negated_condition() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on -",
@@ -108,25 +102,31 @@ public class AcceptedRuleEngine {
                 ruleEngine().add(triggerConditionRule()).add(personRule()).render(person()));
     }
 
+    private Rule triggerConditionRule() {
+        return new Rule().
+            add(condition("Trigger", "Name")).
+            add(literal("*"), mark("value"), literal("*"));
+    }
+
     @Test
     public void should_render_person_defining_rule_with_a_trigger_format_condition() throws Exception {
-        Assert.assertEquals("Pau Gasol was born in Spain on *06/07/1980*",
+        Assert.assertEquals("Pau Gasol was born in Spain on \"06/07/1980\"",
                 ruleEngine().add(
                         personRule(),
                         triggerFormatConditionRule()
                 ).render(person()));
     }
 
-    private Rule triggerConditionRule() {
+    private Rule personRule() {
         return new Rule().
-                add(condition("Trigger", "Name")).
-                add(literal("*"), mark("value"), literal("*"));
+            add(condition("type", "Person")).
+            add(new Mark("name"), literal(" was born in "), new Mark("country"), literal(" on "), mark("Birthday", "quoted", "ShortDate"));
     }
 
     private Rule triggerFormatConditionRule() {
         return new Rule().
-                add(condition("Trigger", "ShortDate")).
-                add(literal("*"), mark("value"), literal("*"));
+            add(condition("Trigger", "quoted")).
+            add(literal("\""), mark("value"), literal("\""));
     }
 
     @Test
