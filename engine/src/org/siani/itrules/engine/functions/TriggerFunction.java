@@ -38,7 +38,11 @@ public final class TriggerFunction implements Function {
 
 	private boolean matchOptions(String[] options, String parameter) {
 		for (String option : options)
-			if (matchMark(option, parameter)) return true;
+			if (matchOption(option, parameter)) return true;
 		return false;
+	}
+
+	private boolean matchOption(String option, String parameter) {
+		return option.equalsIgnoreCase(parameter);
 	}
 }

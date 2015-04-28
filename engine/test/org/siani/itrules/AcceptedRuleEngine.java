@@ -108,9 +108,24 @@ public class AcceptedRuleEngine {
                 ruleEngine().add(triggerConditionRule()).add(personRule()).render(person()));
     }
 
+    @Test
+    public void should_render_person_defining_rule_with_a_trigger_format_condition() throws Exception {
+        Assert.assertEquals("Pau Gasol was born in Spain on *06/07/1980*",
+                ruleEngine().add(
+                        personRule(),
+                        triggerFormatConditionRule()
+                ).render(person()));
+    }
+
     private Rule triggerConditionRule() {
         return new Rule().
                 add(condition("Trigger", "Name")).
+                add(literal("*"), mark("value"), literal("*"));
+    }
+
+    private Rule triggerFormatConditionRule() {
+        return new Rule().
+                add(condition("Trigger", "ShortDate")).
                 add(literal("*"), mark("value"), literal("*"));
     }
 
