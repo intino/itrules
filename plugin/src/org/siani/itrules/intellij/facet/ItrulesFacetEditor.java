@@ -18,11 +18,10 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 		myFacetConfiguration = facetConfiguration;
 		localeComboBox.addItem("English");
 		localeComboBox.addItem("Español");
-		encodingBox.addItem("UTF-8");
-		encodingBox.addItem("UTF-16");
-		encodingBox.addItem("ISO-8859-1");
+		encodingBox.addItem("LF - Unix and OS X (\\n)");
+		encodingBox.addItem("CRLF - Windows (\\r\\n)");
 		localeComboBox.setSelectedItem(myFacetConfiguration.getLocale().equals(Locale.ENGLISH) ? "English" : "Español");
-		encodingBox.setSelectedItem(myFacetConfiguration.getEncoding());
+		encodingBox.setSelectedIndex(myFacetConfiguration.getEncoding().equals("LF") ? 0 : 1);
 	}
 
 	@Nls
@@ -37,12 +36,12 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 
 	public boolean isModified() {
 		return !localeComboBox.getSelectedItem().equals(myFacetConfiguration.getLocale().equals(Locale.ENGLISH) ? "English" : "Español") ||
-			!encodingBox.getSelectedItem().equals(myFacetConfiguration.getEncoding());
+			!getEncoding().equals(myFacetConfiguration.getEncoding());
 	}
 
 	public void apply() {
 		myFacetConfiguration.setLocale(localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
-		myFacetConfiguration.setEncoding((String) encodingBox.getSelectedItem());
+		myFacetConfiguration.setEncoding(getEncoding());
 	}
 
 	public void reset() {
@@ -50,6 +49,11 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 	}
 
 	public void disposeUIResources() {
+	}
+
+	private String getEncoding() {
+		String encoding = (String) encodingBox.getSelectedItem();
+		return encoding.substring(0, encoding.indexOf(" ")).trim();
 	}
 
 	@Override

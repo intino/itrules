@@ -46,14 +46,14 @@ mode SIGNATURE_MODE;
 	RULE_ERROR      : .;
 
 mode BODY_MODE;
-	RULE_END        : '\nendrule'                               { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
+	RULE_END        : NL 'endrule'                              { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
 	NEWLINE         : NL ('\t' | '    ')?                       { setText("\n"); setType(TEXT);};
 	DOLLAR          : '$$'                                      { setText("$"); setType(TEXT);};
 	LSB             : '$['                                      { setText("["); setType(TEXT);};
 	RSB             : '$]'                                      { setText("]"); setType(TEXT);};
 	TRIGGER         : '$'                                       { setMode(MARK_MODE); setLastMode(BODY_MODE);};
 	LEFT_SB         : '['                                       { setMode(EXPRESSION_MODE); setLastMode(BODY_MODE);};
-	TEXT            : ~('$'| '['  | '\n' | '~')+;
+	TEXT            : ~('$'| '['  | '\r' | '\n' | '~')+;
 
 mode MARK_MODE;
 	LIST            : '...';

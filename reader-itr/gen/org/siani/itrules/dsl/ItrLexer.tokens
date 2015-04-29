@@ -32,7 +32,6 @@ EXPRESSION_ERROR=31
 'defrule'=1
 'body'=3
 '!'=4
-'\nendrule'=10
 '$'=15
 '['=16
 '...'=18

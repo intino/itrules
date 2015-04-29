@@ -24,14 +24,14 @@ package org.siani.itrules.intellij.actions.java;
 
 import org.jetbrains.annotations.NotNull;
 import org.siani.itrules.Adapter;
-import org.siani.itrules.Encoding;
 import org.siani.itrules.Formatter;
+import org.siani.itrules.LineSeparator;
+import org.siani.itrules.Template;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.Rule;
 
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.util.Locale;
 
 public class TemplateRulesWriter {
@@ -39,18 +39,18 @@ public class TemplateRulesWriter {
 	private final String name;
 	private final String aPackage;
 	private final String locale;
-	private final String encoding;
+	private final String lineSeparator;
 
-	public TemplateRulesWriter(String name, String aPackage, String locale, String encoding) {
+	public TemplateRulesWriter(String name, String aPackage, String locale, String lineSeparator) {
 		this.name = name;
 		this.aPackage = aPackage;
 		this.locale = locale;
-		this.encoding = encoding;
+		this.lineSeparator = lineSeparator;
 	}
 
 	@NotNull
 	public String toJava(final RuleSet rules) throws URISyntaxException {
-		JavaItrulesTemplate template = new JavaItrulesTemplate(Locale.getDefault(), new Encoding(Charset.defaultCharset(), Encoding.LineSeparator.LF));
+		Template template = JavaItrulesTemplate.create(Locale.getDefault(), lineSeparator.equals("LF") ? LineSeparator.LF : LineSeparator.CRLF);
 		template.add("string", buildStringFormatter());
 		template.add(RuleSet.class, buildRuleSetAdapter(rules));
 		return template.format(rules);
@@ -79,7 +79,7 @@ public class TemplateRulesWriter {
 				if (!aPackage.isEmpty()) frame.addFrame("package", context.build(aPackage));
 				frame.addFrame("name", context.build(name));
 				frame.addFrame("locale", context.build(locale));
-				frame.addFrame("encoding", context.build(encoding));
+				frame.addFrame("lineSeparator", context.build(lineSeparator));
 				for (Rule rule : rules)
 					frame.addFrame("rule", context.build(rule));
 			}

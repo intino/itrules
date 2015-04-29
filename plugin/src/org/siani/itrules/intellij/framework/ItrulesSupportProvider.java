@@ -29,6 +29,9 @@ import com.intellij.vcsUtil.VcsUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.idea.maven.project.MavenProjectsManager;
+import org.jetbrains.jps.model.java.JavaSourceRootProperties;
+import org.jetbrains.jps.model.java.JavaSourceRootType;
+import org.jetbrains.jps.model.java.JpsJavaExtensionService;
 import org.siani.itrules.intellij.facet.ItrulesFacet;
 import org.siani.itrules.intellij.facet.ItrulesFacetConfiguration;
 import org.siani.itrules.intellij.framework.maven.ModulePomTemplate;
@@ -110,7 +113,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(module.getModuleFile().getParent());
 				file[0] = findPom(root);
 				if (file[0] == null) file[0] = root.createFile("pom.xml");
-				createPom(file[0].getVirtualFile().getPath(), new ModulePomTemplate().format(createModuleFrame(module)));
+				createPom(file[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
 			}
 		});
 		return file[0].getVirtualFile();
@@ -145,7 +148,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
 				file[0] = findPom(root);
 				if (file[0] == null) file[0] = root.createFile("pom.xml");
-				createPom(file[0].getVirtualFile().getPath(), new ProjectPomTemplate().format(createProjectFrame(module, getModulesOf(module.getProject()))));
+				createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module, getModulesOf(module.getProject()))));
 			}
 		});
 		return file[0].getVirtualFile();
@@ -181,6 +184,10 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 			if (contentEntry.getFile() == null) return;
 			String modulePath = contentEntry.getFile().getPath();
 			VirtualFile templates = VfsUtil.createDirectories(modulePath + separator + "templates");
+			if (templates != null) {
+				JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", false);
+				contentEntry.addSourceFolder(templates, JavaSourceRootType.SOURCE, properties);
+			}
 		} catch (IOException ignored) {
 		}
 	}
@@ -202,9 +209,8 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 			localeComboBox.addItem("Español");
 			localeComboBox.setEnabled(false);
 			encodingBox.setEnabled(false);
-			encodingBox.addItem("UTF-8");
-			encodingBox.addItem("UTF-16");
-			encodingBox.addItem("ISO-8859-1");
+			encodingBox.addItem("LF - Unix and OS X (\\n)");
+			encodingBox.addItem("CRLF - Windows (\\r\\n)");
 		}
 
 
@@ -228,7 +234,12 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		public void addSupport(@NotNull Module module,
 		                       @NotNull ModifiableRootModel rootModel,
 		                       @NotNull ModifiableModelsProvider modifiableModelsProvider) {
-			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"), (String) encodingBox.getSelectedItem());
+			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"), getEncoding());
+		}
+
+		private String getEncoding() {
+			String encoding = (String) encodingBox.getSelectedItem();
+			return encoding.substring(0, encoding.indexOf(" ")).trim();
 		}
 
 		@Nullable

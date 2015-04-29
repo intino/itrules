@@ -22,7 +22,6 @@
 
 package org.siani.itrules.parser;
 
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -72,11 +71,7 @@ public final class Interpreter extends ItrParserBaseListener {
 	@Override
 	public void enterText(@NotNull TextContext ctx) {
 		if (BodyContext.class.isInstance(ctx.getParent()))
-			currentText.append(ctx.getText()).append(isTheLast(ctx.getParent().children, ctx) && !isTheLast(ctx.getParent().getParent().children, ctx.getParent()) ? "\n" : "");
-	}
-
-	private boolean isTheLast(List<ParseTree> children, ParserRuleContext ctx) {
-		return children.indexOf(ctx) == children.size() - 1;
+			currentText.append(ctx.getText());
 	}
 
 	@Override
