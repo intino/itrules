@@ -1,3 +1,9 @@
+##1.1.13##
+-	Improved Templates. 
+-   Added LineSeparator configuration. 
+-   Fixed Grammar and interpreter.
+-   Improved Template Generation
+
 ##1.1.12##
 -	Added value function
 -   Support for enums at frame builder
