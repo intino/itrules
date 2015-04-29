@@ -44,7 +44,7 @@ public class AcceptedFormatterStore {
 
     @Test
     public void should_render_a_year() throws Exception {
-        assertEquals("1950", formatter("Year").format(date(1950, Calendar.JANUARY, 20)));
+        assertEquals(1950, formatter("Year").format(date(1950, Calendar.JANUARY, 20)));
     }
 
     @Test

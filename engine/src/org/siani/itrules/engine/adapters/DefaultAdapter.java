@@ -53,36 +53,36 @@ public class DefaultAdapter<T> implements Adapter<T> {
             boolean accessibility = field.isAccessible();
             field.setAccessible(true);
             if(field.get(source) != null)
-                processFieldByType(field);
+                processField(field.getName(), field.get(source));
             field.setAccessible(accessibility);
         }
 
-        private void processFieldByType(Field field) throws IllegalAccessException {
-            if (isArray(field.getType())) processArray(field);
-            else if (isList(field.getType())) processList(field);
-            else if (isMap(field.getType())) processMap(field);
-            else frame.addFrame(field.getName(), context.build(field.get(source)));
+        private void processField(String name, Object value) throws IllegalAccessException {
+            if (isArray(value.getClass())) processArray(name, value);
+            else if (isList(value.getClass())) processList(name, value);
+            else if (isMap(value.getClass())) processMap(name, value);
+            else frame.addFrame(name, context.build(value));
         }
 
-        private void processArray(Field field) throws IllegalAccessException {
-            Object[] objects = (Object[]) field.get(source);
-            frame.addFrame(field.getName()+ Count, objects.length);
+        private void processArray(String name, Object value) throws IllegalAccessException {
+            Object[] objects = (Object[]) value;
+            frame.addFrame(name + Count, objects.length);
             for (Object item : objects)
-				frame.addFrame(field.getName(), context.build(item));
+				frame.addFrame(name, context.build(item));
         }
 
-        private void processList(Field field) throws IllegalAccessException {
-            List list = (List) field.get(source);
-            frame.addFrame(field.getName()+ Count, list.size());
+        private void processList(String name, Object value) throws IllegalAccessException {
+            List list = (List) value;
+            frame.addFrame(name + Count, list.size());
             for (Object item : list)
-				frame.addFrame(field.getName(), context.build(item));
+				frame.addFrame(name, context.build(item));
         }
 
-        private void processMap(final Field field) throws IllegalAccessException {
-            final Map map = (Map) field.get(source);
-            frame.addFrame(field.getName() + Count, map.keySet().size());
+        private void processMap(String name, Object value) throws IllegalAccessException {
+            final Map map = (Map) value;
+            frame.addFrame(name + Count, map.keySet().size());
             for (Object key : map.keySet())
-				frame.addFrame(field.getName() + "." + key.toString(), context.build(map.get(key)));
+				frame.addFrame(name + "." + key.toString(), context.build(map.get(key)));
         }
 
         private boolean isMap(Class<?> aClass) {

@@ -24,21 +24,14 @@ package org.siani.itrules.engine.formatters;
 
 import org.siani.itrules.Formatter;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-public final class FormatterRepository {
+public final class StringFormatter {
 
-	private static Locale locale;
     private static Map<String, Formatter> map = null;
 
-	public static Map<? extends String, ? extends Formatter> formatters(Locale locale) {
-		FormatterRepository.locale = locale;
+	public static Map<String, Formatter> get() {
         if (map == null) createFormatters();
 		return map;
 	}
@@ -52,17 +45,7 @@ public final class FormatterRepository {
 		add("Camelcase", camelCase());
 		add("LowerCamelCase", lowerCamelCase());
 		add("Capitalize", capitalize());
-		add("Year", year());
-		add("MonthYear", monthYear());
-		add("ShortDate", shortDate());
-		add("FullDate", fullDate());
-		add("DayOfWeek", dayOfWeek());
-		add("Time", time());
-		add("Letters", letters());
-		add("Separators", separators());
 		add("Length", length());
-		add("TwoDecimals", twoDecimals());
-		add("Plural", plural());
 	}
 
 	private static void add(String name, Formatter formatter) {
@@ -140,69 +123,6 @@ public final class FormatterRepository {
 		};
 	}
 
-	private static Formatter plural() {
-		return new PluralFormatter(locale);
-	}
-
-	private static Formatter letters() {
-		return new LetterFormatter(locale);
-	}
-
-	private static Formatter year() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-                return formatDate(value, "yyyy");
-			}
-		};
-	}
-
-    private static Formatter monthYear() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return formatDate(value, "MMMM yyyy");
-			}
-		};
-	}
-
-
-	private static Formatter shortDate() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-                return formatDate(value, "dd/MM/yyyy");
-			}
-		};
-	}
-
-	private static Formatter fullDate() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return formatDate(value, "dd MMMM yyyy");
-			}
-		};
-	}
-
-	private static Formatter dayOfWeek() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return formatDate(value, "EEEE");
-			}
-		};
-	}
-
-	private static Formatter time() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return formatDate(value, "HH:mm");
-			}
-		};
-	}
-
 	private static Formatter length() {
 		return new Formatter() {
 			@Override
@@ -212,38 +132,5 @@ public final class FormatterRepository {
 		};
 	}
 
-	private static Formatter twoDecimals() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				if (!isNumber(value)) return value;
-                double n = ((Number) value).doubleValue();
-                return String.format(locale, "%.2f", n);
-			}
-		};
-	}
-
-	private static boolean isNumber(Object value) {
-		return Number.class.isAssignableFrom(value.getClass());
-	}
-
-	private static Formatter separators() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				if (!isNumber(value)) return value;
-				DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(locale);
-				df.setGroupingUsed(true);
-				df.setGroupingSize(3);
-				return df.format(value);
-			}
-		};
-	}
-
-    private static String formatDate(Object value, String format) {
-        return value instanceof Date ?
-                new SimpleDateFormat(format, locale).format((Date) value) :
-                value.toString();
-    }
 
 }

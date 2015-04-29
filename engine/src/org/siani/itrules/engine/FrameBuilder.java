@@ -28,9 +28,7 @@ import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.PrimitiveFrame;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public final class FrameBuilder {
 
@@ -49,7 +47,7 @@ public final class FrameBuilder {
 	public AbstractFrame build(Object object)  {
 		return (isPrimitive(object.getClass())) ?
 			primitiveFrame(object) :
-			frame(object);
+			frame(processIfCollection(object));
 	}
 
 	private PrimitiveFrame primitiveFrame(Object object) {
@@ -61,6 +59,10 @@ public final class FrameBuilder {
 		fillTypes(object);
 		fillSlots(object);
 		return frame;
+	}
+
+	private Object processIfCollection(Object object) {
+		return isCollection(object.getClass()) ? new Collection(object) :	object;
 	}
 
 	public <T> void register(final Class<T> aClass, final Adapter<T> adapter) {
@@ -151,10 +153,11 @@ public final class FrameBuilder {
 		return types;
 	}
 
-    private static interface Register {
+    private interface Register {
         boolean accept(Class aClass);
         Adapter adapter();
     }
+
 
 	private boolean isPrimitive(Class aClass) {
 		return aClass.isPrimitive() ||
@@ -169,6 +172,20 @@ public final class FrameBuilder {
 				Date.class.isAssignableFrom(aClass) ||
 				Enum.class.isAssignableFrom(aClass) ||
 				Character.class.isAssignableFrom(aClass);
+	}
+
+	private boolean isCollection(Class<?> aClass){
+		return Map.class.isAssignableFrom(aClass) ||
+				List.class.isAssignableFrom(aClass) ||
+				aClass.isArray();
+	}
+
+	private class Collection{
+		public final Object items;
+
+		private Collection(Object items) {
+			this.items = items;
+		}
 	}
 
 }

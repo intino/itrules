@@ -28,10 +28,7 @@ import org.siani.itrules.engine.Trigger;
 import org.siani.itrules.engine.adapters.ExcludeAdapter;
 import org.siani.itrules.model.*;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
 
 
 public class AcceptedRuleEngine {
@@ -160,6 +157,37 @@ public class AcceptedRuleEngine {
     public void should_render_person_excluding_a_field() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on ",
                 renderPersonExcludingField(personRule()));
+    }
+
+    @Test
+    public void should_render_an_array_of_objects_properly() throws Exception {
+        Assert.assertEquals("item1, item2, item3 --> 3",
+                new TemplateEngine().add(collectionRule()).render(new String[]{"item1", "item2", "item3"}));
+    }
+
+    @Test
+    public void should_render_a_list_of_objects_properly() throws Exception {
+        Assert.assertEquals("item1, item2, item3 --> 3",
+                new TemplateEngine().add(collectionRule()).render(Arrays.asList("item1", "item2", "item3")));
+    }
+
+    @Test
+    public void should_render_a_map_of_objects_properly() throws Exception {
+        Assert.assertEquals("items.string1, item2, item3",
+                new TemplateEngine().add(collectionRule()).render(createMap()));
+    }
+
+    private Map<String, String> createMap() {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("string1", "value1");
+        map.put("string2", "value2");
+        map.put("string3", "value3");
+        return map;
+    }
+
+    private Rule collectionRule() {
+        return new Rule().add(new Condition("type", "Collection"), new Condition("slot", "items")).
+                add(new Mark("items").multiple(", "), new Literal(" --> "), new Mark("itemscount"));
     }
 
     private Adapter<Person> customAdapter() {
