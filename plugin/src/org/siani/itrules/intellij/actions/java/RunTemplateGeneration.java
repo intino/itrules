@@ -11,9 +11,7 @@ import org.siani.itrules.intellij.facet.ItrulesFacet;
 import org.siani.itrules.parser.ITRulesSyntaxError;
 import org.siani.itrules.readers.ItrRuleSetReader;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.Locale;
 
@@ -59,7 +57,7 @@ public class RunTemplateGeneration extends Task.Modal {
 	}
 
 	private void toJava(RuleSet rules) throws IOException, URISyntaxException {
-		FileWriter writer = new FileWriter(this.destiny, false);
+		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.destiny), rulesFile.getCharset());
 		String lineSeparator = extractLineSeparator();
 		String locale = extractLocale();
 		String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale, lineSeparator).toJava(rules);
