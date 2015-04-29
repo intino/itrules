@@ -12,16 +12,16 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 	private final ItrulesFacetConfiguration myFacetConfiguration;
 	private JComboBox<String> localeComboBox;
 	private JPanel myMainPanel;
-	private JComboBox<String> encodingBox;
+	private JComboBox<String> lineSeparatorBox;
 
 	public ItrulesFacetEditor(ItrulesFacetConfiguration facetConfiguration) {
 		myFacetConfiguration = facetConfiguration;
 		localeComboBox.addItem("English");
 		localeComboBox.addItem("Español");
-		encodingBox.addItem("LF - Unix and OS X (\\n)");
-		encodingBox.addItem("CRLF - Windows (\\r\\n)");
+		lineSeparatorBox.addItem("LF - Unix and OS X (\\n)");
+		lineSeparatorBox.addItem("CRLF - Windows (\\r\\n)");
 		localeComboBox.setSelectedItem(myFacetConfiguration.getLocale().equals(Locale.ENGLISH) ? "English" : "Español");
-		encodingBox.setSelectedIndex(myFacetConfiguration.getEncoding().equals("LF") ? 0 : 1);
+		lineSeparatorBox.setSelectedIndex(myFacetConfiguration.getLineSeparator().equals("LF") ? 0 : 1);
 	}
 
 	@Nls
@@ -36,12 +36,12 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 
 	public boolean isModified() {
 		return !localeComboBox.getSelectedItem().equals(myFacetConfiguration.getLocale().equals(Locale.ENGLISH) ? "English" : "Español") ||
-			!getEncoding().equals(myFacetConfiguration.getEncoding());
+			!getLineSeparator().equals(myFacetConfiguration.getLineSeparator());
 	}
 
 	public void apply() {
 		myFacetConfiguration.setLocale(localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
-		myFacetConfiguration.setEncoding(getEncoding());
+		myFacetConfiguration.setLineSeparator(getLineSeparator());
 	}
 
 	public void reset() {
@@ -51,8 +51,8 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 	public void disposeUIResources() {
 	}
 
-	private String getEncoding() {
-		String encoding = (String) encodingBox.getSelectedItem();
+	private String getLineSeparator() {
+		String encoding = (String) lineSeparatorBox.getSelectedItem();
 		return encoding.substring(0, encoding.indexOf(" ")).trim();
 	}
 

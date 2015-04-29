@@ -8,5 +8,5 @@ public class ItrulesModuleExtensionProperties {
 	public String locale = "en";
 
 	@Tag("encoding")
-	public String encoding= "UTF-8";
+	public String lineSeparator = "UTF-8";
 }

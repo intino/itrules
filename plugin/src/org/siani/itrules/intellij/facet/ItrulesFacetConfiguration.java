@@ -40,8 +40,8 @@ public class ItrulesFacetConfiguration implements FacetConfiguration, Persistent
 		return myProperties.locale.equals("en") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES");
 	}
 
-	public String getEncoding() {
-		return myProperties.encoding;
+	public String getLineSeparator() {
+		return myProperties.lineSeparator;
 	}
 
 
@@ -49,8 +49,8 @@ public class ItrulesFacetConfiguration implements FacetConfiguration, Persistent
 		myProperties.locale = locale.equals(Locale.ENGLISH) ? "en" : "es";
 	}
 
-	public void setEncoding(String encoding) {
-		myProperties.encoding = encoding;
+	public void setLineSeparator(String separator) {
+		myProperties.lineSeparator = separator;
 	}
 
 }
