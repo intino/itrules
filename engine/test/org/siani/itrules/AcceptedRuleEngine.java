@@ -37,6 +37,12 @@ import java.util.Locale;
 public class AcceptedRuleEngine {
 
     @Test
+    public void should_render_null() throws Exception {
+        Assert.assertEquals("Hello world",
+                ruleEngine().render(null));
+    }
+
+    @Test
     public void should_render_hello_world() throws Exception {
         Assert.assertEquals("Hello world",
                 ruleEngine().render("Hello world"));
@@ -55,168 +61,105 @@ public class AcceptedRuleEngine {
     }
 
     @Test
+    public void should_render_an_enum() throws Exception {
+        Assert.assertEquals("Male",
+                ruleEngine().render(Sex.Male));
+    }
+
+    @Test
     public void should_render_person_defining_a_rule() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRule()).render(person()));
+                renderPerson(personRule()));
+    }
+
+    @Test
+    public void should_render_person_with_null_attributes_defining_a_rule() throws Exception {
+        Assert.assertEquals("Pau Gasol was born",
+                renderPersonWithNullAttributes(personRuleWithExpressions()));
+    }
+
+    @Test
+    public void should_render_person_with_enum() throws Exception {
+        Assert.assertEquals("Pau Gasol is a man",
+                renderPerson(personRuleWithSex(), sexRule()));
     }
 
     @Test
     public void should_render_person_defining_a_rule_with_negated_condition() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on -",
-                ruleEngine().add(negatedConditionRule()).add(personRule()).render(person()));
-    }
-
-    private Rule negatedConditionRule() {
-        return new Rule().
-                add(not(condition("type", "String"))).
-                add(literal("-"));
+                renderPerson(personRule(), negatedConditionRule()));
     }
 
     @Test
     public void should_render_person_defining_a_rule_with_uppercase_tokens() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleUppercase()).render(person()));
-    }
-
-    private Rule personRuleUppercase() {
-        return new Rule().
-                add(condition("TYPE", "PERSON")).
-                add(new Mark("NAME"), literal(" was born in "), new Mark("COUNTRY"), literal(" on "), mark("BIRTHDAY", "SHORTDATE"));
+                renderPerson(personRuleUppercase()));
     }
 
     @Test
     public void should_render_person_defining_a_rule_with_formatted_marks() throws Exception {
         Assert.assertEquals("PAU GASOL was born in spain on 06/07/1980",
-                ruleEngine().add(personRuleWithFormatMarks()).render(person()));
-    }
-
-    private Rule personRuleWithFormatMarks() {
-        return new Rule().
-                add(condition("Type", "Person")).
-                add(mark("Name", "Uppercase"), literal(" was born in "), mark("Country", "Lowercase"), literal(" on "), mark("Birthday", "ShortDate"));
+                renderPerson(personRuleWithFormatMarks()));
     }
 
     @Test
     public void should_render_person_defining_a_rule_with_value_function() throws Exception {
         Assert.assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
-                ruleEngine().add(personRule(), valueRule()).render(person()));
-    }
-
-    private Rule valueRule() {
-        return new Rule().
-                add(condition("value", "Pau Gasol")).
-                add(literal("*"), mark("value"), literal("*"));
+                renderPerson(personRule(), valueRule()));
     }
 
     @Test
     public void should_render_person_defining_rule_with_a_trigger_condition() throws Exception {
         Assert.assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
-                ruleEngine().add(triggerConditionRule()).add(personRule()).render(person()));
-    }
-
-    private Rule triggerConditionRule() {
-        return new Rule().
-            add(condition("Trigger", "Name")).
-            add(literal("*"), mark("value"), literal("*"));
+                renderPerson(personRule(), triggerConditionRule()));
     }
 
     @Test
     public void should_render_person_defining_rule_with_a_trigger_format_condition() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on \"06/07/1980\"",
-                ruleEngine().add(
-                        personRule(),
-                        triggerFormatConditionRule()
-                ).render(person()));
-    }
-
-    private Rule personRule() {
-        return new Rule().
-            add(condition("type", "Person")).
-            add(new Mark("name"), literal(" was born in "), new Mark("country"), literal(" on "), mark("Birthday", "quoted", "ShortDate"));
-    }
-
-    private Rule triggerFormatConditionRule() {
-        return new Rule().
-            add(condition("Trigger", "quoted")).
-            add(literal("\""), mark("value"), literal("\""));
-    }
-
-    @Test
-    public void should_render_person_defining_a_rule_with_a_custom_formatter() throws Exception {
-        Assert.assertEquals("9 was born in 5 on 06/07/1980",
-                ruleEngine().add(personRuleWithCustomFormat()).add("Custom", customFormatter()).render(person()));
-    }
-
-    private Rule personRuleWithCustomFormat() {
-        return new Rule().
-                add(condition("Type", "Person")).
-                add(mark("Name", "Custom"), literal(" was born in "), mark("Country", "Custom"), literal(" on "), mark("Birthday", "ShortDate"));
+                renderPerson(personRule(), triggerFormatConditionRule()));
     }
 
     @Test
     public void should_render_person_ignoring_date_formats_if_value_is_not_date() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleWithDateFormatOnString()).render(person()));
-    }
-
-    private Rule personRuleWithDateFormatOnString() {
-        return new Rule().
-                add(condition("Type", "Person")).
-                add(mark("Name","ShortDate"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday", "ShortDate"));
+                renderPerson(personRuleWithDateFormatOnString()));
     }
 
     @Test
     public void should_render_person_ignoring_number_formats_if_value_is_not_double() throws Exception {
         Assert.assertEquals("Pau gasol was born in spain on 06/07/1980",
-                ruleEngine().add(personRuleWithDoubleFormatOnString()).render(person()));
-    }
-
-    private Rule personRuleWithDoubleFormatOnString() {
-        return new Rule().
-                add(condition("Type", "Person")).
-                add(mark("Name","TwoDecimals", "Capitalize"), literal(" was born in "), mark("Country", "Letters", "LowerCase"), literal(" on "), mark("Birthday", "Separators", "ShortDate"));
+                renderPerson(personRuleWithDoubleFormatOnString()));
     }
 
     @Test
     public void should_render_person_chaining_two_formats() throws Exception {
         Assert.assertEquals("PauGasols was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleWithTwoFormats()).render(person()));
+                renderPerson(personRuleWithTwoFormats()));
     }
 
-    private Rule personRuleWithTwoFormats() {
-        return new Rule().
-                add(condition("Type", "Person")).
-                add(mark("Name","CamelCase","Plural"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday","ShortDate"));
+    @Test
+    public void should_render_person_defining_a_rule_with_a_custom_formatter() throws Exception {
+        Assert.assertEquals("9 was born in 5 on 06/07/1980",
+                renderPersonWithCustomFormat(personRuleWithCustomFormat()));
     }
 
     @Test
     public void should_render_person_defining_rule_with_a_custom_condition_function() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-                ruleEngine().add(personRuleWithCustomCondition()).add("Custom", customConditionFunction()).render(person()));
-    }
-
-    private Rule personRuleWithCustomCondition() {
-        return new Rule().
-                add(condition("Custom", "Gasol")).
-                add(mark("Name"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday", "ShortDate"));
+                renderPersonWithCustomConditionFunction(personRuleWithCustomCondition()));
     }
 
     @Test
     public void should_render_person_defining_rule_with_a_custom_adapter() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain and he is 34 years old",
-                ruleEngine().add(personRuleWithCustomAdapter()).add(Person.class, customAdapter()).render(person()));
-    }
-
-    private Rule personRuleWithCustomAdapter() {
-        return new Rule().
-                add(condition("Type", "Person")).
-                add(mark("Name"), literal(" was born in "), mark("Country"), literal(" and he is "), mark("age"), literal(" years old"));
+                renderPersonWithCustomAdapter(personRuleWithCustomAdapter()));
     }
 
     @Test
     public void should_render_person_excluding_a_field() throws Exception {
         Assert.assertEquals("Pau Gasol was born in Spain on ",
-                ruleEngine().add(personRule()).add(Person.class, new ExcludeAdapter("birthday")).render(person()));
+                renderPersonExcludingField(personRule()));
     }
 
     private Adapter<Person> customAdapter() {
@@ -227,6 +170,7 @@ public class AcceptedRuleEngine {
                 context.frame().addFrame("country", context.build(context.source().country));
                 context.frame().addFrame("birthday", context.build(context.source().birthday));
                 context.frame().addFrame("age", context.build(34));
+                context.frame().addFrame("sex", context.build(context.source().sex));
             }
         };
     }
@@ -246,6 +190,12 @@ public class AcceptedRuleEngine {
 
     private Literal literal(String literal) {
         return new Literal(literal);
+    }
+
+    private Expression expression(Token.Body... tokens) {
+        Expression expression = new Expression();
+        for (Token.Body token : tokens) expression.add(token);
+        return expression;
     }
 
     private Condition condition(String name, String parameter) {
@@ -270,7 +220,7 @@ public class AcceptedRuleEngine {
     }
 
     private Person person() {
-        return new Person("Pau Gasol", date(1980, Calendar.JULY, 6), "Spain");
+        return new Person("Pau Gasol", date(1980, Calendar.JULY, 6), "Spain", Sex.Male);
     }
 
     private Date date(int year, int month, int day) {
@@ -278,19 +228,148 @@ public class AcceptedRuleEngine {
     }
 
     private TemplateEngine ruleEngine() {
-        return new TemplateEngine(Locale.ENGLISH, Encoding.with("UTF-8", Encoding.LineSeparator.LF));
+        return new TemplateEngine(Locale.ENGLISH, LineSeparator.LF);
+    }
+
+    private enum Sex {
+        Male
+    }
+    
+    private String renderPerson(Rule... rules) {
+        return ruleEngine().add(rules).render(person());
+    }
+
+    private String renderPersonWithNullAttributes(Rule... rules) {
+        return ruleEngine().add(rules).render(new Person("Pau Gasol",null,null,null));
+    }
+
+    private String renderPersonWithCustomFormat(Rule... rules) {
+        return ruleEngine().add("Custom", customFormatter()).add(rules).render(person());
+    }
+
+    private String renderPersonWithCustomConditionFunction(Rule... rules) {
+        return ruleEngine().add("Custom", customConditionFunction()).add(rules).render(person());
+    }
+
+    private String renderPersonWithCustomAdapter(Rule... rules) {
+        return ruleEngine().add(Person.class, customAdapter()).add(rules).render(person());
+    }
+
+    private String renderPersonExcludingField(Rule... rules) {
+        return ruleEngine().add(Person.class, new ExcludeAdapter("birthday")).add(rules).render(person());
     }
 
     private class Person {
         private final String name;
         private final Date birthday;
         private final String country;
+        private final Sex sex;
 
-        public Person(String name, Date birthday, String country) {
+        public Person(String name, Date birthday, String country, Sex sex) {
             this.name = name;
             this.birthday = birthday;
             this.country = country;
+            this.sex = sex;
         }
+    }
+
+
+    private Rule valueRule() {
+        return new Rule().
+                add(condition("value", "Pau Gasol")).
+                add(literal("*"), mark("value"), literal("*"));
+    }
+
+    private Rule sexRule() {
+        return new Rule().
+                add(condition("type", "Sex"), condition("value", "Male")).
+                add(literal("a man"));
+    }
+
+    private Rule negatedConditionRule() {
+        return new Rule().
+                add(not(condition("type", "String"))).
+                add(literal("-"));
+    }
+
+    private Rule triggerFormatConditionRule() {
+        return new Rule().
+                add(condition("Trigger", "quoted")).
+                add(literal("\""), mark("value"), literal("\""));
+    }
+
+    private Rule triggerConditionRule() {
+        return new Rule().
+                add(condition("Trigger", "Name")).
+                add(literal("*"), mark("value"), literal("*"));
+    }
+
+    private Rule personRule() {
+        return new Rule().
+                add(condition("type", "Person")).
+                add(new Mark("name"), literal(" was born in "), new Mark("country"), literal(" on "), mark("Birthday", "quoted", "ShortDate"));
+    }
+
+    private Rule personRuleWithExpressions() {
+        return new Rule().
+                add(condition("type", "Person")).
+                add(new Mark("name"), literal(" was born"), expression(new Literal(" in "), new Mark("country")), expression(literal(" on "), mark("Birthday", "ShortDate")));
+    }
+
+    private Rule personRuleWithSex() {
+        return new Rule().
+                add(condition("type", "Person")).
+                add(new Mark("name"), literal(" is "), new Mark("Sex"));
+    }
+
+    private Rule personRuleUppercase() {
+        return new Rule().
+                add(condition("TYPE", "PERSON")).
+                add(new Mark("NAME"), literal(" was born in "), new Mark("COUNTRY"), literal(" on "), mark("BIRTHDAY", "SHORTDATE"));
+    }
+
+    private Rule personRuleWithDateFormatOnString() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name","ShortDate"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday", "ShortDate"));
+    }
+
+
+    private Rule personRuleWithDoubleFormatOnString() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name","TwoDecimals", "Capitalize"), literal(" was born in "), mark("Country", "Letters", "LowerCase"), literal(" on "), mark("Birthday", "Separators", "ShortDate"));
+    }
+
+    private Rule personRuleWithTwoFormats() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name","CamelCase","Plural"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday", "ShortDate"));
+    }
+
+
+    private Rule personRuleWithFormatMarks() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name", "Uppercase"), literal(" was born in "), mark("Country", "Lowercase"), literal(" on "), mark("Birthday", "ShortDate"));
+    }
+
+    private Rule personRuleWithCustomCondition() {
+        return new Rule().
+                add(condition("Custom", "Gasol")).
+                add(mark("Name"), literal(" was born in "), mark("Country"), literal(" on "), mark("Birthday", "ShortDate"));
+    }
+
+    private Rule personRuleWithCustomFormat() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name", "Custom"), literal(" was born in "), mark("Country", "Custom"), literal(" on "), mark("Birthday", "ShortDate"));
+    }
+
+    private Rule personRuleWithCustomAdapter() {
+        return new Rule().
+                add(condition("Type", "Person")).
+                add(mark("Name"), literal(" was born in "), mark("Country"), literal(" and he is "), mark("age"), literal(" years old"));
     }
 
 }

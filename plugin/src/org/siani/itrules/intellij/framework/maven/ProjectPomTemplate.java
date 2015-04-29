@@ -1,22 +1,21 @@
 package org.siani.itrules.intellij.framework.maven;
 
-import org.siani.itrules.Encoding;
+import org.siani.itrules.LineSeparator;
 import org.siani.itrules.Template;
 
 import java.util.Locale;
 
 public class ProjectPomTemplate extends Template {
 
-	public ProjectPomTemplate(Locale locale, Encoding encoding) {
-		super(locale, encoding);
+	protected ProjectPomTemplate(Locale locale, LineSeparator separator) {
+		super(locale, separator);
 	}
 
-	public ProjectPomTemplate() {
-		super(Locale.getDefault(), Encoding.getDefault());
+	public static Template create() {
+		return new ProjectPomTemplate(Locale.ENGLISH, LineSeparator.LF).define();
 	}
 
-	@Override
-	protected void definition() {
+	protected Template define() {
 		add(
 			rule().add(condition("type", "pom")).add(literal("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 				"<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n" +
@@ -40,5 +39,6 @@ public class ProjectPomTemplate extends Template {
 				"  </modules>\n" +
 				"</project>"))
 		);
+		return this;
 	}
 }

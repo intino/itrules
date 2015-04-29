@@ -8,7 +8,7 @@ public class Source extends File {
     private Charset charset;
 
     public Source(String pathname) {
-        this(pathname, Encoding.getDefault().charset());
+        this(pathname, Charset.defaultCharset());
     }
     public Source(String pathname, Charset charset) {
         super(pathname);

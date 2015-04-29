@@ -59,16 +59,6 @@ public interface ItrParserListener extends ParseTreeListener {
 	 */
 	void exitBody(@NotNull ItrParser.BodyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ItrParser#line}.
-	 * @param ctx the parse tree
-	 */
-	void enterLine(@NotNull ItrParser.LineContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ItrParser#line}.
-	 * @param ctx the parse tree
-	 */
-	void exitLine(@NotNull ItrParser.LineContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ItrParser#expression}.
 	 * @param ctx the parse tree
 	 */

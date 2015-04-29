@@ -35,7 +35,6 @@ import static org.junit.Assert.assertEquals;
 
 public class LexerTest {
 
-
 	public static String[] ruleNamesList;
 
 	public static void setRulesNameList(String[] list) {
@@ -110,8 +109,8 @@ public class LexerTest {
 	public void expressionWithNewLines() {
 		String[] expectedTypes = new String[]{
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
-			"TEXT", "TEXT",
-			"TEXT", "TEXT", "TEXT", "TEXT",
+			"TEXT", "TEXT", "TEXT", "LEFT_SB", "TRIGGER", "ID",
+			"TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "RIGHT_SB",
 			"RULE_END"};
 		String[] receivedTypes = lexerTest(TestSources.EXPRESION_WITH_NEW_LINES);
 		Assert.assertArrayEquals(expectedTypes, receivedTypes);

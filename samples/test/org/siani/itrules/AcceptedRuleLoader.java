@@ -29,7 +29,9 @@ import org.siani.itrules.cases.Message;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Locale;
 
+import static org.siani.itrules.LineSeparator.*;
 import static org.siani.itrules.cases.Message.*;
 
 
@@ -50,11 +52,11 @@ public class AcceptedRuleLoader {
 
     @Test
     public void should_render_template_with_multiple_marks() throws Exception {
-        Assert.assertEquals(expected("Message"), ruleEngine(template("Message")).render(MESSAGE));
+        Assert.assertEquals(expected("Message"), templateEngine(template("Message")).render(MESSAGE));
     }
 
-    private TemplateEngine ruleEngine(String name) {
-        return new TemplateEngine().use(new Source(name));
+    private TemplateEngine templateEngine(String name) {
+        return new TemplateEngine(Locale.ENGLISH, LF).use(new Source(name));
     }
 
     private String template(String name) {

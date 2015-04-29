@@ -22,7 +22,6 @@
 
 package org.siani.itrules.parser;
 
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -71,24 +70,20 @@ public final class Interpreter extends ItrParserBaseListener {
 
 	@Override
 	public void enterText(@NotNull TextContext ctx) {
-		if (LineContext.class.isInstance(ctx.getParent()))
-			currentText.append(ctx.getText()).append(isTheLast(ctx.getParent().children, ctx) && !isTheLast(ctx.getParent().getParent().children, ctx.getParent()) ? "\n" : "");
-	}
-
-	private boolean isTheLast(List<ParseTree> children, ParserRuleContext ctx) {
-		return children.indexOf(ctx) == children.size() - 1;
+		if (BodyContext.class.isInstance(ctx.getParent()))
+			currentText.append(ctx.getText());
 	}
 
 	@Override
 	public void exitText(@NotNull TextContext ctx) {
-		if (LineContext.class.isInstance(ctx.getParent()) && isEndTextSequence(ctx)) {
+		if (BodyContext.class.isInstance(ctx.getParent()) && isEndTextSequence(ctx)) {
 			currentRule.add(new Literal(currentText.toString()));
 			currentText = new StringBuilder();
 		}
 	}
 
 	private boolean isEndTextSequence(TextContext ctx) {
-		LineContext parent = (LineContext) ctx.getParent();
+		BodyContext parent = (BodyContext) ctx.getParent();
 		List<ParseTree> children = parent.children;
 		return !(children.indexOf(ctx) + 1 < children.size() && children.get(children.indexOf(ctx) + 1) instanceof TextContext);
 	}

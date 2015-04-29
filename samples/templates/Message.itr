@@ -3,5 +3,6 @@ defrule type(Message)
     To: $to...[, ]
     $subject
 
+
     $body...[$NL]
 endrule
