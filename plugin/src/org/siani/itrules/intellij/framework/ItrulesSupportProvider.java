@@ -70,7 +70,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 	private void addSupport(final Module module,
 	                        final ModifiableRootModel rootModel,
-	                        Locale locale, String encoding) {
+	                        Locale locale, String separator) {
 		createTemplateDirectory(rootModel.getContentEntries()[0]);
 		if (rootModel.getProject().isInitialized()) addMavenToProject(module);
 		else startWithMaven(module);
@@ -78,7 +78,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		ItrulesFacet itrulesFacet = FacetManager.getInstance(module).addFacet(facetType, facetType.getDefaultFacetName(), null);
 		final ItrulesFacetConfiguration facetConfiguration = itrulesFacet.getConfiguration();
 		facetConfiguration.setLocale(locale);
-		facetConfiguration.setEncoding(encoding);
+		facetConfiguration.setLineSeparator(separator);
 	}
 
 	private void startWithMaven(final Module module) {
@@ -201,29 +201,29 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	private class ItrulesSupportConfigurable extends FrameworkSupportInModuleConfigurable implements FrameworkSupportModelListener {
 		private JPanel myMainPanel;
 		private JComboBox<String> localeComboBox;
-		private JComboBox<String> encodingBox;
+		private JComboBox<String> lineSeparatorBox;
 
 		private ItrulesSupportConfigurable(FrameworkSupportModel model) {
 			model.addFrameworkListener(this);
 			localeComboBox.addItem("English");
 			localeComboBox.addItem("Español");
 			localeComboBox.setEnabled(false);
-			encodingBox.setEnabled(false);
-			encodingBox.addItem("LF - Unix and OS X (\\n)");
-			encodingBox.addItem("CRLF - Windows (\\r\\n)");
+			lineSeparatorBox.setEnabled(false);
+			lineSeparatorBox.addItem("LF - Unix and OS X (\\n)");
+			lineSeparatorBox.addItem("CRLF - Windows (\\r\\n)");
 		}
 
 
 		@Override
 		public void frameworkSelected(@NotNull FrameworkSupportProvider frameworkSupportProvider) {
 			localeComboBox.setEnabled(true);
-			encodingBox.setEnabled(true);
+			lineSeparatorBox.setEnabled(true);
 		}
 
 		@Override
 		public void frameworkUnselected(@NotNull FrameworkSupportProvider frameworkSupportProvider) {
 			localeComboBox.setEnabled(false);
-			encodingBox.setEnabled(false);
+			lineSeparatorBox.setEnabled(false);
 		}
 
 		@Override
@@ -234,12 +234,12 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		public void addSupport(@NotNull Module module,
 		                       @NotNull ModifiableRootModel rootModel,
 		                       @NotNull ModifiableModelsProvider modifiableModelsProvider) {
-			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"), getEncoding());
+			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"), getLineSeparator());
 		}
 
-		private String getEncoding() {
-			String encoding = (String) encodingBox.getSelectedItem();
-			return encoding.substring(0, encoding.indexOf(" ")).trim();
+		private String getLineSeparator() {
+			String separator = (String) lineSeparatorBox.getSelectedItem();
+			return separator.substring(0, separator.indexOf(" ")).trim();
 		}
 
 		@Nullable
