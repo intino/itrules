@@ -18,16 +18,15 @@ public class TemplateGeneration {
 		"\n" +
 		"public class RosterTemplate extends Template {\n" +
 		"\n" +
-		"\tpublic RosterTemplate(Locale locale, LineSeparator separator) {\n" +
+		"\tprotected RosterTemplate(Locale locale, LineSeparator separator) {\n" +
 		"\t\tsuper(locale, separator);\n" +
 		"\t}\n" +
 		"\n" +
 		"\tpublic static Template create() {\n" +
-		"\t\treturn new RosterTemplate(English, CRLF).define();\n" +
+		"\t\treturn new RosterTemplate(English, LF).define();\n" +
 		"\t}\n" +
 		"\n" +
-		"\t@Override\n" +
-		"\tpublic void define() {\n" +
+		"\tpublic Template define() {\n" +
 		"\t\tadd(\n" +
 		"\t\t\trule().add(condition(\"type\", \"Roster\")).add(literal(\"<roster>\\n    \")).add(mark(\"Coach\")).add(literal(\"\\n    <players>\\n        \")).add(mark(\"Player\").multiple(\"\\n\")).add(literal(\"\\n    </players>\\n</roster>\")),\n" +
 		"\t\t\trule().add(condition(\"type\", \"Person\"), condition(\"trigger\", \"Coach\")).add(literal(\"<coach name=\\\"\")).add(mark(\"Name\")).add(literal(\"\\\" year=\\\"\")).add(mark(\"Birthday\", \"Year\")).add(literal(\"\\\" country=\\\"\")).add(mark(\"Country\")).add(literal(\"\\\" />\")),\n" +
@@ -47,7 +46,7 @@ public class TemplateGeneration {
 		"\n" +
 		"public class MorphTemplate extends Template {\n" +
 		"\n" +
-		"\tpublic MorphTemplate(Locale locale, LineSeparator separator) {\n" +
+		"\tprotected MorphTemplate(Locale locale, LineSeparator separator) {\n" +
 		"\t\tsuper(locale, separator);\n" +
 		"\t}\n" +
 		"\n" +
@@ -55,7 +54,6 @@ public class TemplateGeneration {
 		"\t\treturn new MorphTemplate(new Locale(\"Spanish\", \"Spain\", \"es_ES\"), LF).define();\n" +
 		"\t}\n" +
 		"\n" +
-		"\t@Override\n" +
 		"\tpublic Template define() {\n" +
 		"\t\tadd(\n" +
 		"\t\t\trule().add(condition(\"type\", \"nodeimpl\")).add(literal(\"public\\n    \")).add(expression().add(mark(\"aggregable\")).add(literal(\"\\n\")).add(literal(\"    public Definition\")).add(literal(\"[\")).add(literal(\"]\")).add(literal(\" aggregables() {\")).add(literal(\"\\n\")).add(literal(\"    }\")))\n" +
@@ -68,7 +66,7 @@ public class TemplateGeneration {
 	public void accept_generate_template_for_roster_itr() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Roster.itr"));
 		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_roster, new TemplateRulesWriter("Roster", "org.sample", "English", getLineSeparator("\r\n")).toJava(read));
+		Assert.assertEquals(expected_roster, new TemplateRulesWriter("Roster", "org.sample", "English", getLineSeparator("\n")).toJava(read));
 	}
 
 	@Test
