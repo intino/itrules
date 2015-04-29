@@ -37,7 +37,7 @@ public class ItrulesFacetConfiguration implements FacetConfiguration, Persistent
 	}
 
 	public Locale getLocale() {
-		return myProperties.locale.equals("en") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES");
+		return myProperties.locale.equals("en") ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES");
 	}
 
 	public String getLineSeparator() {

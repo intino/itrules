@@ -51,7 +51,7 @@ public class TemplateGeneration {
 		"\t}\n" +
 		"\n" +
 		"\tpublic static Template create() {\n" +
-		"\t\treturn new MorphTemplate(new Locale(\"Spanish\", \"Spain\", \"es_ES\"), LF).define();\n" +
+		"\t\treturn new MorphTemplate(new Locale(\"es\", \"Spain\", \"es_ES\"), LF).define();\n" +
 		"\t}\n" +
 		"\n" +
 		"\tpublic Template define() {\n" +
@@ -102,7 +102,7 @@ public class TemplateGeneration {
 		"\t}\n" +
 		"\n" +
 		"\tpublic static Template create() {\n" +
-		"\t\treturn new NullTemplate(new Locale(\"Spanish\", \"Spain\", \"es_ES\"), LF).define();\n" +
+		"\t\treturn new NullTemplate(new Locale(\"es\", \"Spain\", \"es_ES\"), LF).define();\n" +
 		"\t}\n" +
 		"\n" +
 		"\tpublic Template define() {\n" +
@@ -147,6 +147,6 @@ public class TemplateGeneration {
 	}
 
 	private String getLocale(String locale) {
-		return locale.equals("English") ? "Locale.ENGLISH" : "new Locale(\"Spanish\", \"Spain\", \"es_ES\")";
+		return locale.equals("English") ? "Locale.ENGLISH" : "new Locale(\"es\", \"Spain\", \"es_ES\")";
 	}
 }

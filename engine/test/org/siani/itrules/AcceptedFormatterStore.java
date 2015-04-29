@@ -63,6 +63,11 @@ public class AcceptedFormatterStore {
     }
 
     @Test
+    public void should_render_a_number_in_spanish_letters() throws Exception {
+        assertEquals("mil novecientos cincuenta", spanishFormatter("Letters").format(1950));
+    }
+
+    @Test
     public void should_render_a_number_with_separators() throws Exception {
         assertEquals("1,950", formatter("Separators").format(1950));
     }
@@ -79,6 +84,10 @@ public class AcceptedFormatterStore {
 
     private Formatter formatter(String name) {
         return new FormatterStore(Locale.ENGLISH).get(name);
+    }
+
+    private Formatter spanishFormatter(String name) {
+        return new FormatterStore(new Locale("es","Spain","es_ES")).get(name);
     }
 
     private Date date(int year, int month, int day) {

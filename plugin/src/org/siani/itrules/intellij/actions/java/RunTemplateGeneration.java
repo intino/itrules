@@ -70,7 +70,7 @@ public class RunTemplateGeneration extends Task.Modal {
 		if (facet != null) {
 			Locale locale = facet.getConfiguration().getLocale();
 			if (locale.equals(Locale.ENGLISH)) return "Locale.ENGLISH";
-			return "new Locale(\"Spanish\", \"Spain\", \"es_ES\")";
+			return "new Locale(\"es\", \"Spain\", \"es_ES\")";
 		}
 		return "";
 	}

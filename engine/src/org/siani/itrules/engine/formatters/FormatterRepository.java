@@ -23,7 +23,6 @@
 package org.siani.itrules.engine.formatters;
 
 import org.siani.itrules.Formatter;
-import org.siani.itrules.engine.formatters.inflectors.TemplateFormatter;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -64,7 +63,6 @@ public final class FormatterRepository {
 		add("Length", length());
 		add("TwoDecimals", twoDecimals());
 		add("Plural", plural());
-		add("Template", template());
 	}
 
 	private static void add(String name, Formatter formatter) {
@@ -146,8 +144,8 @@ public final class FormatterRepository {
 		return new PluralFormatter(locale);
 	}
 
-	private static Formatter template() {
-		return new TemplateFormatter();
+	private static Formatter letters() {
+		return new LetterFormatter(locale);
 	}
 
 	private static Formatter year() {
@@ -168,6 +166,7 @@ public final class FormatterRepository {
 		};
 	}
 
+
 	private static Formatter shortDate() {
 		return new Formatter() {
 			@Override
@@ -176,7 +175,6 @@ public final class FormatterRepository {
 			}
 		};
 	}
-
 
 	private static Formatter fullDate() {
 		return new Formatter() {
@@ -202,32 +200,6 @@ public final class FormatterRepository {
 			public Object format(Object value) {
 				return formatDate(value, "HH:mm");
 			}
-		};
-	}
-
-	private static Formatter letters() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				if (!isNumber(value)) return value;
-                int n = ((Number) value).intValue();
-                return (words(n / 1000000, " million " + and(n % 1000000)) +
-                        words((n % 1000000) / 1000, " thousand " + and(n % 1000)) + words(n % 1000, "")).replace("  ", " ").trim();
-			}
-
-			private String words(int n, String ending) {
-				String[] first = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-					"eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
-				String[] tenSet = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
-				return (n == 0) ? "" : ((n >= 100) ? first[n / 100] + " hundred" + and(n % 100) : "") +
-					(((n % 100) >= 20) ? tenSet[(n % 100) / 10] + " " + first[n % 10] : first[n % 20]) + ending;
-			}
-
-			private String and(int number) {
-				return ((number > 0) && (number < 100)) ? " and " : "";
-
-			}
-
 		};
 	}
 

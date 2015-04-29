@@ -2,18 +2,18 @@ package org.siani.itrules;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.siani.itrules.engine.formatters.inflectors.EnglishInflector;
+import org.siani.itrules.engine.formatters.inflectors.EnglishPluralInflector;
 
 import static org.junit.Assert.assertEquals;
 
 
 public class TestEnglish {
 
-    private EnglishInflector inflector;
+    private EnglishPluralInflector inflector;
 
     @Before
     public void setUp() {
-        inflector = new EnglishInflector();
+        inflector = new EnglishPluralInflector();
     }
 
     @Test
