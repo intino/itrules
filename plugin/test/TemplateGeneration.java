@@ -87,6 +87,31 @@ public class TemplateGeneration {
 		"\t\treturn this;\n" +
 		"\t}\n" +
 		"}";
+	String expected_null_template = "package org.sample;\n" +
+		"\n" +
+		"import org.siani.itrules.*;\n" +
+		"\n" +
+		"import java.util.Locale;\n" +
+		"\n" +
+		"import static org.siani.itrules.LineSeparator.*;\n" +
+		"\n" +
+		"public class NullTemplate extends Template {\n" +
+		"\n" +
+		"\tprotected NullTemplate(Locale locale, LineSeparator separator) {\n" +
+		"\t\tsuper(locale, separator);\n" +
+		"\t}\n" +
+		"\n" +
+		"\tpublic static Template create() {\n" +
+		"\t\treturn new NullTemplate(new Locale(\"Spanish\", \"Spain\", \"es_ES\"), LF).define();\n" +
+		"\t}\n" +
+		"\n" +
+		"\tpublic Template define() {\n" +
+		"\t\tadd(\n" +
+		"\t\t\trule().add(condition(\"type\", \"rare\"))\n" +
+		"\t\t);\n" +
+		"\t\treturn this;\n" +
+		"\t}\n" +
+		"}";
 
 	@Test
 	public void accept_generate_template_for_roster_itr() throws Exception {
@@ -107,6 +132,13 @@ public class TemplateGeneration {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/RareCharacters.itr"));
 		RuleSet read = reader.read(Charset.forName("UTF-8"));
 		Assert.assertEquals(expected_rare_charachters, new TemplateRulesWriter("RareCharacters", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
+
+	@Test
+	public void null_template_itr() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/nullTemplate.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_null_template, new TemplateRulesWriter("Null", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
 	}
 
 	private String getLineSeparator(String separator) {
