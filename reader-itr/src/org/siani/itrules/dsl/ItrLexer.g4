@@ -36,7 +36,7 @@ lexer grammar ItrLexer;
 RULE_BEGIN          : 'def'                                     { setMode(SIGNATURE_MODE); setLastMode(DEFAULT_MODE);};
 WL                  : (' '|'\t')* ('\r'? '\n' | '\n')           -> skip;
 BODY                : 'body'                                    -> skip;
-COMMENTS            : .*                                        -> skip;
+COMMENTS            : .
 mode SIGNATURE_MODE;
 	NOT             : '!';
 	FUNCTION        : LETTER(DIGIT|LETTER)*;
