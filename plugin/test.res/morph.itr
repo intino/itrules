@@ -1,6 +1,6 @@
-defrule type(nodeimpl)
+def type(nodeimpl)
     public
         [$aggregable
         public Definition$[$] aggregables() {
         }]
-endrule
+end

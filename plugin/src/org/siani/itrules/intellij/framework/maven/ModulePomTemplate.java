@@ -23,8 +23,8 @@ public class ModulePomTemplate extends Template {
 				"         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0\n" +
 				"                             http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
 				"  <modelVersion>4.0.0</modelVersion>\n" +
-				"  <version>4.0.0</version>\n" +
-				"\n")).add(mark("parent")).add(literal("\n" +
+				"  <version>4.0.0</version>\n")).add(literal(
+				"\n" +
 				"  <properties>\n" +
 				"    <maven.compiler.source>1.7</maven.compiler.source>\n" +
 				"    <maven.compiler.target>1.7</maven.compiler.target>\n" +
@@ -40,12 +40,7 @@ public class ModulePomTemplate extends Template {
 				"    </dependency>\n" +
 				"  </dependencies>\n" +
 				"\n" +
-				"</project>")),
-			rule().add(condition("type", "parent"), condition("trigger", "parent")).add(literal("  <parent>\n" +
-				"    <groupId>org.")).add(mark("project")).add(literal("  </groupId>\n" +
-				"    <artifactId>")).add(mark("project")).add(literal("</artifactId>\n" +
-				"    <version>1.0</version>\n" +
-				"  </parent>\n"))
+				"</project>"))
 
 		);
 		return this;

@@ -1,2 +1,2 @@
-defrule type(rare)
-endrule
+def type(rare)
+end

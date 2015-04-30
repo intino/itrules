@@ -4,15 +4,21 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
+import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.encoding.EncodingManager;
 import org.jetbrains.annotations.NotNull;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.intellij.facet.ItrulesFacet;
 import org.siani.itrules.parser.ITRulesSyntaxError;
 import org.siani.itrules.readers.ItrRuleSetReader;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.util.Locale;
 
 public class RunTemplateGeneration extends Task.Modal {
@@ -45,6 +51,7 @@ public class RunTemplateGeneration extends Task.Modal {
 	private void task() {
 		try {
 			toJava(rules());
+			addFileToEncodings();
 		} catch (Throwable e) {
 			indicator.setText(e.getMessage());
 			indicator.cancel();
@@ -57,12 +64,22 @@ public class RunTemplateGeneration extends Task.Modal {
 	}
 
 	private void toJava(RuleSet rules) throws IOException, URISyntaxException {
-		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.destiny), rulesFile.getCharset());
+		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.destiny), Charset.forName("UTF-8"));
 		String lineSeparator = extractLineSeparator();
 		String locale = extractLocale();
 		String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale, lineSeparator).toJava(rules);
 		writer.write(content);
 		writer.close();
+	}
+
+	private void addFileToEncodings() {
+		final VirtualFile virtualFile = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(destiny);
+		new Runnable() {
+			public void run() {
+				EncodingManager.getInstance().setEncoding(virtualFile, Charset.forName("UTF-8"));
+			}
+		};
+
 	}
 
 	private String extractLocale() {

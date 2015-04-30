@@ -32,8 +32,8 @@ public class ItrulesParser implements PsiParser {
 
   /* ********************************************************** */
   // (SCAPED_CHAR
-  //          | RULE_BEGIN
-  //          | RULE_END
+  //          | DEFRULE
+  //          | ENDRULE
   //          | DASH
   //          | UNDERDASH
   //          | MARK
@@ -53,8 +53,8 @@ public class ItrulesParser implements PsiParser {
   }
 
   // SCAPED_CHAR
-  //          | RULE_BEGIN
-  //          | RULE_END
+  //          | DEFRULE
+  //          | ENDRULE
   //          | DASH
   //          | UNDERDASH
   //          | MARK
@@ -67,8 +67,8 @@ public class ItrulesParser implements PsiParser {
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, SCAPED_CHAR);
-    if (!r) r = consumeToken(b, RULE_BEGIN);
-    if (!r) r = consumeToken(b, RULE_END);
+    if (!r) r = consumeToken(b, DEFRULE);
+    if (!r) r = consumeToken(b, ENDRULE);
     if (!r) r = consumeToken(b, DASH);
     if (!r) r = consumeToken(b, UNDERDASH);
     if (!r) r = consumeToken(b, MARK);

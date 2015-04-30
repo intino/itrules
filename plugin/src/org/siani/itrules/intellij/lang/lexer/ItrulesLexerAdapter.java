@@ -6,7 +6,7 @@ import java.io.Reader;
 
 public class ItrulesLexerAdapter extends FlexAdapter {
 	public ItrulesLexerAdapter() {
-		super(new ItrulesLexer((Reader)null));
+		super(new ItrulesLexer((Reader) null));
 	}
 
 

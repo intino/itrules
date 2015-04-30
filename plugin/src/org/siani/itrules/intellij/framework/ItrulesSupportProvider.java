@@ -11,7 +11,6 @@ import com.intellij.ide.util.frameworkSupport.FrameworkSupportProvider;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.JavaModuleType;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ContentEntry;
@@ -43,6 +42,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -100,23 +100,84 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 	private List<VirtualFile> createPoms(Module module) {
 		List<VirtualFile> files = new ArrayList<>();
-		files.add(projectPom(module));
-		files.add(modulePom(module));
+		files.addAll(isProjectModule(module) ? projectModulePom(module) : modulePom(module));
 		return files;
 	}
 
-	private VirtualFile modulePom(final Module module) {
+	private Collection<VirtualFile> modulePom(final Module module) {
+		final PsiFile[] files = new PsiFile[2];
+		ApplicationManager.getApplication().runWriteAction(new Runnable() {
+			@Override
+			public void run() {
+				PsiDirectory root = getModuleRoot(module);
+				files[0] = findPom(root);
+				if (files[0] == null) createPoms(root);
+				else updateModulePom(files[0]);
+			}
+
+			private void createPoms(PsiDirectory root) {
+				files[0] = root.createFile("pom.xml");
+				createPom(files[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
+				if (!getProjectPom(module).exists())
+					files[1] = createProjectPom(module);
+			}
+		});
+		return toVirtual(files);
+	}
+
+	private Collection<VirtualFile> toVirtual(PsiFile[] files) {
+		List<VirtualFile> vFiles = new ArrayList<>();
+		for (PsiFile file : files)
+			if (file != null) vFiles.add(file.getVirtualFile());
+		return vFiles;
+	}
+
+	private PsiFile createProjectPom(Module module) {
+		VirtualFile pom = projectPom(module);
+		return PsiManager.getInstance(module.getProject()).findFile(pom);
+	}
+
+	@NotNull
+	private File getProjectPom(Module module) {
+		return new File(module.getProject().getBaseDir().getPath() + separator + POM_XML);
+	}
+
+	private Collection<VirtualFile> projectModulePom(final Module module) {
 		final PsiFile[] file = new PsiFile[1];
 		ApplicationManager.getApplication().runWriteAction(new Runnable() {
 			@Override
 			public void run() {
-				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(module.getModuleFile().getParent());
+				PsiDirectory root = getModuleRoot(module);
 				file[0] = findPom(root);
-				if (file[0] == null) file[0] = root.createFile("pom.xml");
-				createPom(file[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
+				if (file[0] == null) {
+					file[0] = root.createFile("pom.xml");
+					createPom(file[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
+				} else updateModulePom(file[0]);
 			}
 		});
-		return file[0].getVirtualFile();
+		return new ArrayList<VirtualFile>() {{
+			add(file[0].getVirtualFile());
+		}};
+	}
+
+
+	private void updateModulePom(PsiFile psiFile) {
+		PomHelper helper = new PomHelper(psiFile.getVirtualFile().getPath());
+		if (!helper.hasItrulesDependency()) helper.addItrulesDependency();
+	}
+
+	private boolean isProjectModule(Module module) {
+		return module.getProject().getBaseDir().getPath().equals(new File(module.getModuleFilePath()).getParent());
+	}
+
+	private PsiDirectory getModuleRoot(Module module) {
+		VirtualFile moduleFile = module.getModuleFile();
+		if (moduleFile != null)
+			return PsiManager.getInstance(module.getProject()).findDirectory(moduleFile.getParent());
+		else {
+			VirtualFile baseDir = module.getProject().getBaseDir();
+			return PsiManager.getInstance(module.getProject()).findDirectory(baseDir).findSubdirectory(module.getName());
+		}
 	}
 
 	private PsiFile findPom(PsiDirectory root) {
@@ -143,39 +204,29 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		ApplicationManager.getApplication().runWriteAction(new Runnable() {
 			@Override
 			public void run() {
-				File pomFile = new File(module.getProject().getBaseDir().getPath() + separator + POM_XML);
+				File pomFile = getProjectPom(module);
 				VirtualFile directory = VcsUtil.getVcsRootFor(module.getProject(), VcsUtil.getFilePath(pomFile));
 				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
 				file[0] = findPom(root);
 				if (file[0] == null) file[0] = root.createFile("pom.xml");
-				createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module, getModulesOf(module.getProject()))));
+				createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module)));
 			}
 		});
 		return file[0].getVirtualFile();
 	}
 
-	@NotNull
-	private Module[] getModulesOf(Project project) {
-		return ModuleManager.getInstance(project).getModules();
-	}
 
 	private Frame createModuleFrame(Module module) {
 		Frame frame = new Frame(null).addTypes("pom");
 		frame.addFrame("project", module.getProject().getName());
-		if (!module.getModuleFile().getParent().equals(module.getProject().getBaseDir()))
-			frame.addFrame("parent", new Frame(frame).addTypes("parent").addFrame("project", module.getProject().getName()).addFrame("module", module.getName()));
 		frame.addFrame("module", module.getName());
 		return frame;
 	}
 
-	private Frame createProjectFrame(Module module, Module[] modules) {
+	private Frame createProjectFrame(Module module) {
 		Project project = module.getProject();
-		MavenProjectsManager manager = new MavenProjectsManager(project);
 		Frame frame = new Frame(null).addTypes("pom");
 		frame.addFrame("project", project.getName());
-		for (Module aModule : modules)
-			if (aModule.getName().equalsIgnoreCase(module.getProject().getName()) && (manager.isMavenizedModule(aModule) || aModule.equals(module)))
-				frame.addFrame("module", "<module>" + aModule.getName() + "</module>");
 		return frame;
 	}
 

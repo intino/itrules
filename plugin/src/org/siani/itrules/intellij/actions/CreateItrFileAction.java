@@ -39,10 +39,10 @@ public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<Itrul
 	protected ItrulesTemplateImpl doCreate(PsiDirectory directory, String newName, String templateName) throws IncorrectOperationException {
 		final PsiFileFactory factory = PsiFileFactory.getInstance(directory.getProject());
 		String fileName = newName + "." + ItrulesFileType.INSTANCE.getDefaultExtension();
-		PsiFile file = factory.createFileFromText(fileName, ItrulesFileType.INSTANCE, "defrule\n" +
+		PsiFile file = factory.createFileFromText(fileName, ItrulesFileType.INSTANCE, "def\n" +
 			"\n" +
 			"\n" +
-			"endrule");
+			"end");
 		directory.add(file);
 		return (ItrulesTemplateImpl) file;
 	}

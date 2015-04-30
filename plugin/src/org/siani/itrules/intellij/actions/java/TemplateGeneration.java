@@ -87,7 +87,8 @@ public class TemplateGeneration extends GenerationAction {
 		String path = file.getParent().getPath();
 		if (!new File(moduleDir.getPath(), "templates").exists()) throw new Exception("templates directory not found");
 		String modulePath = new File(moduleDir.getPath(), "templates").getPath();
-		return format(path, modulePath);
+		String formattedPackage = format(path, modulePath);
+		return formattedPackage.isEmpty() ? "itrules" : formattedPackage;
 	}
 
 	private String format(String path, String modulePath) {

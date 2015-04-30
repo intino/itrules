@@ -33,10 +33,10 @@ lexer grammar ItrLexer;
 }
 
 
-RULE_BEGIN          : 'defrule'                                 { setMode(SIGNATURE_MODE); setLastMode(DEFAULT_MODE);};
+RULE_BEGIN          : 'def'                                     { setMode(SIGNATURE_MODE); setLastMode(DEFAULT_MODE);};
 WL                  : (' '|'\t')* ('\r'? '\n' | '\n')           -> skip;
 BODY                : 'body'                                    -> skip;
-
+COMMENTS            : .*                                        -> skip;
 mode SIGNATURE_MODE;
 	NOT             : '!';
 	FUNCTION        : LETTER(DIGIT|LETTER)*;
@@ -46,7 +46,7 @@ mode SIGNATURE_MODE;
 	RULE_ERROR      : .;
 
 mode BODY_MODE;
-	RULE_END        : NL? 'endrule'                             { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
+	RULE_END        : NL? 'end'                                 { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
 	NEWLINE         : NL ('\t' | '    ')?                       { setText("\n"); setType(TEXT);};
 	DOLLAR          : '$$'                                      { setText("$"); setType(TEXT);};
 	LSB             : '$['                                      { setText("["); setType(TEXT);};
