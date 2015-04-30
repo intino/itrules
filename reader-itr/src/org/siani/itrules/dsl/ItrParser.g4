@@ -1,8 +1,8 @@
 parser grammar ItrParser;
 options { tokenVocab=ItrLexer; }
 
-root            : definition* EOF;
-definition       : RULE_BEGIN signature body RULE_END;
+root            : COMMENTS* (definition COMMENTS*)+ EOF;
+definition      : RULE_BEGIN signature body RULE_END;
 
 signature       : condition+ BODY;
 condition       : NOT? FUNCTION PARAMETERS?;

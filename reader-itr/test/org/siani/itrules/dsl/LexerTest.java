@@ -83,7 +83,7 @@ public class LexerTest {
 	@Test
 	public void textTest() {
 		String[] receivedTypes = lexerTest("\'Name\'");
-		Assert.assertTrue(receivedTypes.length == 0);
+		Assert.assertTrue(receivedTypes.length == 6);
 	}
 
 	@Test
