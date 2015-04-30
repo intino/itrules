@@ -161,20 +161,20 @@ public class AcceptedRuleEngine {
 
     @Test
     public void should_render_an_array_of_objects_properly() throws Exception {
-        Assert.assertEquals("item1, item2, item3 --> 3",
+        Assert.assertEquals("item1, item2, item3",
                 new TemplateEngine().add(collectionRule()).render(new String[]{"item1", "item2", "item3"}));
     }
 
     @Test
     public void should_render_a_list_of_objects_properly() throws Exception {
-        Assert.assertEquals("item1, item2, item3 --> 3",
+        Assert.assertEquals("item1, item2, item3",
                 new TemplateEngine().add(collectionRule()).render(Arrays.asList("item1", "item2", "item3")));
     }
 
     @Test
     public void should_render_a_map_of_objects_properly() throws Exception {
-        Assert.assertEquals("items.string1, item2, item3",
-                new TemplateEngine().add(collectionRule()).render(createMap()));
+        Assert.assertEquals("string1:value1, string2:value2, string3:value3",
+                new TemplateEngine().add(collectionRule(), item()).render(createMap()));
     }
 
     private Map<String, String> createMap() {
@@ -187,7 +187,12 @@ public class AcceptedRuleEngine {
 
     private Rule collectionRule() {
         return new Rule().add(new Condition("type", "Collection"), new Condition("slot", "items")).
-                add(new Mark("items").multiple(", "), new Literal(" --> "), new Mark("itemscount"));
+                add(new Mark("items").multiple(", "));
+    }
+
+    private Rule item() {
+        return new Rule().add(new Condition("type", "item")).
+                add(new Mark("key"), new Literal(":"), new Mark("value"));
     }
 
     private Adapter<Person> customAdapter() {

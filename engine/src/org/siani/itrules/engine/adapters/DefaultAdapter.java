@@ -82,7 +82,7 @@ public class DefaultAdapter<T> implements Adapter<T> {
             final Map map = (Map) value;
             frame.addFrame(name + Count, map.keySet().size());
             for (Object key : map.keySet())
-				frame.addFrame(name + "." + key.toString(), context.build(map.get(key)));
+				this.frame.addFrame(name, context.build(new Item(key, map.get(key))));
         }
 
         private boolean isMap(Class<?> aClass) {
@@ -99,9 +99,19 @@ public class DefaultAdapter<T> implements Adapter<T> {
 
 	}
 
+    private static class Item{
+
+        public Object key;
+        public Object value;
+
+        public Item(Object key, Object value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
     protected boolean fieldIsProcessable(Field field) {
         return !(Modifier.isStatic(field.getModifiers()));
     }
-
 
 }

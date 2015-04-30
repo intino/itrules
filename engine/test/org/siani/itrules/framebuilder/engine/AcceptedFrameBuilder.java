@@ -72,8 +72,13 @@ public class AcceptedFrameBuilder {
     public void testSimpleObjectWithMapToFrame() throws Exception {
         Frame frame = (Frame) new FrameBuilder().build(new SimpleObjectWithMap(Arrays.asList(new Object[]{"test1", "test2"}),
                 Arrays.asList(new Object[]{1.0, 2.0})));
-        Assert.assertEquals(1.0, frame.frames("map.test1").next().value());
-        Assert.assertEquals(2.0, frame.frames("map.test2").next().value());
+        Iterator<AbstractFrame> map = frame.frames("map");
+        AbstractFrame firstItem = map.next();
+        Assert.assertEquals("test1", firstItem.frames("key").next().value());
+        Assert.assertEquals(1.0, firstItem.frames("value").next().value());
+        AbstractFrame secondItem = map.next();
+        Assert.assertEquals("test2", secondItem.frames("key").next().value());
+        Assert.assertEquals(2.0, secondItem.frames("value").next().value());
     }
 
     @Test
@@ -82,10 +87,12 @@ public class AcceptedFrameBuilder {
         Frame frame = (Frame) new FrameBuilder().build(
                 new SimpleObjectWithMap(
                         Arrays.asList(new Object[]{object}),
-                        Arrays.asList(new Object[]{new TwoAttributesObject("t", 1.0)})));
-        AbstractFrame map = frame.frames("map" + "." + object.toString()).next();
-        Assert.assertEquals("t", map.frames("field1").next().value());
-        Assert.assertEquals(1.0, map.frames("field2").next().value());
+                        Arrays.asList(new Object[]{new TwoAttributesObject("t2", 2.0)})));
+        AbstractFrame item = frame.frames("map").next();
+        Assert.assertEquals("t", item.frames("key").next().frames("field1").next().value());
+        Assert.assertEquals(1.0, item.frames("key").next().frames("field2").next().value());
+        Assert.assertEquals("t2", item.frames("value").next().frames("field1").next().value());
+        Assert.assertEquals(2.0, item.frames("value").next().frames("field2").next().value());
     }
 
     @Test
