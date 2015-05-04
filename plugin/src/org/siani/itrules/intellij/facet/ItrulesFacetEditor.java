@@ -40,7 +40,7 @@ public class ItrulesFacetEditor extends FacetEditorTab {
 	}
 
 	public void apply() {
-		myFacetConfiguration.setLocale(localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("Spanish", "Spain", "es_ES"));
+		myFacetConfiguration.setLocale(localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES"));
 		myFacetConfiguration.setLineSeparator(getLineSeparator());
 	}
 

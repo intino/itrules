@@ -16,8 +16,8 @@ import java.util.LinkedList;
 
 
 SCAPED_CHAR         = "$$"| "$[" | "$]"
-RULE_BEGIN          = "defrule"
-RULE_END            = "endrule"
+DEFRULE             = "def"
+ENDRULE             = "end"
 DASH                = "-"
 UNDERDASH           = "_"
 MARK                = "$" {IDENTIFIER_KEY}
@@ -27,8 +27,8 @@ IDENTIFIER_KEY      = [:jletter:] ([:jletterdigit:] | {UNDERDASH} | {DASH})*
 
 %%
 <YYINITIAL> {
-	{RULE_BEGIN}                    {   return ItrulesTypes.RULE_BEGIN; }
-	{RULE_END}                      {   return ItrulesTypes.RULE_END; }
+	{DEFRULE}                       {   return ItrulesTypes.DEFRULE; }
+	{ENDRULE}                       {   return ItrulesTypes.ENDRULE; }
 	{MARK}                          {   return ItrulesTypes.MARK; }
 	{LEFT_SQUARE}                   {   return ItrulesTypes.LEFT_SQUARE; }
 	{RIGHT_SQUARE}                  {   return ItrulesTypes.RIGHT_SQUARE; }

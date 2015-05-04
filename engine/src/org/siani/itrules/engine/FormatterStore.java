@@ -1,7 +1,10 @@
 package org.siani.itrules.engine;
 
 import org.siani.itrules.Formatter;
-import org.siani.itrules.engine.formatters.FormatterRepository;
+import org.siani.itrules.engine.formatters.DateFormatter;
+import org.siani.itrules.engine.formatters.StringFormatter;
+import org.siani.itrules.engine.formatters.NumberFormatter;
+import org.siani.itrules.engine.formatters.PluralFormatter;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -12,7 +15,10 @@ public class FormatterStore {
 	private Map<String, Formatter> map = new HashMap<>();
 
 	public FormatterStore(Locale locale) {
-		map.putAll(FormatterRepository.formatters(locale));
+		map.putAll(StringFormatter.get());
+		map.putAll(DateFormatter.get(locale));
+		map.putAll(NumberFormatter.get(locale));
+		map.put("plural", new PluralFormatter(locale));
 	}
 
 	public void add(String name, Formatter formatter) {
@@ -48,4 +54,5 @@ public class FormatterStore {
 			}
 		};
 	}
+
 }

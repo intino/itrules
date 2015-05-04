@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./lib/git.sh
+RESULT=0
 
 function get_main_dependencies {
   echo "<project>" > /tmp/pom.tmp
@@ -81,24 +82,31 @@ function get_module_dependencies {
 
 function generate_artifact {
   version=$(get_last_release)
-  cp -f $1.dist.pom dist.pom 
+  cp -f $2.dist.pom dist.pom 
   sed -i "s/#version#/$version/g" dist.pom
  
-  dependencies=$(replace_module_dependencies $1)
+  dependencies=$(replace_module_dependencies $2)
   dependencies_escaped=$(sed 's/\//\\\//g' <<< "<dependencies>$dependencies$(get_main_dependencies)</dependencies>") 
   perl -pi -e "s/#dependencies#/$dependencies_escaped/g" dist.pom
   
-  mv dist.pom ../$1/dist.pom
-  cd ../$1
-  mvn clean deploy -f dist.pom -s ../deploy/local/maven-settings.xml
+  mv dist.pom ../$2/dist.pom
+  cd ../$2
+  mvn clean $1 -f dist.pom -s ../deploy/local/maven-settings.xml
+  RESULT=$?
   rm dist.pom
   cd ../deploy
 }
 
-if [ -z $1 ]; then
-  generate_artifact engine
-  generate_artifact reader-itr
-  generate_artifact reader-json
+if [ -z $2 ]; then
+  generate_artifact $1 engine
+  if [ $RESULT -eq 0 ]; then  
+    generate_artifact $1 reader-itr
+    if [ $RESULT -eq 0 ]; then      
+      generate_artifact $1 reader-json
+    fi
+  fi
 else
-  generate_artifact $1
+  generate_artifact $1 $2
 fi
+
+exit $RESULT

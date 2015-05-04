@@ -19,9 +19,8 @@ public class ItrulesSyntaxHighlighter extends SyntaxHighlighterBase implements I
 
 	static {
 		KEYS = new HashMap<>();
-
-		KEYS.put(ItrulesTypes.RULE_BEGIN, KEYWORD);
-		KEYS.put(ItrulesTypes.RULE_END, KEYWORD);
+		KEYS.put(ItrulesTypes.DEFRULE, KEYWORD);
+		KEYS.put(ItrulesTypes.ENDRULE, KEYWORD);
 		KEYS.put(ItrulesTypes.MARK, IDENTIFIER);
 		KEYS.put(ItrulesTypes.SCAPED_CHAR, IDENTIFIER);
 		KEYS.put(ItrulesTypes.LEFT_SQUARE, KEYWORD);

@@ -22,9 +22,9 @@
 
 package org.siani.itrules.engine.formatters.inflectors;
 
-import org.siani.itrules.engine.formatters.PluralFormatter;
+import org.siani.itrules.engine.formatters.PluralInflector;
 
-public class SpanishInflector extends PluralFormatter.Inflector {
+public class SpanishPluralInflector extends PluralInflector {
 
     @Override
     public String plural(String word) {

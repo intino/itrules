@@ -9,12 +9,12 @@ public interface ItrulesTypes {
 
 
   IElementType DASH = new ItrulesTokenType("DASH");
+  IElementType DEFRULE = new ItrulesTokenType("DEFRULE");
+  IElementType ENDRULE = new ItrulesTokenType("ENDRULE");
   IElementType IDENTIFIER_KEY = new ItrulesTokenType("IDENTIFIER_KEY");
   IElementType LEFT_SQUARE = new ItrulesTokenType("LEFT_SQUARE");
   IElementType MARK = new ItrulesTokenType("MARK");
   IElementType RIGHT_SQUARE = new ItrulesTokenType("RIGHT_SQUARE");
-  IElementType RULE_BEGIN = new ItrulesTokenType("RULE_BEGIN");
-  IElementType RULE_END = new ItrulesTokenType("RULE_END");
   IElementType SCAPED_CHAR = new ItrulesTokenType("SCAPED_CHAR");
   IElementType TEXT = new ItrulesTokenType("TEXT");
   IElementType UNDERDASH = new ItrulesTokenType("UNDERDASH");

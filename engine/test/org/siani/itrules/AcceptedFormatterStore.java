@@ -44,7 +44,7 @@ public class AcceptedFormatterStore {
 
     @Test
     public void should_render_a_year() throws Exception {
-        assertEquals("1950", formatter("Year").format(date(1950, Calendar.JANUARY, 20)));
+        assertEquals(1950, formatter("Year").format(date(1950, Calendar.JANUARY, 20)));
     }
 
     @Test
@@ -60,6 +60,11 @@ public class AcceptedFormatterStore {
     @Test
     public void should_render_a_number_in_letters() throws Exception {
         assertEquals("one thousand nine hundred and fifty", formatter("Letters").format(1950));
+    }
+
+    @Test
+    public void should_render_a_number_in_spanish_letters() throws Exception {
+        assertEquals("mil novecientos cincuenta", spanishFormatter("Letters").format(1950));
     }
 
     @Test
@@ -79,6 +84,10 @@ public class AcceptedFormatterStore {
 
     private Formatter formatter(String name) {
         return new FormatterStore(Locale.ENGLISH).get(name);
+    }
+
+    private Formatter spanishFormatter(String name) {
+        return new FormatterStore(new Locale("es","Spain","es_ES")).get(name);
     }
 
     private Date date(int year, int month, int day) {

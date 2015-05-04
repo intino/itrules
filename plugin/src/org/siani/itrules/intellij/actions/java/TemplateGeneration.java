@@ -79,22 +79,22 @@ public class TemplateGeneration extends GenerationAction {
 	protected String findDestiny(Project project, Module module, VirtualFile file) throws Exception {
 		if (module == null) return project.getBasePath();
 		File moduleDir = new File(module.getModuleFilePath()).getParentFile();
-		String filePackage = getPackage(file, moduleDir);
 		SourceFolder gen = createGen(module);
-		return gen.getFile().getPath() + separator + filePackage;
+		return gen.getFile().getPath() + separator + getPackage(file, moduleDir).replace(".", separator);
 	}
 
 	private String getPackage(VirtualFile file, File moduleDir) throws Exception {
 		String path = file.getParent().getPath();
 		if (!new File(moduleDir.getPath(), "templates").exists()) throw new Exception("templates directory not found");
 		String modulePath = new File(moduleDir.getPath(), "templates").getPath();
-		return format(path, modulePath);
+		String formattedPackage = format(path, modulePath);
+		return formattedPackage.isEmpty() ? "itrules" : formattedPackage;
 	}
 
 	private String format(String path, String modulePath) {
 		String name = new File(path).toURI().getPath().replace(new File(modulePath).toURI().getPath(), "");
-		if (name.endsWith(separator)) name = name.substring(0, name.length() - 1);
-		return name.replace(separator, ".");
+		if (name.endsWith("/")) name = name.substring(0, name.length() - 1);
+		return name.replace("/", ".");
 	}
 
 	private SourceFolder createGen(final Module module) {
