@@ -1,3 +1,10 @@
+##1.1.14##
+-	Fixed errors in lexer 
+-   Improved maven module integration  
+-   Package itrules in case of no assigned generation output package 
+-   new: Spanish Plural
+-   Refactored formatters.
+
 ##1.1.13##
 -	Improved Templates. 
 -   Added LineSeparator configuration. 
