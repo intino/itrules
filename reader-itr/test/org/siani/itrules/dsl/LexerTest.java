@@ -135,6 +135,14 @@ public class LexerTest {
 	}
 
 	@Test
+	public void MarkWithCurlSeparator() {
+		String[] expectedTypes = new String[]{"RULE_BEGIN", "FUNCTION", "PARAMETERS", "BODY",
+			"TRIGGER", "ID", "OPTION", "ID", "TEXT", "TEXT", "TEXT", "RULE_END"};
+		String[] receivedTypes = lexerTest(TestSources.CURL_SEPARATOR);
+		Assert.assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
+	@Test
 	public void MarkWithFormat() {
 		String[] expectedTypes = new String[]{
 			"RULE_BEGIN", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "FUNCTION", "PARAMETERS", "BODY",

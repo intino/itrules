@@ -54,6 +54,7 @@ mode BODY_MODE;
 	RSB             : '$]'                                      { setText("]"); setType(TEXT);};
 	TRIGGER         : '$'                                       { setMode(MARK_MODE); setLastMode(BODY_MODE);};
 	LEFT_SB         : '['                                       { setMode(EXPRESSION_MODE); setLastMode(BODY_MODE);};
+	NULL_SEPARATOR  : '~'                                        -> skip;
 	TEXT            : ~('$'| '['  | '\r' | '\n' | '~')+;
 
 mode MARK_MODE;

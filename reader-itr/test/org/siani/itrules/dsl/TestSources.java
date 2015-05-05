@@ -51,6 +51,9 @@ public class TestSources {
 	public static final String RULE_BEGIN = "\n\ndef";
 	public static final String RULE_WITH_MARKS = "def type(Attribute) trigger(attribute+Field) type(!Const) type(readonly)\npublic class $attri alalasda $other \nend";
 	public static final String MARK_WITH_MODIFIERS = "def type(Class)\npublic class $attribute+Const...[$NL] alalasda $other \nend";
+	public static final String CURL_SEPARATOR = "def trigger(node)\n" +
+		"    $name+firstUpperCase~Intention$[] a\n" +
+		"end";
 	public static final String MEDIUM_TEST = "def type(Class)\n" +
 		"\tpublic class [$static ]\nend";
 	public static final String TWO_RULES = "def type(Class)\n" +
