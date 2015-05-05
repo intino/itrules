@@ -1,3 +1,7 @@
+##1.1.15##
+-	Fixed errors in lexer and grammar
+-   Fixed java template generation.
+
 ##1.1.14##
 -	Fixed errors in lexer 
 -   Improved maven module integration  
