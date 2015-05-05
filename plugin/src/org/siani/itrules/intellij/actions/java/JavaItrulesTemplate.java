@@ -32,25 +32,25 @@ public class JavaItrulesTemplate extends Template {
 				"\t}\n" +
 				"\n" +
 				"\tpublic static Template create() {\n" +
-				"\t\treturn new ")).add(mark("name", "FirstUpperCase")).add(literal("Template(")).add(mark("locale")).add(literal(", ")).add(mark("lineSeparator")).add(literal(").define();\n")).add(literal(
-				"\t}\n\n" +
-					"\tpublic Template define() {\n" +
-					"\t\tadd(\n" +
-					"\t\t\t")).add(mark("rule").multiple(",\n")).add(literal("\n" +
+				"\t\treturn new ")).add(mark("name", "FirstUpperCase")).add(literal("Template(")).add(mark("locale")).add(literal(", ")).add(mark("lineSeparator")).add(literal(").define();\n")).add(literal("\t}\n\n" +
+				"\tpublic Template define() {\n" +
+				"\t\tadd(\n" +
+				"\t\t\t")).add(mark("rule").multiple(",\n")).add(literal("\n" +
 				"\t\t);\n" +
 				"\t\treturn this;\n" +
 				"\t}\n" +
 				"}")),
 			rule().add(condition("type", "rule"), condition("trigger", "rule")).add(literal("rule()")).
 				add(expression().add(literal(".add(")).add(mark("conditions").multiple(", ")).add(literal(")"))).add(mark("tokens").multiple("")),
-			rule().add(condition("type", "condition"), condition("trigger", "conditions")).add(literal("condition(")).
-				add(mark("name", "string")).add(literal(", ")).add(mark("parameter", "string")).add(literal(")")),
+			rule().add(condition("type", "condition"), condition("trigger", "conditions")).add(mark("negated")).add(literal("(condition(")).
+				add(mark("name", "string")).add(literal(", ")).add(mark("parameter", "string")).add(literal("))")),
+			rule().add(condition("trigger", "negated"), condition("value", "true")).add(literal("not")),
+			rule().add(condition("trigger", "negated")),
 			rule().add(condition("type", "token"), condition("type", "literal"), condition("trigger", "tokens")).
 				add(literal(".add(literal(")).add(mark("literal", "string")).add(literal("))")),
 			rule().add(condition("type", "token"), condition("type", "mark"), condition("trigger", "tokens")).
 				add(literal(".add(mark(")).add(mark("name", "string")).add(expression().add(literal(", ")).add(mark("options", "string").multiple(", "))).add(literal(")")).add(expression().add(literal(".multiple(")).add(mark("separator", "string")).add(literal(")"))).add(literal(")")),
-			rule().add(condition("type", "token"), condition("type", "expression"), condition("trigger", "tokens")).add(literal(".add(expression()")).add(mark("tokens").multiple("")).add(literal(")"))
-		);
+			rule().add(condition("type", "token"), condition("type", "expression"), condition("trigger", "tokens")).add(literal(".add(expression()")).add(mark("tokens").multiple("")).add(literal(")")));
 		return this;
 	}
 }

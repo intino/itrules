@@ -4,3 +4,8 @@ def type(nodeimpl)
         public Definition$[$] aggregables() {
         }]
 end
+
+def !type(word) trigger(node)
+    $name+firstUpperCase~Intention {
+    $name+firstUpperCase~Intention$[] extensions() {
+end

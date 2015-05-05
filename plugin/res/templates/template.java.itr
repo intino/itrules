@@ -1,4 +1,4 @@
-defrule type(ruleset)
+def type(ruleset)
 	[package $package;]
 
 	import org.siani.itrules.*;
@@ -20,24 +20,31 @@ defrule type(ruleset)
 	        );
 	    }
 	}
-endrule
+end
 
-defrule type(rule) trigger(rule)
+def type(rule) trigger(rule)
 	rule()[.add($conditions...[, ])]$tokens...[]
-endrule
+end
 
-defrule type(condition) trigger(conditions)
-	condition($name+string, $parameter+string)
-endrule
+def type(condition) trigger(conditions)
+	$negated(condition($name+string, $parameter+string))
+end
 
-defrule type(token) type(literal) trigger(tokens)
+def trigger(negated) value(true)
+	not
+end
+
+def trigger(negated)
+end
+
+def type(token) type(literal) trigger(tokens)
 	.add(literal($literal+string))
-endrule
+end
 
-defrule type(token) type(mark) trigger(tokens)
+def type(token) type(mark) trigger(tokens)
 	.add(mark($name+string[, $options+string...[, ]])[.multiple($separator+string)])
-endrule
+end
 
-defrule type(token) type(expression) trigger(tokens)
+def type(token) type(expression) trigger(tokens)
 	.add(expression()$tokens...[])
-endrule
+end

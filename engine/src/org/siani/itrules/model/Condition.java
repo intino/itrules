@@ -26,13 +26,18 @@ public class Condition {
 
 	private final String name;
 	private final String parameter;
-    protected boolean negated;
+	protected boolean negated;
 
 	public Condition(String name, String parameter) {
 		this.name = name;
 		this.parameter = parameter;
-        this.negated = false;
-    }
+		this.negated = false;
+	}
+
+	public Condition(String name, String parameter, boolean negated) {
+		this(name, parameter);
+		this.negated = negated;
+	}
 
 	public String name() {
 		return this.name;
@@ -46,16 +51,16 @@ public class Condition {
 		return name().equals(type);
 	}
 
-    public boolean negated() {
-        return negated;
-    }
+	public boolean negated() {
+		return negated;
+	}
 
 	public static class Negated extends Condition {
 
-        public Negated(Condition condition) {
-            super(condition.name, condition.parameter);
-            this.negated = !condition.negated();
-        }
+		public Negated(Condition condition) {
+			super(condition.name, condition.parameter);
+			this.negated = !condition.negated();
+		}
 
 	}
 }

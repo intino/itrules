@@ -19,10 +19,10 @@ public class ItrParser extends Parser {
 	public static final int
 		RULE_BEGIN=1, WL=2, BODY=3, COMMENTS=4, NOT=5, FUNCTION=6, END_SIGNATURE=7, 
 		WS=8, PARAMETERS=9, RULE_ERROR=10, RULE_END=11, NEWLINE=12, DOLLAR=13, 
-		LSB=14, RSB=15, TRIGGER=16, LEFT_SB=17, TEXT=18, LIST=19, OPTION=20, NULL=21, 
-		SEPARATOR=22, ID=23, MARK_ERROR=24, RIGHT_SB=25, EXPRESSION_DOLLAR=26, 
-		EXPRESSION_LSB=27, EXPRESSION_RSB=28, EXPRESSION_TRIGGER=29, EXPRESSION_TEXT=30, 
-		EXPRESSION_NL=31, EXPRESSION_ERROR=32;
+		LSB=14, RSB=15, TRIGGER=16, LEFT_SB=17, NULL_SEPARATOR=18, TEXT=19, LIST=20, 
+		OPTION=21, NULL=22, SEPARATOR=23, ID=24, MARK_ERROR=25, RIGHT_SB=26, EXPRESSION_DOLLAR=27, 
+		EXPRESSION_LSB=28, EXPRESSION_RSB=29, EXPRESSION_TRIGGER=30, EXPRESSION_TEXT=31, 
+		EXPRESSION_NL=32, EXPRESSION_ERROR=33;
 	public static final int
 		RULE_root = 0, RULE_definition = 1, RULE_signature = 2, RULE_condition = 3, 
 		RULE_body = 4, RULE_expression = 5, RULE_text = 6, RULE_mark = 7, RULE_option = 8;
@@ -33,15 +33,15 @@ public class ItrParser extends Parser {
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'def'", null, "'body'", null, "'!'", null, null, null, null, null, 
-		null, null, null, null, null, "'$'", "'['", null, "'...'", "'+'", "'~'"
+		null, null, null, null, null, "'$'", "'['", null, null, "'...'", "'+'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "RULE_BEGIN", "WL", "BODY", "COMMENTS", "NOT", "FUNCTION", "END_SIGNATURE", 
 		"WS", "PARAMETERS", "RULE_ERROR", "RULE_END", "NEWLINE", "DOLLAR", "LSB", 
-		"RSB", "TRIGGER", "LEFT_SB", "TEXT", "LIST", "OPTION", "NULL", "SEPARATOR", 
-		"ID", "MARK_ERROR", "RIGHT_SB", "EXPRESSION_DOLLAR", "EXPRESSION_LSB", 
-		"EXPRESSION_RSB", "EXPRESSION_TRIGGER", "EXPRESSION_TEXT", "EXPRESSION_NL", 
-		"EXPRESSION_ERROR"
+		"RSB", "TRIGGER", "LEFT_SB", "NULL_SEPARATOR", "TEXT", "LIST", "OPTION", 
+		"NULL", "SEPARATOR", "ID", "MARK_ERROR", "RIGHT_SB", "EXPRESSION_DOLLAR", 
+		"EXPRESSION_LSB", "EXPRESSION_RSB", "EXPRESSION_TRIGGER", "EXPRESSION_TEXT", 
+		"EXPRESSION_NL", "EXPRESSION_ERROR"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -678,30 +678,30 @@ public class ItrParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\"_\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\7\2\26"+
-		"\n\2\f\2\16\2\31\13\2\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\6\2\"\n\2\r\2"+
-		"\16\2#\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\4\6\4.\n\4\r\4\16\4/\3\4\3\4\3\5"+
-		"\5\5\65\n\5\3\5\3\5\5\59\n\5\3\6\3\6\3\6\7\6>\n\6\f\6\16\6A\13\6\3\7\3"+
-		"\7\3\7\3\7\7\7G\n\7\f\7\16\7J\13\7\3\7\3\7\3\b\3\b\3\t\3\t\3\t\7\tS\n"+
-		"\t\f\t\16\tV\13\t\3\t\3\t\5\tZ\n\t\3\n\3\n\3\n\3\n\2\2\13\2\4\6\b\n\f"+
-		"\16\20\22\2\2c\2\27\3\2\2\2\4\'\3\2\2\2\6-\3\2\2\2\b\64\3\2\2\2\n?\3\2"+
-		"\2\2\fB\3\2\2\2\16M\3\2\2\2\20O\3\2\2\2\22[\3\2\2\2\24\26\7\6\2\2\25\24"+
-		"\3\2\2\2\26\31\3\2\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30!\3\2\2\2\31\27\3"+
-		"\2\2\2\32\36\5\4\3\2\33\35\7\6\2\2\34\33\3\2\2\2\35 \3\2\2\2\36\34\3\2"+
-		"\2\2\36\37\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2!\32\3\2\2\2\"#\3\2\2\2#!\3"+
-		"\2\2\2#$\3\2\2\2$%\3\2\2\2%&\7\2\2\3&\3\3\2\2\2\'(\7\3\2\2()\5\6\4\2)"+
-		"*\5\n\6\2*+\7\r\2\2+\5\3\2\2\2,.\5\b\5\2-,\3\2\2\2./\3\2\2\2/-\3\2\2\2"+
-		"/\60\3\2\2\2\60\61\3\2\2\2\61\62\7\5\2\2\62\7\3\2\2\2\63\65\7\7\2\2\64"+
-		"\63\3\2\2\2\64\65\3\2\2\2\65\66\3\2\2\2\668\7\b\2\2\679\7\13\2\28\67\3"+
-		"\2\2\289\3\2\2\29\t\3\2\2\2:>\5\16\b\2;>\5\20\t\2<>\5\f\7\2=:\3\2\2\2"+
-		"=;\3\2\2\2=<\3\2\2\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2@\13\3\2\2\2A?\3\2\2"+
-		"\2BH\7\23\2\2CG\5\16\b\2DG\5\20\t\2EG\5\f\7\2FC\3\2\2\2FD\3\2\2\2FE\3"+
-		"\2\2\2GJ\3\2\2\2HF\3\2\2\2HI\3\2\2\2IK\3\2\2\2JH\3\2\2\2KL\7\33\2\2L\r"+
-		"\3\2\2\2MN\7\24\2\2N\17\3\2\2\2OP\7\22\2\2PT\7\31\2\2QS\5\22\n\2RQ\3\2"+
-		"\2\2SV\3\2\2\2TR\3\2\2\2TU\3\2\2\2UY\3\2\2\2VT\3\2\2\2WX\7\25\2\2XZ\7"+
-		"\30\2\2YW\3\2\2\2YZ\3\2\2\2Z\21\3\2\2\2[\\\7\26\2\2\\]\7\31\2\2]\23\3"+
-		"\2\2\2\16\27\36#/\648=?FHTY";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3#_\4\2\t\2\4\3\t\3"+
+		"\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\7\2\26\n"+
+		"\2\f\2\16\2\31\13\2\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\6\2\"\n\2\r\2\16"+
+		"\2#\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\4\6\4.\n\4\r\4\16\4/\3\4\3\4\3\5\5\5"+
+		"\65\n\5\3\5\3\5\5\59\n\5\3\6\3\6\3\6\7\6>\n\6\f\6\16\6A\13\6\3\7\3\7\3"+
+		"\7\3\7\7\7G\n\7\f\7\16\7J\13\7\3\7\3\7\3\b\3\b\3\t\3\t\3\t\7\tS\n\t\f"+
+		"\t\16\tV\13\t\3\t\3\t\5\tZ\n\t\3\n\3\n\3\n\3\n\2\2\13\2\4\6\b\n\f\16\20"+
+		"\22\2\2c\2\27\3\2\2\2\4\'\3\2\2\2\6-\3\2\2\2\b\64\3\2\2\2\n?\3\2\2\2\f"+
+		"B\3\2\2\2\16M\3\2\2\2\20O\3\2\2\2\22[\3\2\2\2\24\26\7\6\2\2\25\24\3\2"+
+		"\2\2\26\31\3\2\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30!\3\2\2\2\31\27\3\2\2"+
+		"\2\32\36\5\4\3\2\33\35\7\6\2\2\34\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2\2"+
+		"\36\37\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2!\32\3\2\2\2\"#\3\2\2\2#!\3\2\2"+
+		"\2#$\3\2\2\2$%\3\2\2\2%&\7\2\2\3&\3\3\2\2\2\'(\7\3\2\2()\5\6\4\2)*\5\n"+
+		"\6\2*+\7\r\2\2+\5\3\2\2\2,.\5\b\5\2-,\3\2\2\2./\3\2\2\2/-\3\2\2\2/\60"+
+		"\3\2\2\2\60\61\3\2\2\2\61\62\7\5\2\2\62\7\3\2\2\2\63\65\7\7\2\2\64\63"+
+		"\3\2\2\2\64\65\3\2\2\2\65\66\3\2\2\2\668\7\b\2\2\679\7\13\2\28\67\3\2"+
+		"\2\289\3\2\2\29\t\3\2\2\2:>\5\16\b\2;>\5\20\t\2<>\5\f\7\2=:\3\2\2\2=;"+
+		"\3\2\2\2=<\3\2\2\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2@\13\3\2\2\2A?\3\2\2\2"+
+		"BH\7\23\2\2CG\5\16\b\2DG\5\20\t\2EG\5\f\7\2FC\3\2\2\2FD\3\2\2\2FE\3\2"+
+		"\2\2GJ\3\2\2\2HF\3\2\2\2HI\3\2\2\2IK\3\2\2\2JH\3\2\2\2KL\7\34\2\2L\r\3"+
+		"\2\2\2MN\7\25\2\2N\17\3\2\2\2OP\7\22\2\2PT\7\32\2\2QS\5\22\n\2RQ\3\2\2"+
+		"\2SV\3\2\2\2TR\3\2\2\2TU\3\2\2\2UY\3\2\2\2VT\3\2\2\2WX\7\26\2\2XZ\7\31"+
+		"\2\2YW\3\2\2\2YZ\3\2\2\2Z\21\3\2\2\2[\\\7\27\2\2\\]\7\32\2\2]\23\3\2\2"+
+		"\2\16\27\36#/\648=?FHTY";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
