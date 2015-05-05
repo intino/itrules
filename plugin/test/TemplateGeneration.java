@@ -28,9 +28,9 @@ public class TemplateGeneration {
 		"\n" +
 		"\tpublic Template define() {\n" +
 		"\t\tadd(\n" +
-		"\t\t\trule().add(condition(\"type\", \"Roster\")).add(literal(\"<roster>\\n    \")).add(mark(\"Coach\")).add(literal(\"\\n    <players>\\n        \")).add(mark(\"Player\").multiple(\"\\n\")).add(literal(\"\\n    </players>\\n</roster>\")),\n" +
-		"\t\t\trule().add(condition(\"type\", \"Person\"), condition(\"trigger\", \"Coach\")).add(literal(\"<coach name=\\\"\")).add(mark(\"Name\")).add(literal(\"\\\" year=\\\"\")).add(mark(\"Birthday\", \"Year\")).add(literal(\"\\\" country=\\\"\")).add(mark(\"Country\")).add(literal(\"\\\" />\")),\n" +
-		"\t\t\trule().add(condition(\"type\", \"Person\"), condition(\"trigger\", \"Player\")).add(literal(\"<player name=\\\"\")).add(mark(\"Name\")).add(literal(\"\\\" year=\\\"\")).add(mark(\"Birthday\", \"Year\")).add(literal(\"\\\" country=\\\"\")).add(mark(\"Country\")).add(literal(\"\\\"\")).add(expression().add(literal(\" club=\\\"\")).add(mark(\"Club\")).add(literal(\"\\\"\"))).add(literal(\"/>\"))\n" +
+		"\t\t\trule().add((condition(\"type\", \"Roster\"))).add(literal(\"<roster>\\n    \")).add(mark(\"Coach\")).add(literal(\"\\n    <players>\\n        \")).add(mark(\"Player\").multiple(\"\\n\")).add(literal(\"\\n    </players>\\n</roster>\")),\n" +
+		"\t\t\trule().add((condition(\"type\", \"Person\")), (condition(\"trigger\", \"Coach\"))).add(literal(\"<coach name=\\\"\")).add(mark(\"Name\")).add(literal(\"\\\" year=\\\"\")).add(mark(\"Birthday\", \"Year\")).add(literal(\"\\\" country=\\\"\")).add(mark(\"Country\")).add(literal(\"\\\" />\")),\n" +
+		"\t\t\trule().add((condition(\"type\", \"Person\")), (condition(\"trigger\", \"Player\"))).add(literal(\"<player name=\\\"\")).add(mark(\"Name\")).add(literal(\"\\\" year=\\\"\")).add(mark(\"Birthday\", \"Year\")).add(literal(\"\\\" country=\\\"\")).add(mark(\"Country\")).add(literal(\"\\\"\")).add(expression().add(literal(\" club=\\\"\")).add(mark(\"Club\")).add(literal(\"\\\"\"))).add(literal(\"/>\"))\n" +
 		"\t\t);\n" +
 		"\t\treturn this;\n" +
 		"\t}\n" +
@@ -83,11 +83,12 @@ public class TemplateGeneration {
 		"\n" +
 		"\tpublic Template define() {\n" +
 		"\t\tadd(\n" +
-		"\t\t\trule().add(condition(\"type\", \"rare\")).add(literal(\"Ñ ñ í ó\"))\n" +
+		"\t\t\trule().add((condition(\"type\", \"rare\"))).add(literal(\"Ñ ñ í ó\"))\n" +
 		"\t\t);\n" +
 		"\t\treturn this;\n" +
 		"\t}\n" +
 		"}";
+
 	String expected_null_template = "package org.sample;\n" +
 		"\n" +
 		"import org.siani.itrules.*;\n" +
@@ -108,7 +109,7 @@ public class TemplateGeneration {
 		"\n" +
 		"\tpublic Template define() {\n" +
 		"\t\tadd(\n" +
-		"\t\t\trule().add(condition(\"type\", \"rare\"))\n" +
+		"\t\t\trule().add((condition(\"type\", \"rare\")))\n" +
 		"\t\t);\n" +
 		"\t\treturn this;\n" +
 		"\t}\n" +
