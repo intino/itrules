@@ -56,7 +56,8 @@ public class TemplateGeneration {
 		"\n" +
 		"\tpublic Template define() {\n" +
 		"\t\tadd(\n" +
-		"\t\t\trule().add(condition(\"type\", \"nodeimpl\")).add(literal(\"public\\n    \")).add(expression().add(mark(\"aggregable\")).add(literal(\"\\n\")).add(literal(\"    public Definition\")).add(literal(\"[\")).add(literal(\"]\")).add(literal(\" aggregables() {\")).add(literal(\"\\n\")).add(literal(\"    }\")))\n" +
+		"\t\t\trule().add((condition(\"type\", \"nodeimpl\"))).add(literal(\"public\\n    \")).add(expression().add(mark(\"aggregable\")).add(literal(\"\\n\")).add(literal(\"    public Definition\")).add(literal(\"[\")).add(literal(\"]\")).add(literal(\" aggregables() {\")).add(literal(\"\\n\")).add(literal(\"    }\"))),\n" +
+		"\t\t\trule().add(not(condition(\"type\", \"word\")), (condition(\"trigger\", \"node\"))).add(mark(\"name\", \"firstUpperCase\")).add(literal(\"Intention {\\n\")).add(mark(\"name\", \"firstUpperCase\")).add(literal(\"Intention[] extensions() {\"))\n" +
 		"\t\t);\n" +
 		"\t\treturn this;\n" +
 		"\t}\n" +

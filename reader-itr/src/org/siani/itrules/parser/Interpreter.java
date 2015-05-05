@@ -64,7 +64,8 @@ public final class Interpreter extends ItrParserBaseListener {
 	public void enterCondition(@NotNull ItrParser.ConditionContext ctx) {
 		if (ctx.PARAMETERS() != null) {
 			String parameters = ctx.PARAMETERS().getText();
-			currentRule.add(new Condition(ctx.FUNCTION().getText(), parameters.substring(1, parameters.length() - 1)));
+			Condition condition = new Condition(ctx.FUNCTION().getText(), parameters.substring(1, parameters.length() - 1), ctx.NOT() != null);
+			currentRule.add(condition);
 		}
 	}
 

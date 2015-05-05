@@ -5,7 +5,7 @@ def type(nodeimpl)
         }]
 end
 
-def trigger(node)
+def !type(word) trigger(node)
     $name+firstUpperCase~Intention {
     $name+firstUpperCase~Intention$[] extensions() {
 end
