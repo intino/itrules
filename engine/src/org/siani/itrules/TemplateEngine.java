@@ -185,7 +185,11 @@ public class TemplateEngine {
 	}
 
 	private boolean execute(Trigger trigger, AbstractMark mark) {
-		return renderFrame(trigger.frame(), new TriggerMark(mark, trigger.mark()));
+		return renderFrame(trigger.frame(), composeMark(trigger, mark));
+	}
+
+	private AbstractMark composeMark(Trigger trigger, AbstractMark mark) {
+		return trigger.frame().isPrimitive() ? new CompositeMark(mark, trigger.mark().options()) : mark;
 	}
 
 	private boolean renderFrame(AbstractFrame frame, AbstractMark mark) {
@@ -256,19 +260,20 @@ public class TemplateEngine {
 	}
 
 
-	private static class TriggerMark extends AbstractMark {
 
+	private static class CompositeMark extends AbstractMark {
 		private final AbstractMark mark;
-		private final AbstractMark heritage;
+		private final String[] inheritedOptions;
 
-		public TriggerMark(AbstractMark mark, AbstractMark heritage) {
+
+		public CompositeMark(AbstractMark mark, String[] inheritedOptions) {
 			this.mark = mark;
-			this.heritage = heritage;
+			this.inheritedOptions = inheritedOptions;
 		}
 
 		@Override
 		public String fullName() {
-			return this.mark.fullName();
+			return mark.fullName();
 		}
 
 		@Override
@@ -288,7 +293,10 @@ public class TemplateEngine {
 
 		@Override
 		public String[] options() {
-			return join(mark.options(), heritage.options());
+			String[] result = new String[mark.options().length + inheritedOptions.length];
+			System.arraycopy(mark.options(), 0, result, 0, mark.options().length);
+			System.arraycopy(inheritedOptions, 0, result, mark.options().length, inheritedOptions.length);
+			return result;
 		}
 
 		@Override
@@ -296,27 +304,8 @@ public class TemplateEngine {
 			return mark.indentation();
 		}
 
-		private static String[] join(String[] a, String[] b) {
-			String[] result = new String[a.length + b.length];
-			System.arraycopy(a, 0, result, 0, a.length);
-			System.arraycopy(b, 0, result, a.length, b.length);
-			return result;
-		}
 
-		@Override
-		public <Type> Type as(Class<Type> type) {
-			return mark.as(type);
-		}
-
-		@Override
-		public Token prevToken() {
-			return mark.prevToken();
-		}
-
-		@Override
-		public void prevToken(Token previous) {
-			mark.prevToken(previous);
-		}
 	}
+
 
 }
