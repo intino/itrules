@@ -70,6 +70,12 @@ public class AcceptedRuleEngine {
     }
 
     @Test
+    public void should_render_person_removing_empty_lines() throws Exception {
+        Assert.assertEquals("Pau Gasol was born in Spain\non 06/07/1980",
+                renderPerson(personRuleWithMarkInDirtyLine()));
+    }
+
+    @Test
     public void should_render_person_with_null_attributes_defining_a_rule() throws Exception {
         Assert.assertEquals("Pau Gasol was born",
                 renderPersonWithNullAttributes(personRuleWithExpressions()));
@@ -341,6 +347,12 @@ public class AcceptedRuleEngine {
         return new Rule().
                 add(condition("type", "Person")).
                 add(new Mark("name"), literal(" was born in "), new Mark("country"), literal(" on "), mark("Birthday", "quoted", "ShortDate"));
+    }
+
+    private Rule personRuleWithMarkInDirtyLine() {
+        return new Rule().
+                add(condition("type", "Person")).
+                add(new Mark("name"), literal(" was born in "), new Mark("country"), literal("\n\t   \t "), mark("dirty"), literal("\\\n"), literal("on "), mark("Birthday", "quoted", "ShortDate"));
     }
 
     private Rule personRuleWithExpressions() {

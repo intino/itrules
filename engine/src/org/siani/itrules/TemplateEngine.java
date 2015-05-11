@@ -107,7 +107,38 @@ public class TemplateEngine {
 	}
 
 	public String render(Object object) {
-		return encode(render(frameBuilder.build(object)));
+		return render(frameBuilder.build(object));
+	}
+
+	private Rule defaultRule() {
+		return new Rule().add(new Condition("Slot", "value")).add(new Mark("value"));
+	}
+
+	private String render(AbstractFrame frame) {
+		initBuffer();
+		execute(new Trigger(frame, new Mark("root")));
+		return documentOf(buffer());
+	}
+
+	private String documentOf(Buffer buffer) {
+		return encode(cleanEmptyLines(textOf(buffer)));
+	}
+
+	private String textOf(Buffer buffer) {
+		StringBuilder document = new StringBuilder();
+		document.append(buffer);
+		return document.toString();
+	}
+
+	private String cleanEmptyLines(String text) {
+		String[] lines = text.split("\n");
+		String result = "";
+		for (String line : lines) result += cleanEmptyLine(line + "\n");
+		return result.isEmpty() ? "" : result.substring(0, result.lastIndexOf("\n"));
+	}
+
+	private String cleanEmptyLine(String line) {
+		return line.replaceAll("^\\s*\\\\\n", "");
 	}
 
 	private String encode(String string) {
@@ -118,16 +149,9 @@ public class TemplateEngine {
 		return string.replace("\n", "\r\n");
 	}
 
-	private Rule defaultRule() {
-		return new Rule().add(new Condition("Slot", "value")).add(new Mark("value"));
-	}
-
-	private String render(AbstractFrame frame) {
-		StringBuilder document = new StringBuilder();
+	private void initBuffer() {
 		this.buffers.clear();
 		this.buffers.push(new Buffer());
-		execute(new Trigger(frame, new Mark("root")));
-		return document.append(buffer()).toString();
 	}
 
 	private boolean execute(Trigger trigger) {
