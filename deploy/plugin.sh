@@ -4,7 +4,18 @@ IDEAFILE=ideaIC-14.1.1.tar.gz
 IDEAVERSION=idea-IC-141.178.9
 
 source ./lib/git.sh
-version=$(get_last_release)
+
+#version=$(get_last_release)
+if [ "$1" == "stable" ]; then
+  version=$(get_stable_release)
+else
+  if [ "$1" == "candidate" ]; then  
+    VERSION=$(get_candidate_release)
+  else
+    echo "First parameter should be the version 'stable' or 'candidate'."
+    exit 1
+  fi
+fi
 
 FILEPLUGIN="itrules-plugin-$version.jar"
 FILEENGINE="itrules-$version.jar"

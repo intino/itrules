@@ -24,19 +24,19 @@ package org.siani.itrules.model;
 
 public class Literal extends Token.Body {
 
-	private final String literal;
+	private final String text;
 
 
-	public Literal(String literal) {
-		this.literal = literal;
+	public Literal(String text) {
+		this.text = text;
 	}
 
-	public String literal() {
-		return literal;
+	public String text() {
+		return text;
 	}
 
 	@Override
 	public String toString() {
-		return literal;
+		return text;
 	}
 }
