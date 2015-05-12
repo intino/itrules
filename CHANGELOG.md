@@ -1,3 +1,8 @@
+##1.2##
+-   Feature: Empty lines remover.
+-   Fixed mark separator.
+-   Fixed bug in mark options inheritance
+
 ##1.1.15##
 -	Fixed errors in lexer and grammar
 -   Fixed java template generation.
