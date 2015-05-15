@@ -59,7 +59,7 @@ cd ../..
 
 # Build
 cd ../plugin
-cp ../deploy/plugin.dist.pom plugin.pom
+cp ../deploy/templates/plugin.dist.pom plugin.pom
 sed -i "s/#version#/$version/g" plugin.pom
 mvn clean install -f plugin.pom
 rm -f plugin.pom

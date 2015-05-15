@@ -15,15 +15,21 @@ function get_release {
     path=${version_array[2]}
     if [ "$path" == "" ]; then path="0"; fi
 
-    IS_LAST_RELEASE_CANDIDATE=0
-    if [ $((release%2)) -eq 0 ]; then
-      STABLE="$version.$release.$path"
-    else
-      CANDIDATE="$version.$release.$path"
-      IS_LAST_RELEASE_CANDIDATE=1
-    fi
-    LAST="$version.$release.$path"
+    re='^[0-9]+$'
+    if [[ $version =~ $re &&  $release =~ $re &&  $path =~ $re ]]; then  
+      IS_LAST_RELEASE_CANDIDATE=0
+      if [ $((release%2)) -eq 0 ]; then
+        STABLE="$version.$release.$path"
+      else
+        CANDIDATE="$version.$release.$path"
+        IS_LAST_RELEASE_CANDIDATE=1
+      fi
+      LAST="$version.$release.$path"
+    fi        
   done
+  if [ "$CANDIDATE" == "" ]; then
+    CANDIDATE=$STABLE
+  fi  
 }
 
 function get_stable_release {
