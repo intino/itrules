@@ -7,7 +7,7 @@ if [ "$1" == "stable" ]; then
   version=$(get_stable_release)
 else
   if [ "$1" == "candidate" ]; then  
-    VERSION=$(get_candidate_release)
+    version=$(get_candidate_release)
   else
     echo "First parameter should be the version 'stable' or 'candidate'."
     exit 1
