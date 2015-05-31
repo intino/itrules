@@ -16,8 +16,18 @@ public abstract class Template {
 		return engine.render(object);
 	}
 
-	public Template add(String name, Formatter formatter) {
-		engine.add(name, formatter);
+	public Template add(String format, Formatter formatter) {
+		engine.add(format, formatter);
+		return this;
+	}
+
+	public Template add(String format, final Template template) {
+		add(format, new Formatter() {
+            @Override
+            public Object format(Object value) {
+                return template.format(value);
+            }
+        });
 		return this;
 	}
 

@@ -27,21 +27,14 @@ import java.util.Iterator;
 
 public class PrimitiveFrame implements AbstractFrame {
 	private final Object value;
-	private final Frame container;
 
-	public  PrimitiveFrame(Frame container, Object value) {
+	public  PrimitiveFrame(Object value) {
 		this.value = value;
-		this.container = container;
 	}
 
 	@Override
 	public boolean is(String type) {
 		return type.equalsIgnoreCase(value.getClass().getSimpleName());
-	}
-
-	@Override
-	public Frame owner() {
-		return this.container;
 	}
 
 	@Override
