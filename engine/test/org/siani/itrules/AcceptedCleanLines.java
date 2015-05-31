@@ -5,9 +5,6 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-/**
- * Created by josejuan on 11/5/15.
- */
 public class AcceptedCleanLines {
 
     @Test

@@ -36,7 +36,7 @@ public final class FrameBuilder {
 	private final List<Register> registerList;
 
 	public FrameBuilder() {
-		this(new Frame(null), new ArrayList<Register>());
+		this(new Frame(), new ArrayList<Register>());
 	}
 
 	private FrameBuilder(Frame frame, List<Register> registerList) {
@@ -51,7 +51,7 @@ public final class FrameBuilder {
 	}
 
 	private PrimitiveFrame primitiveFrame(Object object) {
-		return new PrimitiveFrame(null, object);
+		return new PrimitiveFrame(object);
 	}
 
 	private Frame frame(Object object) {
@@ -121,8 +121,8 @@ public final class FrameBuilder {
 			@Override
 			public AbstractFrame build(Object object) {
 				return isPrimitive(object.getClass()) ?
-					new PrimitiveFrame(frame, object):
-					new FrameBuilder(new Frame(frame), registerList).frame(object);
+					new PrimitiveFrame(object):
+					new FrameBuilder(new Frame(), registerList).frame(object);
 			}
 
 			@Override

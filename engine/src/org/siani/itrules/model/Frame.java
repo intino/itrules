@@ -28,25 +28,14 @@ public class Frame implements AbstractFrame {
 
 	private final Set<String> types;
 	private final Map<String, List<AbstractFrame>> slots;
-	private Frame owner;
-
-	public Frame(Frame owner) {
-		this.types = createTypeSet();
-		this.slots = createSlotMap();
-		this.owner = owner;
-	}
 
 	public Frame() {
-		this(null);
+		this.types = createTypeSet();
+		this.slots = createSlotMap();
 	}
 
 	public boolean is(String type) {
 		return this.types.contains(type);
-	}
-
-	@Override
-	public Frame owner() {
-		return owner;
 	}
 
 	public String[] types() {
@@ -109,7 +98,7 @@ public class Frame implements AbstractFrame {
 	}
 
 	private Frame addPrimitiveFrame(String slot, Object value) {
-		slots.get(slot).add(new PrimitiveFrame(this, value));
+		slots.get(slot).add(new PrimitiveFrame(value));
 		return this;
 	}
 

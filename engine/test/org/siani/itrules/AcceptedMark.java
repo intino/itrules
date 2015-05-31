@@ -43,7 +43,7 @@ public class AcceptedMark {
     }
 
     private Frame createFrame() {
-        Frame frame = new Frame(null).addTypes("Box");
+        Frame frame = new Frame().addTypes("Box");
         frame.addFrame("name", "Monet");
         frame.addFrame("namebox", "Form", "Field", "Text");
         return frame;

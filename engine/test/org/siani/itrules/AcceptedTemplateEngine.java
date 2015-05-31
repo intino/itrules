@@ -31,36 +31,45 @@ import org.siani.itrules.model.*;
 import java.util.*;
 
 
-public class AcceptedRuleEngine {
-
-//    @Test TODO
-//    public void should_render_null() throws Exception {
-//        Assert.assertEquals("Hello world",
-//                ruleEngine().render(null));
-//    }
+public class AcceptedTemplateEngine {
 
     @Test
     public void should_render_hello_world() throws Exception {
         Assert.assertEquals("Hello world",
-                ruleEngine().render("Hello world"));
+                engine().render("Hello world"));
+    }
+
+    @Test
+    public void should_remove_empty_lines_ending_in_slash() throws Exception {
+        Assert.assertEquals("Hello world", engine().render("Hello world\n    |:"));
+        Assert.assertEquals("Hello world", engine().render("Hello world|:"));
+        Assert.assertEquals("Hello world\n", engine().render("Hello world\n    "));
+        Assert.assertEquals("Hello world\n", engine().render("Hello world\n"));
+        Assert.assertEquals("Hello world\n", engine().render("Hello world|:\n"));
+        Assert.assertEquals("Hello world\n", engine().render("Hello world|:\n    |:\n  "));
+        Assert.assertEquals("Hello world\n\n", engine().render("Hello world\n    \n  "));
+        Assert.assertEquals("Hello world\n\n", engine().render("Hello world\n    \n"));
+        Assert.assertEquals("Hello world", engine().render("    |:\nHello world\n    |:"));
+        Assert.assertEquals("\nHello world", engine().render("    |:\n\nHello world\n    |:"));
+        Assert.assertEquals("\nHello world\n", engine().render("    |:\n\nHello world\n    |:\n"));
     }
 
     @Test
     public void should_render_an_integer() throws Exception {
         Assert.assertEquals("5000",
-                ruleEngine().render(5000));
+                engine().render(5000));
     }
 
     @Test
     public void should_render_a_double() throws Exception {
         Assert.assertEquals("5000.0",
-                ruleEngine().render(5000.0));
+                engine().render(5000.0));
     }
 
     @Test
     public void should_render_an_enum() throws Exception {
         Assert.assertEquals("Male",
-                ruleEngine().render(Sex.Male));
+                engine().render(Sex.Male));
     }
 
     @Test
@@ -89,7 +98,7 @@ public class AcceptedRuleEngine {
 
     @Test
     public void should_render_person_defining_a_rule_with_negated_condition() throws Exception {
-        Assert.assertEquals("Pau Gasol was born in Spain on -",
+        Assert.assertEquals("Pau Gasol was born in - on -",
                 renderPerson(personRule(), negatedConditionRule()));
     }
 
@@ -166,21 +175,45 @@ public class AcceptedRuleEngine {
     }
 
     @Test
-    public void should_render_an_array_of_objects_properly() throws Exception {
+    public void should_render_an_array_of_objects() throws Exception {
         Assert.assertEquals("item1, item2, item3",
                 new TemplateEngine().add(collectionRule()).render(new String[]{"item1", "item2", "item3"}));
     }
 
     @Test
-    public void should_render_a_list_of_objects_properly() throws Exception {
+    public void should_render_a_list_of_objects() throws Exception {
         Assert.assertEquals("item1, item2, item3",
                 new TemplateEngine().add(collectionRule()).render(Arrays.asList("item1", "item2", "item3")));
     }
 
     @Test
-    public void should_render_a_map_of_objects_properly() throws Exception {
+    public void should_render_a_map_of_objects() throws Exception {
         Assert.assertEquals("string1:value1, string2:value2, string3:value3",
                 new TemplateEngine().add(collectionRule(), item()).render(createMap()));
+    }
+
+    @Test
+    public void should_render_a_container_including_an_engine() throws Exception {
+        Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+                engine().add(containerRule()).add("rule", engine().add(personRule())).render(container()));
+    }
+
+    @Test
+    public void should_render_a_container_including_an_engine_and_a_primitive_formatter() throws Exception {
+        Assert.assertEquals("41",
+                engine().add(containerRuleWithTwoFormatters()).add("rule", engine().add(personRule())).render(container()));
+    }
+
+    private Rule containerRule() {
+        return new Rule().
+                add(condition("type", "Container")).
+                add(new Mark("person","rule"));
+    }
+
+    private Rule containerRuleWithTwoFormatters() {
+        return new Rule().
+                add(condition("type", "Container")).
+                add(new Mark("person","rule", "length"));
     }
 
     private Map<String, String> createMap() {
@@ -258,6 +291,10 @@ public class AcceptedRuleEngine {
         };
     }
 
+    private Container container() {
+        return new Container(person());
+    }
+
     private Person person() {
         return new Person("Pau Gasol", date(1980, Calendar.JULY, 6), "Spain", Sex.Male);
     }
@@ -266,7 +303,7 @@ public class AcceptedRuleEngine {
         return new GregorianCalendar(year,month,day).getTime();
     }
 
-    private TemplateEngine ruleEngine() {
+    private TemplateEngine engine() {
         return new TemplateEngine(Locale.ENGLISH, LineSeparator.LF);
     }
 
@@ -275,27 +312,27 @@ public class AcceptedRuleEngine {
     }
     
     private String renderPerson(Rule... rules) {
-        return ruleEngine().add(rules).render(person());
+        return engine().add(rules).render(person());
     }
 
     private String renderPersonWithNullAttributes(Rule... rules) {
-        return ruleEngine().add(rules).render(new Person("Pau Gasol",null,null,null));
+        return engine().add(rules).render(new Person("Pau Gasol",null,null,null));
     }
 
     private String renderPersonWithCustomFormat(Rule... rules) {
-        return ruleEngine().add("Custom", customFormatter()).add(rules).render(person());
+        return engine().add("Custom", customFormatter()).add(rules).render(person());
     }
 
     private String renderPersonWithCustomConditionFunction(Rule... rules) {
-        return ruleEngine().add("Custom", customConditionFunction()).add(rules).render(person());
+        return engine().add("Custom", customConditionFunction()).add(rules).render(person());
     }
 
     private String renderPersonWithCustomAdapter(Rule... rules) {
-        return ruleEngine().add(Person.class, customAdapter()).add(rules).render(person());
+        return engine().add(Person.class, customAdapter()).add(rules).render(person());
     }
 
     private String renderPersonExcludingField(Rule... rules) {
-        return ruleEngine().add(Person.class, new ExcludeAdapter("birthday")).add(rules).render(person());
+        return engine().add(Person.class, new ExcludeAdapter("birthday")).add(rules).render(person());
     }
 
     private class Person {
@@ -309,6 +346,14 @@ public class AcceptedRuleEngine {
             this.birthday = birthday;
             this.country = country;
             this.sex = sex;
+        }
+    }
+
+    private class Container {
+        private final Person person;
+
+        public Container(Person person) {
+            this.person = person;
         }
     }
 
@@ -327,7 +372,7 @@ public class AcceptedRuleEngine {
 
     private Rule negatedConditionRule() {
         return new Rule().
-                add(not(condition("type", "String"))).
+                add(not(condition("value", "Pau Gasol"))).
                 add(literal("-"));
     }
 
@@ -352,7 +397,7 @@ public class AcceptedRuleEngine {
     private Rule personRuleWithMarkInDirtyLine() {
         return new Rule().
                 add(condition("type", "Person")).
-                add(new Mark("name"), literal(" was born in "), new Mark("country"), literal("\n\t   \t "), mark("dirty"), literal("\\\n"), literal("on "), mark("Birthday", "quoted", "ShortDate"));
+                add(new Mark("name"), literal(" was born in "), new Mark("country"), literal("\n\t   \t "), mark("dirty"), literal("|:\n"), literal("on "), mark("Birthday", "quoted", "ShortDate"));
     }
 
     private Rule personRuleWithExpressions() {
