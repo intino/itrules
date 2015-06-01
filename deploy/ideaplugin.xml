@@ -1,0 +1,6 @@
+<settings>
+    <dependencies>
+        <dependency>engine</dependency>
+        <dependency>reader-itr</dependency>
+    </dependencies>
+</settings> 
