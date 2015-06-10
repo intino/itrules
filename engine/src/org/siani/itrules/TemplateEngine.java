@@ -151,7 +151,8 @@ public class TemplateEngine {
     }
 
     private String trim(String line, String cutLine) {
-        return line.substring(0, line.length()-cutLine.length());
+		while(line.contains(CutLine)) line = line.substring(0, line.length()-cutLine.length());
+		return line;
     }
 
     private String process(String line) {
