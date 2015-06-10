@@ -85,10 +85,10 @@ public class TemplateEngine {
 
     public TemplateEngine add(String format, final TemplateEngine engine) {
         add(format, new Formatter() {
-            @Override
-            public Object format(Object value) {
-                return engine.render(value);
-            }
+	        @Override
+	        public Object format(Object value) {
+		        return engine.render(value);
+	        }
         });
         return this;
     }
@@ -242,7 +242,7 @@ public class TemplateEngine {
 
 	private boolean renderPrimitiveFrame(AbstractFrame frame, AbstractMark mark) {
 		if (!mark.name().equalsIgnoreCase("value")) return false;
-		write(frame.value().toString());
+		write(format(frame,mark).toString());
 		buffer().used();
 		return true;
 	}
@@ -257,13 +257,23 @@ public class TemplateEngine {
         while (frames.hasNext()) {
             pushBuffer(mark.indentation());
             if (rendered && mark.isMultiple()) writeSeparator(mark);
-            rendered = rendered | trigger(format(frames.next(), mark), mark);
+            rendered = rendered | trigger(format(frames.next(), mark), markWithOutFormatter(mark));
             popBuffer();
         }
         return rendered;
     }
 
-    private boolean trigger(Object value, AbstractMark mark) {
+	private AbstractMark markWithOutFormatter(AbstractMark mark) {
+		return new Mark(mark.name(), nonFormatterOptions(mark.options()));
+	}
+
+	private String[] nonFormatterOptions(String[] options) {
+		List<String> result = new ArrayList<>();
+		for (String option : options) if (formatterStore.get(option) == null) result.add(option);
+		return result.toArray(new String[result.size()]);
+	}
+
+	private boolean trigger(Object value, AbstractMark mark) {
         if (!execute(new Trigger(frame(value), mark))) return false;
         buffer().used();
         return true;

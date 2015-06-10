@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class AcceptedCleanLines {
 
@@ -34,7 +35,10 @@ public class AcceptedCleanLines {
 
     @Test
     public void cleanEmptyLines() throws Exception {
-        System.out.println(new TemplateEngine(Locale.ENGLISH, LineSeparator.LF).add(createRules()).render(new Person(new Person())));
+        String expected =
+            "name = Pau\n" +
+                "    name = Pau";
+        assertEquals(expected, new TemplateEngine(Locale.ENGLISH, LineSeparator.LF).add(createRules()).render(new Person(new Person())));
     }
 
     class Person{
