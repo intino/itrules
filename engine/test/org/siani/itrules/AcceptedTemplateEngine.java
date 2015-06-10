@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.siani.itrules.engine.Trigger;
 import org.siani.itrules.engine.adapters.ExcludeAdapter;
 import org.siani.itrules.model.*;
+import org.siani.itrules.model.marks.Mark;
 
 import java.util.*;
 

@@ -30,6 +30,8 @@ import org.siani.itrules.dsl.ItrParser.*;
 import org.siani.itrules.dsl.ItrParserBaseListener;
 import org.siani.itrules.engine.logger.Logger;
 import org.siani.itrules.model.*;
+import org.siani.itrules.model.marks.AbstractMark;
+import org.siani.itrules.model.marks.Mark;
 
 import java.util.ArrayList;
 import java.util.List;

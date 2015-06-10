@@ -2,6 +2,7 @@ package org.siani.itrules;
 
 import org.junit.Test;
 import org.siani.itrules.model.*;
+import org.siani.itrules.model.marks.Mark;
 
 import java.util.Locale;
 

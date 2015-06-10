@@ -24,6 +24,9 @@ package org.siani.itrules;
 
 import org.siani.itrules.engine.*;
 import org.siani.itrules.model.*;
+import org.siani.itrules.model.marks.AbstractMark;
+import org.siani.itrules.model.marks.DelegateMark;
+import org.siani.itrules.model.marks.Mark;
 
 import java.util.*;
 
@@ -257,21 +260,11 @@ public class TemplateEngine {
         while (frames.hasNext()) {
             pushBuffer(mark.indentation());
             if (rendered && mark.isMultiple()) writeSeparator(mark);
-            rendered = rendered | trigger(format(frames.next(), mark), markWithOutFormatter(mark));
+            rendered = rendered | trigger(format(frames.next(), mark), new NonFormattingMark(mark));
             popBuffer();
         }
         return rendered;
     }
-
-	private AbstractMark markWithOutFormatter(AbstractMark mark) {
-		return new Mark(mark.name(), nonFormatterOptions(mark.options()));
-	}
-
-	private String[] nonFormatterOptions(String[] options) {
-		List<String> result = new ArrayList<>();
-		for (String option : options) if (formatterStore.get(option) == null) result.add(option);
-		return result.toArray(new String[result.size()]);
-	}
 
 	private boolean trigger(Object value, AbstractMark mark) {
         if (!execute(new Trigger(frame(value), mark))) return false;
@@ -323,48 +316,35 @@ public class TemplateEngine {
 	}
 
 
+	private static class CompositeMark extends DelegateMark {
+		private String[] options;
 
-	private static class CompositeMark extends AbstractMark {
-		private final AbstractMark mark;
-		private final String[] inheritedOptions;
-
-
-		public CompositeMark(AbstractMark mark, String[] inheritedOptions) {
-			this.mark = mark;
-			this.inheritedOptions = inheritedOptions;
-		}
-
-		@Override
-		public String fullName() {
-			return mark.fullName();
-		}
-
-		@Override
-		public String name() {
-			return mark.name();
-		}
-
-		@Override
-		public String separator() {
-			return mark.separator();
-		}
-
-		@Override
-		public boolean isMultiple() {
-			return mark.isMultiple();
+		public CompositeMark(AbstractMark mark, String[] options) {
+			super(mark);
+			this.options = options;
 		}
 
 		@Override
 		public String[] options() {
-			String[] result = new String[mark.options().length + inheritedOptions.length];
+			String[] result = new String[mark.options().length + options.length];
 			System.arraycopy(mark.options(), 0, result, 0, mark.options().length);
-			System.arraycopy(inheritedOptions, 0, result, mark.options().length, inheritedOptions.length);
+			System.arraycopy(options, 0, result, mark.options().length, options.length);
 			return result;
 		}
 
+	}
+
+	private class NonFormattingMark extends DelegateMark {
+		public NonFormattingMark(AbstractMark mark) {
+			super(mark);
+		}
+
 		@Override
-		public String indentation() {
-			return mark.indentation();
+		public String[] options() {
+			List<String> result = new ArrayList<>();
+			for (String option : mark.options())
+				if (!formatterStore.exists(option)) result.add(option);
+			return result.toArray(new String[result.size()]);
 		}
 
 
