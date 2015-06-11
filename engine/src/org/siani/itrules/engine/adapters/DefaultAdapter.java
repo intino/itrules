@@ -12,7 +12,7 @@ public class DefaultAdapter<T> implements Adapter<T> {
 
     @Override
     public void execute(Frame frame, Object source, FrameContext context) {
-        new Filler(context).execute();
+        new Filler(frame, source, context).execute();
     }
 
     private class Filler {
@@ -21,10 +21,10 @@ public class DefaultAdapter<T> implements Adapter<T> {
         private final Object source;
         private final String Count = "Count";
 
-        public Filler(FrameContext context) {
+        public Filler(Frame frame, Object source, FrameContext context) {
+            this.frame = frame;
+            this.source = source;
             this.context = context;
-            this.frame = context.frame();
-            this.source = context.source();
         }
 
         public void execute() {

@@ -20,7 +20,9 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.model;
+package org.siani.itrules.model.marks;
+
+import org.siani.itrules.model.Token;
 
 public abstract class AbstractMark extends Token.Body {
 

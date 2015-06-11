@@ -217,7 +217,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 
 	private Frame createModuleFrame(Module module) {
-		Frame frame = new Frame(null).addTypes("pom");
+		Frame frame = new Frame().addTypes("pom");
 		frame.addFrame("project", module.getProject().getName());
 		frame.addFrame("module", module.getName());
 		return frame;
@@ -225,7 +225,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 	private Frame createProjectFrame(Module module) {
 		Project project = module.getProject();
-		Frame frame = new Frame(null).addTypes("pom");
+		Frame frame = new Frame().addTypes("pom");
 		frame.addFrame("project", project.getName());
 		return frame;
 	}

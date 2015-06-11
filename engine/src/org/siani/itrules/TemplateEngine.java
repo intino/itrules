@@ -24,6 +24,9 @@ package org.siani.itrules;
 
 import org.siani.itrules.engine.*;
 import org.siani.itrules.model.*;
+import org.siani.itrules.model.marks.AbstractMark;
+import org.siani.itrules.model.marks.DelegateMark;
+import org.siani.itrules.model.marks.Mark;
 
 import java.util.*;
 
@@ -32,7 +35,8 @@ import static org.siani.itrules.LineSeparator.CRLF;
 
 public class TemplateEngine {
 
-	private final LineSeparator lineSeparator;
+    public static final String CutLine = "|:";
+    private final LineSeparator lineSeparator;
 	private final RuleSet ruleSet = new RuleSet();
 	private final Stack<Buffer> buffers = new Stack<>();
 	private final FormatterStore formatterStore;
@@ -63,22 +67,8 @@ public class TemplateEngine {
 		return use(new Source(pathname));
 	}
 
-	public TemplateEngine use(String pathname, String format) {
-		return use(new Source(pathname), format);
-	}
-
 	public TemplateEngine use(Source source) {
 		this.ruleSet.add(RuleSetLoader.load(source));
-		return this;
-	}
-
-	public TemplateEngine use(final Source source, String format) {
-		formatterStore.add(format, new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return new TemplateEngine(TemplateEngine.this).use(source).render(value);
-			}
-		});
 		return this;
 	}
 
@@ -91,18 +81,38 @@ public class TemplateEngine {
 		return this;
 	}
 
-	public TemplateEngine add(String name, Formatter formatter) {
-		formatterStore.add(name, formatter);
+	public TemplateEngine add(String format, Formatter formatter) {
+		formatterStore.add(format, formatter);
 		return this;
 	}
 
+    public TemplateEngine add(String format, final TemplateEngine engine) {
+        add(format, new Formatter() {
+	        @Override
+	        public Object format(Object value) {
+		        return engine.render(value);
+	        }
+        });
+        return this;
+    }
+
+    public TemplateEngine add(String format, final String pathname) {
+        add(format, new TemplateEngine(this).use(pathname));
+        return this;
+    }
+
+    public TemplateEngine add(String format, final Source source) {
+        add(format, new TemplateEngine(this).use(source));
+        return this;
+    }
+
 	public TemplateEngine add(String name, Function function) {
-		functionStore.add(name, function);
+        functionStore.add(name, function);
 		return this;
 	}
 
 	public TemplateEngine add(Class class_, Adapter adapter) {
-		frameBuilder.register(class_, adapter);
+        frameBuilder.register(class_, adapter);
 		return this;
 	}
 
@@ -125,23 +135,34 @@ public class TemplateEngine {
 	}
 
 	private String textOf(Buffer buffer) {
-		StringBuilder document = new StringBuilder();
-		document.append(buffer);
-		return document.toString();
+        return String.valueOf(buffer);
 	}
 
 	private String cleanEmptyLines(String text) {
-		String[] lines = text.split("\n");
+		String[] lines = text.concat("\n" + "EOF").split("\n");
 		String result = "";
-		for (String line : lines) result += cleanEmptyLine(line + "\n");
-		return result.isEmpty() ? "" : result.substring(0, result.lastIndexOf("\n"));
+		for (String line : lines) result += clean(line);
+		return result.endsWith("\n") ? result.substring(0, result.lastIndexOf("\n")) : result;
 	}
 
-	private String cleanEmptyLine(String line) {
-		return line.replaceAll("^\\s*\\\\\n", "");
-	}
+	private String clean(String line) {
+        return
+                line.equals("EOF") ? "" :
+                line.trim().isEmpty() ? "\n" :
+                line.endsWith(CutLine) ? process(trim(line, CutLine)) :
+                line + "\n";
+    }
 
-	private String encode(String string) {
+    private String trim(String line, String cutLine) {
+		while(line.contains(CutLine)) line = line.substring(0, line.length()-cutLine.length());
+		return line;
+    }
+
+    private String process(String line) {
+        return line.matches("^\\s*$") ? "" : line + "\n";
+    }
+
+    private String encode(String string) {
 		return lineSeparator == CRLF ? toCRLF(string) : string;
 	}
 
@@ -155,7 +176,7 @@ public class TemplateEngine {
 	}
 
 	private boolean execute(Trigger trigger) {
-		Rule rule = match(trigger);
+		Rule rule = ruleFor(trigger);
 		return rule != null ? executeRule(trigger, rule) : executeRuleNotFound(trigger);
 	}
 
@@ -171,7 +192,7 @@ public class TemplateEngine {
 		return true;
 	}
 
-	private Rule match(Trigger trigger) {
+	private Rule ruleFor(Trigger trigger) {
 		for (Rule rule : ruleSet)
 			if (match(rule, trigger)) return rule;
 		return null;
@@ -184,7 +205,7 @@ public class TemplateEngine {
 	}
 
 	private boolean conditionMatchTrigger(Trigger trigger, Condition condition) {
-		return functionStore.get(condition).match(trigger, condition.parameter());
+    		return functionStore.get(condition).match(trigger, condition.parameter());
 	}
 
 	private Buffer buffer() {
@@ -217,42 +238,53 @@ public class TemplateEngine {
 	}
 
 	private boolean renderFrame(AbstractFrame frame, AbstractMark mark) {
-		if (frame.isPrimitive())
-			return renderPrimitiveFrame(frame, mark);
-		return renderCompositeFrame(frame, mark);
+		return frame.isPrimitive() ?
+                renderPrimitiveFrame(frame, mark) :
+                renderCompositeFrame(frame, mark);
 	}
 
 	private boolean renderPrimitiveFrame(AbstractFrame frame, AbstractMark mark) {
 		if (!mark.name().equalsIgnoreCase("value")) return false;
-		write(options(frame.value(), mark).toString());
+		write(format(frame,mark).toString());
 		buffer().used();
-		return false;
+		return true;
 	}
 
-	private Object options(Object value, AbstractMark mark) {
-		for (String option : mark.options())
-			value = format(value, formatterStore.get(option));
-		return value;
-	}
+    private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
+        Iterator<AbstractFrame> frames = frame.frames(mark.name());
+        return frames != null && renderFrames(frames, mark);
+    }
 
-	private Object format(Object value, Formatter formatter) {
+    private boolean renderFrames(Iterator<AbstractFrame> frames, AbstractMark mark) {
+        boolean rendered = false;
+        while (frames.hasNext()) {
+            pushBuffer(mark.indentation());
+            if (rendered && mark.isMultiple()) writeSeparator(mark);
+            rendered = rendered | trigger(format(frames.next(), mark), new NonFormattingMark(mark));
+            popBuffer();
+        }
+        return rendered;
+    }
+
+	private boolean trigger(Object value, AbstractMark mark) {
+        if (!execute(new Trigger(frame(value), mark))) return false;
+        buffer().used();
+        return true;
+    }
+
+    private Object format(Object value, AbstractMark mark) {
+        if (value instanceof PrimitiveFrame) value = ((PrimitiveFrame) value).value();
+        for (String option : mark.options())
+            value = format(value, formatterStore.get(option));
+        return value;
+    }
+
+    private AbstractFrame frame(Object value) {
+        return value instanceof AbstractFrame ? (AbstractFrame) value : new PrimitiveFrame(value);
+    }
+
+    private Object format(Object value, Formatter formatter) {
 		return formatter.format(value);
-	}
-
-	private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
-		Iterator<AbstractFrame> frames = frame.frames(mark.name());
-		boolean rendered = false;
-		while (frames != null && frames.hasNext()) {
-			pushBuffer(mark.indentation());
-			if (rendered && mark.isMultiple())
-				writeSeparator(mark);
-			if (execute(new Trigger(frames.next(), mark))) {
-				buffer().used();
-				rendered = true;
-			}
-			popBuffer();
-		}
-		return rendered;
 	}
 
 	private boolean execute(Trigger trigger, Expression expression) {
@@ -284,48 +316,35 @@ public class TemplateEngine {
 	}
 
 
+	private static class CompositeMark extends DelegateMark {
+		private String[] options;
 
-	private static class CompositeMark extends AbstractMark {
-		private final AbstractMark mark;
-		private final String[] inheritedOptions;
-
-
-		public CompositeMark(AbstractMark mark, String[] inheritedOptions) {
-			this.mark = mark;
-			this.inheritedOptions = inheritedOptions;
-		}
-
-		@Override
-		public String fullName() {
-			return mark.fullName();
-		}
-
-		@Override
-		public String name() {
-			return mark.name();
-		}
-
-		@Override
-		public String separator() {
-			return mark.separator();
-		}
-
-		@Override
-		public boolean isMultiple() {
-			return mark.isMultiple();
+		public CompositeMark(AbstractMark mark, String[] options) {
+			super(mark);
+			this.options = options;
 		}
 
 		@Override
 		public String[] options() {
-			String[] result = new String[mark.options().length + inheritedOptions.length];
+			String[] result = new String[mark.options().length + options.length];
 			System.arraycopy(mark.options(), 0, result, 0, mark.options().length);
-			System.arraycopy(inheritedOptions, 0, result, mark.options().length, inheritedOptions.length);
+			System.arraycopy(options, 0, result, mark.options().length, options.length);
 			return result;
 		}
 
+	}
+
+	private class NonFormattingMark extends DelegateMark {
+		public NonFormattingMark(AbstractMark mark) {
+			super(mark);
+		}
+
 		@Override
-		public String indentation() {
-			return mark.indentation();
+		public String[] options() {
+			List<String> result = new ArrayList<>();
+			for (String option : mark.options())
+				if (!formatterStore.exists(option)) result.add(option);
+			return result.toArray(new String[result.size()]);
 		}
 
 

@@ -10,4 +10,5 @@ plugin/itrules/reader-itr.jar
 target
 deploy/local
 deploy/tmp
+deploy/deployproject.xml
 plugin.zip

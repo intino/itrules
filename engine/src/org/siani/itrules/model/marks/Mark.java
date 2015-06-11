@@ -20,7 +20,9 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.siani.itrules.model;
+package org.siani.itrules.model.marks;
+
+import org.siani.itrules.model.Literal;
 
 public class Mark extends AbstractMark {
     private static final String NewLine = "\n";

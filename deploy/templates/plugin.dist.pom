@@ -37,7 +37,7 @@
   <build>
     <resources>
       <resource>
-        <directory>../deploy/tmp/resources</directory>
+        <directory>#dirtmp#/resources</directory>
         <filtering>true</filtering>
       </resource>
     </resources>
@@ -52,7 +52,7 @@
           <source>1.7</source>
           <target>1.7</target>
           <compilerArguments>
-            <extdirs>../deploy/tmp/lib/</extdirs>
+            <extdirs>#dirtmp#/lib/</extdirs>
           </compilerArguments>
         </configuration>
       </plugin>
@@ -92,7 +92,7 @@
               <target>
                 <path id="maven.plugin.complete.classpath">
                   <path refid="maven.plugin.classpath"/>
-                  <fileset dir="../deploy/tmp/lib">
+                  <fileset dir="#dirtmp#/lib">
                     <include name="**/*.jar"/>
                   </fileset>
                 </path>
@@ -102,11 +102,11 @@
                   <dirset dir="${project.basedir}">
                     <include name="src"/>
                     <include name="gen"/>
-                    <include name="../deploy/tmp/resources"/>
+                    <include name="#dirtmp#/resources"/>
                   </dirset>
                 </path>
                 <instrumentIdeaExtensions destdir="${project.build.outputDirectory}"
-                                          extdirs="../deploy/tmp/lib">
+                                          extdirs="#dirtmp#/lib">
                   <classpath refid="maven.compile.classpath"/>
                   <src refid="sourcepath"/>
                 </instrumentIdeaExtensions>

@@ -1,4 +1,4 @@
-package org.siani.itrules.framebuilder.engine;
+package org.siani.itrules;
 
 import org.junit.Assert;
 import org.junit.Test;

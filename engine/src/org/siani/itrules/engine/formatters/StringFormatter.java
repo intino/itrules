@@ -70,7 +70,6 @@ public final class StringFormatter {
 		};
 	}
 
-
 	private static Formatter camelCase() {
 		return new Formatter() {
 			@Override

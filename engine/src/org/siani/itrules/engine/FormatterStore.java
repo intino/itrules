@@ -29,12 +29,12 @@ public class FormatterStore {
 		return !name.isEmpty() ? formatter(name) : nullFormatter();
 	}
 
-	private Formatter formatter(String name) {
-		return exists(name) ? map.get(name.toLowerCase()) : unknownFormatter();
+	public boolean exists(String name) {
+		return map.containsKey(name.trim().toLowerCase());
 	}
 
-	private boolean exists(String name) {
-		return map.containsKey(name.trim().toLowerCase());
+	private Formatter formatter(String name) {
+		return exists(name) ? map.get(name.toLowerCase()) : unknownFormatter();
 	}
 
 	private Formatter unknownFormatter() {
