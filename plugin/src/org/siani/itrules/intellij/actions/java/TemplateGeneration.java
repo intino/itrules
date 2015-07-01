@@ -29,6 +29,7 @@ import static java.io.File.separator;
 public class TemplateGeneration extends GenerationAction {
 
 	private static final String JAVA = ".java";
+	private static final String GEN = "gen";
 
 	public void actionPerformed(@NotNull AnActionEvent e) {
 		Project project = e.getData(PlatformDataKeys.PROJECT);
@@ -78,9 +79,16 @@ public class TemplateGeneration extends GenerationAction {
 
 	protected String findDestiny(Project project, Module module, VirtualFile file) throws Exception {
 		if (module == null) return project.getBasePath();
-		File moduleDir = new File(module.getModuleFilePath()).getParentFile();
-		SourceFolder gen = createGen(module);
-		return gen.getFile().getPath() + separator + getPackage(file, moduleDir).replace(".", separator);
+
+		VirtualFile gen = findGen(module);
+		if (gen == null) gen = createGen(module);
+		return gen.getPath() + separator + getPackage(file, new File(module.getModuleFilePath()).getParentFile()).replace(".", separator);
+	}
+
+	private VirtualFile findGen(Module module) {
+		VirtualFile[] sourceRoots = ModuleRootManager.getInstance(module).getSourceRoots();
+		for (VirtualFile sourceRoot : sourceRoots) if (sourceRoot.getName().equals(GEN)) return sourceRoot;
+		return null;
 	}
 
 	private String getPackage(VirtualFile file, File moduleDir) throws Exception {
@@ -97,7 +105,7 @@ public class TemplateGeneration extends GenerationAction {
 		return name.replace("/", ".");
 	}
 
-	private SourceFolder createGen(final Module module) {
+	private VirtualFile createGen(final Module module) {
 		final SourceFolder[] sourceFolder = {null};
 		ApplicationManager.getApplication().runWriteAction(new Runnable() {
 			@Override
@@ -105,7 +113,7 @@ public class TemplateGeneration extends GenerationAction {
 				ModifiableRootModel modifiableModel = ModuleRootManager.getInstance(module).getModifiableModel();
 				ContentEntry[] contentEntries = modifiableModel.getContentEntries();
 				File moduleDirectory = new File(module.getModuleFilePath()).getParentFile();
-				String gen = moduleDirectory.getPath() + separator + "gen";
+				String gen = moduleDirectory.getPath() + separator + GEN;
 				new File(gen).mkdirs();
 				final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
 				if (sourceRoot != null) {
@@ -116,7 +124,7 @@ public class TemplateGeneration extends GenerationAction {
 			}
 		});
 
-		return sourceFolder[0];
+		return sourceFolder[0].getFile();
 	}
 
 	@NotNull
