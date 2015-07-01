@@ -29,7 +29,10 @@ import org.siani.itrules.dsl.ItrParser;
 import org.siani.itrules.dsl.ItrParser.*;
 import org.siani.itrules.dsl.ItrParserBaseListener;
 import org.siani.itrules.engine.logger.Logger;
-import org.siani.itrules.model.*;
+import org.siani.itrules.model.Condition;
+import org.siani.itrules.model.Expression;
+import org.siani.itrules.model.Literal;
+import org.siani.itrules.model.Rule;
 import org.siani.itrules.model.marks.AbstractMark;
 import org.siani.itrules.model.marks.Mark;
 
@@ -100,8 +103,12 @@ public final class Interpreter extends ItrParserBaseListener {
 				else if (child.getText().equals(TAB_SEPARATOR)) expression.add(new Literal("\t"));
 				else expression.add(processAsMark(((MarkContext) child)));
 			} else if (child instanceof TextContext)
-				expression.add(new Literal(child.getText()));
+				expression.add(new Literal(clean(child)));
 		currentRule.add(expression);
+	}
+
+	private String clean(ParseTree child) {
+		return child.getText().startsWith("~") ? child.getText().substring(1) : child.getText();
 	}
 
 	@Override

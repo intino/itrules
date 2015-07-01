@@ -60,7 +60,7 @@ mode BODY_MODE;
 mode MARK_MODE;
 	LIST            : '...';
 	OPTION          : '+'                                       { setType(OPTION);};
-    NULL            : '~'                                       { setMode(lastMode); setLastMode(MARK_MODE);};
+    NULL            : '~'                                       { setMode(lastMode); setLastMode(MARK_MODE);}-> skip;
 	SEPARATOR       : '[' (~']')* ']'                           { setMode(lastMode); setLastMode(MARK_MODE);};
 	ID              : (LETTER | '_') (DIGIT|LETTER | '_')* (DIGIT|LETTER)       { setType(ID); exitMark();};
 	MARK_ERROR      : .;
@@ -70,9 +70,10 @@ mode EXPRESSION_MODE;
 	EXPRESSION_DOLLAR  : '$$'                                   { setText("$"); setType(TEXT);};
     EXPRESSION_LSB     : '$['                                   { setText("["); setType(TEXT);};
     EXPRESSION_RSB     : '$]'                                   { setText("]"); setType(TEXT);};
+	EXPRESSION_NULL    : '~'                                    -> skip;
 	EXPRESSION_TRIGGER : '$'                                    { setType(TRIGGER); setLastMode(EXPRESSION_MODE);} -> mode(MARK_MODE);
-	EXPRESSION_TEXT    : ~('$'| '[' | ']' | '\n')*              { setType(TEXT);};
-	EXPRESSION_NL      : NL ('\t' | '    ')?                     { setText("\n"); setType(TEXT);};
+	EXPRESSION_TEXT    : ~('$'| '[' | ']' | '\n')+              { setType(TEXT);};
+	EXPRESSION_NL      : NL ('\t' | '    ')?                    { setText("\n"); setType(TEXT);};
 	EXPRESSION_ERROR   : .;
 
 fragment

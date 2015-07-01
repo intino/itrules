@@ -65,9 +65,7 @@ public class RunTemplateGeneration extends Task.Modal {
 
 	private void toJava(RuleSet rules) throws IOException, URISyntaxException {
 		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.destiny), Charset.forName("UTF-8"));
-		String lineSeparator = extractLineSeparator();
-		String locale = extractLocale();
-		String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale, lineSeparator).toJava(rules);
+		String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale(), lineSeparator()).toJava(rules);
 		writer.write(content);
 		writer.close();
 	}
@@ -82,7 +80,7 @@ public class RunTemplateGeneration extends Task.Modal {
 
 	}
 
-	private String extractLocale() {
+	private String locale() {
 		ItrulesFacet facet = ItrulesFacet.getItrulesFacetByModule(module);
 		if (facet != null) {
 			Locale locale = facet.getConfiguration().getLocale();
@@ -92,7 +90,7 @@ public class RunTemplateGeneration extends Task.Modal {
 		return "";
 	}
 
-	private String extractLineSeparator() {
+	private String lineSeparator() {
 		ItrulesFacet facet = ItrulesFacet.getItrulesFacetByModule(module);
 		if (facet != null) return facet.getConfiguration().getLineSeparator();
 		return "";
