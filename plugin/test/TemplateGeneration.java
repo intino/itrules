@@ -115,6 +115,32 @@ public class TemplateGeneration {
 		"\t}\n" +
 		"}";
 
+	String expected_native_template = "package org.sample;\n" +
+		"\n" +
+		"import org.siani.itrules.*;\n" +
+		"\n" +
+		"import java.util.Locale;\n" +
+		"\n" +
+		"import static org.siani.itrules.LineSeparator.*;\n" +
+		"\n" +
+		"public class NativeTemplate extends Template {\n" +
+		"\n" +
+		"\tprotected NativeTemplate(Locale locale, LineSeparator separator) {\n" +
+		"\t\tsuper(locale, separator);\n" +
+		"\t}\n" +
+		"\n" +
+		"\tpublic static Template create() {\n" +
+		"\t\treturn new NativeTemplate(new Locale(\"es\", \"Spain\", \"es_ES\"), LF).define();\n" +
+		"\t}\n" +
+		"\n" +
+		"\tpublic Template define() {\n" +
+		"\t\tadd(\n" +
+		"\t\t\trule().add((condition(\"type\", \"native\"))).add(literal(\"package \")).add(mark(\"projectGenerated\")).add(literal(\";\\n\\nimport \")).add(mark(\"project\")).add(literal(\".natives.*;\\nimport \")).add(mark(\"project\")).add(literal(\".*;\\nimport java.util.*;\\n\\npublic class \")).add(mark(\"qn\")).add(expression().add(literal(\"_\")).add(mark(\"variable\"))).add(literal(\" \")).add(expression().add(literal(\"extends \")).add(mark(\"parent\"))).add(literal(\" \")).add(expression().add(literal(\"implements \")).add(mark(\"interface\"))).add(literal(\" {\\n\\n\\t@Override\\n\\t\")).add(mark(\"signature\")).add(literal(\" {\")).add(literal(\"\\n\")).add(literal(\"\\t\")).add(literal(\"\\t\")).add(mark(\"return\"))\n" +
+		"\t\t);\n" +
+		"\t\treturn this;\n" +
+		"\t}\n" +
+		"}";
+
 	@Test
 	public void accept_generate_template_for_roster_itr() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Roster.itr"));
@@ -141,6 +167,13 @@ public class TemplateGeneration {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/nullTemplate.itr"));
 		RuleSet read = reader.read(Charset.forName("UTF-8"));
 		Assert.assertEquals(expected_null_template, new TemplateRulesWriter("Null", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
+
+	@Test
+	public void native_template_itr() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/native.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_native_template, new TemplateRulesWriter("Native", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
 	}
 
 	private String getLineSeparator(String separator) {

@@ -28,7 +28,6 @@ import org.siani.itrules.Formatter;
 import org.siani.itrules.LineSeparator;
 import org.siani.itrules.Template;
 import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.Rule;
 
 import java.net.URISyntaxException;
@@ -58,32 +57,25 @@ public class TemplateRulesWriter {
 
 	@NotNull
 	private Formatter buildStringFormatter() {
-		return new Formatter() {
-			@Override
-			public Object format(Object object) {
-				String value = object.toString();
-				if (value.contains("\r")) value = value.replace("\r", "\\r");
-				value = value.replace("\n", "\\n");
-				value = value.replace("\t", "\\t").replace("\"", "\\\"");
-				if (value.equals("\\")) value = value.replace("\\", "\\\\");
-				return '"' + value + '"';
-			}
+		return object -> {
+			String value = object.toString();
+			if (value.contains("\r")) value = value.replace("\r", "\\r");
+			value = value.replace("\n", "\\n");
+			value = value.replace("\t", "\\t").replace("\"", "\\\"");
+			if (value.equals("\\")) value = value.replace("\\", "\\\\");
+			return '"' + value + '"';
 		};
 	}
 
 	@NotNull
 	private Adapter<RuleSet> buildRuleSetAdapter(final RuleSet rules) {
-		return new Adapter<RuleSet>() {
-			@Override
-			public void execute(Frame frame, RuleSet source, FrameContext<RuleSet> context) {
-				if (!aPackage.isEmpty()) frame.addFrame("package", context.build(aPackage));
-				frame.addFrame("name", context.build(name));
-				frame.addFrame("locale", context.build(locale));
-				frame.addFrame("lineSeparator", context.build(lineSeparator));
-				for (Rule rule : rules)
-					frame.addFrame("rule", context.build(rule));
-			}
-
+		return (frame, source, context) -> {
+			if (!aPackage.isEmpty()) frame.addFrame("package", context.build(aPackage));
+			frame.addFrame("name", context.build(name));
+			frame.addFrame("locale", context.build(locale));
+			frame.addFrame("lineSeparator", context.build(lineSeparator));
+			for (Rule rule : rules)
+				frame.addFrame("rule", context.build(rule));
 		};
 	}
 }

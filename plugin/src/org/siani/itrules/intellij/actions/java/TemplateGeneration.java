@@ -107,21 +107,18 @@ public class TemplateGeneration extends GenerationAction {
 
 	private VirtualFile createGen(final Module module) {
 		final SourceFolder[] sourceFolder = {null};
-		ApplicationManager.getApplication().runWriteAction(new Runnable() {
-			@Override
-			public void run() {
-				ModifiableRootModel modifiableModel = ModuleRootManager.getInstance(module).getModifiableModel();
-				ContentEntry[] contentEntries = modifiableModel.getContentEntries();
-				File moduleDirectory = new File(module.getModuleFilePath()).getParentFile();
-				String gen = moduleDirectory.getPath() + separator + GEN;
-				new File(gen).mkdirs();
-				final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
-				if (sourceRoot != null) {
-					JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", true);
-					sourceFolder[0] = contentEntries[0].addSourceFolder(sourceRoot, JavaSourceRootType.SOURCE, properties);
-				}
-				modifiableModel.commit();
+		ApplicationManager.getApplication().runWriteAction(() -> {
+			ModifiableRootModel modifiableModel = ModuleRootManager.getInstance(module).getModifiableModel();
+			ContentEntry[] contentEntries = modifiableModel.getContentEntries();
+			File moduleDirectory = new File(module.getModuleFilePath()).getParentFile();
+			String gen = moduleDirectory.getPath() + separator + GEN;
+			new File(gen).mkdirs();
+			final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
+			if (sourceRoot != null) {
+				JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", true);
+				sourceFolder[0] = contentEntries[0].addSourceFolder(sourceRoot, JavaSourceRootType.SOURCE, properties);
 			}
+			modifiableModel.commit();
 		});
 
 		return sourceFolder[0].getFile();
