@@ -22,16 +22,45 @@
 
 package org.siani.itrules.model;
 
-import java.util.Iterator;
+import java.util.*;
 
-public interface AbstractFrame {
+public abstract class AbstractFrame {
 
-	public boolean is(String type);
+    protected static Map<String, List<AbstractFrame>> commonSlots = createCommonSlotMap();
 
-	public boolean isPrimitive();
+	public abstract boolean is(String type);
 
-	public Iterator<AbstractFrame> frames(String slot);
+    public abstract boolean isPrimitive();
 
-	public Object value();
+    public abstract Iterator<AbstractFrame> frames(String slot);
 
+    public abstract Object value();
+
+    private static Map<String, List<AbstractFrame>> createCommonSlotMap() {
+        Map<String, List<AbstractFrame>> slotMap = createSlotMap();
+        slotMap.get("tab").add(new PrimitiveFrame("\t"));
+        slotMap.get("nl").add(new PrimitiveFrame("\t"));
+        return slotMap;
+    }
+
+    protected static Map<String, List<AbstractFrame>> createSlotMap() {
+        return new LinkedHashMap<String, List<AbstractFrame>>() {
+
+            @Override
+            public List<AbstractFrame> put(String key, List<AbstractFrame> value) {
+                return super.put(key.toLowerCase(), value);
+            }
+
+            @Override
+            public List<AbstractFrame> get(Object key) {
+                if (!containsKey(key)) put(key.toString(), new ArrayList<>());
+                return super.get(key.toString().toLowerCase());
+            }
+
+            @Override
+            public boolean containsKey(Object key) {
+                return super.containsKey(key.toString().toLowerCase());
+            }
+        };
+    }
 }
