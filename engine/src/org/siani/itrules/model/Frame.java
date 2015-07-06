@@ -24,7 +24,7 @@ package org.siani.itrules.model;
 
 import java.util.*;
 
-public class Frame extends AbstractFrame {
+public class Frame implements AbstractFrame {
 
 	private final Set<String> types;
 	private final Map<String, List<AbstractFrame>> slots;
@@ -47,8 +47,7 @@ public class Frame extends AbstractFrame {
 	}
 
 	public Iterator<AbstractFrame> frames(String slot) {
-		return slots.get(slot) != null ? slots.get(slot).iterator() :
-				commonSlots.get(slot) != null ? commonSlots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
+		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
 	}
 
 	public Frame addTypes(String... types) {
@@ -109,6 +108,27 @@ public class Frame extends AbstractFrame {
 
 	public Object value() {
 		return null;
+	}
+
+	private static Map<String, List<AbstractFrame>> createSlotMap() {
+		return new LinkedHashMap<String, List<AbstractFrame>>() {
+
+			@Override
+			public List<AbstractFrame> put(String key, List<AbstractFrame> value) {
+				return super.put(key.toLowerCase(), value);
+			}
+
+			@Override
+			public List<AbstractFrame> get(Object key) {
+				if (!containsKey(key)) put(key.toString(), new ArrayList<AbstractFrame>());
+				return super.get(key.toString().toLowerCase());
+			}
+
+			@Override
+			public boolean containsKey(Object key) {
+				return super.containsKey(key.toString().toLowerCase());
+			}
+		};
 	}
 
 	private static Set<String> createTypeSet() {

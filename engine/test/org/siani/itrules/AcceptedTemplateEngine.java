@@ -31,185 +31,178 @@ import org.siani.itrules.model.marks.Mark;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-
 
 public class AcceptedTemplateEngine {
 
 	@Test
 	public void should_render_hello_world() throws Exception {
-		assertEquals("Hello world",
-				engine().render("Hello world"));
+		Assert.assertEquals("Hello world",
+			engine().render("Hello world"));
 	}
 
 	@Test
 	public void should_remove_empty_lines_ending_in_slash() throws Exception {
-		assertEquals("Hello world", engine().render("Hello world\n	|:"));
-		assertEquals("Hello world", engine().render("Hello world|:"));
-		assertEquals("Hello world\n", engine().render("Hello world\n	"));
-		assertEquals("Hello world\n", engine().render("Hello world\n"));
-		assertEquals("Hello world\n", engine().render("Hello world|:\n"));
-		assertEquals("Hello world\n", engine().render("Hello world|:\n	|:\n  "));
-		assertEquals("Hello world\n\n", engine().render("Hello world\n	\n  "));
-		assertEquals("Hello world\n\n", engine().render("Hello world\n	\n"));
-		assertEquals("Hello world", engine().render("	|:\nHello world\n	|:"));
-		assertEquals("\nHello world", engine().render("	|:\n\nHello world\n	|:"));
-		assertEquals("\nHello world\n", engine().render("	|:\n\nHello world\n	|:\n"));
+		Assert.assertEquals("Hello world", engine().render("Hello world\n	|:"));
+		Assert.assertEquals("Hello world", engine().render("Hello world|:"));
+		Assert.assertEquals("Hello world\n", engine().render("Hello world\n	"));
+		Assert.assertEquals("Hello world\n", engine().render("Hello world\n"));
+		Assert.assertEquals("Hello world\n", engine().render("Hello world|:\n"));
+		Assert.assertEquals("Hello world\n", engine().render("Hello world|:\n	|:\n  "));
+		Assert.assertEquals("Hello world\n\n", engine().render("Hello world\n	\n  "));
+		Assert.assertEquals("Hello world\n\n", engine().render("Hello world\n	\n"));
+		Assert.assertEquals("Hello world", engine().render("	|:\nHello world\n	|:"));
+		Assert.assertEquals("\nHello world", engine().render("	|:\n\nHello world\n	|:"));
+		Assert.assertEquals("\nHello world\n", engine().render("	|:\n\nHello world\n	|:\n"));
 	}
 
 	@Test
 	public void should_render_an_integer() throws Exception {
-		assertEquals("5000",
-				engine().render(5000));
+		Assert.assertEquals("5000",
+			engine().render(5000));
 	}
 
 	@Test
 	public void should_render_a_double() throws Exception {
-		assertEquals("5000.0",
-				engine().render(5000.0));
+		Assert.assertEquals("5000.0",
+			engine().render(5000.0));
 	}
 
 	@Test
 	public void should_render_an_enum() throws Exception {
-		assertEquals("Male",
-				engine().render(Sex.Male));
+		Assert.assertEquals("Male",
+			engine().render(Sex.Male));
 	}
 
 	@Test
 	public void should_render_person_defining_a_rule() throws Exception {
-		assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-				renderPerson(personRule()));
+		Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+			renderPerson(personRule()));
 	}
 
 	@Test
 	public void should_render_person_removing_empty_lines() throws Exception {
-		assertEquals("Pau Gasol was born in Spain\non 06/07/1980",
-				renderPerson(personRuleWithMarkInDirtyLine()));
+		Assert.assertEquals("Pau Gasol was born in Spain\non 06/07/1980",
+			renderPerson(personRuleWithMarkInDirtyLine()));
 	}
 
 	@Test
 	public void should_render_person_with_null_attributes_defining_a_rule() throws Exception {
-		assertEquals("Pau Gasol was born",
-				renderPersonWithNullAttributes(personRuleWithExpressions()));
+		Assert.assertEquals("Pau Gasol was born",
+			renderPersonWithNullAttributes(personRuleWithExpressions()));
 	}
 
 	@Test
 	public void should_render_person_with_enum() throws Exception {
-		assertEquals("Pau Gasol is a man",
-				renderPerson(personRuleWithSex(), sexRule()));
+		Assert.assertEquals("Pau Gasol is a man",
+			renderPerson(personRuleWithSex(), sexRule()));
 	}
 
 	@Test
 	public void should_render_person_defining_a_rule_with_negated_condition() throws Exception {
-		assertEquals("Pau Gasol was born in - on -",
-				renderPerson(personRule(), negatedConditionRule()));
+		Assert.assertEquals("Pau Gasol was born in - on -",
+			renderPerson(personRule(), negatedConditionRule()));
 	}
 
 	@Test
 	public void should_render_person_defining_a_rule_with_uppercase_tokens() throws Exception {
-		assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-				renderPerson(personRuleUppercase()));
+		Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+			renderPerson(personRuleUppercase()));
 	}
 
 	@Test
 	public void should_render_person_defining_a_rule_with_formatted_marks() throws Exception {
-		assertEquals("PAU GASOL was born in spain on 06/07/1980",
-				renderPerson(personRuleWithFormatMarks()));
+		Assert.assertEquals("PAU GASOL was born in spain on 06/07/1980",
+			renderPerson(personRuleWithFormatMarks()));
 	}
 
 	@Test
 	public void should_render_person_defining_a_rule_with_value_function() throws Exception {
-		assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
-				renderPerson(personRule(), valueRule()));
+		Assert.assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
+			renderPerson(personRule(), valueRule()));
 	}
 
 	@Test
 	public void should_render_person_defining_rule_with_a_trigger_condition() throws Exception {
-		assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
-				renderPerson(personRule(), triggerConditionRule()));
+		Assert.assertEquals("*Pau Gasol* was born in Spain on 06/07/1980",
+			renderPerson(personRule(), triggerConditionRule()));
 	}
 
 	@Test
 	public void should_render_person_defining_rule_with_a_trigger_format_condition() throws Exception {
-		assertEquals("Pau Gasol was born in Spain on \"06/07/1980\"",
-				renderPerson(personRule(), triggerFormatConditionRule()));
+		Assert.assertEquals("Pau Gasol was born in Spain on \"06/07/1980\"",
+			renderPerson(personRule(), triggerFormatConditionRule()));
 	}
 
 	@Test
 	public void should_render_person_ignoring_date_formats_if_value_is_not_date() throws Exception {
-		assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-				renderPerson(personRuleWithDateFormatOnString()));
+		Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+			renderPerson(personRuleWithDateFormatOnString()));
 	}
 
 	@Test
 	public void should_render_person_ignoring_number_formats_if_value_is_not_double() throws Exception {
-		assertEquals("Pau gasol was born in spain on 06/07/1980",
-				renderPerson(personRuleWithDoubleFormatOnString()));
+		Assert.assertEquals("Pau gasol was born in spain on 06/07/1980",
+			renderPerson(personRuleWithDoubleFormatOnString()));
 	}
 
 	@Test
 	public void should_render_person_chaining_two_formats() throws Exception {
-		assertEquals("PauGasols was born in Spain on 06/07/1980",
-				renderPerson(personRuleWithTwoFormats()));
+		Assert.assertEquals("PauGasols was born in Spain on 06/07/1980",
+			renderPerson(personRuleWithTwoFormats()));
 	}
 
 	@Test
 	public void should_render_person_defining_a_rule_with_a_custom_formatter() throws Exception {
-		assertEquals("9 was born in 5 on 06/07/1980",
-				renderPersonWithCustomFormat(personRuleWithCustomFormat()));
+		Assert.assertEquals("9 was born in 5 on 06/07/1980",
+			renderPersonWithCustomFormat(personRuleWithCustomFormat()));
 	}
 
 	@Test
 	public void should_render_person_defining_rule_with_a_custom_condition_function() throws Exception {
-		assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-				renderPersonWithCustomConditionFunction(personRuleWithCustomCondition()));
+		Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+			renderPersonWithCustomConditionFunction(personRuleWithCustomCondition()));
 	}
 
 	@Test
 	public void should_render_person_defining_rule_with_a_custom_adapter() throws Exception {
-		assertEquals("Pau Gasol was born in Spain and he is 34 years old",
-				renderPersonWithCustomAdapter(personRuleWithCustomAdapter()));
+		Assert.assertEquals("Pau Gasol was born in Spain and he is 34 years old",
+			renderPersonWithCustomAdapter(personRuleWithCustomAdapter()));
 	}
 
 	@Test
 	public void should_render_person_excluding_a_field() throws Exception {
-		assertEquals("Pau Gasol was born in Spain on ",
-				renderPersonExcludingField(personRule()));
+		Assert.assertEquals("Pau Gasol was born in Spain on ",
+			renderPersonExcludingField(personRule()));
 	}
 
 	@Test
 	public void should_render_an_array_of_objects() throws Exception {
-		assertEquals("item1, item2, item3",
-				new TemplateEngine().add(collectionRule()).render(new String[]{"item1", "item2", "item3"}));
+		Assert.assertEquals("item1, item2, item3",
+			new TemplateEngine().add(collectionRule()).render(new String[]{"item1", "item2", "item3"}));
 	}
 
 	@Test
 	public void should_render_a_list_of_objects() throws Exception {
-		assertEquals("item1, item2, item3",
-				new TemplateEngine().add(collectionRule()).render(Arrays.asList("item1", "item2", "item3")));
+		Assert.assertEquals("item1, item2, item3",
+			new TemplateEngine().add(collectionRule()).render(Arrays.asList("item1", "item2", "item3")));
 	}
 
 	@Test
 	public void should_render_a_map_of_objects() throws Exception {
-		assertEquals("string1:value1, string2:value2, string3:value3",
-				new TemplateEngine().add(collectionRule(), item()).render(createMap()));
+		Assert.assertEquals("string1:value1, string2:value2, string3:value3",
+			new TemplateEngine().add(collectionRule(), item()).render(createMap()));
 	}
 
 	@Test
 	public void should_render_a_container_including_an_engine() throws Exception {
-		assertEquals("Pau Gasol was born in Spain on 06/07/1980",
-				engine().add(containerRule()).add("rule", engine().add(personRule())).render(container()));
+		Assert.assertEquals("Pau Gasol was born in Spain on 06/07/1980",
+			engine().add(containerRule()).add("rule", engine().add(personRule())).render(container()));
 	}
 
 	@Test
 	public void should_render_a_container_including_an_engine_and_a_primitive_formatter() throws Exception {
-		assertEquals("41",
-				engine().add(containerRuleWithTwoFormatters()).add("rule", engine().add(personRule())).render(container()));
-	}
-
-	@Test
-	public void should_render_tabs() throws Exception {
-		assertEquals("\tHello world", engine().add(new Rule().add(mark("tab")).add(mark("value"))).render("Hello world"));
+		Assert.assertEquals("41",
+			engine().add(containerRuleWithTwoFormatters()).add("rule", engine().add(personRule())).render(container()));
 	}
 
 	private Rule containerRule() {
@@ -417,8 +410,8 @@ public class AcceptedTemplateEngine {
 
 	@Test
 	public void should_render_person_defining_rule_with_a_trigger_condition_and_name_formatter() throws Exception {
-		assertEquals("P. Gasol was born in Spain on 06/07/1980",
-				renderPerson(personRule(), triggerWithFormatter()));
+		Assert.assertEquals("P. Gasol was born in Spain on 06/07/1980",
+			renderPerson(personRule(), triggerWithFormatter()));
 	}
 
 

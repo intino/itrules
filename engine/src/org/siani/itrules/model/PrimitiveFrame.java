@@ -25,7 +25,7 @@ package org.siani.itrules.model;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class PrimitiveFrame extends AbstractFrame {
+public class PrimitiveFrame implements AbstractFrame {
 	private final Object value;
 
 	public  PrimitiveFrame(Object value) {
@@ -44,7 +44,7 @@ public class PrimitiveFrame extends AbstractFrame {
 
 	@Override
 	public Iterator<AbstractFrame> frames(String slot) {
-		return commonSlots.get(slot) != null ? commonSlots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
+		return Collections.<AbstractFrame>emptyList().iterator();
 	}
 
 	@Override
