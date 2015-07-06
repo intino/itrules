@@ -116,7 +116,7 @@ public final class Interpreter extends ItrParserBaseListener {
 		if (!ExpressionContext.class.isInstance(ctx.getParent())) {
 			if (ctx.getText().equals(NL_SEPARATOR)) currentRule.add(new Literal("\n"));
 			else if (ctx.getText().equals(TAB_SEPARATOR)) currentRule.add(new Literal("\t"));
-			currentRule.add(processAsMark(ctx));
+			else currentRule.add(processAsMark(ctx));
 		}
 	}
 
