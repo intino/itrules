@@ -30,6 +30,7 @@ public class TemplateGeneration extends GenerationAction {
 
 	private static final String JAVA = ".java";
 	private static final String GEN = "gen";
+	public static final String TEMPLATES = "templates";
 
 	public void actionPerformed(@NotNull AnActionEvent e) {
 		Project project = e.getData(PlatformDataKeys.PROJECT);
@@ -52,7 +53,7 @@ public class TemplateGeneration extends GenerationAction {
 
 	@NotNull
 	private RunTemplateGeneration createTask(Module module, VirtualFile rulesFile, String title, File destiny) throws Exception {
-		return new RunTemplateGeneration(rulesFile, module, title, destiny, getPackage(rulesFile, new File(module.getModuleFilePath()).getParentFile()));
+		return new RunTemplateGeneration(rulesFile, module, title, destiny, getPackage(rulesFile, module));
 	}
 
 	private void error(Project project, String message) {
@@ -80,22 +81,22 @@ public class TemplateGeneration extends GenerationAction {
 	protected String findDestiny(Project project, Module module, VirtualFile file) throws Exception {
 		if (module == null) return project.getBasePath();
 
-		VirtualFile gen = findGen(module);
+		VirtualFile gen = find(module, GEN);
 		if (gen == null) gen = createGen(module);
-		return gen.getPath() + separator + getPackage(file, new File(module.getModuleFilePath()).getParentFile()).replace(".", separator);
+		return gen.getPath() + separator + getPackage(file, module).replace(".", separator);
 	}
 
-	private VirtualFile findGen(Module module) {
+	private VirtualFile find(Module module, String sourcePath) {
 		VirtualFile[] sourceRoots = ModuleRootManager.getInstance(module).getSourceRoots();
-		for (VirtualFile sourceRoot : sourceRoots) if (sourceRoot.getName().equals(GEN)) return sourceRoot;
+		for (VirtualFile sourceRoot : sourceRoots) if (sourceRoot.getName().equals(sourcePath)) return sourceRoot;
 		return null;
 	}
 
-	private String getPackage(VirtualFile file, File moduleDir) throws Exception {
+	private String getPackage(VirtualFile file, Module module) throws Exception {
 		String path = file.getParent().getPath();
-		if (!new File(moduleDir.getPath(), "templates").exists()) throw new Exception("templates directory not found");
-		String modulePath = new File(moduleDir.getPath(), "templates").getPath();
-		String formattedPackage = format(path, modulePath);
+		final VirtualFile virtualFile = find(module, TEMPLATES);
+		if (virtualFile == null) throw new Exception("templates directory not found");
+		String formattedPackage = format(path, virtualFile.getPath());
 		return formattedPackage.isEmpty() ? "itrules" : formattedPackage;
 	}
 
@@ -107,21 +108,18 @@ public class TemplateGeneration extends GenerationAction {
 
 	private VirtualFile createGen(final Module module) {
 		final SourceFolder[] sourceFolder = {null};
-		ApplicationManager.getApplication().runWriteAction(new Runnable() {
-			@Override
-			public void run() {
-				ModifiableRootModel modifiableModel = ModuleRootManager.getInstance(module).getModifiableModel();
-				ContentEntry[] contentEntries = modifiableModel.getContentEntries();
-				File moduleDirectory = new File(module.getModuleFilePath()).getParentFile();
-				String gen = moduleDirectory.getPath() + separator + GEN;
-				new File(gen).mkdirs();
-				final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
-				if (sourceRoot != null) {
-					JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", true);
-					sourceFolder[0] = contentEntries[0].addSourceFolder(sourceRoot, JavaSourceRootType.SOURCE, properties);
-				}
-				modifiableModel.commit();
+		ApplicationManager.getApplication().runWriteAction(() -> {
+			ModifiableRootModel modifiableModel = ModuleRootManager.getInstance(module).getModifiableModel();
+			ContentEntry[] contentEntries = modifiableModel.getContentEntries();
+			File moduleDirectory = new File(module.getModuleFilePath()).getParentFile();
+			String gen = moduleDirectory.getPath() + separator + GEN;
+			new File(gen).mkdirs();
+			final VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemIndependentName(gen));
+			if (sourceRoot != null) {
+				JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", true);
+				sourceFolder[0] = contentEntries[0].addSourceFolder(sourceRoot, JavaSourceRootType.SOURCE, properties);
 			}
+			modifiableModel.commit();
 		});
 
 		return sourceFolder[0].getFile();

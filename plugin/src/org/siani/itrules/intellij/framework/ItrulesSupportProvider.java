@@ -181,6 +181,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	}
 
 	private PsiFile findPom(PsiDirectory root) {
+		if (root == null) return null;
 		for (PsiElement element : root.getChildren())
 			if (element instanceof PsiFile && "pom.xml".equals(((PsiFile) element).getVirtualFile().getName()))
 				return (PsiFile) element;
