@@ -187,9 +187,9 @@ public class TemplateEngine {
 	}
 
 	private boolean executeRuleNotFound(Trigger trigger) {
-		buffer().write("...no rule for " + trigger.frame() + " with trigger " + trigger.mark());
-		buffer().dedent();
-		return true;
+//		buffer().write("...no rule for " + trigger.frame() + " with trigger " + trigger.mark());
+//		buffer().dedent();
+		return false;
 	}
 
 	private Rule ruleFor(Trigger trigger) {

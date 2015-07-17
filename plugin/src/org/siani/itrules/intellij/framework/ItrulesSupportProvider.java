@@ -82,12 +82,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	}
 
 	private void startWithMaven(final Module module) {
-		StartupManager.getInstance(module.getProject()).registerPostStartupActivity(new Runnable() {
-			@Override
-			public void run() {
-				addMavenToProject(module);
-			}
-		});
+		StartupManager.getInstance(module.getProject()).registerPostStartupActivity(() -> addMavenToProject(module));
 	}
 
 	private void addMavenToProject(final Module module) {
@@ -144,16 +139,13 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 	private Collection<VirtualFile> projectModulePom(final Module module) {
 		final PsiFile[] file = new PsiFile[1];
-		ApplicationManager.getApplication().runWriteAction(new Runnable() {
-			@Override
-			public void run() {
-				PsiDirectory root = getModuleRoot(module);
-				file[0] = findPom(root);
-				if (file[0] == null) {
-					file[0] = root.createFile("pom.xml");
-					createPom(file[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
-				} else updateModulePom(file[0]);
-			}
+		ApplicationManager.getApplication().runWriteAction(() -> {
+			PsiDirectory root = getModuleRoot(module);
+			file[0] = findPom(root);
+			if (file[0] == null) {
+				file[0] = root.createFile("pom.xml");
+				createPom(file[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
+			} else updateModulePom(file[0]);
 		});
 		return new ArrayList<VirtualFile>() {{
 			add(file[0].getVirtualFile());
@@ -202,16 +194,13 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 	private VirtualFile projectPom(final Module module) {
 		final PsiFile[] file = new PsiFile[1];
-		ApplicationManager.getApplication().runWriteAction(new Runnable() {
-			@Override
-			public void run() {
-				File pomFile = getProjectPom(module);
-				VirtualFile directory = VcsUtil.getVcsRootFor(module.getProject(), VcsUtil.getFilePath(pomFile));
-				PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
-				file[0] = findPom(root);
-				if (file[0] == null) file[0] = root.createFile("pom.xml");
-				createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module)));
-			}
+		ApplicationManager.getApplication().runWriteAction(() -> {
+			File pomFile = getProjectPom(module);
+			VirtualFile directory = VcsUtil.getVcsRootFor(module.getProject(), VcsUtil.getFilePath(pomFile));
+			PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
+			file[0] = findPom(root);
+			if (file[0] == null) file[0] = root.createFile("pom.xml");
+			createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module)));
 		});
 		return file[0].getVirtualFile();
 	}
