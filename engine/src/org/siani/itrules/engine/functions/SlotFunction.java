@@ -30,8 +30,8 @@ public final class SlotFunction implements Function {
 	@Override
 	public boolean match(Trigger trigger, String parameter) {
 		return trigger.frame().isPrimitive() ?
-				parameter.equalsIgnoreCase("value") :
-				trigger.frame().frames(parameter).hasNext();
+			parameter.equalsIgnoreCase("value") :
+			trigger.frame().frames(parameter).hasNext();
 	}
 
 
