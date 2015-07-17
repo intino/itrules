@@ -1,13 +1,14 @@
 <settings>
-    <dependencies>
-        <dependency>engine</dependency>
-        <dependency>reader-itr</dependency>
-    </dependencies>
-    <libraries>
-      <library>https://search.maven.org/remotecontent?filepath=org/antlr/antlr4/4.5/antlr4-4.5.jar</library>
-      <library>https://search.maven.org/remotecontent?filepath=org/antlr/antlr4-runtime/4.5/antlr4-runtime-4.5.jar</library>
-      <library>https://search.maven.org/remotecontent?filepath=org/abego/treelayout/org.abego.treelayout.core/1.0.1/org.abego.treelayout.core-1.0.1.jar</library>
-      <library>https://search.maven.org/remotecontent?filepath=org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar</library>
-      <library>https://search.maven.org/remotecontent?filepath=org/antlr/ST4/4.0.8/ST4-4.0.8.jar</library>
-    </libraries>   
+  <name>plugin</name>
+  <dependencies>
+    <dependency>engine</dependency>
+    <dependency>reader-itr</dependency>
+  </dependencies>
+  <libraries>
+    <library>https://search.maven.org/remotecontent?filepath=org/antlr/antlr4/4.5/antlr4-4.5.jar</library>
+    <library>https://search.maven.org/remotecontent?filepath=org/antlr/antlr4-runtime/4.5/antlr4-runtime-4.5.jar</library>
+    <library>https://search.maven.org/remotecontent?filepath=org/abego/treelayout/org.abego.treelayout.core/1.0.1/org.abego.treelayout.core-1.0.1.jar</library>
+    <library>https://search.maven.org/remotecontent?filepath=org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar</library>
+    <library>https://search.maven.org/remotecontent?filepath=org/antlr/ST4/4.0.8/ST4-4.0.8.jar</library>
+  </libraries>   
 </settings> 
