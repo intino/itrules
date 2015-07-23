@@ -1,20 +1,20 @@
-defrule type(Person)
+def type(Person)
     $Name has $PetsCount+Letters pets:
-      * $Pets...[$NL]
-endrule
+      $Pets...[$NL]
+end
 
-defrule type(Dog)
+def type(Dog)
     $Name, a $Age dog
-endrule
+end
 
-defrule type(Cat)
-    $Name, a $Age+Age kitty ñ
-endrule
+def type(Cat)
+    $Name, a $Age+Age kitty
+end
 
-defrule trigger(Age) one(zzz)
+def trigger(Age) one(zzz)
     one year old
-endrule
+end
 
-defrule trigger(Age)
+def trigger(Age)
     $value+Letters years old
-endrule
+end

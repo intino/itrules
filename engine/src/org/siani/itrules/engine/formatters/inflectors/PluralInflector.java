@@ -1,11 +1,8 @@
-package org.siani.itrules.engine.formatters;
+package org.siani.itrules.engine.formatters.inflectors;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
-* Created by josejuan on 29/4/15.
-*/
 public abstract class PluralInflector {
 
     private Map<String, String> irregulars = new HashMap<>();

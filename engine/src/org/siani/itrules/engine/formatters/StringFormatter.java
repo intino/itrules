@@ -53,82 +53,46 @@ public final class StringFormatter {
     }
 
     private static Formatter upperCase() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return value.toString().toUpperCase();
-			}
-		};
+		return value -> value.toString().toUpperCase();
 	}
 
 	private static Formatter lowerCase() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return value.toString().toLowerCase();
-			}
-		};
+		return value -> value.toString().toLowerCase();
 	}
 
 	private static Formatter camelCase() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				String[] parts = value.toString().split(" ");
-				String caseString = "";
-				for (String part : parts) caseString = caseString + capitalize().format(part);
-				return caseString;
-			}
-		};
+		return value -> {
+            String[] parts = value.toString().split(" ");
+            String caseString = "";
+            for (String part : parts) caseString = caseString + capitalize().format(part);
+            return caseString;
+        };
 	}
 
 	private static Formatter lowerCamelCase() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				String[] parts = value.toString().split(" ");
-				String caseString = "";
-				for (String part : parts)
-					caseString = caseString + capitalize().format(part);
-				return caseString.substring(0, 1).toLowerCase() + caseString.substring(1);
-			}
-		};
+		return value -> {
+            String[] parts = value.toString().split(" ");
+            String caseString = "";
+            for (String part : parts)
+                caseString = caseString + capitalize().format(part);
+            return caseString.substring(0, 1).toLowerCase() + caseString.substring(1);
+        };
 	}
 
 	private static Formatter firstUpperCase() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
-			}
-		};
+		return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
 	}
 
 	private static Formatter firstLowerCase() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
-			}
-		};
+		return value -> value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
 	}
 
 	private static Formatter capitalize() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-                return value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
-			}
-		};
+		return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
 	}
 
 	private static Formatter length() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return String.valueOf(value.toString().length());
-			}
-		};
+		return value -> String.valueOf(value.toString().length());
 	}
 
 

@@ -1,14 +1,12 @@
-package org.siani.itrules.engine.formatters.readers;
+package org.siani.itrules.engine.formatters.spelling;
 
-import org.siani.itrules.engine.formatters.LetterReader;
-
-public class SpanishReader implements LetterReader {
+public class SpanishSpelling implements WordSpelling {
     private static final String[] numbers = {"","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve", "diez","once","doce","trece","catorce","quince","dieciseis","diecisiete","dieciocho","diecinueve","veinte"};
     private static final String[] multipleOfTenNumbers = {"","","","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"};
     private static final String[] hundreds = {"", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"};
 
     @Override
-    public String read(int number) {
+    public String spell(int number) {
         return number > 0 ? readLessThanOneBillion(number) : "cero";
     }
 

@@ -2,6 +2,7 @@ package org.siani.itrules.engine.formatters;
 
 import org.siani.itrules.Formatter;
 import org.siani.itrules.engine.formatters.inflectors.EnglishPluralInflector;
+import org.siani.itrules.engine.formatters.inflectors.PluralInflector;
 import org.siani.itrules.engine.formatters.inflectors.SpanishPluralInflector;
 
 import java.util.HashMap;

@@ -111,7 +111,7 @@ public class TemplateEngine {
 		return this;
 	}
 
-	public TemplateEngine add(Class class_, Adapter adapter) {
+	public <T> TemplateEngine add(final Class<T> class_, final Adapter<T> adapter) {
         frameBuilder.register(class_, adapter);
 		return this;
 	}

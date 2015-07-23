@@ -65,11 +65,11 @@ public final class FrameBuilder {
 		return isCollection(object.getClass()) ? new Collection(object) :	object;
 	}
 
-	public <T> void register(final Class<T> aClass, final Adapter<T> adapter) {
+	public <T> void register(final Class<T> class_, final Adapter<T> adapter) {
 		registerList.add(0, new Register() {
 			@Override
 			public boolean accept(Class type) {
-				return type.equals(aClass);
+				return type.equals(class_);
 			}
 
 			@Override

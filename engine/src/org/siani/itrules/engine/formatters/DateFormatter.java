@@ -22,59 +22,28 @@ public class DateFormatter {
     }
 
     private static Formatter year() {
-        return new Formatter() {
-            @SuppressWarnings("deprecation")
-            @Override
-            public Object format(Object value) {
-                return value instanceof Date ? ((Date)value).getYear() + 1900 : value;
-            }
-        };
+        return value -> value instanceof Date ? ((Date)value).getYear() + 1900 : value;
     }
 
 
     private static Formatter monthYear(final Locale locale) {
-        return new Formatter() {
-            @Override
-            public Object format(Object value) {
-                return formatDate(value, "MMMM yyyy", locale);
-            }
-        };
+        return value -> formatDate(value, "MMMM yyyy", locale);
     }
 
     private static Formatter shortDate(final Locale locale) {
-        return new Formatter() {
-            @Override
-            public Object format(Object value) {
-                return formatDate(value, "dd/MM/yyyy", locale);
-            }
-        };
+        return value -> formatDate(value, "dd/MM/yyyy", locale);
     }
 
     private static Formatter fullDate(final Locale locale) {
-        return new Formatter() {
-            @Override
-            public Object format(Object value) {
-                return formatDate(value, "dd MMMM yyyy", locale);
-            }
-        };
+        return value -> formatDate(value, "dd MMMM yyyy", locale);
     }
 
     private static Formatter dayOfWeek(final Locale locale) {
-        return new Formatter() {
-            @Override
-            public Object format(Object value) {
-                return formatDate(value, "EEEE", locale);
-            }
-        };
+        return value -> formatDate(value, "EEEE", locale);
     }
 
     private static Formatter time(final Locale locale) {
-        return new Formatter() {
-            @Override
-            public Object format(Object value) {
-                return formatDate(value, "HH:mm", locale);
-            }
-        };
+        return value -> formatDate(value, "HH:mm", locale);
     }
 
     private static Object formatDate(Object value, String format, final Locale locale) {

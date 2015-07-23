@@ -1,7 +1,7 @@
-defrule type(Message)
+def type(Message)
     From: $From
     To: $To...[, ]
     $Subject
 
     $Body...[$NL]
-endrule
+end
