@@ -44,7 +44,7 @@ public class Rule extends Token {
 
 	public Rule add(Body token) {
         if (!tokens.isEmpty())
-            token.prevToken(tokens.get(tokens.size() - 1));
+            token.previous(tokens.get(tokens.size() - 1));
         tokens.add(token);
         return this;
 	}

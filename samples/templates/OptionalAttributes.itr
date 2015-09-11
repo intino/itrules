@@ -1,9 +1,9 @@
 def type(Roster)
 	<roster>
 		$Coach
-		<players>
-			$Players...[$NL]
-		</players>
+		[<players>
+			$Players...[$NL] />
+		</players>]
     </roster>
 end
 

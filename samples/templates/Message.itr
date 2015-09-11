@@ -4,5 +4,5 @@ def type(Message)
     $subject
 
 
-    $body...[$NL]
+    * $body...[$NL]
 end

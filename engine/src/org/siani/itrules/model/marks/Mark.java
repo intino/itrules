@@ -23,6 +23,7 @@
 package org.siani.itrules.model.marks;
 
 import org.siani.itrules.model.Literal;
+import org.siani.itrules.model.Token;
 
 public class Mark extends AbstractMark {
     private static final String NewLine = "\n";
@@ -75,20 +76,23 @@ public class Mark extends AbstractMark {
 
     @Override
     public String indentation() {
-        return prevToken() instanceof Literal ? calculateIndentation(prevToken().as(Literal.class)) : "";
+        return indentation(previousLiteral());
     }
 
-    private String calculateIndentation(Literal literal) {
-        int index = literal.text().lastIndexOf(NewLine);
-        return index >= 0 ? calculateIndentation(literal.text().substring(index + 1) + '|') : "";
+    private String indentation(String text) {
+        return text.substring(text.lastIndexOf(NewLine) + 1);
     }
 
-    private String calculateIndentation(String text) {
-        return text.substring(0, text.length() - text.trim().length());
+    private String previousLiteral() {
+        return NewLine + literal(previous);
+    }
+
+    private String literal(Token token) {
+        return token instanceof Literal ? literal(token.previous()) + ((Literal) token).text() : "";
     }
 
     @Override
     public String toString() {
-        return "[" + name + (isMultiple() ? "List" : "") + "]";
+        return "[" + name + (isMultiple() ? "..." : "") + "]";
     }
 }

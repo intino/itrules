@@ -1,7 +1,7 @@
 def type(Message)
-    From: $From
-    To: $To...[, ]
-    $Subject
-
-    $Body...[$NL]
+    From: $from
+    [To: $to...[$NL]
+    ]
+    $subject
+    $body...[$NL]
 end
