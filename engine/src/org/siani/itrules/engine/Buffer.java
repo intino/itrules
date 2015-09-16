@@ -41,7 +41,7 @@ public class Buffer {
 	}
 
 	public void write(Buffer buffer) {
-		content.append(buffer);
+		write(buffer.content.toString());
 	}
 
 	public void write(String text) {

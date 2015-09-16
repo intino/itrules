@@ -272,7 +272,7 @@ public class TemplateEngine {
 
 	private boolean execute(Trigger trigger, Expression expression) {
 		boolean result = true;
-		pushBuffer(trigger.mark().indentation());
+		pushBuffer("");
 		for (Token token : expression)
 			result &= execute(trigger, token);
 		popBuffer();
