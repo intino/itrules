@@ -35,7 +35,7 @@ public class Expression extends Token.Body implements Iterable<Token> {
 
 	public Expression add(Body token) {
 		if (!tokens.isEmpty())
-			token.prevToken(tokens.get(tokens.size() - 1));
+			token.previous(tokens.get(tokens.size() - 1));
 		tokens.add(token);
 		return this;
 	}

@@ -239,11 +239,11 @@ public class AcceptedTemplateEngine {
 		return new Adapter<Person>() {
 			@Override
 			public void execute(Frame frame, Person source, FrameContext<Person> context) {
-				context.frame().addFrame("name", context.build(context.source().name));
-				context.frame().addFrame("country", context.build(context.source().country));
-				context.frame().addFrame("birthday", context.build(context.source().birthday));
-				context.frame().addFrame("age", context.build(34));
-				context.frame().addFrame("sex", context.build(context.source().sex));
+				frame.addFrame("name", context.build(source.name));
+				frame.addFrame("country", context.build(source.country));
+				frame.addFrame("birthday", context.build(source.birthday));
+				frame.addFrame("age", context.build(34));
+				frame.addFrame("sex", context.build(source.sex));
 			}
 		};
 	}

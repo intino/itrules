@@ -87,12 +87,7 @@ public class TemplateEngine {
 	}
 
     public TemplateEngine add(String format, final TemplateEngine engine) {
-        add(format, new Formatter() {
-	        @Override
-	        public Object format(Object value) {
-		        return engine.render(value);
-	        }
-        });
+        add(format, engine::render);
         return this;
     }
 
@@ -111,7 +106,7 @@ public class TemplateEngine {
 		return this;
 	}
 
-	public TemplateEngine add(Class class_, Adapter adapter) {
+	public <T> TemplateEngine add(final Class<T> class_, final Adapter<T> adapter) {
         frameBuilder.register(class_, adapter);
 		return this;
 	}
@@ -147,10 +142,10 @@ public class TemplateEngine {
 
 	private String clean(String line) {
         return
-                line.equals("EOF") ? "" :
-                line.trim().isEmpty() ? "\n" :
-                line.endsWith(CutLine) ? process(trim(line, CutLine)) :
-                line + "\n";
+			line.equals("EOF") ? "" :
+			line.trim().isEmpty() ? "\n" :
+			line.endsWith(CutLine) ? process(trim(line, CutLine)) :
+			line + "\n";
     }
 
     private String trim(String line, String cutLine) {
@@ -172,27 +167,15 @@ public class TemplateEngine {
 
 	private void initBuffer() {
 		this.buffers.clear();
-		this.buffers.push(new Buffer());
+		pushBuffer("");
 	}
 
 	private boolean execute(Trigger trigger) {
 		Rule rule = ruleFor(trigger);
-		return rule != null ? executeRule(trigger, rule) : executeRuleNotFound(trigger);
+        return rule != null && execute(trigger, rule);
 	}
 
-	private boolean executeRule(Trigger trigger, Rule rule) {
-		boolean executed = execute(trigger, rule);
-		buffer().dedent();
-		return executed;
-	}
-
-	private boolean executeRuleNotFound(Trigger trigger) {
-//		buffer().write("...no rule for " + trigger.frame() + " with trigger " + trigger.mark());
-//		buffer().dedent();
-		return false;
-	}
-
-	private Rule ruleFor(Trigger trigger) {
+    private Rule ruleFor(Trigger trigger) {
 		for (Rule rule : ruleSet)
 			if (match(rule, trigger)) return rule;
 		return null;
@@ -289,7 +272,7 @@ public class TemplateEngine {
 
 	private boolean execute(Trigger trigger, Expression expression) {
 		boolean result = true;
-		pushBuffer(trigger.mark().indentation());
+		pushBuffer("");
 		for (Token token : expression)
 			result &= execute(trigger, token);
 		popBuffer();
@@ -297,20 +280,17 @@ public class TemplateEngine {
 	}
 
 	private void writeSeparator(AbstractMark mark) {
-		write(mark.separator());
+        write(mark.separator());
 	}
 
 	private void pushBuffer(String indentation) {
-		Buffer newBuffer = new Buffer();
-		for (String indent : buffer().getIndentation()) newBuffer.indent(indent);
-		buffers.push(newBuffer);
-		buffer().indent(indentation);
+        buffers.push(new Buffer(indentation));
 	}
 
 	private void popBuffer() {
-		Buffer result = buffers.pop();
-		if (result.isUsed()) {
-			buffer().write(result);
+		Buffer pop = buffers.pop();
+		if (pop.isUsed()) {
+			buffer().write(pop);
 			buffer().used();
 		}
 	}

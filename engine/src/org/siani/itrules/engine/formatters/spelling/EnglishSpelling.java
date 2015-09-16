@@ -1,11 +1,9 @@
-package org.siani.itrules.engine.formatters.readers;
+package org.siani.itrules.engine.formatters.spelling;
 
-import org.siani.itrules.engine.formatters.LetterReader;
-
-public class EnglishReader implements LetterReader {
+public class EnglishSpelling implements WordSpelling {
 
     @Override
-    public String read(int value) {
+    public String spell(int value) {
         int n = ((Number) value).intValue();
         return (words(n / 1000000, " million " + and(n % 1000000)) +
                 words((n % 1000000) / 1000, " thousand " + and(n % 1000)) + words(n % 1000, "")).replace("  ", " ").trim();

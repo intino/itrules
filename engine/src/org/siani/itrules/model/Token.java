@@ -22,7 +22,7 @@
 
 package org.siani.itrules.model;
 
-public abstract class Token implements Link {
+public abstract class Token  {
 
 	protected Token previous;
 
@@ -30,13 +30,11 @@ public abstract class Token implements Link {
 		return (Type) this;
 	}
 
-	@Override
-	public Token prevToken() {
+	public Token previous() {
 		return previous;
 	}
 
-	@Override
-	public void prevToken(Token previous) {
+	public void previous(Token previous) {
 		this.previous = previous;
 	}
 

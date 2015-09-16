@@ -16,7 +16,7 @@
     <vendor.name>Siani</vendor.name>
   </properties>
 
-  <dependencies>
+<!--  <dependencies>
     <dependency>
         <groupId>org.siani.itrules</groupId>
         <artifactId>itrules</artifactId>
@@ -32,7 +32,7 @@
         <artifactId>gson</artifactId>
         <version>2.3.1</version>
     </dependency>
-  </dependencies>
+  </dependencies>--> 
 
   <build>
     <resources>
@@ -127,4 +127,7 @@
     </plugins>
   </build>
 
+  <dependencies>
+    #dependencies#
+  </dependencies>  
 </project>

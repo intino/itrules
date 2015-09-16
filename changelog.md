@@ -1,3 +1,9 @@
+##1.2.6##
+-   Fixed indentations.
+-   Added `&` and | operator in signatures.
+-   Refactor
+
+
 ##1.2##
 -   Feature: Empty lines remover.
 -   Fixed mark separator.

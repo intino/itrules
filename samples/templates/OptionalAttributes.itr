@@ -1,16 +1,16 @@
-defrule type(Roster)
+def type(Roster)
 	<roster>
 		$Coach
 		<players>
 			$Players...[$NL]
 		</players>
     </roster>
-endrule
+end
 
-defrule type(Person) trigger(Coach)
+def type(Person) trigger(Coach)
     <coach name="$Name" year="$Birthday+Year" country="$Country" />
-endrule
+end
 
-defrule type(Person)
+def type(Person)
     <player name="$Name" year="$Birthday+Year" country="$Country" [club="$Club" ]/>
-endrule
+end

@@ -22,16 +22,14 @@
 
 package org.siani.itrules.engine;
 
-import java.util.Stack;
-
 public class Buffer {
 	private static final char NEW_LINE = '\n';
 	private boolean replaced = false;
 	private StringBuilder content = new StringBuilder("");
-	private Stack<String> indentation = new Stack<>();
+	private String indentation;
 
-	public Buffer() {
-		indentation.push("");
+	public Buffer(String indentation) {
+		this.indentation = indentation;
 	}
 
 	public boolean isUsed() {
@@ -42,43 +40,23 @@ public class Buffer {
 		replaced = true;
 	}
 
-
 	public void write(Buffer buffer) {
-		content.append(buffer);
+		write(buffer.content.toString());
 	}
 
 	public void write(String text) {
-		content.append(putIndents(text));
+		content.append(indent(text));
 	}
 
-	private String putIndents(String text) {
+	private String indent(String text) {
+		return indent((text + "~").toCharArray());
+	}
+
+	private String indent(char[] data) {
 		String result = "";
-		char[] chars = text.toCharArray();
-		for (int i = 0; i < chars.length; i++) {
-			result += chars[i];
-			if (chars[i] == NEW_LINE && (i + 1 == chars.length || i + 1 < chars.length && chars[i + 1] != NEW_LINE))
-				result += getAllIndentations();
-		}
+		for (int i = 0; i < data.length - 1; i++)
+			result += data[i] + (data[i] == NEW_LINE && data[i + 1] != NEW_LINE ? indentation : "");
 		return result;
-	}
-
-	private String getAllIndentations() {
-		String result = "";
-		for (String s : indentation) result += s;
-		return result;
-	}
-
-	public void indent(String indent) {
-		if (indent.length() > 0) this.indentation.push(indent);
-	}
-
-	public void dedent() {
-		if (!indentation.isEmpty())
-			this.indentation.pop();
-	}
-
-	public Stack<String> getIndentation() {
-		return indentation;
 	}
 
 	@Override

@@ -22,8 +22,6 @@
 
 package org.siani.itrules.engine.formatters.inflectors;
 
-import org.siani.itrules.engine.formatters.PluralInflector;
-
 public class SpanishPluralInflector extends PluralInflector {
 
     @Override

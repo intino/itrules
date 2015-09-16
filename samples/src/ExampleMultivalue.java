@@ -23,6 +23,7 @@ public class ExampleMultivalue {
         public void addLine(String line) {
             body.add(line);
         }
+
     }
 
     public static void main(String[] args) {

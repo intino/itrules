@@ -59,12 +59,12 @@ public class AcceptedFormatterStore {
 
     @Test
     public void should_render_a_number_in_letters() throws Exception {
-        assertEquals("one thousand nine hundred and fifty", formatter("Letters").format(1950));
+        assertEquals("one thousand nine hundred and fifty", formatter("Words").format(1950));
     }
 
     @Test
     public void should_render_a_number_in_spanish_letters() throws Exception {
-        assertEquals("mil novecientos cincuenta", spanishFormatter("Letters").format(1950));
+        assertEquals("mil novecientos cincuenta", spanishFormatter("Words").format(1950));
     }
 
     @Test
