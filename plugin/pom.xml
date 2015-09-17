@@ -17,13 +17,13 @@
  
   <dependencies>
     <dependency>
-        <groupId>org.siani.itrules</groupId>
-        <artifactId>itrules</artifactId>
-        <version>LATEST</version>
+      <groupId>org.siani.itrules</groupId>
+      <artifactId>engine</artifactId>
+      <version>LATEST</version>
     </dependency>
     <dependency>
       <groupId>org.siani.itrules</groupId>
-      <artifactId>itrules-itr-reader</artifactId>
+      <artifactId>reader-itr</artifactId>
       <version>LATEST</version>
     </dependency>
     <dependency>
