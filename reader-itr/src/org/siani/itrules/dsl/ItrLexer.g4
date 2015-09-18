@@ -33,46 +33,47 @@ lexer grammar ItrLexer;
 }
 
 
-RULE_BEGIN          : 'def'                                     { setMode(SIGNATURE_MODE); setLastMode(DEFAULT_MODE);};
-WL                  : (' '|'\t')* ('\r'? '\n' | '\n')           -> skip;
-BODY                : 'body'                                    -> skip;
-COMMENTS            : .;
+BEGIN_RULE             : 'def'                                  { setMode(SIGNATURE_MODE); setLastMode(DEFAULT_MODE);};
+WL                     : (' '|'\t')* ('\r'? '\n' | '\n')        -> skip;
+BEGIN_BODY             : 'body'                          		-> skip;
+COMMENT                : .;
 
 mode SIGNATURE_MODE;
-	NOT             : '!';
-	FUNCTION        : LETTER(DIGIT|LETTER)*;
-	END_SIGNATURE   : (' '|'\t')* NL ('\t' | '    ')?           { setLastMode(SIGNATURE_MODE); setType(BODY);} -> mode(BODY_MODE);
-	WS              : SP+                                       -> skip;
-	PARAMETERS      : ('(' ~(')')+ ')')| ('('')');
-	RULE_ERROR      : .;
+	NOT                : '!';
+	FUNCTION           : LETTER(DIGIT|LETTER)*;
+	END_SIGNATURE      : (' '|'\t')* NL ('\t' | '    ')?        { setLastMode(SIGNATURE_MODE); setType(BEGIN_BODY);} -> mode(BODY_MODE);
+	WS                 : SP+                                    -> skip;
+	PARAMETERS         : ('(' ~(')')+ ')')| ('('')');
+	RULE_ERROR         : .;
 
 mode BODY_MODE;
-	RULE_END        : NL? 'end'                                 { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
-	NEWLINE         : NL ('\t' | '    ')?                       { setText("\n"); setType(TEXT);};
-	DOLLAR          : '$$'                                      { setText("$"); setType(TEXT);};
-	LSB             : '$['                                      { setText("["); setType(TEXT);};
-	RSB             : '$]'                                      { setText("]"); setType(TEXT);};
-	TRIGGER         : '$'                                       { setMode(MARK_MODE); setLastMode(BODY_MODE);};
-	LEFT_SB         : '['                                       { setMode(EXPRESSION_MODE); setLastMode(BODY_MODE);};
-	NULL_SEPARATOR  : '~'                                        -> skip;
-	TEXT            : ~('$'| '['  | '\r' | '\n' | '~')+;
+	END_RULE           : NL? 'end'                              { setMode(DEFAULT_MODE); setLastMode(BODY_MODE);};
+	NEWLINE            : NL ('\t' | '    ')?                    { setText("\n"); setType(TEXT);};
+	DOLLAR             : '$$'                                   { setText("$"); setType(TEXT);};
+	LSB                : '$['                                   { setText("["); setType(TEXT);};
+	RSB                : '$]'                                   { setText("]"); setType(TEXT);};
+	TRIGGER            : '$'                                    { setMode(MARK_MODE); setLastMode(BODY_MODE);};
+	BEGIN_EXPRESSION   : '['                                    { setMode(EXPRESSION_MODE); setLastMode(BODY_MODE);};
+	NULL_SEPARATOR     : '~'                                    -> skip;
+	TEXT               : ~('$'| '['  | '\r' | '\n' | '~')+;
 
 mode MARK_MODE;
-	LIST            : '...';
-	OPTION          : '+'                                       { setType(OPTION);};
-    NULL            : '~'                                       { setMode(lastMode); setLastMode(MARK_MODE);}-> skip;
-	SEPARATOR       : '[' (~']')* ']'                           { setMode(lastMode); setLastMode(MARK_MODE);};
-	ID              : (LETTER | '_') (DIGIT|LETTER | '_')* (DIGIT|LETTER)       { setType(ID); exitMark();};
-	MARK_ERROR      : .;
+	LIST               : '...';
+	OPTION             : '+'                                    { setType(OPTION);};
+    NULL               : '~'                                    { setMode(lastMode); setLastMode(MARK_MODE);}-> skip;
+	SEPARATOR          : '[' (~']')* ']'                        { setMode(lastMode); setLastMode(MARK_MODE);};
+	ID                 : (LETTER | '_') (DIGIT|LETTER | '_')* (DIGIT|LETTER)       { setType(ID); exitMark();};
+	MARK_ERROR         : .;
 
 mode EXPRESSION_MODE;
-	RIGHT_SB           : ']'                                    { setLastMode(EXPRESSION_MODE);} -> mode(BODY_MODE);
+	ELSE			   : '?';
+	END_EXPRESSION     : ']'                                    { setLastMode(EXPRESSION_MODE);} -> mode(BODY_MODE);
 	EXPRESSION_DOLLAR  : '$$'                                   { setText("$"); setType(TEXT);};
     EXPRESSION_LSB     : '$['                                   { setText("["); setType(TEXT);};
     EXPRESSION_RSB     : '$]'                                   { setText("]"); setType(TEXT);};
 	EXPRESSION_NULL    : '~'                                    -> skip;
 	EXPRESSION_TRIGGER : '$'                                    { setType(TRIGGER); setLastMode(EXPRESSION_MODE);} -> mode(MARK_MODE);
-	EXPRESSION_TEXT    : ~('$'| '[' | ']' | '\n')+              { setType(TEXT);};
+	EXPRESSION_TEXT    : ~('?' |'$'| '[' | ']' | '\n')+         { setType(TEXT);};
 	EXPRESSION_NL      : NL ('\t' | '    ')?                    { setText("\n"); setType(TEXT);};
 	EXPRESSION_ERROR   : .;
 
