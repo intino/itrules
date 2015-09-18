@@ -97,14 +97,27 @@ public final class Interpreter extends ItrParserBaseListener {
 	@Override
 	public void enterExpression(@NotNull ExpressionContext ctx) {
 		Expression expression = new Expression();
+		boolean orMode = false;
 		for (ParseTree child : ctx.children)
-			if (child instanceof MarkContext) {
-				if (child.getText().equals(NL_SEPARATOR)) expression.add(new Literal("\n"));
-				else if (child.getText().equals(TAB_SEPARATOR)) expression.add(new Literal("\t"));
-				else expression.add(processAsMark(((MarkContext) child)));
-			} else if (child instanceof TextContext)
-				expression.add(new Literal(clean(child)));
+			if (!orMode && child instanceof ExpressionBodyContext)
+				fillExpression((ExpressionBodyContext) child, expression);
+			else if (child instanceof ExpressionBodyContext) {
+				final Expression or = new Expression();
+				fillExpression((ExpressionBodyContext) child, or);
+				expression.or(or);
+			} else if (child.getText().equals("?")) orMode = true;
 		currentRule.add(expression);
+	}
+
+	private void fillExpression(ExpressionBodyContext body, Expression expression) {
+		for (ParseTree token : body.children) {
+			if (token instanceof MarkContext) {
+				if (token.getText().equals(NL_SEPARATOR)) expression.add(new Literal("\n"));
+				else if (token.getText().equals(TAB_SEPARATOR)) expression.add(new Literal("\t"));
+				else expression.add(processAsMark(((MarkContext) token)));
+			} else if (token instanceof TextContext)
+				expression.add(new Literal(clean(token)));
+		}
 	}
 
 	private String clean(ParseTree child) {

@@ -1,6 +1,5 @@
-// Generated from /Users/oroncal/workspace/itrules/reader-itr/src/org/siani/itrules/dsl/ItrParser.g4 by ANTLR 4.5
+// Generated from /Users/oroncal/workspace/itrules/reader-itr/src/org/siani/itrules/dsl/ItrParser.g4 by ANTLR 4.5.1
 package org.siani.itrules.dsl;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -12,90 +11,100 @@ public interface ItrParserListener extends ParseTreeListener {
 	 * Enter a parse tree produced by {@link ItrParser#root}.
 	 * @param ctx the parse tree
 	 */
-	void enterRoot(@NotNull ItrParser.RootContext ctx);
+	void enterRoot(ItrParser.RootContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#root}.
 	 * @param ctx the parse tree
 	 */
-	void exitRoot(@NotNull ItrParser.RootContext ctx);
+	void exitRoot(ItrParser.RootContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#definition}.
 	 * @param ctx the parse tree
 	 */
-	void enterDefinition(@NotNull ItrParser.DefinitionContext ctx);
+	void enterDefinition(ItrParser.DefinitionContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#definition}.
 	 * @param ctx the parse tree
 	 */
-	void exitDefinition(@NotNull ItrParser.DefinitionContext ctx);
+	void exitDefinition(ItrParser.DefinitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#signature}.
 	 * @param ctx the parse tree
 	 */
-	void enterSignature(@NotNull ItrParser.SignatureContext ctx);
+	void enterSignature(ItrParser.SignatureContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#signature}.
 	 * @param ctx the parse tree
 	 */
-	void exitSignature(@NotNull ItrParser.SignatureContext ctx);
+	void exitSignature(ItrParser.SignatureContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#condition}.
 	 * @param ctx the parse tree
 	 */
-	void enterCondition(@NotNull ItrParser.ConditionContext ctx);
+	void enterCondition(ItrParser.ConditionContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#condition}.
 	 * @param ctx the parse tree
 	 */
-	void exitCondition(@NotNull ItrParser.ConditionContext ctx);
+	void exitCondition(ItrParser.ConditionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void enterBody(@NotNull ItrParser.BodyContext ctx);
+	void enterBody(ItrParser.BodyContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void exitBody(@NotNull ItrParser.BodyContext ctx);
+	void exitBody(ItrParser.BodyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(@NotNull ItrParser.ExpressionContext ctx);
+	void enterExpression(ItrParser.ExpressionContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(@NotNull ItrParser.ExpressionContext ctx);
+	void exitExpression(ItrParser.ExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ItrParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionBody(ItrParser.ExpressionBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ItrParser#expressionBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionBody(ItrParser.ExpressionBodyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#text}.
 	 * @param ctx the parse tree
 	 */
-	void enterText(@NotNull ItrParser.TextContext ctx);
+	void enterText(ItrParser.TextContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#text}.
 	 * @param ctx the parse tree
 	 */
-	void exitText(@NotNull ItrParser.TextContext ctx);
+	void exitText(ItrParser.TextContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#mark}.
 	 * @param ctx the parse tree
 	 */
-	void enterMark(@NotNull ItrParser.MarkContext ctx);
+	void enterMark(ItrParser.MarkContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#mark}.
 	 * @param ctx the parse tree
 	 */
-	void exitMark(@NotNull ItrParser.MarkContext ctx);
+	void exitMark(ItrParser.MarkContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ItrParser#option}.
 	 * @param ctx the parse tree
 	 */
-	void enterOption(@NotNull ItrParser.OptionContext ctx);
+	void enterOption(ItrParser.OptionContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ItrParser#option}.
 	 * @param ctx the parse tree
 	 */
-	void exitOption(@NotNull ItrParser.OptionContext ctx);
+	void exitOption(ItrParser.OptionContext ctx);
 }

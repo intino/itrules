@@ -1,15 +1,18 @@
 parser grammar ItrParser;
 options { tokenVocab=ItrLexer; }
 
-root            : COMMENTS* (definition COMMENTS*)+ EOF;
-definition      : RULE_BEGIN signature body RULE_END;
+root            : COMMENT* (definition COMMENT*)+ EOF;
+definition      : BEGIN_RULE signature body END_RULE;
 
-signature       : condition+ BODY;
+signature       : condition+ BEGIN_BODY;
 condition       : NOT? FUNCTION PARAMETERS?;
 
 body            : (text | mark | expression)*;
 
-expression      : LEFT_SB (text | mark | expression)* RIGHT_SB;
+expression      : BEGIN_EXPRESSION expressionBody+ (ELSE expressionBody+)* END_EXPRESSION;
+
+expressionBody  : text | mark | expression;
+
 text            : TEXT;
 mark            : TRIGGER ID option* (LIST SEPARATOR)?;
 option          : OPTION ID;

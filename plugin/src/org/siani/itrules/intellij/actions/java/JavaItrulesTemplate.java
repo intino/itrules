@@ -50,7 +50,9 @@ public class JavaItrulesTemplate extends Template {
 				add(literal(".add(literal(")).add(mark("text", "string")).add(literal("))")),
 			rule().add(condition("type", "token"), condition("type", "mark"), condition("trigger", "tokens")).
 				add(literal(".add(mark(")).add(mark("name", "string")).add(expression().add(literal(", ")).add(mark("options", "string").multiple(", "))).add(literal(")")).add(expression().add(literal(".multiple(")).add(mark("separator", "string")).add(literal(")"))).add(literal(")")),
-			rule().add(condition("type", "token"), condition("type", "expression"), condition("trigger", "tokens")).add(literal(".add(expression()")).add(mark("tokens").multiple("")).add(literal(")")));
+			rule().add(condition("type", "token"), condition("type", "expression"), condition("trigger", "tokens")).add(literal(".add(expression()")).add(mark("tokens").multiple("")).add(expression().add(literal(".or(")).add(mark("or")).add(literal(")"))).add(literal(")")),
+
+			rule().add(condition("type", "token"), condition("type", "expression"), condition("trigger", "or")).add(literal("expression()")).add(mark("tokens").multiple("")).add(expression().add(literal(".or(")).add(mark("or")).add(literal(")"))));
 		return this;
 	}
 }
