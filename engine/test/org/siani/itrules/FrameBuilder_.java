@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 
-public class AcceptedFrameBuilder {
+public class FrameBuilder_ {
 
     @Test
     public void should_create_a_frame_when_building_an_object_with_a_single_attribute() throws Exception {
