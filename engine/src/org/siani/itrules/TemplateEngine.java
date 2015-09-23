@@ -271,15 +271,26 @@ public class TemplateEngine {
 	}
 
 	private boolean execute(Trigger trigger, Expression expression) {
-		boolean result = true;
-		pushBuffer("");
-		for (Token token : expression)
-			result &= execute(trigger, token);
-		popBuffer();
+        boolean result = true;
+        while (expression != null) {
+            pushBuffer("");
+            if (isConstant(expression))
+                buffer().used();
+            for (Token token : expression)
+                result &= execute(trigger, token);
+            expression = expression.or();
+            if (popBuffer()) break;
+        }
 		return result;
 	}
 
-	private void writeSeparator(AbstractMark mark) {
+    private boolean isConstant(Expression expression) {
+        for (Token token : expression)
+            if (token instanceof Mark) return false;
+        return true;
+    }
+
+    private void writeSeparator(AbstractMark mark) {
         write(mark.separator());
 	}
 
@@ -287,12 +298,13 @@ public class TemplateEngine {
         buffers.push(new Buffer(indentation));
 	}
 
-	private void popBuffer() {
+	private boolean popBuffer() {
 		Buffer pop = buffers.pop();
 		if (pop.isUsed()) {
 			buffer().write(pop);
 			buffer().used();
 		}
+        return pop.isUsed();
 	}
 
 

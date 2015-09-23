@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
-public class AcceptedCleanLines {
+public class LineCleaner {
 
     @Test
     public void testName() throws Exception {

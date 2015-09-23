@@ -157,6 +157,18 @@ public class ParserTest {
 		}
 	}
 
+	@Test
+	public void test12() {
+		ItrParser parser = init(TestSources.RULE_WITH_OR_EXPRESSIONS);
+		try {
+			Assert.assertTrue(parse(parser));
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 	private ItrParser init(String query) {
 		CharStream stream = new ANTLRInputStream(query);
 		ItrLexer lexer = new ItrLexer(stream);

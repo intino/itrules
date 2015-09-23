@@ -12,7 +12,7 @@ import java.util.GregorianCalendar;
 
 import static java.util.Calendar.*;
 
-public class AcceptedTemplate {
+public class Template_ {
 
     @Test
     public void should_render_roster() throws Exception {

@@ -10,7 +10,7 @@ import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
-public class AcceptedFormatterStore {
+public class FormatterStore_ {
 
     @Test
     public void should_render_in_uppercase() throws Exception {

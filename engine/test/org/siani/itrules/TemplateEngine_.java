@@ -32,7 +32,7 @@ import org.siani.itrules.model.marks.Mark;
 import java.util.*;
 
 
-public class AcceptedTemplateEngine {
+public class TemplateEngine_ {
 
 	@Test
 	public void should_render_hello_world() throws Exception {
@@ -41,7 +41,7 @@ public class AcceptedTemplateEngine {
 	}
 
 	@Test
-	public void should_remove_empty_lines_ending_in_slash() throws Exception {
+	public void when_lines_end_in_remover_should_remove_empty_lines() throws Exception {
 		Assert.assertEquals("Hello world", engine().render("Hello world\n	|:"));
 		Assert.assertEquals("Hello world", engine().render("Hello world|:"));
 		Assert.assertEquals("Hello world\n", engine().render("Hello world\n	"));
@@ -113,6 +113,12 @@ public class AcceptedTemplateEngine {
 	public void should_render_person_defining_a_rule_with_formatted_marks() throws Exception {
 		Assert.assertEquals("PAU GASOL was born in spain on 06/07/1980",
 			renderPerson(personRuleWithFormatMarks()));
+	}
+
+	@Test
+	public void should_render_person_with_rule_expression() throws Exception {
+		Assert.assertEquals("Pau Gasol was born in Spain",
+			renderPerson(personRuleWithOrExpressions()));
 	}
 
 	@Test
@@ -236,16 +242,13 @@ public class AcceptedTemplateEngine {
 	}
 
 	private Adapter<Person> customAdapter() {
-		return new Adapter<Person>() {
-			@Override
-			public void execute(Frame frame, Person source, FrameContext<Person> context) {
-				frame.addFrame("name", context.build(source.name));
-				frame.addFrame("country", context.build(source.country));
-				frame.addFrame("birthday", context.build(source.birthday));
-				frame.addFrame("age", context.build(34));
-				frame.addFrame("sex", context.build(source.sex));
-			}
-		};
+		return (frame, source, context) -> {
+            frame.addFrame("name", context.build(source.name));
+            frame.addFrame("country", context.build(source.country));
+            frame.addFrame("birthday", context.build(source.birthday));
+            frame.addFrame("age", context.build(34));
+            frame.addFrame("sex", context.build(source.sex));
+        };
 	}
 
 	private Function customConditionFunction() {
@@ -284,12 +287,7 @@ public class AcceptedTemplateEngine {
 	}
 
 	private Formatter customFormatter() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				return value.toString().length();
-			}
-		};
+		return value -> value.toString().length();
 	}
 
 	private Container container() {
@@ -396,16 +394,13 @@ public class AcceptedTemplateEngine {
 	}
 
 	private Formatter nameFormatter() {
-		return new Formatter() {
-			@Override
-			public Object format(Object value) {
-				final String fullName = value.toString();
-				final String firstName = fullName.substring(0, fullName.indexOf(" "));
-				final String surName = fullName.replace(firstName, " ").trim();
-				return firstName.substring(0, 1).toUpperCase() + ". " + surName;
+		return value -> {
+            final String fullName = value.toString();
+            final String firstName = fullName.substring(0, fullName.indexOf(" "));
+            final String surName = fullName.replace(firstName, " ").trim();
+            return firstName.substring(0, 1).toUpperCase() + ". " + surName;
 
-			}
-		};
+        };
 	}
 
 	@Test
@@ -487,6 +482,12 @@ public class AcceptedTemplateEngine {
 		return new Rule().
 			add(condition("Type", "Person")).
 			add(mark("Name"), literal(" was born in "), mark("Country"), literal(" and he is "), mark("age"), literal(" years old"));
+	}
+
+	private Rule personRuleWithOrExpressions() {
+		return new Rule().
+			add(condition("Type", "Person")).
+			add(mark("Name"), expression(literal("..."), mark("Nothing"), literal("...")).or(expression(literal("..."), mark("Empty"))).or(expression(literal(" was born in "), mark("Country"))));
 	}
 
 }

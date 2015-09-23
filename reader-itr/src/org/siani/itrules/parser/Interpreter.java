@@ -97,15 +97,19 @@ public final class Interpreter extends ItrParserBaseListener {
 	@Override
 	public void enterExpression(@NotNull ExpressionContext ctx) {
 		Expression expression = new Expression();
+		Expression currentOr = null;
 		boolean orMode = false;
 		for (ParseTree child : ctx.children)
 			if (!orMode && child instanceof ExpressionBodyContext)
 				fillExpression((ExpressionBodyContext) child, expression);
-			else if (child instanceof ExpressionBodyContext) {
-				final Expression or = new Expression();
-				fillExpression((ExpressionBodyContext) child, or);
-				expression.or(or);
-			} else if (child.getText().equals("?")) orMode = true;
+			else if (child instanceof ExpressionBodyContext)
+				fillExpression((ExpressionBodyContext) child, currentOr);
+			else if (child.getText().equals("?")) {
+				if (currentOr != null) expression.or(currentOr);
+				orMode = true;
+				currentOr = new Expression();
+			}
+		if (currentOr != null) expression.or(currentOr);
 		currentRule.add(expression);
 	}
 

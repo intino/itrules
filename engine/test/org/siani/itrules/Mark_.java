@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
-public class AcceptedMark {
+public class Mark_ {
 
     @Test
     public void accept_template_white_indentation_with_endline_literal() throws Exception {

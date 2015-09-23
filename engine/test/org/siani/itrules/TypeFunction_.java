@@ -9,7 +9,7 @@ import org.siani.itrules.model.marks.Mark;
 
 import static org.hamcrest.CoreMatchers.is;
 
-public class AcceptedTypeFunction {
+public class TypeFunction_ {
 
     @Test
     public void should_check_types_in_frame() throws Exception {
