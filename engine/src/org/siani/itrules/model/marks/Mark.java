@@ -76,19 +76,19 @@ public class Mark extends AbstractMark {
 
     @Override
     public String indentation() {
-        return indentation(previousLiteral());
+        return indentOf(previous);
     }
 
-    private String indentation(String text) {
-        return text.substring(text.lastIndexOf(NewLine) + 1);
+    private String indentOf(Token token) {
+        return token == null ? "" : textOf(token).isEmpty() ? indentOf(token.previous()) : textOf(token);
     }
 
-    private String previousLiteral() {
-        return NewLine + literal(previous);
+    private String textOf(Token token) {
+        return token instanceof Literal ? extractIndent(((Literal) token).text()) : "";
     }
 
-    private String literal(Token token) {
-        return token instanceof Literal ? literal(token.previous()) + ((Literal) token).text() : "";
+    private String extractIndent(String text) {
+        return text.contains(NewLine) ? text.substring(text.lastIndexOf(NewLine) + 1).split("[^\\s]")[0] : "";
     }
 
     @Override
