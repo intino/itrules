@@ -130,11 +130,15 @@ public final class Interpreter extends ItrParserBaseListener {
 
 	@Override
 	public void enterMark(@NotNull MarkContext ctx) {
-		if (!ExpressionContext.class.isInstance(ctx.getParent())) {
+		if (!inExpression(ctx)) {
 			if (ctx.getText().equals(NL_SEPARATOR)) currentRule.add(new Literal("\n"));
 			else if (ctx.getText().equals(TAB_SEPARATOR)) currentRule.add(new Literal("\t"));
 			else currentRule.add(processAsMark(ctx));
 		}
+	}
+
+	private boolean inExpression(@NotNull MarkContext ctx) {
+		return ExpressionBodyContext.class.isInstance(ctx.getParent());
 	}
 
 	private AbstractMark processAsMark(MarkContext child) {
