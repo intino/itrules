@@ -24,7 +24,6 @@ package org.siani.itrules.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Expression extends Token.Body implements Iterable<Token> {
@@ -52,11 +51,11 @@ public class Expression extends Token.Body implements Iterable<Token> {
 	}
 
 	public Expression or(Expression or) {
-        end().or = or;
+		end().or = or;
 		return this;
 	}
 
-    private Expression end() {
-        return this.or == null ? this : this.or.end();
-    }
+	private Expression end() {
+		return this.or == null ? this : this.or.end();
+	}
 }
