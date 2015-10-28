@@ -84,6 +84,7 @@ public abstract class Template {
 	private Rule[] collectRules(Iterator<Rule> iterator) {
 		List<Rule> rules = new ArrayList<>();
 		while (iterator.hasNext()) rules.add(iterator.next());
+		rules.remove(rules.size() - 1);
 		return rules.toArray(new Rule[rules.size()]);
 	}
 
