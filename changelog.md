@@ -1,3 +1,12 @@
+##1.4.1##
+-   Open Template api to obtain its rules
+
+##1.4.0##
+-   Fixed indentations.
+-   Fixed expressions.
+-   Fixed interpreter
+-   Ternary operators.
+
 ##1.2.6##
 -   Fixed indentations.
 -   Added `&` and | operator in signatures.
