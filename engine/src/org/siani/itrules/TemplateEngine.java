@@ -30,13 +30,13 @@ import org.siani.itrules.model.marks.Mark;
 
 import java.util.*;
 
-import static org.siani.itrules.LineSeparator.*;
 import static org.siani.itrules.LineSeparator.CRLF;
+import static org.siani.itrules.LineSeparator.LF;
 
 public class TemplateEngine {
 
-    public static final String CutLine = "|:";
-    private final LineSeparator lineSeparator;
+	public static final String CutLine = "|:";
+	private final LineSeparator lineSeparator;
 	private final RuleSet ruleSet = new RuleSet();
 	private final Stack<Buffer> buffers = new Stack<>();
 	private final FormatterStore formatterStore;
@@ -81,33 +81,37 @@ public class TemplateEngine {
 		return this;
 	}
 
+	RuleSet ruleSet() {
+		return ruleSet;
+	}
+
 	public TemplateEngine add(String format, Formatter formatter) {
 		formatterStore.add(format, formatter);
 		return this;
 	}
 
-    public TemplateEngine add(String format, final TemplateEngine engine) {
-        add(format, engine::render);
-        return this;
-    }
+	public TemplateEngine add(String format, final TemplateEngine engine) {
+		add(format, engine::render);
+		return this;
+	}
 
-    public TemplateEngine add(String format, final String pathname) {
-        add(format, new TemplateEngine(this).use(pathname));
-        return this;
-    }
+	public TemplateEngine add(String format, final String pathname) {
+		add(format, new TemplateEngine(this).use(pathname));
+		return this;
+	}
 
-    public TemplateEngine add(String format, final Source source) {
-        add(format, new TemplateEngine(this).use(source));
-        return this;
-    }
+	public TemplateEngine add(String format, final Source source) {
+		add(format, new TemplateEngine(this).use(source));
+		return this;
+	}
 
 	public TemplateEngine add(String name, Function function) {
-        functionStore.add(name, function);
+		functionStore.add(name, function);
 		return this;
 	}
 
 	public <T> TemplateEngine add(final Class<T> class_, final Adapter<T> adapter) {
-        frameBuilder.register(class_, adapter);
+		frameBuilder.register(class_, adapter);
 		return this;
 	}
 
@@ -130,7 +134,7 @@ public class TemplateEngine {
 	}
 
 	private String textOf(Buffer buffer) {
-        return String.valueOf(buffer);
+		return String.valueOf(buffer);
 	}
 
 	private String cleanEmptyLines(String text) {
@@ -141,23 +145,23 @@ public class TemplateEngine {
 	}
 
 	private String clean(String line) {
-        return
+		return
 			line.equals("EOF") ? "" :
-			line.trim().isEmpty() ? "\n" :
-			line.endsWith(CutLine) ? process(trim(line, CutLine)) :
-			line + "\n";
-    }
+				line.trim().isEmpty() ? "\n" :
+					line.endsWith(CutLine) ? process(trim(line, CutLine)) :
+						line + "\n";
+	}
 
-    private String trim(String line, String cutLine) {
-		while(line.contains(CutLine)) line = line.substring(0, line.length()-cutLine.length());
+	private String trim(String line, String cutLine) {
+		while (line.contains(CutLine)) line = line.substring(0, line.length() - cutLine.length());
 		return line;
-    }
+	}
 
-    private String process(String line) {
-        return line.matches("^\\s*$") ? "" : line + "\n";
-    }
+	private String process(String line) {
+		return line.matches("^\\s*$") ? "" : line + "\n";
+	}
 
-    private String encode(String string) {
+	private String encode(String string) {
 		return lineSeparator == CRLF ? toCRLF(string) : string;
 	}
 
@@ -172,10 +176,10 @@ public class TemplateEngine {
 
 	private boolean execute(Trigger trigger) {
 		Rule rule = ruleFor(trigger);
-        return rule != null && execute(trigger, rule);
+		return rule != null && execute(trigger, rule);
 	}
 
-    private Rule ruleFor(Trigger trigger) {
+	private Rule ruleFor(Trigger trigger) {
 		for (Rule rule : ruleSet)
 			if (match(rule, trigger)) return rule;
 		return null;
@@ -188,7 +192,7 @@ public class TemplateEngine {
 	}
 
 	private boolean conditionMatchTrigger(Trigger trigger, Condition condition) {
-    		return functionStore.get(condition).match(trigger, condition.parameter());
+		return functionStore.get(condition).match(trigger, condition.parameter());
 	}
 
 	private Buffer buffer() {
@@ -222,80 +226,80 @@ public class TemplateEngine {
 
 	private boolean renderFrame(AbstractFrame frame, AbstractMark mark) {
 		return frame.isPrimitive() ?
-                renderPrimitiveFrame(frame, mark) :
-                renderCompositeFrame(frame, mark);
+			renderPrimitiveFrame(frame, mark) :
+			renderCompositeFrame(frame, mark);
 	}
 
 	private boolean renderPrimitiveFrame(AbstractFrame frame, AbstractMark mark) {
 		if (!mark.name().equalsIgnoreCase("value")) return false;
-		write(format(frame,mark).toString());
+		write(format(frame, mark).toString());
 		buffer().used();
 		return true;
 	}
 
-    private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
-        Iterator<AbstractFrame> frames = frame.frames(mark.name());
-        return frames != null && renderFrames(frames, mark);
-    }
+	private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
+		Iterator<AbstractFrame> frames = frame.frames(mark.name());
+		return frames != null && renderFrames(frames, mark);
+	}
 
-    private boolean renderFrames(Iterator<AbstractFrame> frames, AbstractMark mark) {
-        boolean rendered = false;
-        while (frames.hasNext()) {
-            pushBuffer(mark.indentation());
-            if (rendered && mark.isMultiple()) writeSeparator(mark);
-            rendered = rendered | trigger(format(frames.next(), mark), new NonFormattingMark(mark));
-            popBuffer();
-        }
-        return rendered;
-    }
+	private boolean renderFrames(Iterator<AbstractFrame> frames, AbstractMark mark) {
+		boolean rendered = false;
+		while (frames.hasNext()) {
+			pushBuffer(mark.indentation());
+			if (rendered && mark.isMultiple()) writeSeparator(mark);
+			rendered = rendered | trigger(format(frames.next(), mark), new NonFormattingMark(mark));
+			popBuffer();
+		}
+		return rendered;
+	}
 
 	private boolean trigger(Object value, AbstractMark mark) {
-        if (!execute(new Trigger(frame(value), mark))) return false;
-        buffer().used();
-        return true;
-    }
+		if (!execute(new Trigger(frame(value), mark))) return false;
+		buffer().used();
+		return true;
+	}
 
-    private Object format(Object value, AbstractMark mark) {
-        if (value instanceof PrimitiveFrame) value = ((PrimitiveFrame) value).value();
-        for (String option : mark.options())
-            value = format(value, formatterStore.get(option));
-        return value;
-    }
+	private Object format(Object value, AbstractMark mark) {
+		if (value instanceof PrimitiveFrame) value = ((PrimitiveFrame) value).value();
+		for (String option : mark.options())
+			value = format(value, formatterStore.get(option));
+		return value;
+	}
 
-    private AbstractFrame frame(Object value) {
-        return value instanceof AbstractFrame ? (AbstractFrame) value : new PrimitiveFrame(value);
-    }
+	private AbstractFrame frame(Object value) {
+		return value instanceof AbstractFrame ? (AbstractFrame) value : new PrimitiveFrame(value);
+	}
 
-    private Object format(Object value, Formatter formatter) {
+	private Object format(Object value, Formatter formatter) {
 		return formatter.format(value);
 	}
 
 	private boolean execute(Trigger trigger, Expression expression) {
-        boolean result = true;
-        while (expression != null) {
-            pushBuffer("");
-            if (isConstant(expression))
-                buffer().used();
-            for (Token token : expression)
-                result &= execute(trigger, token);
-            expression = expression.or();
-            if (popBuffer()) break;
-        }
+		boolean result = true;
+		while (expression != null) {
+			pushBuffer("");
+			if (isConstant(expression))
+				buffer().used();
+			for (Token token : expression)
+				result &= execute(trigger, token);
+			expression = expression.or();
+			if (popBuffer()) break;
+		}
 		return result;
 	}
 
-    private boolean isConstant(Expression expression) {
-        for (Token token : expression)
-            if (token instanceof Mark) return false;
-        return true;
-    }
+	private boolean isConstant(Expression expression) {
+		for (Token token : expression)
+			if (token instanceof Mark) return false;
+		return true;
+	}
 
-    private void writeSeparator(AbstractMark mark) {
-        write(mark.separator());
+	private void writeSeparator(AbstractMark mark) {
+		write(mark.separator());
 	}
 
 	private void pushBuffer(String indentation) {
-        buffers.push(new Buffer(indentation));
+		buffers.push(new Buffer(indentation));
 	}
 
 	private boolean popBuffer() {
@@ -304,7 +308,7 @@ public class TemplateEngine {
 			buffer().write(pop);
 			buffer().used();
 		}
-        return pop.isUsed();
+		return pop.isUsed();
 	}
 
 
