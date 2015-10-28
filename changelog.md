@@ -1,5 +1,9 @@
+##1.4.2##
+-   Fixed Template api.
+
+
 ##1.4.1##
--   Open Template api to obtain its rules
+-   Open Template api to obtain its rules.
 
 ##1.4.0##
 -   Fixed indentations.
