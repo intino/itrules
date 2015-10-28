@@ -1,8 +1,14 @@
 package org.siani.itrules;
 
-import org.siani.itrules.model.*;
+import org.siani.itrules.model.Condition;
+import org.siani.itrules.model.Expression;
+import org.siani.itrules.model.Literal;
+import org.siani.itrules.model.Rule;
 import org.siani.itrules.model.marks.Mark;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 public abstract class Template {
@@ -24,11 +30,11 @@ public abstract class Template {
 
 	public Template add(String format, final Template template) {
 		add(format, new Formatter() {
-            @Override
-            public Object format(Object value) {
-                return template.format(value);
-            }
-        });
+			@Override
+			public Object format(Object value) {
+				return template.format(value);
+			}
+		});
 		return this;
 	}
 
@@ -70,5 +76,16 @@ public abstract class Template {
 		engine.add(rules);
 		return this;
 	}
+
+	public Rule[] rules() {
+		return collectRules(engine.ruleSet().iterator());
+	}
+
+	private Rule[] collectRules(Iterator<Rule> iterator) {
+		List<Rule> rules = new ArrayList<>();
+		while (iterator.hasNext()) rules.add(iterator.next());
+		return rules.toArray(new Rule[rules.size()]);
+	}
+
 
 }
