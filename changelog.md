@@ -1,6 +1,8 @@
+##1.4.3##
+-   Fixed recursive templates.
+
 ##1.4.2##
 -   Fixed Template api.
-
 
 ##1.4.1##
 -   Open Template api to obtain its rules.
