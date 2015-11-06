@@ -26,128 +26,128 @@ import java.util.*;
 
 public class Frame implements AbstractFrame {
 
-	private final Set<String> types;
-	private final Map<String, List<AbstractFrame>> slots;
+    private final Set<String> types;
+    private final Map<String, List<AbstractFrame>> slots;
 
-	public Frame() {
-		this.types = createTypeSet();
-		this.slots = createSlotMap();
-	}
+    public Frame() {
+        this.types = createTypeSet();
+        this.slots = createSlotMap();
+    }
 
-	public boolean is(String type) {
-		return this.types.contains(type);
-	}
+    private static Map<String, List<AbstractFrame>> createSlotMap() {
+        return new LinkedHashMap<String, List<AbstractFrame>>() {
 
-	public String[] types() {
-		return types.toArray(new String[types.size()]);
-	}
+            @Override
+            public List<AbstractFrame> put(String key, List<AbstractFrame> value) {
+                return super.put(key.toLowerCase(), value);
+            }
 
-	public String[] slots() {
-		return slots.keySet().toArray(new String[slots.size()]);
-	}
+            @Override
+            public List<AbstractFrame> get(Object key) {
+                if (!containsKey(key)) put(key.toString(), new ArrayList<AbstractFrame>());
+                return super.get(key.toString().toLowerCase());
+            }
 
-	public Iterator<AbstractFrame> frames(String slot) {
-		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
-	}
+            @Override
+            public boolean containsKey(Object key) {
+                return super.containsKey(key.toString().toLowerCase());
+            }
+        };
+    }
 
-	public Frame addTypes(String... types) {
-		Collections.addAll(this.types, types);
-		return this;
-	}
+    private static Set<String> createTypeSet() {
+        HashSet<String> result = new HashSet<String>() {
+            @Override
+            public boolean contains(Object o) {
+                return super.contains(o.toString().toLowerCase());
+            }
 
-	public Frame addFrame(String slot, AbstractFrame... frames) {
-		for (AbstractFrame frame : frames) slots.get(slot).add(frame);
-		return this;
-	}
+            @Override
+            public boolean add(String s) {
+                return super.add(s.toLowerCase());
+            }
+        };
+        return result;
+    }
 
-	public Frame addFrame(String slot, Object... values) {
-		for (Object value : values) addPrimitiveFrame(slot, value.toString());
-		return this;
-	}
+    public boolean is(String type) {
+        return this.types.contains(type);
+    }
 
-	public Frame addFrame(String slot, String... values) {
-		for (String value : values) addPrimitiveFrame(slot, value);
-		return this;
-	}
+    public String[] types() {
+        return types.toArray(new String[types.size()]);
+    }
 
-	public Frame addFrame(String slot, Integer... values) {
-		for (Integer value : values) addPrimitiveFrame(slot, value);
-		return this;
-	}
+    public String[] slots() {
+        return slots.keySet().toArray(new String[slots.size()]);
+    }
 
-	public Frame addFrame(String slot, Boolean... values) {
-		for (Boolean value : values) addPrimitiveFrame(slot, value);
-		return this;
-	}
+    public Iterator<AbstractFrame> frames(String slot) {
+        return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
+    }
 
-	public Frame addFrame(String slot, Long... values) {
-		for (Long value : values) addPrimitiveFrame(slot, value);
-		return this;
-	}
+    public Frame addTypes(String... types) {
+        Collections.addAll(this.types, types);
+        return this;
+    }
 
-	public Frame addFrame(String slot, Double... values) {
-		for (Double value : values)
-			addPrimitiveFrame(slot, value);
-		return this;
-	}
+    public Frame addFrame(String slot, AbstractFrame... frames) {
+        for (AbstractFrame frame : frames) slots.get(slot).add(frame);
+        return this;
+    }
 
-	public Frame addFrame(String slot, Date... values) {
-		for (Date value : values)
-			addPrimitiveFrame(slot, value);
-		return this;
-	}
+    public Frame addFrame(String slot, Object... values) {
+        for (Object value : values) addPrimitiveFrame(slot, value.toString());
+        return this;
+    }
 
-	private Frame addPrimitiveFrame(String slot, Object value) {
-		slots.get(slot).add(new PrimitiveFrame(value));
-		return this;
-	}
+    public Frame addFrame(String slot, String... values) {
+        for (String value : values) addPrimitiveFrame(slot, value);
+        return this;
+    }
 
-	public boolean isPrimitive() {
-		return false;
-	}
+    public Frame addFrame(String slot, Integer... values) {
+        for (Integer value : values) addPrimitiveFrame(slot, value);
+        return this;
+    }
 
-	public Object value() {
-		return null;
-	}
+    public Frame addFrame(String slot, Boolean... values) {
+        for (Boolean value : values) addPrimitiveFrame(slot, value);
+        return this;
+    }
 
-	private static Map<String, List<AbstractFrame>> createSlotMap() {
-		return new LinkedHashMap<String, List<AbstractFrame>>() {
+    public Frame addFrame(String slot, Long... values) {
+        for (Long value : values) addPrimitiveFrame(slot, value);
+        return this;
+    }
 
-			@Override
-			public List<AbstractFrame> put(String key, List<AbstractFrame> value) {
-				return super.put(key.toLowerCase(), value);
-			}
+    public Frame addFrame(String slot, Double... values) {
+        for (Double value : values)
+            addPrimitiveFrame(slot, value);
+        return this;
+    }
 
-			@Override
-			public List<AbstractFrame> get(Object key) {
-				if (!containsKey(key)) put(key.toString(), new ArrayList<AbstractFrame>());
-				return super.get(key.toString().toLowerCase());
-			}
+    public Frame addFrame(String slot, Date... values) {
+        for (Date value : values)
+            addPrimitiveFrame(slot, value);
+        return this;
+    }
 
-			@Override
-			public boolean containsKey(Object key) {
-				return super.containsKey(key.toString().toLowerCase());
-			}
-		};
-	}
+    private Frame addPrimitiveFrame(String slot, Object value) {
+        slots.get(slot).add(new PrimitiveFrame(value));
+        return this;
+    }
 
-	private static Set<String> createTypeSet() {
-		HashSet<String> result = new HashSet<String>() {
-			@Override
-			public boolean contains(Object o) {
-				return super.contains(o.toString().toLowerCase());
-			}
+    public boolean isPrimitive() {
+        return false;
+    }
 
-			@Override
-			public boolean add(String s) {
-				return super.add(s.toLowerCase());
-			}
-		};
-		return result;
-	}
+    public Object value() {
+        return null;
+    }
 
-	@Override
-	public String toString() {
-		return types.toString().replace(", object", "");
-	}
+    @Override
+    public String toString() {
+        return types.toString().replace(", object", "");
+    }
 }

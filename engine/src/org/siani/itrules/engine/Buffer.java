@@ -23,44 +23,48 @@
 package org.siani.itrules.engine;
 
 public class Buffer {
-	private static final char NEW_LINE = '\n';
-	private boolean replaced = false;
-	private StringBuilder content = new StringBuilder("");
-	private String indentation;
+    private static final char NEW_LINE = '\n';
+    private boolean replaced = false;
+    private StringBuilder content = new StringBuilder("");
+    private String indentation;
 
-	public Buffer(String indentation) {
-		this.indentation = indentation;
-	}
+    public Buffer(String indentation) {
+        this.indentation = indentation;
+    }
 
-	public boolean isUsed() {
-		return replaced;
-	}
+    public boolean isUsed() {
+        return replaced;
+    }
 
-	public void used() {
-		replaced = true;
-	}
+    public void used() {
+        replaced = true;
+    }
 
-	public void write(Buffer buffer) {
-		write(buffer.content.toString());
-	}
+    public void write(Buffer buffer) {
+        write(buffer.content.toString());
+    }
 
-	public void write(String text) {
-		content.append(indent(text));
-	}
+    public void write(String text) {
+        content.append(indent(text));
+    }
 
-	private String indent(String text) {
-		return indent((text + "~").toCharArray());
-	}
+    private String indent(String text) {
+        return indent((text + "~").toCharArray());
+    }
 
-	private String indent(char[] data) {
-		String result = "";
-		for (int i = 0; i < data.length - 1; i++)
-			result += data[i] + (data[i] == NEW_LINE && data[i + 1] != NEW_LINE ? indentation : "");
-		return result;
-	}
+    private String indent(char[] data) {
+        String result = "";
+        for (int i = 0; i < data.length - 1; i++)
+            result += data[i] + (data[i] == NEW_LINE && data[i + 1] != NEW_LINE ? indentation : "");
+        return result;
+    }
 
-	@Override
-	public String toString() {
-		return content.toString();
-	}
+    @Override
+    public String toString() {
+        return content.toString();
+    }
+
+    public String indentation() {
+        return indentation;
+    }
 }

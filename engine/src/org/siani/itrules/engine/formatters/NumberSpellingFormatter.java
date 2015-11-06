@@ -11,25 +11,25 @@ import java.util.Map;
 
 public class NumberSpellingFormatter implements Formatter {
     private static Map<String, WordSpelling> readers = new HashMap<>();
-    private Locale locale;
-
-    public NumberSpellingFormatter(Locale locale) {
-        this.locale = locale;
-    }
 
     static {
         readers.put("en", new EnglishSpelling());
         readers.put("es", new SpanishSpelling());
     }
 
+    private Locale locale;
 
-    @Override
-    public Object format(Object value) {
-        return isNumber(value) ? getReader().spell((int) value) : value;
+    public NumberSpellingFormatter(Locale locale) {
+        this.locale = locale;
     }
 
     private static boolean isNumber(Object value) {
         return Number.class.isAssignableFrom(value.getClass());
+    }
+
+    @Override
+    public Object format(Object value) {
+        return isNumber(value) ? getReader().spell((int) value) : value;
     }
 
     public WordSpelling getReader() {

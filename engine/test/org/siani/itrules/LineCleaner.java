@@ -1,7 +1,10 @@
 package org.siani.itrules;
 
 import org.junit.Test;
-import org.siani.itrules.model.*;
+import org.siani.itrules.model.Condition;
+import org.siani.itrules.model.Expression;
+import org.siani.itrules.model.Literal;
+import org.siani.itrules.model.Rule;
 import org.siani.itrules.model.marks.Mark;
 
 import java.util.Locale;
@@ -37,20 +40,9 @@ public class LineCleaner {
     @Test
     public void cleanEmptyLines() throws Exception {
         String expected =
-            "name = Pau\n" +
-                "    name = Pau";
+                "name = Pau\n" +
+                        "    name = Pau";
         assertEquals(expected, new TemplateEngine(Locale.ENGLISH, LineSeparator.LF).add(createRules()).render(new Person(new Person())));
-    }
-
-    class Person{
-        String name = "Pau";
-        Person person;
-
-        public Person(){}
-
-        public Person(Person person) {
-            this.person = person;
-        }
     }
 
     private Rule createRules() {
@@ -60,5 +52,17 @@ public class LineCleaner {
                 .add(new Literal("|:\n    "))
                 .add(new Mark("person").multiple("\n"))
                 .add(new Literal("|:"));
+    }
+
+    class Person {
+        String name = "Pau";
+        Person person;
+
+        public Person() {
+        }
+
+        public Person(Person person) {
+            this.person = person;
+        }
     }
 }

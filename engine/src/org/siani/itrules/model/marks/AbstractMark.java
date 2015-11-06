@@ -26,20 +26,20 @@ import org.siani.itrules.model.Token;
 
 public abstract class AbstractMark extends Token.Body {
 
-	public abstract String fullName();
+    public abstract String fullName();
 
-	public abstract String name();
+    public abstract String name();
 
-	public abstract String separator();
+    public abstract String separator();
 
-	public abstract boolean isMultiple();
+    public abstract boolean isMultiple();
 
-	public abstract String[] options();
+    public abstract String[] options();
 
-	public abstract String indentation();
+    public abstract String indentation();
 
-	@Override
-	public String toString() {
-		return "[" + name() + "]";
-	}
+    @Override
+    public String toString() {
+        return "[" + name() + "]";
+    }
 }

@@ -35,47 +35,47 @@ import java.util.Locale;
 
 public class TemplateRulesWriter {
 
-	private final String name;
-	private final String aPackage;
-	private final String locale;
-	private final String lineSeparator;
+    private final String name;
+    private final String aPackage;
+    private final String locale;
+    private final String lineSeparator;
 
-	public TemplateRulesWriter(String name, String aPackage, String locale, String lineSeparator) {
-		this.name = name;
-		this.aPackage = aPackage;
-		this.locale = locale;
-		this.lineSeparator = lineSeparator;
-	}
+    public TemplateRulesWriter(String name, String aPackage, String locale, String lineSeparator) {
+        this.name = name;
+        this.aPackage = aPackage;
+        this.locale = locale;
+        this.lineSeparator = lineSeparator;
+    }
 
-	@NotNull
-	public String toJava(final RuleSet rules) throws URISyntaxException {
-		Template template = JavaItrulesTemplate.create(Locale.getDefault(), lineSeparator.equals("LF") ? LineSeparator.LF : LineSeparator.CRLF);
-		template.add("string", buildStringFormatter());
-		template.add(RuleSet.class, buildRuleSetAdapter(rules));
-		return template.format(rules);
-	}
+    @NotNull
+    public String toJava(final RuleSet rules) throws URISyntaxException {
+        Template template = JavaItrulesTemplate.create(Locale.getDefault(), lineSeparator.equals("LF") ? LineSeparator.LF : LineSeparator.CRLF);
+        template.add("string", buildStringFormatter());
+        template.add(RuleSet.class, buildRuleSetAdapter(rules));
+        return template.format(rules);
+    }
 
-	@NotNull
-	private Formatter buildStringFormatter() {
-		return object -> {
-			String value = object.toString();
-			if (value.contains("\r")) value = value.replace("\r", "\\r");
-			value = value.replace("\n", "\\n");
-			value = value.replace("\t", "\\t").replace("\"", "\\\"");
-			if (value.equals("\\")) value = value.replace("\\", "\\\\");
-			return '"' + value + '"';
-		};
-	}
+    @NotNull
+    private Formatter buildStringFormatter() {
+        return object -> {
+            String value = object.toString();
+            if (value.contains("\r")) value = value.replace("\r", "\\r");
+            value = value.replace("\n", "\\n");
+            value = value.replace("\t", "\\t").replace("\"", "\\\"");
+            if (value.equals("\\")) value = value.replace("\\", "\\\\");
+            return '"' + value + '"';
+        };
+    }
 
-	@NotNull
-	private Adapter<RuleSet> buildRuleSetAdapter(final RuleSet rules) {
-		return (frame, source, context) -> {
-			if (!aPackage.isEmpty()) frame.addFrame("package", context.build(aPackage));
-			frame.addFrame("name", context.build(name));
-			frame.addFrame("locale", context.build(locale));
-			frame.addFrame("lineSeparator", context.build(lineSeparator));
-			for (Rule rule : rules)
-				frame.addFrame("rule", context.build(rule));
-		};
-	}
+    @NotNull
+    private Adapter<RuleSet> buildRuleSetAdapter(final RuleSet rules) {
+        return (frame, source, context) -> {
+            if (!aPackage.isEmpty()) frame.addFrame("package", context.build(aPackage));
+            frame.addFrame("name", context.build(name));
+            frame.addFrame("locale", context.build(locale));
+            frame.addFrame("lineSeparator", context.build(lineSeparator));
+            for (Rule rule : rules)
+                frame.addFrame("rule", context.build(rule));
+        };
+    }
 }

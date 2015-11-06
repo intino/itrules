@@ -38,13 +38,18 @@ import java.util.List;
 
 public final class JsonRuleSetReader implements RuleSetReader {
 
-	private final InputStream stream;
+    private final InputStream stream;
 
-	public JsonRuleSetReader(InputStream stream) {
-		this.stream = stream;
-	}
+    public JsonRuleSetReader(InputStream stream) {
+        this.stream = stream;
+    }
 
-	public RuleSet read(Charset charset) {
+    private static Type getType() {
+        return new TypeToken<Collection<Rule>>() {
+        }.getType();
+    }
+
+    public RuleSet read(Charset charset) {
         return new RuleSet(read(gsonBuilder(), charset));
     }
 
@@ -58,22 +63,17 @@ public final class JsonRuleSetReader implements RuleSetReader {
         return gb.create().fromJson(new InputStreamReader(stream, charset), getType());
     }
 
-    private static Type getType() {
-		return new TypeToken<Collection<Rule>>() {
-		}.getType();
-	}
-
-	private static class TokenAdapter implements JsonDeserializer<Token> {
-		public Token deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-			throws JsonParseException {
-			JsonObject jsonObject = json.getAsJsonObject();
-			String type = jsonObject.get("tokenType").getAsString();
-			JsonElement element = jsonObject.get("data");
-			try {
-				return context.deserialize(element, Class.forName("org.siani.itrules.model." + type));
-			} catch (ClassNotFoundException cnfe) {
-				throw new JsonParseException("Unknown element type: " + type, cnfe);
-			}
-		}
-	}
+    private static class TokenAdapter implements JsonDeserializer<Token> {
+        public Token deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
+            JsonObject jsonObject = json.getAsJsonObject();
+            String type = jsonObject.get("tokenType").getAsString();
+            JsonElement element = jsonObject.get("data");
+            try {
+                return context.deserialize(element, Class.forName("org.siani.itrules.model." + type));
+            } catch (ClassNotFoundException cnfe) {
+                throw new JsonParseException("Unknown element type: " + type, cnfe);
+            }
+        }
+    }
 }

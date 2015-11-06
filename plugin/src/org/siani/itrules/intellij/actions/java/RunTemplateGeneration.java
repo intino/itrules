@@ -23,86 +23,84 @@ import java.util.Locale;
 
 public class RunTemplateGeneration extends Task.Modal {
 
-	public static final Logger LOG = Logger.getInstance("RunItrulesOnRulesFile");
+    public static final Logger LOG = Logger.getInstance("RunItrulesOnRulesFile");
+    private final Module module;
+    private final File destiny;
+    private final String aPackage;
+    private VirtualFile rulesFile;
+    private ProgressIndicator indicator;
 
-	private VirtualFile rulesFile;
-	private final Module module;
-	private final File destiny;
-	private final String aPackage;
+    public RunTemplateGeneration(VirtualFile rulesFile, Module module, String title, File destiny, String aPackage) {
+        super(module.getProject(), title, true);
+        this.rulesFile = rulesFile;
+        this.module = module;
+        this.destiny = destiny;
+        this.aPackage = aPackage;
+    }
 
-	private ProgressIndicator indicator;
+    public void run(@NotNull ProgressIndicator indicator) {
+        this.indicator = indicator;
+        this.indicator.setIndeterminate(true);
+        if (this.rulesFile == null) return;
+        LOG.info("itrules(\"" + this.rulesFile.getPath() + "\")");
+        task();
+    }
 
-	public RunTemplateGeneration(VirtualFile rulesFile, Module module, String title, File destiny, String aPackage) {
-		super(module.getProject(), title, true);
-		this.rulesFile = rulesFile;
-		this.module = module;
-		this.destiny = destiny;
-		this.aPackage = aPackage;
-	}
+    private void task() {
+        try {
+            toJava(rules());
+            addFileToEncodings();
+        } catch (Throwable e) {
+            indicator.setText(e.getMessage());
+            indicator.cancel();
+        }
+    }
 
-	public void run(@NotNull ProgressIndicator indicator) {
-		this.indicator = indicator;
-		this.indicator.setIndeterminate(true);
-		if (this.rulesFile == null) return;
-		LOG.info("itrules(\"" + this.rulesFile.getPath() + "\")");
-		task();
-	}
+    @NotNull
+    private RuleSet rules() throws IOException, ITRulesSyntaxError {
+        return new ItrRuleSetReader(this.rulesFile.getInputStream()).read(rulesFile.getCharset());
+    }
 
-	private void task() {
-		try {
-			toJava(rules());
-			addFileToEncodings();
-		} catch (Throwable e) {
-			indicator.setText(e.getMessage());
-			indicator.cancel();
-		}
-	}
+    private void toJava(RuleSet rules) throws IOException, URISyntaxException {
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.destiny), Charset.forName("UTF-8"));
+        String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale(), lineSeparator()).toJava(rules);
+        writer.write(content);
+        writer.close();
+    }
 
-	@NotNull
-	private RuleSet rules() throws IOException, ITRulesSyntaxError {
-		return new ItrRuleSetReader(this.rulesFile.getInputStream()).read(rulesFile.getCharset());
-	}
+    private void addFileToEncodings() {
+        final VirtualFile virtualFile = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(destiny);
+        new Runnable() {
+            public void run() {
+                EncodingManager.getInstance().setEncoding(virtualFile, Charset.forName("UTF-8"));
+            }
+        };
 
-	private void toJava(RuleSet rules) throws IOException, URISyntaxException {
-		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.destiny), Charset.forName("UTF-8"));
-		String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale(), lineSeparator()).toJava(rules);
-		writer.write(content);
-		writer.close();
-	}
+    }
 
-	private void addFileToEncodings() {
-		final VirtualFile virtualFile = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(destiny);
-		new Runnable() {
-			public void run() {
-				EncodingManager.getInstance().setEncoding(virtualFile, Charset.forName("UTF-8"));
-			}
-		};
+    private String locale() {
+        ItrulesFacet facet = ItrulesFacet.getItrulesFacetByModule(module);
+        if (facet != null) {
+            Locale locale = facet.getConfiguration().getLocale();
+            if (locale.equals(Locale.ENGLISH)) return "Locale.ENGLISH";
+            return "new Locale(\"es\", \"Spain\", \"es_ES\")";
+        }
+        return "";
+    }
 
-	}
+    private String lineSeparator() {
+        ItrulesFacet facet = ItrulesFacet.getItrulesFacetByModule(module);
+        if (facet != null) return facet.getConfiguration().getLineSeparator();
+        return "";
+    }
 
-	private String locale() {
-		ItrulesFacet facet = ItrulesFacet.getItrulesFacetByModule(module);
-		if (facet != null) {
-			Locale locale = facet.getConfiguration().getLocale();
-			if (locale.equals(Locale.ENGLISH)) return "Locale.ENGLISH";
-			return "new Locale(\"es\", \"Spain\", \"es_ES\")";
-		}
-		return "";
-	}
+    @NotNull
+    private String simpleFileName() {
+        return rulesFile.getName().substring(0, rulesFile.getName().lastIndexOf("."));
+    }
 
-	private String lineSeparator() {
-		ItrulesFacet facet = ItrulesFacet.getItrulesFacetByModule(module);
-		if (facet != null) return facet.getConfiguration().getLineSeparator();
-		return "";
-	}
-
-	@NotNull
-	private String simpleFileName() {
-		return rulesFile.getName().substring(0, rulesFile.getName().lastIndexOf("."));
-	}
-
-	public ProgressIndicator getIndicator() {
-		return indicator;
-	}
+    public ProgressIndicator getIndicator() {
+        return indicator;
+    }
 }
 

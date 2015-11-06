@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.siani.itrules</groupId>
-  <artifactId>itrules</artifactId>
-  <packaging>pom</packaging>
-  <version>1.0</version>
-  <name>itrules Project</name>
+    <groupId>org.siani.itrules</groupId>
+    <artifactId>itrules</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <name>itrules Project</name>
 
-  <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
-  <modules>
-    <module>engine</module>
-    <module>reader-itr</module>
-    <module>reader-json</module>
-  </modules>
+    <modules>
+        <module>engine</module>
+        <module>reader-itr</module>
+        <module>reader-json</module>
+    </modules>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>LATEST</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>LATEST</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>

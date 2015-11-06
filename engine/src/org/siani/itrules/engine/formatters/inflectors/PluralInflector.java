@@ -16,6 +16,7 @@ public abstract class PluralInflector {
     public abstract String plural(String word);
 
     protected abstract void setReplaces();
+
     protected abstract void setIrregulars();
 
     protected void addReplace(String from, String to) {

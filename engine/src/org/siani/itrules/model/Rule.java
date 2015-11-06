@@ -29,25 +29,25 @@ import java.util.List;
 
 public class Rule extends Token {
 
-	private List<Token> tokens;
-	private List<Condition> conditions;
+    private List<Token> tokens;
+    private List<Condition> conditions;
 
-	public Rule() {
-		tokens = new ArrayList<>();
-		conditions = new ArrayList<>();
-	}
+    public Rule() {
+        tokens = new ArrayList<>();
+        conditions = new ArrayList<>();
+    }
 
     public Rule add(Condition... conditions) {
         Collections.addAll(this.conditions, conditions);
         return this;
     }
 
-	public Rule add(Body token) {
+    public Rule add(Body token) {
         if (!tokens.isEmpty())
             token.previous(tokens.get(tokens.size() - 1));
         tokens.add(token);
         return this;
-	}
+    }
 
     public Rule add(Body... tokens) {
         for (Body token : tokens) add(token);
@@ -59,7 +59,7 @@ public class Rule extends Token {
         return conditions;
     }
 
-	public Iterable<Token> tokens() {
-		return tokens;
-	}
+    public Iterable<Token> tokens() {
+        return tokens;
+    }
 }

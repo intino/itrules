@@ -16,48 +16,48 @@ import java.io.IOException;
 
 public class RunJsonGeneration extends Modal {
 
-	public static final Logger LOG = Logger.getInstance("RunItrulesOnRulesFile");
+    public static final Logger LOG = Logger.getInstance("RunItrulesOnRulesFile");
 
-	private static final String groupDisplayId = "Itrules JSON Generation";
-	private VirtualFile rulesFile;
-	private final File destiny;
-	private ProgressIndicator indicator;
+    private static final String groupDisplayId = "Itrules JSON Generation";
+    private final File destiny;
+    private VirtualFile rulesFile;
+    private ProgressIndicator indicator;
 
-	public RunJsonGeneration(VirtualFile rulesFile, Project project, String title, File destiny) {
-		super(project, title, true);
-		this.rulesFile = rulesFile;
-		this.destiny = destiny;
-	}
+    public RunJsonGeneration(VirtualFile rulesFile, Project project, String title, File destiny) {
+        super(project, title, true);
+        this.rulesFile = rulesFile;
+        this.destiny = destiny;
+    }
 
-	public void run(@NotNull ProgressIndicator indicator) {
-		this.indicator = indicator;
-		indicator.setIndeterminate(true);
-		if (this.rulesFile == null) return;
-		LOG.info("itrules(\"" + this.rulesFile.getPath() + "\")");
-		run();
-	}
+    public void run(@NotNull ProgressIndicator indicator) {
+        this.indicator = indicator;
+        indicator.setIndeterminate(true);
+        if (this.rulesFile == null) return;
+        LOG.info("itrules(\"" + this.rulesFile.getPath() + "\")");
+        run();
+    }
 
-	private void run() {
-		try {
-			toJson(rules());
-		} catch (Throwable e) {
-			indicator.setText(e.getMessage());
-			indicator.cancel();
-		}
-	}
+    private void run() {
+        try {
+            toJson(rules());
+        } catch (Throwable e) {
+            indicator.setText(e.getMessage());
+            indicator.cancel();
+        }
+    }
 
-	@NotNull
-	private RuleSet rules() throws IOException, ITRulesSyntaxError {
-		return new ItrRuleSetReader(this.rulesFile.getInputStream()).read(rulesFile.getCharset());
-	}
+    @NotNull
+    private RuleSet rules() throws IOException, ITRulesSyntaxError {
+        return new ItrRuleSetReader(this.rulesFile.getInputStream()).read(rulesFile.getCharset());
+    }
 
-	private void toJson(RuleSet rules) throws IOException {
-		FileWriter writer = new FileWriter(this.destiny);
-		writer.write(JsonRulesWriter.toJSON(rules));
-		writer.close();
-	}
+    private void toJson(RuleSet rules) throws IOException {
+        FileWriter writer = new FileWriter(this.destiny);
+        writer.write(JsonRulesWriter.toJSON(rules));
+        writer.close();
+    }
 
-	public ProgressIndicator getIndicator() {
-		return indicator;
-	}
+    public ProgressIndicator getIndicator() {
+        return indicator;
+    }
 }

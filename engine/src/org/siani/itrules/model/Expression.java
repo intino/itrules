@@ -27,35 +27,35 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Expression extends Token.Body implements Iterable<Token> {
-	private List<Token> tokens;
-	private Expression or;
+    private List<Token> tokens;
+    private Expression or;
 
-	public Expression() {
-		tokens = new ArrayList<>();
-	}
+    public Expression() {
+        tokens = new ArrayList<>();
+    }
 
-	public Expression add(Body token) {
-		if (!tokens.isEmpty())
-			token.previous(tokens.get(tokens.size() - 1));
-		tokens.add(token);
-		return this;
-	}
+    public Expression add(Body token) {
+        if (!tokens.isEmpty())
+            token.previous(tokens.get(tokens.size() - 1));
+        tokens.add(token);
+        return this;
+    }
 
-	@Override
-	public Iterator<Token> iterator() {
-		return tokens.iterator();
-	}
+    @Override
+    public Iterator<Token> iterator() {
+        return tokens.iterator();
+    }
 
-	public Expression or() {
-		return or;
-	}
+    public Expression or() {
+        return or;
+    }
 
-	public Expression or(Expression or) {
-		end().or = or;
-		return this;
-	}
+    public Expression or(Expression or) {
+        end().or = or;
+        return this;
+    }
 
-	private Expression end() {
-		return this.or == null ? this : this.or.end();
-	}
+    private Expression end() {
+        return this.or == null ? this : this.or.end();
+    }
 }

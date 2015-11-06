@@ -11,7 +11,7 @@ import java.util.Map;
 public class DateFormatter {
 
     public static Map<String, Formatter> get(Locale locale) {
-        Map<String,Formatter> map = new HashMap<>();
+        Map<String, Formatter> map = new HashMap<>();
         map.put("Year".toLowerCase(), year());
         map.put("MonthYear".toLowerCase(), monthYear(locale));
         map.put("ShortDate".toLowerCase(), shortDate(locale));
@@ -22,7 +22,7 @@ public class DateFormatter {
     }
 
     private static Formatter year() {
-        return value -> value instanceof Date ? ((Date)value).getYear() + 1900 : value;
+        return value -> value instanceof Date ? ((Date) value).getYear() + 1900 : value;
     }
 
 

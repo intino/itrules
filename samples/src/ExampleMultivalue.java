@@ -5,6 +5,16 @@ import java.util.List;
 
 public class ExampleMultivalue {
 
+    public static void main(String[] args) {
+        Message message = new Message("frodo@hobbiton.me", "gandalf@elrond.me", "bilbo@hobbiton.me");
+        message.setSubject("The ring");
+        message.addLine("I wish the Ring had never come to me.");
+        message.addLine("I wish none of this had happened.");
+
+        TemplateEngine engine = new TemplateEngine().use("samples/templates/Multivalue.itr");
+        System.out.println(engine.render(message));
+    }
+
     public static class Message {
         private String from;
         private String[] to;
@@ -24,16 +34,6 @@ public class ExampleMultivalue {
             body.add(line);
         }
 
-    }
-
-    public static void main(String[] args) {
-        Message message = new Message("frodo@hobbiton.me", "gandalf@elrond.me", "bilbo@hobbiton.me");
-        message.setSubject("The ring");
-        message.addLine("I wish the Ring had never come to me.");
-        message.addLine("I wish none of this had happened.");
-
-        TemplateEngine engine = new TemplateEngine().use("samples/templates/Multivalue.itr");
-        System.out.println(engine.render(message));
     }
 
 }

@@ -23,5 +23,5 @@
 package org.siani.itrules;
 
 public interface Formatter {
-	Object format(Object value);
+    Object format(Object value);
 }

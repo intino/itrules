@@ -15,9 +15,24 @@ public class DefaultAdapter<T> implements Adapter<T> {
         new Filler(frame, source, context).execute();
     }
 
+    protected boolean fieldIsProcessable(Field field) {
+        return !(Modifier.isStatic(field.getModifiers()));
+    }
+
+    private static class Item {
+
+        public Object key;
+        public Object value;
+
+        public Item(Object key, Object value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
     private class Filler {
         private final FrameContext context;
-		private final Frame frame;
+        private final Frame frame;
         private final Object source;
         private final String Count = "Count";
 
@@ -30,8 +45,7 @@ public class DefaultAdapter<T> implements Adapter<T> {
         public void execute() {
             try {
                 execute(source.getClass());
-            }
-            catch (IllegalAccessException ignored) {
+            } catch (IllegalAccessException ignored) {
             }
         }
 
@@ -52,7 +66,7 @@ public class DefaultAdapter<T> implements Adapter<T> {
         private void processField(Field field) throws IllegalAccessException {
             boolean accessibility = field.isAccessible();
             field.setAccessible(true);
-            if(field.get(source) != null)
+            if (field.get(source) != null)
                 processField(field.getName(), field.get(source));
             field.setAccessible(accessibility);
         }
@@ -68,21 +82,21 @@ public class DefaultAdapter<T> implements Adapter<T> {
             Object[] objects = (Object[]) value;
             frame.addFrame(name + Count, objects.length);
             for (Object item : objects)
-				frame.addFrame(name, context.build(item));
+                frame.addFrame(name, context.build(item));
         }
 
         private void processList(String name, Object value) throws IllegalAccessException {
             List list = (List) value;
             frame.addFrame(name + Count, list.size());
             for (Object item : list)
-				frame.addFrame(name, context.build(item));
+                frame.addFrame(name, context.build(item));
         }
 
         private void processMap(String name, Object value) throws IllegalAccessException {
             final Map map = (Map) value;
             frame.addFrame(name + Count, map.keySet().size());
             for (Object key : map.keySet())
-				this.frame.addFrame(name, context.build(new Item(key, map.get(key))));
+                this.frame.addFrame(name, context.build(new Item(key, map.get(key))));
         }
 
         private boolean isMap(Class<?> aClass) {
@@ -97,21 +111,6 @@ public class DefaultAdapter<T> implements Adapter<T> {
             return aClass.isArray();
         }
 
-	}
-
-    private static class Item{
-
-        public Object key;
-        public Object value;
-
-        public Item(Object key, Object value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    protected boolean fieldIsProcessable(Field field) {
-        return !(Modifier.isStatic(field.getModifiers()));
     }
 
 }

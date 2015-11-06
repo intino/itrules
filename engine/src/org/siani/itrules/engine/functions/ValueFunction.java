@@ -27,10 +27,10 @@ import org.siani.itrules.engine.Trigger;
 
 public final class ValueFunction implements Function {
 
-	@Override
-	public boolean match(Trigger trigger, String parameter) {
-		return trigger.frame().isPrimitive() && parameter.equalsIgnoreCase(trigger.frame().toString());
-	}
+    @Override
+    public boolean match(Trigger trigger, String parameter) {
+        return trigger.frame().isPrimitive() && parameter.equalsIgnoreCase(trigger.frame().toString());
+    }
 
 
 }

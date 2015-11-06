@@ -14,43 +14,42 @@ import java.util.Locale;
 
 public class ItrulesFacetConfiguration implements FacetConfiguration, PersistentStateComponent<ItrulesModuleExtensionProperties> {
 
-	private ItrulesModuleExtensionProperties myProperties = new ItrulesModuleExtensionProperties();
+    private ItrulesModuleExtensionProperties myProperties = new ItrulesModuleExtensionProperties();
 
-	public FacetEditorTab[] createEditorTabs(FacetEditorContext editorContext, FacetValidatorsManager validatorsManager) {
-		return new FacetEditorTab[]{
-			new ItrulesFacetEditor(this)
-		};
-	}
+    public FacetEditorTab[] createEditorTabs(FacetEditorContext editorContext, FacetValidatorsManager validatorsManager) {
+        return new FacetEditorTab[]{
+                new ItrulesFacetEditor(this)
+        };
+    }
 
-	public void readExternal(Element element) throws InvalidDataException {
-	}
+    public void readExternal(Element element) throws InvalidDataException {
+    }
 
-	public void writeExternal(Element element) throws WriteExternalException {
-	}
+    public void writeExternal(Element element) throws WriteExternalException {
+    }
 
-	public ItrulesModuleExtensionProperties getState() {
-		return myProperties;
-	}
+    public ItrulesModuleExtensionProperties getState() {
+        return myProperties;
+    }
 
-	public void loadState(ItrulesModuleExtensionProperties state) {
-		myProperties = state;
-	}
+    public void loadState(ItrulesModuleExtensionProperties state) {
+        myProperties = state;
+    }
 
-	public Locale getLocale() {
-		return myProperties.locale.equals("en") ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES");
-	}
+    public Locale getLocale() {
+        return myProperties.locale.equals("en") ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES");
+    }
 
-	public String getLineSeparator() {
-		return myProperties.lineSeparator;
-	}
+    public void setLocale(Locale locale) {
+        myProperties.locale = locale.equals(Locale.ENGLISH) ? "en" : "es";
+    }
 
+    public String getLineSeparator() {
+        return myProperties.lineSeparator;
+    }
 
-	public void setLocale(Locale locale) {
-		myProperties.locale = locale.equals(Locale.ENGLISH) ? "en" : "es";
-	}
-
-	public void setLineSeparator(String separator) {
-		myProperties.lineSeparator = separator;
-	}
+    public void setLineSeparator(String separator) {
+        myProperties.lineSeparator = separator;
+    }
 
 }

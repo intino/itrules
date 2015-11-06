@@ -7,9 +7,9 @@ import org.jetbrains.annotations.NotNull;
 
 public interface ItrulesPsiElement extends PsiElement {
 
-	@NotNull
-	ASTNode getNode();
+    @NotNull
+    ASTNode getNode();
 
-	void accept(@NotNull PsiElementVisitor visitor);
+    void accept(@NotNull PsiElementVisitor visitor);
 
 }

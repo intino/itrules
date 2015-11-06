@@ -8,31 +8,31 @@ import org.siani.itrules.intellij.lang.ItrulesIcons;
 import javax.swing.*;
 
 public class ItrulesFrameworkType extends FrameworkTypeEx {
-	public static final String ID = "itrules-java";
+    public static final String ID = "itrules-java";
 
-	public ItrulesFrameworkType() {
-		super(ID);
-	}
+    public ItrulesFrameworkType() {
+        super(ID);
+    }
 
-	static ItrulesFrameworkType getFrameworkType() {
-		return EP_NAME.findExtension(ItrulesFrameworkType.class);
-	}
+    static ItrulesFrameworkType getFrameworkType() {
+        return EP_NAME.findExtension(ItrulesFrameworkType.class);
+    }
 
-	@NotNull
-	@Override
-	public FrameworkSupportInModuleProvider createProvider() {
-		return new ItrulesSupportProvider();
-	}
+    @NotNull
+    @Override
+    public FrameworkSupportInModuleProvider createProvider() {
+        return new ItrulesSupportProvider();
+    }
 
-	@NotNull
-	@Override
-	public String getPresentableName() {
-		return "ItRules";
-	}
+    @NotNull
+    @Override
+    public String getPresentableName() {
+        return "ItRules";
+    }
 
-	@NotNull
-	@Override
-	public Icon getIcon() {
-		return ItrulesIcons.ICON_13;
-	}
+    @NotNull
+    @Override
+    public Icon getIcon() {
+        return ItrulesIcons.ICON_13;
+    }
 }

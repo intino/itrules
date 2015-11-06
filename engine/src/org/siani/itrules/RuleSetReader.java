@@ -28,5 +28,5 @@ import java.nio.charset.Charset;
 
 public interface RuleSetReader {
 
-	RuleSet read(Charset charset) throws Exception;
+    RuleSet read(Charset charset) throws Exception;
 }

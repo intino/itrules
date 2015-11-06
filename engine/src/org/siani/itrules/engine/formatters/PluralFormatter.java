@@ -12,17 +12,17 @@ import java.util.Map;
 public class PluralFormatter implements Formatter {
 
     private static Map<String, PluralInflector> inflectors = new HashMap<>();
-    private Locale locale;
-
-    public PluralFormatter(Locale locale) {
-        this.locale = locale;
-    }
 
     static {
         inflectors.put("en", new EnglishPluralInflector());
         inflectors.put("es", new SpanishPluralInflector());
     }
 
+    private Locale locale;
+
+    public PluralFormatter(Locale locale) {
+        this.locale = locale;
+    }
 
     @Override
     public Object format(Object value) {

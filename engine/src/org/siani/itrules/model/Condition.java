@@ -24,43 +24,43 @@ package org.siani.itrules.model;
 
 public class Condition {
 
-	private final String name;
-	private final String parameter;
-	protected boolean negated;
+    private final String name;
+    private final String parameter;
+    protected boolean negated;
 
-	public Condition(String name, String parameter) {
-		this.name = name;
-		this.parameter = parameter;
-		this.negated = false;
-	}
+    public Condition(String name, String parameter) {
+        this.name = name;
+        this.parameter = parameter;
+        this.negated = false;
+    }
 
-	public Condition(String name, String parameter, boolean negated) {
-		this(name, parameter);
-		this.negated = negated;
-	}
+    public Condition(String name, String parameter, boolean negated) {
+        this(name, parameter);
+        this.negated = negated;
+    }
 
-	public String name() {
-		return this.name;
-	}
+    public String name() {
+        return this.name;
+    }
 
-	public String parameter() {
-		return parameter;
-	}
+    public String parameter() {
+        return parameter;
+    }
 
-	public boolean is(String type) {
-		return name().equals(type);
-	}
+    public boolean is(String type) {
+        return name().equals(type);
+    }
 
-	public boolean negated() {
-		return negated;
-	}
+    public boolean negated() {
+        return negated;
+    }
 
-	public static class Negated extends Condition {
+    public static class Negated extends Condition {
 
-		public Negated(Condition condition) {
-			super(condition.name, condition.parameter);
-			this.negated = !condition.negated();
-		}
+        public Negated(Condition condition) {
+            super(condition.name, condition.parameter);
+            this.negated = !condition.negated();
+        }
 
-	}
+    }
 }

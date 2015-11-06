@@ -25,6 +25,7 @@ public class TestEnglish {
         assertEquals("pencils", plural("pencil"));
 
     }
+
     @Test
     public void endingInSS() throws Exception {
         assertEquals("kisses", plural("kiss"));
@@ -111,7 +112,7 @@ public class TestEnglish {
         assertEquals("heroes", plural("hero"));
         assertEquals("torpedoes", plural("torpedo"));
         assertEquals("mosquitos", plural("mosquito"));
-   }
+    }
 
     @Test
     public void irregular() throws Exception {
@@ -288,7 +289,7 @@ public class TestEnglish {
         assertEquals("tomatoes", plural("tomato"));
         assertEquals("heroes", plural("hero"));
         assertEquals("torpedoes", plural("torpedo"));
-  }
+    }
 
     private String plural(String word) {
         return inflector.plural(word);

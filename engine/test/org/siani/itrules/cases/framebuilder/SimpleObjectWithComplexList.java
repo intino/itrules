@@ -10,8 +10,8 @@ public class SimpleObjectWithComplexList {
         this.field1 = field1;
     }
 
-	public Object get(int index) {
-		return field1.get(index);
-	}
+    public Object get(int index) {
+        return field1.get(index);
+    }
 
 }

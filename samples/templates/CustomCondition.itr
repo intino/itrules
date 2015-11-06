@@ -1,6 +1,6 @@
 def type(Person)
     $Name has $PetsCount+Letters pets:
-      * $Pets...[$NL]
+      $Pets...[$NL]
 end
 
 def type(Dog)

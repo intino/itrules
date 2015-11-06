@@ -28,22 +28,22 @@ import org.siani.itrules.model.AbstractFrame;
 
 public final class TypeFunction implements Function {
 
-	@Override
-	public boolean match(Trigger trigger, String parameter) {
-		String[] types = parameter.replaceAll(" ", "").split("\\||&");
-		return (parameter.contains("|")) ? matchAny(trigger.frame(), types) : matchAll(trigger.frame(), types);
-	}
+    @Override
+    public boolean match(Trigger trigger, String parameter) {
+        String[] types = parameter.replaceAll(" ", "").split("\\||&");
+        return (parameter.contains("|")) ? matchAny(trigger.frame(), types) : matchAll(trigger.frame(), types);
+    }
 
-	private boolean matchAny(AbstractFrame frame, String[] types) {
-		for (String type : types)
-			if (frame.is(type)) return true;
-		return false;
-	}
+    private boolean matchAny(AbstractFrame frame, String[] types) {
+        for (String type : types)
+            if (frame.is(type)) return true;
+        return false;
+    }
 
-	private boolean matchAll(AbstractFrame frame, String[] types) {
-		for (String type : types)
-			if (!frame.is(type)) return false;
-		return true;
-	}
+    private boolean matchAll(AbstractFrame frame, String[] types) {
+        for (String type : types)
+            if (!frame.is(type)) return false;
+        return true;
+    }
 
 }

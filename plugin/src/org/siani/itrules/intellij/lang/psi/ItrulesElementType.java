@@ -7,7 +7,7 @@ import org.siani.itrules.intellij.lang.ItrulesLanguage;
 
 public class ItrulesElementType extends IElementType {
 
-	public ItrulesElementType(@NotNull @NonNls String name) {
-		super(name, ItrulesLanguage.INSTANCE);
-	}
+    public ItrulesElementType(@NotNull @NonNls String name) {
+        super(name, ItrulesLanguage.INSTANCE);
+    }
 }

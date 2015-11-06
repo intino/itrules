@@ -26,12 +26,12 @@ import java.util.Iterator;
 
 public interface AbstractFrame {
 
-	public boolean is(String type);
+    public boolean is(String type);
 
-	public boolean isPrimitive();
+    public boolean isPrimitive();
 
-	public Iterator<AbstractFrame> frames(String slot);
+    public Iterator<AbstractFrame> frames(String slot);
 
-	public Object value();
+    public Object value();
 
 }

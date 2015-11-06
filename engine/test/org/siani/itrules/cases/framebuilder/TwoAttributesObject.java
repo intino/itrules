@@ -10,7 +10,7 @@ public class TwoAttributesObject {
         this.field2 = field2;
     }
 
-	public String getField1() {
-		return field1;
-	}
+    public String getField1() {
+        return field1;
+    }
 }

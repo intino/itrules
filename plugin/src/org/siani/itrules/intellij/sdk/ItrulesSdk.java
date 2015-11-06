@@ -8,24 +8,24 @@ import java.util.List;
 
 public interface ItrulesSdk {
 
-	@NotNull
-	String getSdkHomePath();
+    @NotNull
+    String getSdkHomePath();
 
-	@NotNull
-	File getItrulesCfgFile();
+    @NotNull
+    File getItrulesCfgFile();
 
-	@NotNull
-	File[] getLibraries();
+    @NotNull
+    File[] getLibraries();
 
-	@Nullable
-	String getVersion();
+    @Nullable
+    String getVersion();
 
-	boolean isValid();
+    boolean isValid();
 
-	@NotNull
-	List<String> getUserLibraryPaths();
+    @NotNull
+    List<String> getUserLibraryPaths();
 
-	@NotNull
-	File getApplicationSchemeFile();
+    @NotNull
+    File getApplicationSchemeFile();
 
 }

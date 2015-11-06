@@ -2,7 +2,8 @@ import org.siani.itrules.Adapter;
 import org.siani.itrules.TemplateEngine;
 import org.siani.itrules.model.Frame;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExampleCustomAdapter {
 
@@ -29,6 +30,7 @@ public class ExampleCustomAdapter {
             });
             System.out.println(engine.render(person));
         }
+
         private static String continentOf(String country) {
             Map<String, String> continents = new HashMap<>();
             continents.put("spain", "Europe");

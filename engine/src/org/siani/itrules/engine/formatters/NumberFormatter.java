@@ -11,7 +11,7 @@ import java.util.Map;
 public class NumberFormatter {
 
     public static Map<String, Formatter> get(Locale locale) {
-        Map<String,Formatter> map = new HashMap<>();
+        Map<String, Formatter> map = new HashMap<>();
         map.put("Words".toLowerCase(), new NumberSpellingFormatter(locale));
         map.put("Separators".toLowerCase(), separators(locale));
         map.put("TwoDecimals".toLowerCase(), twoDecimals(locale));

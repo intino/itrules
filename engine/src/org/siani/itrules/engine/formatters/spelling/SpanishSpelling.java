@@ -1,8 +1,8 @@
 package org.siani.itrules.engine.formatters.spelling;
 
 public class SpanishSpelling implements WordSpelling {
-    private static final String[] numbers = {"","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve", "diez","once","doce","trece","catorce","quince","dieciseis","diecisiete","dieciocho","diecinueve","veinte"};
-    private static final String[] multipleOfTenNumbers = {"","","","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"};
+    private static final String[] numbers = {"", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez", "once", "doce", "trece", "catorce", "quince", "dieciseis", "diecisiete", "dieciocho", "diecinueve", "veinte"};
+    private static final String[] multipleOfTenNumbers = {"", "", "", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"};
     private static final String[] hundreds = {"", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"};
 
     @Override
