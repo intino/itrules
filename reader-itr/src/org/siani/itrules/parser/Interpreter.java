@@ -36,8 +36,8 @@ import org.siani.itrules.model.Rule;
 import org.siani.itrules.model.marks.AbstractMark;
 import org.siani.itrules.model.marks.Mark;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public final class Interpreter extends ItrParserBaseListener {
@@ -149,10 +149,7 @@ public final class Interpreter extends ItrParserBaseListener {
     }
 
     private String[] getOptions(List<OptionContext> option) {
-        List<String> list = new ArrayList<>();
-        for (OptionContext optionContext : option) {
-            list.add(optionContext.getText().substring(1));
-        }
+        List<String> list = option.stream().map(optionContext -> optionContext.getText().substring(1)).collect(Collectors.toList());
         return list.toArray(new String[list.size()]);
     }
 
@@ -160,6 +157,7 @@ public final class Interpreter extends ItrParserBaseListener {
         String s = separator.substring(1, separator.length() - 1);
         s = s.replace(NL_SEPARATOR, "\n");
         s = s.replace(TAB_SEPARATOR, "\t");
+        s = s.replace("~", "");
         return s;
     }
 

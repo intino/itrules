@@ -37,7 +37,7 @@
             <action id="itrules.toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration"
                     text="Generate Java Template"
                     description="Generates the corresponding Java representation of the template">
-                <keyboard-shortcut keymap="$default" first-keystroke="control shift F11"/>
+                <keyboard-shortcut keymap="$default" first-keystroke="control shift G"/>
                 <add-to-group group-id="EditorPopupMenu" anchor="last"/>
                 <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
             </action>
