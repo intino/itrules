@@ -19,49 +19,49 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class GenerationAction extends AnAction implements DumbAware {
-	public static final Logger LOG = Logger.getInstance("itrules: Generate");
+    public static final Logger LOG = Logger.getInstance("itrules: Generate");
 
-	public void update(@NotNull AnActionEvent e) {
-		ActionUtils.selectedFileIsItrules(e);
-		ActionUtils.selectedFilesIsInItrulesModule(e);
-	}
+    public void update(@NotNull AnActionEvent e) {
+        ActionUtils.selectedFileIsItrules(e);
+        ActionUtils.selectedFilesIsInItrulesModule(e);
+    }
 
-	protected abstract String findDestiny(Project project, Module module, VirtualFile file) throws Exception;
+    protected abstract String findDestiny(Project project, Module module, VirtualFile file) throws Exception;
 
-	protected VirtualFile getVirtualFile(AnActionEvent e) {
-		VirtualFile rulesFile = ActionUtils.getItrulesFileFromEvent(e);
-		LOG.info("actionPerformed " + (rulesFile == null ? "NONE" : rulesFile));
-		if (rulesFile == null) return null;
-		return rulesFile;
-	}
+    protected VirtualFile getVirtualFile(AnActionEvent e) {
+        VirtualFile rulesFile = ActionUtils.getItrulesFileFromEvent(e);
+        LOG.info("actionPerformed " + (rulesFile == null ? "NONE" : rulesFile));
+        if (rulesFile == null) return null;
+        return rulesFile;
+    }
 
-	protected boolean projectExists(AnActionEvent e, Project project) {
-		if (project == null) {
-			LOG.error("actionPerformed: no project for " + e);
-			return true;
-		}
-		return false;
-	}
+    protected boolean projectExists(AnActionEvent e, Project project) {
+        if (project == null) {
+            LOG.error("actionPerformed: no project for " + e);
+            return true;
+        }
+        return false;
+    }
 
-	protected void refreshFiles(File destiny) {
-		Set<File> generatedFiles = new HashSet<>();
-		generatedFiles.add(destiny);
-		LocalFileSystem.getInstance().refreshIoFiles(generatedFiles, true, true, null);
-	}
+    protected void refreshFiles(File destiny) {
+        Set<File> generatedFiles = new HashSet<>();
+        generatedFiles.add(destiny);
+        LocalFileSystem.getInstance().refreshIoFiles(generatedFiles, true, true, null);
+    }
 
-	protected boolean checkDocument(Project project, VirtualFile rulesFile) {
-		PsiDocumentManager psiMgr = PsiDocumentManager.getInstance(project);
-		FileDocumentManager docMgr = FileDocumentManager.getInstance();
-		Document doc = docMgr.getDocument(rulesFile);
-		if (doc == null) return true;
-		if ((!psiMgr.isCommitted(doc)) || (docMgr.isDocumentUnsaved(doc))) {
-			psiMgr.commitDocument(doc);
-			docMgr.saveDocument(doc);
-		}
-		return false;
-	}
+    protected boolean checkDocument(Project project, VirtualFile rulesFile) {
+        PsiDocumentManager psiMgr = PsiDocumentManager.getInstance(project);
+        FileDocumentManager docMgr = FileDocumentManager.getInstance();
+        Document doc = docMgr.getDocument(rulesFile);
+        if (doc == null) return true;
+        if ((!psiMgr.isCommitted(doc)) || (docMgr.isDocumentUnsaved(doc))) {
+            psiMgr.commitDocument(doc);
+            docMgr.saveDocument(doc);
+        }
+        return false;
+    }
 
-	protected Module getModuleOf(Project project, VirtualFile file) {
-		return ProjectRootManager.getInstance(project).getFileIndex().getModuleForFile(file);
-	}
+    protected Module getModuleOf(Project project, VirtualFile file) {
+        return ProjectRootManager.getInstance(project).getFileIndex().getModuleForFile(file);
+    }
 }

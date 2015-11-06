@@ -31,24 +31,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Locale;
 
-import static org.siani.itrules.LineSeparator.*;
+import static org.siani.itrules.LineSeparator.LF;
 import static org.siani.itrules.cases.Message.*;
 
 
 public class AcceptedRuleLoader {
-
-    private static final String Template = "samples/templates/$case.itr";
-	private static final String Expected = "samples/res/$case.expected.txt";
 
     public static final Message MESSAGE =
             new Message(
                     from("frodo@hobbiton.me"),
                     to("gandalf@elrond.me", "bilbo@hobbiton.me"),
                     subject("The ring"),
-                    text("I wish the Ring had never come to me.","I wish none of this had happened.")
+                    text("I wish the Ring had never come to me.", "I wish none of this had happened.")
             );
-
-
+    private static final String Template = "samples/templates/$case.itr";
+    private static final String Expected = "samples/res/$case.expected.txt";
 
     @Test
     public void should_render_template_with_multiple_marks() throws Exception {
@@ -74,8 +71,7 @@ public class AcceptedRuleLoader {
     private String read(BufferedReader reader) throws IOException {
         try {
             return readLines(reader, "");
-        }
-        finally {
+        } finally {
             reader.close();
         }
     }

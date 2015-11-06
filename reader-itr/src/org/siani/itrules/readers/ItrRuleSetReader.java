@@ -39,7 +39,7 @@ public final class ItrRuleSetReader implements RuleSetReader {
     }
 
 
-	public RuleSet read(Charset charset) throws ITRulesSyntaxError {
+    public RuleSet read(Charset charset) throws ITRulesSyntaxError {
         return new RuleSet(new TemplateParser().parse(inputStream, charset));
-	}
+    }
 }

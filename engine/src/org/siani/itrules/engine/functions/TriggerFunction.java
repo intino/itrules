@@ -27,22 +27,22 @@ import org.siani.itrules.engine.Trigger;
 
 public final class TriggerFunction implements Function {
 
-	@Override
-	public boolean match(Trigger trigger, String parameter) {
-		return matchMark(trigger.mark().name(), parameter) || matchOptions(trigger.mark().options(), parameter);
-	}
+    @Override
+    public boolean match(Trigger trigger, String parameter) {
+        return matchMark(trigger.mark().name(), parameter) || matchOptions(trigger.mark().options(), parameter);
+    }
 
-	private boolean matchMark(String mark, String parameter) {
-		return mark.equalsIgnoreCase(parameter);
-	}
+    private boolean matchMark(String mark, String parameter) {
+        return mark.equalsIgnoreCase(parameter);
+    }
 
-	private boolean matchOptions(String[] options, String parameter) {
-		for (String option : options)
-			if (matchOption(option, parameter)) return true;
-		return false;
-	}
+    private boolean matchOptions(String[] options, String parameter) {
+        for (String option : options)
+            if (matchOption(option, parameter)) return true;
+        return false;
+    }
 
-	private boolean matchOption(String option, String parameter) {
-		return option.equalsIgnoreCase(parameter);
-	}
+    private boolean matchOption(String option, String parameter) {
+        return option.equalsIgnoreCase(parameter);
+    }
 }

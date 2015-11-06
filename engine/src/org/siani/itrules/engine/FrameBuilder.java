@@ -28,75 +28,78 @@ import org.siani.itrules.model.AbstractFrame;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.PrimitiveFrame;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public final class FrameBuilder {
 
-	private final Frame frame;
-	private final List<Register> registerList;
+    private final Frame frame;
+    private final List<Register> registerList;
 
-	public FrameBuilder() {
-		this(new Frame(), new ArrayList<Register>());
-	}
+    public FrameBuilder() {
+        this(new Frame(), new ArrayList<Register>());
+    }
 
-	private FrameBuilder(Frame frame, List<Register> registerList) {
-		this.frame = frame;
-		this.registerList = registerList;
-	}
+    private FrameBuilder(Frame frame, List<Register> registerList) {
+        this.frame = frame;
+        this.registerList = registerList;
+    }
 
-	public AbstractFrame build(Object object)  {
-		return (isPrimitive(object.getClass())) ?
-			primitiveFrame(object) :
-			frame(processIfCollection(object));
-	}
+    public AbstractFrame build(Object object) {
+        return (isPrimitive(object.getClass())) ?
+                primitiveFrame(object) :
+                frame(processIfCollection(object));
+    }
 
-	private PrimitiveFrame primitiveFrame(Object object) {
-		return new PrimitiveFrame(object);
-	}
+    private PrimitiveFrame primitiveFrame(Object object) {
+        return new PrimitiveFrame(object);
+    }
 
-	private Frame frame(Object object) {
-		if (object instanceof Frame) return (Frame) object;
-		fillTypes(object);
-		fillSlots(object);
-		return frame;
-	}
+    private Frame frame(Object object) {
+        if (object instanceof Frame) return (Frame) object;
+        fillTypes(object);
+        fillSlots(object);
+        return frame;
+    }
 
-	private Object processIfCollection(Object object) {
-		return isCollection(object.getClass()) ? new Collection(object) :	object;
-	}
+    private Object processIfCollection(Object object) {
+        return isCollection(object.getClass()) ? new Collection(object) : object;
+    }
 
-	public <T> void register(final Class<T> class_, final Adapter<T> adapter) {
-		registerList.add(0, new Register() {
-			@Override
-			public boolean accept(Class type) {
-				return type.equals(class_);
-			}
+    public <T> void register(final Class<T> class_, final Adapter<T> adapter) {
+        registerList.add(0, new Register() {
+            @Override
+            public boolean accept(Class type) {
+                return type.equals(class_);
+            }
 
-			@Override
-			public Adapter adapter() {
-				return adapter;
-			}
-		});
-	}
+            @Override
+            public Adapter adapter() {
+                return adapter;
+            }
+        });
+    }
 
-	private void fillTypes(Object object) {
-		frame.addTypes(toArray(types(object)));
-	}
+    private void fillTypes(Object object) {
+        frame.addTypes(toArray(types(object)));
+    }
 
-	@SuppressWarnings("unchecked")
-	private void fillSlots(Object object) {
-		Adapter.FrameContext context = createTaskContext(object);
-		adapterFor(object).execute(context.frame(), context.source(), context);
-	}
+    @SuppressWarnings("unchecked")
+    private void fillSlots(Object object) {
+        Adapter.FrameContext context = createTaskContext(object);
+        adapterFor(object).execute(context.frame(), context.source(), context);
+    }
 
 
-	private Adapter adapterFor(Object object) {
+    private Adapter adapterFor(Object object) {
         for (Class type : types(object.getClass())) {
             Adapter adapter = adapterFor(type);
             if (adapter != null) return adapter;
         }
-		return new DefaultAdapter();
-	}
+        return new DefaultAdapter();
+    }
 
     private Adapter adapterFor(Class type) {
         for (Register register : registerList) {
@@ -106,86 +109,86 @@ public final class FrameBuilder {
     }
 
 
-	private Adapter.FrameContext createTaskContext(final Object target) {
-		return new Adapter.FrameContext() {
-			@Override
-			public Object source() {
-				return target;
-			}
+    private Adapter.FrameContext createTaskContext(final Object target) {
+        return new Adapter.FrameContext() {
+            @Override
+            public Object source() {
+                return target;
+            }
 
-			@Override
-			public Frame frame() {
-				return frame;
-			}
+            @Override
+            public Frame frame() {
+                return frame;
+            }
 
-			@Override
-			public AbstractFrame build(Object object) {
-				return isPrimitive(object.getClass()) ?
-					new PrimitiveFrame(object):
-					new FrameBuilder(new Frame(), registerList).frame(object);
-			}
+            @Override
+            public AbstractFrame build(Object object) {
+                return isPrimitive(object.getClass()) ?
+                        new PrimitiveFrame(object) :
+                        new FrameBuilder(new Frame(), registerList).frame(object);
+            }
 
-			@Override
-			public void register(Class aClass, Adapter adapter) {
-				FrameBuilder.this.register(aClass, adapter);
-			}
+            @Override
+            public void register(Class aClass, Adapter adapter) {
+                FrameBuilder.this.register(aClass, adapter);
+            }
 
-		};
-	}
+        };
+    }
 
-	private String[] toArray(List<String> types) {
-		return types.toArray(new String[types.size()]);
-	}
+    private String[] toArray(List<String> types) {
+        return types.toArray(new String[types.size()]);
+    }
 
-	private List<String> types(Object object) {
-		List<String> result = new ArrayList<>();
-		for (Class type : types(object.getClass()))
-			result.add(type.getSimpleName());
-		return result;
-	}
+    private List<String> types(Object object) {
+        List<String> result = new ArrayList<>();
+        for (Class type : types(object.getClass()))
+            result.add(type.getSimpleName());
+        return result;
+    }
 
-	private List<Class> types(Class aClass) {
-		if (aClass == null) return new ArrayList<>();
-		final List<Class> types = new ArrayList<>();
-		types.add(aClass);
-		for (Class aInterface : aClass.getInterfaces()) types.addAll(types(aInterface));
-		if (aClass.getSuperclass() != null) types.addAll(types(aClass.getSuperclass()));
-		return types;
-	}
+    private List<Class> types(Class aClass) {
+        if (aClass == null) return new ArrayList<>();
+        final List<Class> types = new ArrayList<>();
+        types.add(aClass);
+        for (Class aInterface : aClass.getInterfaces()) types.addAll(types(aInterface));
+        if (aClass.getSuperclass() != null) types.addAll(types(aClass.getSuperclass()));
+        return types;
+    }
+
+    private boolean isPrimitive(Class aClass) {
+        return aClass.isPrimitive() ||
+                String.class.isAssignableFrom(aClass) ||
+                Byte.class.isAssignableFrom(aClass) ||
+                Short.class.isAssignableFrom(aClass) ||
+                Integer.class.isAssignableFrom(aClass) ||
+                Long.class.isAssignableFrom(aClass) ||
+                Float.class.isAssignableFrom(aClass) ||
+                Double.class.isAssignableFrom(aClass) ||
+                Boolean.class.isAssignableFrom(aClass) ||
+                Date.class.isAssignableFrom(aClass) ||
+                Enum.class.isAssignableFrom(aClass) ||
+                Character.class.isAssignableFrom(aClass);
+    }
+
+    private boolean isCollection(Class<?> aClass) {
+        return Map.class.isAssignableFrom(aClass) ||
+                List.class.isAssignableFrom(aClass) ||
+                aClass.isArray();
+    }
 
     private interface Register {
         boolean accept(Class aClass);
+
         Adapter adapter();
     }
 
+    private class Collection {
+        public final Object items;
 
-	private boolean isPrimitive(Class aClass) {
-		return aClass.isPrimitive() ||
-				String.class.isAssignableFrom(aClass) ||
-				Byte.class.isAssignableFrom(aClass) ||
-				Short.class.isAssignableFrom(aClass) ||
-				Integer.class.isAssignableFrom(aClass) ||
-				Long.class.isAssignableFrom(aClass) ||
-				Float.class.isAssignableFrom(aClass) ||
-				Double.class.isAssignableFrom(aClass) ||
-				Boolean.class.isAssignableFrom(aClass) ||
-				Date.class.isAssignableFrom(aClass) ||
-				Enum.class.isAssignableFrom(aClass) ||
-				Character.class.isAssignableFrom(aClass);
-	}
-
-	private boolean isCollection(Class<?> aClass){
-		return Map.class.isAssignableFrom(aClass) ||
-				List.class.isAssignableFrom(aClass) ||
-				aClass.isArray();
-	}
-
-	private class Collection{
-		public final Object items;
-
-		private Collection(Object items) {
-			this.items = items;
-		}
-	}
+        private Collection(Object items) {
+            this.items = items;
+        }
+    }
 
 }

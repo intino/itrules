@@ -2,7 +2,6 @@ package org.siani.itrules;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.siani.itrules.Adapter;
 import org.siani.itrules.cases.framebuilder.*;
 import org.siani.itrules.engine.FrameBuilder;
 import org.siani.itrules.engine.adapters.ExcludeAdapter;
@@ -144,10 +143,10 @@ public class FrameBuilder_ {
         Assert.assertFalse(frame.frames("staticField").hasNext());
     }
 
-	@Test
-	public void testSimpleAdapter() throws Exception {
-		FrameBuilder builder = new FrameBuilder();
-		builder.register(
+    @Test
+    public void testSimpleAdapter() throws Exception {
+        FrameBuilder builder = new FrameBuilder();
+        builder.register(
                 TwoAttributesObject.class,
                 new Adapter<TwoAttributesObject>() {
                     @Override
@@ -155,15 +154,15 @@ public class FrameBuilder_ {
                         context.frame().addFrame("field1", context.build(context.source().getField1()));
                     }
                 });
-		Frame frame = (Frame) builder.build(new TwoAttributesObject("test", 1.0));
-		Assert.assertEquals("test", frame.frames("field1").next().value());
-		Assert.assertFalse(frame.frames("field2").hasNext());
-	}
+        Frame frame = (Frame) builder.build(new TwoAttributesObject("test", 1.0));
+        Assert.assertEquals("test", frame.frames("field1").next().value());
+        Assert.assertFalse(frame.frames("field2").hasNext());
+    }
 
-	@Test
-	public void testAdaptersWithComplexFields() throws Exception {
-		FrameBuilder builder = new FrameBuilder();
-		builder.register(
+    @Test
+    public void testAdaptersWithComplexFields() throws Exception {
+        FrameBuilder builder = new FrameBuilder();
+        builder.register(
                 SimpleObjectWithComplexList.class,
                 new Adapter<SimpleObjectWithComplexList>() {
                     @Override
@@ -173,22 +172,22 @@ public class FrameBuilder_ {
                 });
 
 
-		Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
+        Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
                 new TwoAttributesObject("test1", 1.0),
                 new TwoAttributesObject("test2", 2.0),
                 new TwoAttributesObject("test3", 3.0)
         )));
-		Iterator<AbstractFrame> frames = frame.frames("object2");
-		AbstractFrame next = frames.next();
-		Assert.assertEquals("test2", next.frames("field1").next().value());
-		Assert.assertEquals(2.0, next.frames("field2").next().value());
-		Assert.assertFalse(frames.hasNext());
-	}
+        Iterator<AbstractFrame> frames = frame.frames("object2");
+        AbstractFrame next = frames.next();
+        Assert.assertEquals("test2", next.frames("field1").next().value());
+        Assert.assertEquals(2.0, next.frames("field2").next().value());
+        Assert.assertFalse(frames.hasNext());
+    }
 
-	@Test
-	public void testChainedAdapters() throws Exception {
-		FrameBuilder builder = new FrameBuilder();
-		builder.register(
+    @Test
+    public void testChainedAdapters() throws Exception {
+        FrameBuilder builder = new FrameBuilder();
+        builder.register(
                 SimpleObjectWithComplexList.class,
                 new Adapter<SimpleObjectWithComplexList>() {
                     @Override
@@ -203,22 +202,22 @@ public class FrameBuilder_ {
                     }
                 });
 
-		Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
+        Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
                 new TwoAttributesObject("test1", 1.0),
                 new TwoAttributesObject("test2", 2.0),
                 new TwoAttributesObject("test3", 3.0)
         )));
-		Iterator<AbstractFrame> frames = frame.frames("object2");
-		AbstractFrame next = frames.next();
-		Assert.assertEquals("test2", next.frames("field1").next().value());
-		Assert.assertFalse(next.frames("field2").hasNext());
-		Assert.assertFalse(frames.hasNext());
-	}
+        Iterator<AbstractFrame> frames = frame.frames("object2");
+        AbstractFrame next = frames.next();
+        Assert.assertEquals("test2", next.frames("field1").next().value());
+        Assert.assertFalse(next.frames("field2").hasNext());
+        Assert.assertFalse(frames.hasNext());
+    }
 
-	@Test
-	public void testAdapterWithExclusionInside() throws Exception {
-		FrameBuilder builder = new FrameBuilder();
-		builder.register(
+    @Test
+    public void testAdapterWithExclusionInside() throws Exception {
+        FrameBuilder builder = new FrameBuilder();
+        builder.register(
                 SimpleObjectWithComplexList.class,
                 new Adapter<SimpleObjectWithComplexList>() {
                     @Override
@@ -227,17 +226,17 @@ public class FrameBuilder_ {
                         context.frame().addFrame("object2", context.build(context.source().get(1)));
                     }
                 });
-		Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
+        Frame frame = (Frame) builder.build(new SimpleObjectWithComplexList(Arrays.<Object>asList(
                 new TwoAttributesObject("test1", 1.0),
                 new TwoAttributesObject("test2", 2.0),
                 new TwoAttributesObject("test3", 3.0)
         )));
-		Iterator<AbstractFrame> frames = frame.frames("object2");
-		AbstractFrame next = frames.next();
-		Assert.assertEquals("test2", next.frames("field1").next().value());
-		Assert.assertFalse(next.frames("field2").hasNext());
-		Assert.assertFalse(frames.hasNext());
-	}
+        Iterator<AbstractFrame> frames = frame.frames("object2");
+        AbstractFrame next = frames.next();
+        Assert.assertEquals("test2", next.frames("field1").next().value());
+        Assert.assertFalse(next.frames("field2").hasNext());
+        Assert.assertFalse(frames.hasNext());
+    }
 
 
 }

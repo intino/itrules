@@ -34,42 +34,42 @@ import java.util.Map;
 
 public final class FunctionStore {
 
-	private Map<String, Function> map = new HashMap<>();
+    private Map<String, Function> map = new HashMap<>();
 
-	public FunctionStore() {
-		add("Type", new TypeFunction());
-		add("Trigger", new TriggerFunction());
-		add("Slot", new SlotFunction());
-		add("Value", new ValueFunction());
-	}
+    public FunctionStore() {
+        add("Type", new TypeFunction());
+        add("Trigger", new TriggerFunction());
+        add("Slot", new SlotFunction());
+        add("Value", new ValueFunction());
+    }
 
-	public Function get(Condition condition) {
-		return exists(condition.name()) ? createFunction(condition) : unknownFunction(condition);
-	}
+    public Function get(Condition condition) {
+        return exists(condition.name()) ? createFunction(condition) : unknownFunction(condition);
+    }
 
-	private Function createFunction(Condition condition) {
-		Function function = map.get(condition.name().toLowerCase());
-		return condition.negated() ? negatedFunction(function) : function;
-	}
+    private Function createFunction(Condition condition) {
+        Function function = map.get(condition.name().toLowerCase());
+        return condition.negated() ? negatedFunction(function) : function;
+    }
 
-	private boolean exists(String function) {
-		return map.containsKey(function.toLowerCase());
-	}
+    private boolean exists(String function) {
+        return map.containsKey(function.toLowerCase());
+    }
 
-	private Function negatedFunction(final Function function) {
-		return new Function() {
-			@Override
-			public boolean match(Trigger trigger, String parameter) {
-				return !function.match(trigger, parameter);
-			}
-		};
-	}
+    private Function negatedFunction(final Function function) {
+        return new Function() {
+            @Override
+            public boolean match(Trigger trigger, String parameter) {
+                return !function.match(trigger, parameter);
+            }
+        };
+    }
 
-	private Function unknownFunction(final Condition condition) {
-		throw new RuntimeException("Function " + condition.name() + " doesn't exists");
-	}
+    private Function unknownFunction(final Condition condition) {
+        throw new RuntimeException("Function " + condition.name() + " doesn't exists");
+    }
 
-	public void add(String name, Function function) {
-		map.put(name.toLowerCase(), function);
-	}
+    public void add(String name, Function function) {
+        map.put(name.toLowerCase(), function);
+    }
 }

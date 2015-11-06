@@ -2,8 +2,8 @@ package org.siani.itrules.cases;
 
 public class Roster {
 
-    private Person coach;
     private final Person[] players;
+    private Person coach;
 
     public Roster(Person coach, Person... players) {
         this.coach = coach;

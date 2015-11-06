@@ -7,9 +7,9 @@ import java.util.Locale;
 
 public interface JpsItrulesModuleExtension extends JpsElement {
 
-	JpsModule getModule();
+    JpsModule getModule();
 
-	String getSdkHomePath();
+    String getSdkHomePath();
 
-	Locale getLocale();
+    Locale getLocale();
 }

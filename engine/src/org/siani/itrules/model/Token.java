@@ -22,21 +22,21 @@
 
 package org.siani.itrules.model;
 
-public abstract class Token  {
+public abstract class Token {
 
-	protected Token previous;
+    protected Token previous;
 
-	public <Type> Type as(Class<Type> type) {
-		return (Type) this;
-	}
+    public <Type> Type as(Class<Type> type) {
+        return (Type) this;
+    }
 
-	public Token previous() {
-		return previous;
-	}
+    public Token previous() {
+        return previous;
+    }
 
-	public void previous(Token previous) {
-		this.previous = previous;
-	}
+    public void previous(Token previous) {
+        this.previous = previous;
+    }
 
     public static class Body extends Token {
     }

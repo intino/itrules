@@ -9,15 +9,15 @@ import org.siani.itrules.intellij.sdk.ItrulesSdkManager;
 import java.util.Map;
 
 public class ItrulesSdkManagerImpl extends ItrulesSdkManager {
-	private final Map<String, ItrulesSdkImpl> myPath2Sdk = new THashMap<>();
+    private final Map<String, ItrulesSdkImpl> myPath2Sdk = new THashMap<>();
 
-	@NotNull
-	@Override
-	public ItrulesSdk findSdk(@NotNull String sdkPath) {
-		sdkPath = StringUtil.trimEnd(sdkPath, "/");
-		if (!myPath2Sdk.containsKey(sdkPath)) {
-			myPath2Sdk.put(sdkPath, new ItrulesSdkImpl(sdkPath));
-		}
-		return myPath2Sdk.get(sdkPath);
-	}
+    @NotNull
+    @Override
+    public ItrulesSdk findSdk(@NotNull String sdkPath) {
+        sdkPath = StringUtil.trimEnd(sdkPath, "/");
+        if (!myPath2Sdk.containsKey(sdkPath)) {
+            myPath2Sdk.put(sdkPath, new ItrulesSdkImpl(sdkPath));
+        }
+        return myPath2Sdk.get(sdkPath);
+    }
 }

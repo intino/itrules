@@ -9,23 +9,23 @@ import org.jetbrains.annotations.Nullable;
 import org.siani.itrules.intellij.lang.psi.ItrulesTypes;
 
 public class ItrulesBraceMatcher implements PairedBraceMatcher {
-	private final BracePair[] pairs;
+    private final BracePair[] pairs;
 
-	public ItrulesBraceMatcher() {
-		pairs = new BracePair[]{
-			new BracePair(ItrulesTypes.LEFT_SQUARE, ItrulesTypes.RIGHT_SQUARE, false),
-		};
-	}
+    public ItrulesBraceMatcher() {
+        pairs = new BracePair[]{
+                new BracePair(ItrulesTypes.LEFT_SQUARE, ItrulesTypes.RIGHT_SQUARE, false),
+        };
+    }
 
-	public BracePair[] getPairs() {
-		return pairs;
-	}
+    public BracePair[] getPairs() {
+        return pairs;
+    }
 
-	public boolean isPairedBracesAllowedBeforeType(@NotNull IElementType braceType, @Nullable IElementType tokenType) {
-		return true;
-	}
+    public boolean isPairedBracesAllowedBeforeType(@NotNull IElementType braceType, @Nullable IElementType tokenType) {
+        return true;
+    }
 
-	public int getCodeConstructStart(final PsiFile file, int openingBraceOffset) {
-		return openingBraceOffset;
-	}
+    public int getCodeConstructStart(final PsiFile file, int openingBraceOffset) {
+        return openingBraceOffset;
+    }
 }

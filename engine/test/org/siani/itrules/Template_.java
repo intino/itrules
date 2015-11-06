@@ -14,6 +14,10 @@ import static java.util.Calendar.*;
 
 public class Template_ {
 
+    private static Date date(int year, int month, int day) {
+        return new GregorianCalendar(year, month, day).getTime();
+    }
+
     @Test
     public void should_render_roster() throws Exception {
         Assert.assertEquals(expected("roster.txt"), RosterTemplate.create().format(createRoster()));
@@ -27,8 +31,26 @@ public class Template_ {
         return new Roster(orenga, gasol, rudy, navarro);
     }
 
-    private static Date date(int year, int month, int day) {
-        return new GregorianCalendar(year, month, day).getTime();
+    private String expected(String name) throws IOException {
+        return read("engine/test.res/" + name);
+    }
+
+    private String read(String filename) throws IOException {
+        return read(new BufferedReader(new FileReader(filename)));
+    }
+
+    private String read(BufferedReader reader) throws IOException {
+        try {
+            return readLines(reader, "");
+        } finally {
+            reader.close();
+        }
+    }
+
+    private String readLines(BufferedReader reader, String text) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) text += line + "\n";
+        return text.trim();
     }
 
     private static class Person {
@@ -54,37 +76,14 @@ public class Template_ {
     }
 
     private static class Roster {
-        private Person coach;
         private final Person[] player;
+        private Person coach;
 
         public Roster(Person coach, Person... player) {
             this.coach = coach;
             this.player = player;
         }
 
-    }
-
-    private String expected(String name) throws IOException {
-        return read("engine/test.res/" + name);
-    }
-
-    private String read(String filename) throws IOException {
-        return read(new BufferedReader(new FileReader(filename)));
-    }
-
-    private String read(BufferedReader reader) throws IOException {
-        try {
-            return readLines(reader, "");
-        }
-        finally {
-            reader.close();
-        }
-    }
-
-    private String readLines(BufferedReader reader, String text) throws IOException {
-        String line;
-        while ((line = reader.readLine()) != null) text += line + "\n";
-        return text.trim();
     }
 
 }

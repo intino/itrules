@@ -31,23 +31,23 @@ import java.text.DateFormat;
 
 public class JsonRulesWriter {
 
-	private JsonRulesWriter() {
-	}
+    private JsonRulesWriter() {
+    }
 
-	public static String toJSON(RuleSet rules) {
-		GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat(DateFormat.FULL, DateFormat.FULL).setPrettyPrinting();
-		gsonBuilder.registerTypeAdapter(Token.class, new TokenAdapter());
-		return gsonBuilder.create().toJson(rules);
-	}
+    public static String toJSON(RuleSet rules) {
+        GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat(DateFormat.FULL, DateFormat.FULL).setPrettyPrinting();
+        gsonBuilder.registerTypeAdapter(Token.class, new TokenAdapter());
+        return gsonBuilder.create().toJson(rules);
+    }
 
 
-	private static class TokenAdapter implements JsonSerializer<Token> {
-		@Override
-		public JsonElement serialize(Token src, Type typeOfSrc, JsonSerializationContext context) {
-			JsonObject object = new JsonObject();
-			object.add("tokenType", new JsonPrimitive(src.getClass().getSimpleName()));
-			object.add("data", context.serialize(src, src.getClass()));
-			return object;
-		}
-	}
+    private static class TokenAdapter implements JsonSerializer<Token> {
+        @Override
+        public JsonElement serialize(Token src, Type typeOfSrc, JsonSerializationContext context) {
+            JsonObject object = new JsonObject();
+            object.add("tokenType", new JsonPrimitive(src.getClass().getSimpleName()));
+            object.add("data", context.serialize(src, src.getClass()));
+            return object;
+        }
+    }
 }

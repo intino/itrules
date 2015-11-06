@@ -1,7 +1,7 @@
 package org.siani.itrules.engine;
 
-import org.siani.itrules.Source;
 import org.siani.itrules.RuleSetReader;
+import org.siani.itrules.Source;
 import org.siani.itrules.engine.logger.Logger;
 
 import java.io.FileInputStream;

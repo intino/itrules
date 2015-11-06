@@ -87,15 +87,15 @@ public class FormatterStore_ {
     }
 
     private Formatter spanishFormatter(String name) {
-        return new FormatterStore(new Locale("es","Spain","es_ES")).get(name);
+        return new FormatterStore(new Locale("es", "Spain", "es_ES")).get(name);
     }
 
     private Date date(int year, int month, int day) {
-        return new GregorianCalendar(year,month,day).getTime();
+        return new GregorianCalendar(year, month, day).getTime();
     }
 
     private Date date(int year, int month, int day, int hour, int minutes) {
-        return new GregorianCalendar(year,month,day,hour,minutes).getTime();
+        return new GregorianCalendar(year, month, day, hour, minutes).getTime();
     }
 
 

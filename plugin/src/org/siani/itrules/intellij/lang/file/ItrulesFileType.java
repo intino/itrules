@@ -9,33 +9,33 @@ import org.siani.itrules.intellij.lang.ItrulesLanguage;
 import javax.swing.*;
 
 public class ItrulesFileType extends LanguageFileType {
-	public static final ItrulesFileType INSTANCE = new ItrulesFileType();
+    public static final ItrulesFileType INSTANCE = new ItrulesFileType();
 
-	private ItrulesFileType() {
-		super(ItrulesLanguage.INSTANCE);
-	}
+    private ItrulesFileType() {
+        super(ItrulesLanguage.INSTANCE);
+    }
 
-	@NotNull
-	@Override
-	public String getName() {
-		return "Itrules File";
-	}
+    @NotNull
+    @Override
+    public String getName() {
+        return "Itrules File";
+    }
 
-	@NotNull
-	@Override
-	public String getDescription() {
-		return "Itrules File";
-	}
+    @NotNull
+    @Override
+    public String getDescription() {
+        return "Itrules File";
+    }
 
-	@NotNull
-	@Override
-	public String getDefaultExtension() {
-		return "itr";
-	}
+    @NotNull
+    @Override
+    public String getDefaultExtension() {
+        return "itr";
+    }
 
-	@Nullable
-	@Override
-	public Icon getIcon() {
-		return ItrulesIcons.ICON_13;
-	}
+    @Nullable
+    @Override
+    public Icon getIcon() {
+        return ItrulesIcons.ICON_13;
+    }
 }

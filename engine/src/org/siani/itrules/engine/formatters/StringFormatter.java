@@ -31,69 +31,69 @@ public final class StringFormatter {
 
     private static Map<String, Formatter> map = null;
 
-	public static Map<String, Formatter> get() {
+    public static Map<String, Formatter> get() {
         if (map == null) createFormatters();
-		return map;
-	}
+        return map;
+    }
 
-	private static void createFormatters() {
-		map = new HashMap<>();
-		add("UpperCase", upperCase());
-		add("LowerCase", lowerCase());
-		add("FirstUpperCase", firstUpperCase());
-		add("FirstLowerCase", firstLowerCase());
-		add("Camelcase", camelCase());
-		add("LowerCamelCase", lowerCamelCase());
-		add("Capitalize", capitalize());
-		add("Length", length());
-	}
+    private static void createFormatters() {
+        map = new HashMap<>();
+        add("UpperCase", upperCase());
+        add("LowerCase", lowerCase());
+        add("FirstUpperCase", firstUpperCase());
+        add("FirstLowerCase", firstLowerCase());
+        add("Camelcase", camelCase());
+        add("LowerCamelCase", lowerCamelCase());
+        add("Capitalize", capitalize());
+        add("Length", length());
+    }
 
-	private static void add(String name, Formatter formatter) {
+    private static void add(String name, Formatter formatter) {
         map.put(name.toLowerCase(), formatter);
     }
 
     private static Formatter upperCase() {
-		return value -> value.toString().toUpperCase();
-	}
+        return value -> value.toString().toUpperCase();
+    }
 
-	private static Formatter lowerCase() {
-		return value -> value.toString().toLowerCase();
-	}
+    private static Formatter lowerCase() {
+        return value -> value.toString().toLowerCase();
+    }
 
-	private static Formatter camelCase() {
-		return value -> {
+    private static Formatter camelCase() {
+        return value -> {
             String[] parts = value.toString().split(" ");
             String caseString = "";
             for (String part : parts) caseString = caseString + capitalize().format(part);
             return caseString;
         };
-	}
+    }
 
-	private static Formatter lowerCamelCase() {
-		return value -> {
+    private static Formatter lowerCamelCase() {
+        return value -> {
             String[] parts = value.toString().split(" ");
             String caseString = "";
             for (String part : parts)
                 caseString = caseString + capitalize().format(part);
             return caseString.substring(0, 1).toLowerCase() + caseString.substring(1);
         };
-	}
+    }
 
-	private static Formatter firstUpperCase() {
-		return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
-	}
+    private static Formatter firstUpperCase() {
+        return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
+    }
 
-	private static Formatter firstLowerCase() {
-		return value -> value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
-	}
+    private static Formatter firstLowerCase() {
+        return value -> value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
+    }
 
-	private static Formatter capitalize() {
-		return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
-	}
+    private static Formatter capitalize() {
+        return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
+    }
 
-	private static Formatter length() {
-		return value -> String.valueOf(value.toString().length());
-	}
+    private static Formatter length() {
+        return value -> String.valueOf(value.toString().length());
+    }
 
 
 }

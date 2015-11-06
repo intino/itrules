@@ -13,29 +13,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ItrulesSyntaxHighlighter extends SyntaxHighlighterBase implements ItrulesTypes {
-	private static final Map<IElementType, TextAttributesKey> KEYS;
-	public static final TextAttributesKey KEYWORD = TextAttributesKey.createTextAttributesKey("Itrules_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
-	public static final TextAttributesKey IDENTIFIER = TextAttributesKey.createTextAttributesKey("Itrules_IDENTIFIER", DefaultLanguageHighlighterColors.STATIC_METHOD);
+    public static final TextAttributesKey KEYWORD = TextAttributesKey.createTextAttributesKey("Itrules_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
+    public static final TextAttributesKey IDENTIFIER = TextAttributesKey.createTextAttributesKey("Itrules_IDENTIFIER", DefaultLanguageHighlighterColors.STATIC_METHOD);
+    private static final Map<IElementType, TextAttributesKey> KEYS;
 
-	static {
-		KEYS = new HashMap<>();
-		KEYS.put(ItrulesTypes.DEFRULE, KEYWORD);
-		KEYS.put(ItrulesTypes.ENDRULE, KEYWORD);
-		KEYS.put(ItrulesTypes.MARK, IDENTIFIER);
-		KEYS.put(ItrulesTypes.SCAPED_CHAR, IDENTIFIER);
-		KEYS.put(ItrulesTypes.LEFT_SQUARE, KEYWORD);
-		KEYS.put(ItrulesTypes.RIGHT_SQUARE, KEYWORD);
-	}
+    static {
+        KEYS = new HashMap<>();
+        KEYS.put(ItrulesTypes.DEFRULE, KEYWORD);
+        KEYS.put(ItrulesTypes.ENDRULE, KEYWORD);
+        KEYS.put(ItrulesTypes.MARK, IDENTIFIER);
+        KEYS.put(ItrulesTypes.SCAPED_CHAR, IDENTIFIER);
+        KEYS.put(ItrulesTypes.LEFT_SQUARE, KEYWORD);
+        KEYS.put(ItrulesTypes.RIGHT_SQUARE, KEYWORD);
+    }
 
-	@NotNull
-	@Override
-	public Lexer getHighlightingLexer() {
-		return new ItrulesLexerAdapter();
-	}
+    @NotNull
+    @Override
+    public Lexer getHighlightingLexer() {
+        return new ItrulesLexerAdapter();
+    }
 
-	@NotNull
-	@Override
-	public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
-		return SyntaxHighlighterBase.pack(KEYS.get(tokenType));
-	}
+    @NotNull
+    @Override
+    public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
+        return SyntaxHighlighterBase.pack(KEYS.get(tokenType));
+    }
 }
