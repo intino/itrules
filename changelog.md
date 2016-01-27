@@ -1,4 +1,10 @@
 ##1.4.3##
+-   Fixed framework support
+-	Improved file creation.
+- 	Updated highlight accord to default schema.
+-	Added plugin run configuration.
+
+##1.4.3##
 -   Fixed recursive templates.
 
 ##1.4.2##
