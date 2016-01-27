@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ItrulesSyntaxHighlighter extends SyntaxHighlighterBase implements ItrulesTypes {
     public static final TextAttributesKey KEYWORD = TextAttributesKey.createTextAttributesKey("Itrules_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
-    public static final TextAttributesKey IDENTIFIER = TextAttributesKey.createTextAttributesKey("Itrules_IDENTIFIER", DefaultLanguageHighlighterColors.STATIC_METHOD);
+    public static final TextAttributesKey IDENTIFIER = TextAttributesKey.createTextAttributesKey("Itrules_IDENTIFIER", DefaultLanguageHighlighterColors.STRING);
     private static final Map<IElementType, TextAttributesKey> KEYS;
 
     static {
