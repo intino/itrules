@@ -30,8 +30,8 @@ public class ProjectPomTemplate extends Template {
                         "  <name>")).add(mark("project")).add(literal(" Project</name>\n" +
                         "\n" +
                         "  <properties>\n" +
-                        "    <maven.compiler.source>1.7</maven.compiler.source>\n" +
-                        "    <maven.compiler.target>1.7</maven.compiler.target>\n" +
+                        "    <maven.compiler.source>1.8</maven.compiler.source>\n" +
+                        "    <maven.compiler.target>1.8</maven.compiler.target>\n" +
                         "  </properties>\n" +
                         "\n" +
                         "</project>"))

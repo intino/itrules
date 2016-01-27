@@ -50,243 +50,249 @@ import static java.io.File.separator;
 
 public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
-    private static final String POM_XML = "pom.xml";
+	private static final String POM_XML = "pom.xml";
 
-    @NotNull
-    @Override
-    public FrameworkTypeEx getFrameworkType() {
-        return ItrulesFrameworkType.getFrameworkType();
-    }
+	@NotNull
+	@Override
+	public FrameworkTypeEx getFrameworkType() {
+		return ItrulesFrameworkType.getFrameworkType();
+	}
 
-    @Override
-    public boolean isEnabledForModuleType(@NotNull ModuleType moduleType) {
-        return moduleType instanceof JavaModuleType;
-    }
+	@Override
+	public boolean isEnabledForModuleType(@NotNull ModuleType moduleType) {
+		return moduleType instanceof JavaModuleType;
+	}
 
-    @Override
-    public boolean isSupportAlreadyAdded(@NotNull Module module, @NotNull FacetsProvider facetsProvider) {
-        return !facetsProvider.getFacetsByType(module, ItrulesFacet.ID).isEmpty();
-    }
+	@Override
+	public boolean isSupportAlreadyAdded(@NotNull Module module, @NotNull FacetsProvider facetsProvider) {
+		return !facetsProvider.getFacetsByType(module, ItrulesFacet.ID).isEmpty();
+	}
 
-    private void addSupport(final Module module,
-                            final ModifiableRootModel rootModel,
-                            Locale locale, String separator) {
-        createTemplateDirectory(rootModel.getContentEntries()[0]);
-        if (rootModel.getProject().isInitialized()) addMavenToProject(module);
-        else startWithMaven(module);
-        FacetType<ItrulesFacet, ItrulesFacetConfiguration> facetType = ItrulesFacet.getFacetType();
-        ItrulesFacet itrulesFacet = FacetManager.getInstance(module).addFacet(facetType, facetType.getDefaultFacetName(), null);
-        final ItrulesFacetConfiguration facetConfiguration = itrulesFacet.getConfiguration();
-        facetConfiguration.setLocale(locale);
-        facetConfiguration.setLineSeparator(separator);
-    }
+	private void addSupport(final Module module,
+	                        final ModifiableRootModel rootModel,
+	                        Locale locale, String separator) {
+		createTemplateDirectory(rootModel.getContentEntries(), rootModel.getSourceRoots()[0].getParent());
+		if (rootModel.getProject().isInitialized()) addMavenToProject(module);
+		else startWithMaven(module);
+		FacetType<ItrulesFacet, ItrulesFacetConfiguration> facetType = ItrulesFacet.getFacetType();
+		ItrulesFacet itrulesFacet = FacetManager.getInstance(module).addFacet(facetType, facetType.getDefaultFacetName(), null);
+		final ItrulesFacetConfiguration facetConfiguration = itrulesFacet.getConfiguration();
+		facetConfiguration.setLocale(locale);
+		facetConfiguration.setLineSeparator(separator);
+	}
 
-    private void startWithMaven(final Module module) {
-        StartupManager.getInstance(module.getProject()).registerPostStartupActivity(() -> addMavenToProject(module));
-    }
+	private void startWithMaven(final Module module) {
+		StartupManager.getInstance(module.getProject()).registerPostStartupActivity(() -> addMavenToProject(module));
+	}
 
-    private void addMavenToProject(final Module module) {
-        List<VirtualFile> pomFiles = createPoms(module);
-        MavenProjectsManager manager = MavenProjectsManager.getInstance(module.getProject());
-        manager.addManagedFilesOrUnignore(pomFiles);
-        manager.importProjects();
-        manager.forceUpdateAllProjectsOrFindAllAvailablePomFiles();
-    }
+	private void addMavenToProject(final Module module) {
+		List<VirtualFile> pomFiles = createPoms(module);
+		MavenProjectsManager manager = MavenProjectsManager.getInstance(module.getProject());
+		manager.addManagedFilesOrUnignore(pomFiles);
+		manager.importProjects();
+		manager.forceUpdateAllProjectsOrFindAllAvailablePomFiles();
+	}
 
-    private List<VirtualFile> createPoms(Module module) {
-        List<VirtualFile> files = new ArrayList<>();
-        files.addAll(isProjectModule(module) ? projectModulePom(module) : modulePom(module));
-        return files;
-    }
+	private List<VirtualFile> createPoms(Module module) {
+		List<VirtualFile> files = new ArrayList<>();
+		files.addAll(isProjectModule(module) ? projectModulePom(module) : modulePom(module));
+		return files;
+	}
 
-    private Collection<VirtualFile> modulePom(final Module module) {
-        final PsiFile[] files = new PsiFile[2];
-        ApplicationManager.getApplication().runWriteAction(new Runnable() {
-            @Override
-            public void run() {
-                PsiDirectory root = getModuleRoot(module);
-                files[0] = findPom(root);
-                if (files[0] == null) createPoms(root);
-                else updateModulePom(files[0]);
-            }
+	private Collection<VirtualFile> modulePom(final Module module) {
+		final PsiFile[] files = new PsiFile[2];
+		ApplicationManager.getApplication().runWriteAction(new Runnable() {
+			@Override
+			public void run() {
+				PsiDirectory root = getModuleRoot(module);
+				files[0] = findPom(root);
+				if (files[0] == null) createPoms(root);
+				else updateModulePom(files[0]);
+			}
 
-            private void createPoms(PsiDirectory root) {
-                files[0] = root.createFile("pom.xml");
-                createPom(files[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
-                if (!getProjectPom(module).exists())
-                    files[1] = createProjectPom(module);
-            }
-        });
-        return toVirtual(files);
-    }
+			private void createPoms(PsiDirectory root) {
+				files[0] = root.createFile("pom.xml");
+				createPom(files[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
+				if (!getProjectPom(module).exists())
+					files[1] = createProjectPom(module);
+			}
+		});
+		return toVirtual(files);
+	}
 
-    private Collection<VirtualFile> toVirtual(PsiFile[] files) {
-        List<VirtualFile> vFiles = new ArrayList<>();
-        for (PsiFile file : files)
-            if (file != null) vFiles.add(file.getVirtualFile());
-        return vFiles;
-    }
+	private Collection<VirtualFile> toVirtual(PsiFile[] files) {
+		List<VirtualFile> vFiles = new ArrayList<>();
+		for (PsiFile file : files)
+			if (file != null) vFiles.add(file.getVirtualFile());
+		return vFiles;
+	}
 
-    private PsiFile createProjectPom(Module module) {
-        VirtualFile pom = projectPom(module);
-        return PsiManager.getInstance(module.getProject()).findFile(pom);
-    }
+	private PsiFile createProjectPom(Module module) {
+		VirtualFile pom = projectPom(module);
+		return PsiManager.getInstance(module.getProject()).findFile(pom);
+	}
 
-    @NotNull
-    private File getProjectPom(Module module) {
-        return new File(module.getProject().getBaseDir().getPath() + separator + POM_XML);
-    }
+	@NotNull
+	private File getProjectPom(Module module) {
+		return new File(module.getProject().getBaseDir().getPath() + separator + POM_XML);
+	}
 
-    private Collection<VirtualFile> projectModulePom(final Module module) {
-        final PsiFile[] file = new PsiFile[1];
-        ApplicationManager.getApplication().runWriteAction(() -> {
-            PsiDirectory root = getModuleRoot(module);
-            file[0] = findPom(root);
-            if (file[0] == null) {
-                file[0] = root.createFile("pom.xml");
-                createPom(file[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
-            } else updateModulePom(file[0]);
-        });
-        return new ArrayList<VirtualFile>() {{
-            add(file[0].getVirtualFile());
-        }};
-    }
-
-
-    private void updateModulePom(PsiFile psiFile) {
-        PomHelper helper = new PomHelper(psiFile.getVirtualFile().getPath());
-        if (!helper.hasItrulesDependency()) helper.addItrulesDependency();
-    }
-
-    private boolean isProjectModule(Module module) {
-        return module.getProject().getBaseDir().getPath().equals(new File(module.getModuleFilePath()).getParent());
-    }
-
-    private PsiDirectory getModuleRoot(Module module) {
-        VirtualFile moduleFile = module.getModuleFile();
-        if (moduleFile != null)
-            return PsiManager.getInstance(module.getProject()).findDirectory(moduleFile.getParent());
-        else {
-            VirtualFile baseDir = module.getProject().getBaseDir();
-            return PsiManager.getInstance(module.getProject()).findDirectory(baseDir).findSubdirectory(module.getName());
-        }
-    }
-
-    private PsiFile findPom(PsiDirectory root) {
-        if (root == null) return null;
-        for (PsiElement element : root.getChildren())
-            if (element instanceof PsiFile && "pom.xml".equals(((PsiFile) element).getVirtualFile().getName()))
-                return (PsiFile) element;
-        return null;
-    }
-
-    private File createPom(String path, String text) {
-        try {
-            File file = new File(path);
-            FileWriter writer = new FileWriter(file);
-            writer.write(text);
-            writer.close();
-            return file;
-        } catch (IOException ignored) {
-        }
-        return null;
-    }
-
-    private VirtualFile projectPom(final Module module) {
-        final PsiFile[] file = new PsiFile[1];
-        ApplicationManager.getApplication().runWriteAction(() -> {
-            File pomFile = getProjectPom(module);
-            VirtualFile directory = VcsUtil.getVcsRootFor(module.getProject(), VcsUtil.getFilePath(pomFile));
-            PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
-            file[0] = findPom(root);
-            if (file[0] == null) file[0] = root.createFile("pom.xml");
-            createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module)));
-        });
-        return file[0].getVirtualFile();
-    }
+	private Collection<VirtualFile> projectModulePom(final Module module) {
+		final PsiFile[] file = new PsiFile[1];
+		ApplicationManager.getApplication().runWriteAction(() -> {
+			PsiDirectory root = getModuleRoot(module);
+			file[0] = findPom(root);
+			if (file[0] == null) {
+				file[0] = root.createFile("pom.xml");
+				createPom(file[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
+			} else updateModulePom(file[0]);
+		});
+		return new ArrayList<VirtualFile>() {{
+			add(file[0].getVirtualFile());
+		}};
+	}
 
 
-    private Frame createModuleFrame(Module module) {
-        Frame frame = new Frame().addTypes("pom");
-        frame.addFrame("project", module.getProject().getName());
-        frame.addFrame("module", module.getName());
-        return frame;
-    }
+	private void updateModulePom(PsiFile psiFile) {
+		PomHelper helper = new PomHelper(psiFile.getVirtualFile().getPath());
+		if (!helper.hasItrulesDependency()) helper.addItrulesDependency();
+	}
 
-    private Frame createProjectFrame(Module module) {
-        Project project = module.getProject();
-        Frame frame = new Frame().addTypes("pom");
-        frame.addFrame("project", project.getName());
-        return frame;
-    }
+	private boolean isProjectModule(Module module) {
+		return module.getProject().getBaseDir().getPath().equals(new File(module.getModuleFilePath()).getParent());
+	}
 
-    private void createTemplateDirectory(ContentEntry contentEntry) {
-        try {
-            if (contentEntry.getFile() == null) return;
-            String modulePath = contentEntry.getFile().getPath();
-            VirtualFile templates = VfsUtil.createDirectories(modulePath + separator + "templates");
-            if (templates != null) {
-                JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", false);
-                contentEntry.addSourceFolder(templates, JavaSourceRootType.SOURCE, properties);
-            }
-        } catch (IOException ignored) {
-        }
-    }
+	private PsiDirectory getModuleRoot(Module module) {
+		VirtualFile moduleFile = module.getModuleFile();
+		if (moduleFile != null)
+			return PsiManager.getInstance(module.getProject()).findDirectory(moduleFile.getParent());
+		else {
+			VirtualFile baseDir = module.getProject().getBaseDir();
+			return PsiManager.getInstance(module.getProject()).findDirectory(baseDir).findSubdirectory(module.getName());
+		}
+	}
 
-    @NotNull
-    @Override
-    public FrameworkSupportInModuleConfigurable createConfigurable(@NotNull FrameworkSupportModel model) {
-        return new ItrulesSupportConfigurable(model);
-    }
+	private PsiFile findPom(PsiDirectory root) {
+		if (root == null) return null;
+		for (PsiElement element : root.getChildren())
+			if (element instanceof PsiFile && "pom.xml".equals(((PsiFile) element).getVirtualFile().getName()))
+				return (PsiFile) element;
+		return null;
+	}
 
-    private class ItrulesSupportConfigurable extends FrameworkSupportInModuleConfigurable implements FrameworkSupportModelListener {
-        private JPanel myMainPanel;
-        private JComboBox<String> localeComboBox;
-        private JComboBox<String> lineSeparatorBox;
+	private File createPom(String path, String text) {
+		try {
+			File file = new File(path);
+			FileWriter writer = new FileWriter(file);
+			writer.write(text);
+			writer.close();
+			return file;
+		} catch (IOException ignored) {
+		}
+		return null;
+	}
 
-        private ItrulesSupportConfigurable(FrameworkSupportModel model) {
-            model.addFrameworkListener(this);
-            localeComboBox.addItem("English");
-            localeComboBox.addItem("Español");
-            localeComboBox.setEnabled(false);
-            lineSeparatorBox.setEnabled(false);
-            lineSeparatorBox.addItem("LF - Unix and OS X (\\n)");
-            lineSeparatorBox.addItem("CRLF - Windows (\\r\\n)");
-        }
+	private VirtualFile projectPom(final Module module) {
+		final PsiFile[] file = new PsiFile[1];
+		ApplicationManager.getApplication().runWriteAction(() -> {
+			File pomFile = getProjectPom(module);
+			VirtualFile directory = VcsUtil.getVcsRootFor(module.getProject(), VcsUtil.getFilePath(pomFile));
+			PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
+			file[0] = findPom(root);
+			if (file[0] == null) file[0] = root.createFile("pom.xml");
+			createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module)));
+		});
+		return file[0].getVirtualFile();
+	}
 
 
-        @Override
-        public void frameworkSelected(@NotNull FrameworkSupportProvider frameworkSupportProvider) {
-            localeComboBox.setEnabled(true);
-            lineSeparatorBox.setEnabled(true);
-        }
+	private Frame createModuleFrame(Module module) {
+		Frame frame = new Frame().addTypes("pom");
+		frame.addFrame("project", module.getProject().getName());
+		frame.addFrame("module", module.getName());
+		return frame;
+	}
 
-        @Override
-        public void frameworkUnselected(@NotNull FrameworkSupportProvider frameworkSupportProvider) {
-            localeComboBox.setEnabled(false);
-            lineSeparatorBox.setEnabled(false);
-        }
+	private Frame createProjectFrame(Module module) {
+		Project project = module.getProject();
+		Frame frame = new Frame().addTypes("pom");
+		frame.addFrame("project", project.getName());
+		return frame;
+	}
 
-        @Override
-        public void wizardStepUpdated() {
-        }
+	private void createTemplateDirectory(ContentEntry[] contentEntries, VirtualFile parent) {
+		try {
+			if (parent == null) return;
+			VirtualFile templates = VfsUtil.createDirectoryIfMissing(parent, "templates");
+			if (templates != null) {
+				JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", false);
+				correspondingEntry(contentEntries, parent).addSourceFolder(templates, JavaSourceRootType.SOURCE, properties);
+			}
+		} catch (IOException ignored) {
+		}
+	}
 
-        @Override
-        public void addSupport(@NotNull Module module,
-                               @NotNull ModifiableRootModel rootModel,
-                               @NotNull ModifiableModelsProvider modifiableModelsProvider) {
-            ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES"), getLineSeparator());
-        }
+	private ContentEntry correspondingEntry(ContentEntry[] contentEntries, VirtualFile parent) {
+		for (ContentEntry contentEntry : contentEntries)
+			if (parent.equals(contentEntry.getFile()))
+				return contentEntry;
+		return contentEntries[0];
+	}
 
-        private String getLineSeparator() {
-            String separator = (String) lineSeparatorBox.getSelectedItem();
-            return separator.substring(0, separator.indexOf(" ")).trim();
-        }
+	@NotNull
+	@Override
+	public FrameworkSupportInModuleConfigurable createConfigurable(@NotNull FrameworkSupportModel model) {
+		return new ItrulesSupportConfigurable(model);
+	}
 
-        @Nullable
-        @Override
-        public JComponent createComponent() {
-            return myMainPanel;
-        }
-    }
+	private class ItrulesSupportConfigurable extends FrameworkSupportInModuleConfigurable implements FrameworkSupportModelListener {
+		private JPanel myMainPanel;
+		private JComboBox<String> localeComboBox;
+		private JComboBox<String> lineSeparatorBox;
+
+		private ItrulesSupportConfigurable(FrameworkSupportModel model) {
+			model.addFrameworkListener(this);
+			localeComboBox.addItem("English");
+			localeComboBox.addItem("Español");
+			localeComboBox.setEnabled(false);
+			lineSeparatorBox.setEnabled(false);
+			lineSeparatorBox.addItem("LF - Unix and OS X (\\n)");
+			lineSeparatorBox.addItem("CRLF - Windows (\\r\\n)");
+		}
+
+
+		@Override
+		public void frameworkSelected(@NotNull FrameworkSupportProvider frameworkSupportProvider) {
+			localeComboBox.setEnabled(true);
+			lineSeparatorBox.setEnabled(true);
+		}
+
+		@Override
+		public void frameworkUnselected(@NotNull FrameworkSupportProvider frameworkSupportProvider) {
+			localeComboBox.setEnabled(false);
+			lineSeparatorBox.setEnabled(false);
+		}
+
+		@Override
+		public void wizardStepUpdated() {
+		}
+
+		@Override
+		public void addSupport(@NotNull Module module,
+		                       @NotNull ModifiableRootModel rootModel,
+		                       @NotNull ModifiableModelsProvider modifiableModelsProvider) {
+			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES"), getLineSeparator());
+		}
+
+		private String getLineSeparator() {
+			String separator = (String) lineSeparatorBox.getSelectedItem();
+			return separator.substring(0, separator.indexOf(" ")).trim();
+		}
+
+		@Nullable
+		@Override
+		public JComponent createComponent() {
+			return myMainPanel;
+		}
+	}
 }
