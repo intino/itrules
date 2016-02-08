@@ -20,7 +20,7 @@ public class ItrulesFacet extends Facet<ItrulesFacetConfiguration> {
     }
 
     @Nullable
-    public static ItrulesFacet getItrulesFacetByModule(@Nullable Module module) {
+    public static ItrulesFacet of(@Nullable Module module) {
         if (module == null) return null;
         return FacetManager.getInstance(module).getFacetByType(ID);
     }

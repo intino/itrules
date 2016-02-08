@@ -35,7 +35,7 @@ public final class ActionUtils {
         if (e.getProject() == null) disable(e);
         else {
             Module module = ProjectRootManager.getInstance(e.getProject()).getFileIndex().getModuleForFile(file);
-            if (ItrulesFacet.getItrulesFacetByModule(module) == null) disable(e);
+            if (ItrulesFacet.of(module) == null) disable(e);
             else enable(e);
         }
     }
