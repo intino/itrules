@@ -1,3 +1,6 @@
+##1.5.0##
+-	Multiple template generation support.   
+
 ##1.4.5##
 -   Fixed framework support
 -	Improved file creation.
