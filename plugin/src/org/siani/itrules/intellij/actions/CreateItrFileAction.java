@@ -67,7 +67,8 @@ public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<Itrul
 	}
 
 	private VirtualFile getVirtualFile(PsiElement element) {
-		return element instanceof PsiDirectory ? ((PsiDirectory) element).getVirtualFile() : ((PsiFile) element).getVirtualFile();
+		if (element instanceof PsiDirectory) return ((PsiDirectory) element).getVirtualFile();
+		else return element instanceof PsiFile ? ((PsiFile) element).getVirtualFile() : null;
 	}
 
 	private VirtualFile getTemplatesSourceRoot(Module module) {
