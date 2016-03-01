@@ -1,6 +1,8 @@
-##1.4.3##
+##1.4.5##
 -   Fixed framework support
 -	Improved file creation.
+
+##1.4.4##
 - 	Updated highlight accord to default schema.
 -	Added plugin run configuration.
 

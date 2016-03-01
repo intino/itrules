@@ -147,9 +147,8 @@ public class TemplateEngine {
     private String clean(String line) {
         return
                 line.equals("EOF") ? "" :
-                        line.trim().isEmpty() ? "\n" :
-                                line.endsWith(CutLine) ? process(trim(line, CutLine)) :
-                                        line + "\n";
+						line.endsWith(CutLine) ? process(trim(line, CutLine)) :
+								line + "\n";
     }
 
     private String trim(String line, String cutLine) {
