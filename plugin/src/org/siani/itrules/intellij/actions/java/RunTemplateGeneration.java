@@ -79,7 +79,7 @@ public class RunTemplateGeneration extends Task.Modal {
     }
 
     private String locale() {
-        ItrulesFacet facet = ItrulesFacet.getItrulesFacetByModule(module);
+        ItrulesFacet facet = ItrulesFacet.of(module);
         if (facet != null) {
             Locale locale = facet.getConfiguration().getLocale();
             if (locale.equals(Locale.ENGLISH)) return "Locale.ENGLISH";
@@ -89,7 +89,7 @@ public class RunTemplateGeneration extends Task.Modal {
     }
 
     private String lineSeparator() {
-        ItrulesFacet facet = ItrulesFacet.getItrulesFacetByModule(module);
+        ItrulesFacet facet = ItrulesFacet.of(module);
         if (facet != null) return facet.getConfiguration().getLineSeparator();
         return "";
     }

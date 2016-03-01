@@ -49,13 +49,13 @@ public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<Itrul
 	@Override
 	protected boolean isAvailable(DataContext dataContext) {
 		PsiElement data = CommonDataKeys.PSI_ELEMENT.getData(dataContext);
-		if (data == null) return false;
+		if (data == null || !(data instanceof PsiFile || data instanceof PsiDirectory)) return false;
 		Module module = ModuleUtil.findModuleForPsiElement(data);
-		return super.isAvailable(dataContext) && ItrulesFacet.getItrulesFacetByModule(module) != null && isInModelDirectory(data, module);
+		return super.isAvailable(dataContext) && ItrulesFacet.of(module) != null && isInTemplatesDirectory(data, module);
 	}
 
-	private boolean isInModelDirectory(PsiElement dir, Module module) {
-		return isIn(getModelSourceRoot(module), dir);
+	private boolean isInTemplatesDirectory(PsiElement dir, Module module) {
+		return isIn(getTemplatesSourceRoot(module), dir);
 	}
 
 	private boolean isIn(VirtualFile modelSourceRoot, PsiElement dir) {
@@ -67,10 +67,11 @@ public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<Itrul
 	}
 
 	private VirtualFile getVirtualFile(PsiElement element) {
-		return element instanceof PsiDirectory ? ((PsiDirectory) element).getVirtualFile() : ((PsiFile) element).getVirtualFile();
+		if (element instanceof PsiDirectory) return ((PsiDirectory) element).getVirtualFile();
+		else return element instanceof PsiFile ? ((PsiFile) element).getVirtualFile() : null;
 	}
 
-	private VirtualFile getModelSourceRoot(Module module) {
+	private VirtualFile getTemplatesSourceRoot(Module module) {
 		for (VirtualFile mySourceRootType : ModuleRootManager.getInstance(module).getSourceRoots())
 			if (mySourceRootType.getName().equals("templates")) return mySourceRootType;
 		return null;
