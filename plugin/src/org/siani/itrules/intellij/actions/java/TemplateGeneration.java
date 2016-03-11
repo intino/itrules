@@ -39,6 +39,7 @@ public class TemplateGeneration extends GenerationAction {
 		List<VirtualFile> rulesFiles = getVirtualFile(e);
 		if (rulesFiles.isEmpty()) return;
 		for (VirtualFile rulesFile : rulesFiles) {
+			if (checkDocument(project, rulesFile)) return;
 			RunTemplateGeneration javaGeneration;
 			File destiny;
 			try {
