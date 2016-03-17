@@ -24,6 +24,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="engine" />
+        <module name="plugin" />
         <module name="reader-itr" />
         <module name="reader-json" />
       </profile>
@@ -31,6 +32,7 @@
     <bytecodeTargetLevel>
       <module name="engine" target="1.8" />
       <module name="itrules" target="1.8" />
+      <module name="plugin" target="1.8" />
       <module name="reader-itr" target="1.8" />
       <module name="reader-json" target="1.8" />
     </bytecodeTargetLevel>

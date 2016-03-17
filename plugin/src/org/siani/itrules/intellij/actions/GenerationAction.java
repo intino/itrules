@@ -51,13 +51,13 @@ public abstract class GenerationAction extends AnAction implements DumbAware {
 	}
 
 	protected boolean checkDocument(Project project, VirtualFile rulesFile) {
-		PsiDocumentManager psiMgr = PsiDocumentManager.getInstance(project);
-		FileDocumentManager docMgr = FileDocumentManager.getInstance();
-		Document doc = docMgr.getDocument(rulesFile);
+		PsiDocumentManager documentManager = PsiDocumentManager.getInstance(project);
+		FileDocumentManager fileDocManager = FileDocumentManager.getInstance();
+		Document doc = fileDocManager.getDocument(rulesFile);
 		if (doc == null) return true;
-		if ((!psiMgr.isCommitted(doc)) || (docMgr.isDocumentUnsaved(doc))) {
-			psiMgr.commitDocument(doc);
-			docMgr.saveDocument(doc);
+		if ((!documentManager.isCommitted(doc)) || (fileDocManager.isDocumentUnsaved(doc))) {
+			documentManager.commitDocument(doc);
+			fileDocManager.saveDocument(doc);
 		}
 		return false;
 	}
