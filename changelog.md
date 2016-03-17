@@ -1,5 +1,7 @@
-##1.5.0##
+##1.6.0##
 -	Multiple template generation support.   
+-	Fixed creation file errors.
+-	Save file before generate templates.
 
 ##1.4.5##
 -   Fixed framework support
