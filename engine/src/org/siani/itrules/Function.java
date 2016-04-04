@@ -26,6 +26,6 @@ import org.siani.itrules.engine.Trigger;
 
 public interface Function {
 
-    public boolean match(Trigger trigger, String parameter);
+    boolean match(Trigger trigger, String parameter);
 
 }

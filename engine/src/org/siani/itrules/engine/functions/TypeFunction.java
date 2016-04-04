@@ -30,7 +30,7 @@ public final class TypeFunction implements Function {
 
     @Override
     public boolean match(Trigger trigger, String parameter) {
-        String[] types = parameter.replaceAll(" ", "").split("\\||&");
+        String[] types = parameter.replaceAll("\\s| ", "").split("\\||&");
         return (parameter.contains("|")) ? matchAny(trigger.frame(), types) : matchAll(trigger.frame(), types);
     }
 
