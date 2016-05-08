@@ -129,7 +129,7 @@ public class TemplateEngine {
     }
 
     private Rule defaultRule() {
-        return new Rule().add(new Condition("Slot", "value")).add(new Mark("value"));
+        return new Rule().add(new Condition("Primitive", "")).add(new Mark("value"));
     }
 
     private String render(AbstractFrame frame) {

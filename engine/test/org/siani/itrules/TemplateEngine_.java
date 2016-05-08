@@ -348,19 +348,19 @@ public class TemplateEngine_ {
 
 	private Rule valueRule() {
 		return new Rule().
-			add(condition("slot", "name=Pau Gasol")).
+			add(condition("slot", "Pau Gasol")).
 			add(literal("*"), mark("value"), literal("*"));
 	}
 
 	private Rule sexRule() {
 		return new Rule().
-			add(condition("type", "Sex"), condition("value", "Male")).
+			add(condition("type", "Sex"), condition("slot", "Male")).
 			add(literal("a man"));
 	}
 
 	private Rule negatedConditionRule() {
 		return new Rule().
-			add(not(condition("value", "Pau Gasol"))).
+			add(not(condition("slot", "Pau Gasol"))).
 			add(literal("-"));
 	}
 

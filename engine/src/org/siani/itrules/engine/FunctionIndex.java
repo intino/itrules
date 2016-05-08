@@ -39,7 +39,9 @@ public final class FunctionIndex {
         add("Type", new TypeFunction());
         add("Trigger", new TriggerFunction());
         add("Slot", new SlotFunction());
+        add("Primitive", primitiveFunction());
     }
+
 
     public Function get(Condition condition) {
         return exists(condition.name()) ? createFunction(condition) : unknownFunction(condition);
@@ -60,6 +62,10 @@ public final class FunctionIndex {
 
     private Function unknownFunction(final Condition condition) {
         throw new RuntimeException("Function " + condition.name() + " doesn't exists");
+    }
+
+    private Function primitiveFunction() {
+        return (trigger, parameter) -> trigger.frame().isPrimitive();
     }
 
     public void add(String name, Function function) {

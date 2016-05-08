@@ -2,7 +2,7 @@ package org.siani.itrules;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.siani.itrules.engine.FunctionStore;
+import org.siani.itrules.engine.FunctionIndex;
 import org.siani.itrules.engine.Trigger;
 import org.siani.itrules.engine.functions.TypeFunction;
 import org.siani.itrules.model.Condition;
@@ -34,7 +34,7 @@ public class TypeFunction_ {
 
 	@Test
 	public void should_be_used_as_condition() throws Exception {
-		FunctionStore functionStore = new FunctionStore();
+		FunctionIndex functionStore = new FunctionIndex();
 		Condition condition1 = new Condition.Negated(new Condition("type", "A | S | T"));
 		Condition condition2 = new Condition.Negated(new Condition("type", "R"));
 		Condition condition3 = new Condition.Negated(new Condition("type", "A | S | T | R"));
@@ -48,7 +48,7 @@ public class TypeFunction_ {
 
 	@Test
 	public void should_be_used_with_template() {
-		FunctionStore functionStore = new FunctionStore();
+		FunctionIndex functionStore = new FunctionIndex();
 		TestTemplate testTemplate = (TestTemplate) new TestTemplate(Locale.ENGLISH, LF).create();
 		final Condition condition1 = testTemplate.rules()[0].conditions().iterator().next();
 		Assert.assertThat("Matching any type does not exist", functionStore.get(condition1).match(trigger(), condition1.parameter()), is(false));

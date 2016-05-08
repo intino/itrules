@@ -37,19 +37,29 @@ public final class SlotFunction implements Function {
     }
 
     private boolean matchSlot(Trigger trigger, String condition) {
-        return condition.contains(":") ?  match(trigger.frame(), condition.split(":")) : hasSlot(trigger.frame(), condition);
+        return matchSlot(trigger.frame(), condition);
     }
 
-    private boolean match(AbstractFrame frame, String[] condition) {
+    private boolean matchSlot(AbstractFrame frame, String condition) {
+        return
+                condition.contains(":") ?  matchSlot(frame, condition.split(":")) :
+                frame.isPrimitive() ? hasValue(frame,condition) : hasSlot(frame, condition);
+    }
+
+    private boolean matchSlot(AbstractFrame frame, String[] condition) {
         return hasSlotValue(frame, condition[0], condition[1]);
     }
 
     private boolean hasSlot(AbstractFrame frame, String slot) {
-        return frame.isPrimitive() ? slot.equalsIgnoreCase("value") : frame.frames(slot).hasNext();
+        return frame.frames(slot).hasNext();
+    }
+
+    private boolean hasValue(AbstractFrame frame, String value) {
+        return value.contains(frame.value().toString().replaceAll("\\s",""));
     }
 
     private boolean hasSlotValue(AbstractFrame frame, String slot, String value) {
-        return frame.isPrimitive() ? value.equalsIgnoreCase(frame.value().toString()) : checkAny(frame.frames(slot),value);
+        return checkAny(frame.frames(slot),value);
     }
 
     private boolean checkAny(Iterator<AbstractFrame> frames, String value) {
