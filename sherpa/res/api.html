@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Weather Documentation</title>
+    <link href='https://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <style>
+        html, body { height: 100%; padding: 0; margin: 0; border: 0; font-family: "Varela", sans-serif; }
+        div.header { padding: 20px; background-color: #1f293a; color: #25C151; font-size: 34px; }
+        div.header span { color: white;  }
+        table  { border-spacing: 0; width:90%;}
+        table tr { padding: 0; margin: 0;}
+        table td { padding: 0; margin: 0;}
+        a { text-decoration: none; color: #268e42; }
+
+        .documentation {  display: -webkit-flex;  display: flex;  width:100%;  padding:0;  height: 100%; }
+        .documentation .menu { height: 100%; background-color: #eaefef; margin: 0; padding: 10px; width: 300px; flex: 0 0; -webkit-flex: 0 0 auto; }
+        .documentation .menu h1 { margin: 0 0 20px; padding: 0 0 0 10px; font-size:20px; font-weight:bold; }
+        .documentation .menu ul { list-style-type: none; margin: 0; padding: 0; cursor: default; }
+        .documentation .menu ul li { padding: 4px 16px; cursor: pointer; }
+        .documentation .menu ul li.selected { background-color: #7f8da3; color: #fff; }
+        .documentation .container { height: 100%; margin: 0; padding: 20px; background-color: #f7f7f7; flex: 1 1; -webkit-flex: 1 1 auto;  }
+        .documentation .container .item { display: none; }
+        .documentation .container .item h1 { margin: 0 0 20px; font-size:34px; font-weight:bold; }
+
+        table.index { background-color: #e7e7e7; width:100%; font-family: sans-serif; }
+        table.index td { padding: 5px; }
+        table.index tr.header td { background-color: silver; font-weight:bold; font-size:16px; }
+        table.index td.s50 { width: 50px; }
+        table.index td.s200 { width: 200px; }
+
+
+        .code {width:100%; background-color: black; color: white; }
+        pre { width:100%; padding:10px; font-size: 14px; }
+        pre table td.line { width: 30px; border-right: 1px solid gray; padding-right: 5px; text-align: right;  }
+    </style>
+</head>
+<body>
+    <div class="header">Amidas <span>for developers</span></div>
+    <div class="documentation">
+        <div class="menu">
+            <h1>REST API Documentation</h1>
+            <div>
+                <ul>
+                    <li class="selected">General Information</li>
+                    <li>Teams</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div id="general-information" class="item">
+                <h1>General Information</h1>
+                <p>This document describes the Amidas Platform REST APIs, which allows users to access this platform programmatically.</p>
+                <p>The API accepts JSON content as input. The output is always in JSON (or empty, in the case of DELETE requests).</p>
+                <p>Check out the sections below for general information about all of APIs. To get right to it and dig into specific API, use the navigation on the left side of this site.</p>
+                <h2>Authentication</h2>
+                <p>This API supports token authentication. Only an account administrator can access or generate API key tokens.</p>
+                <p>Here's a sample curl request that is authenticated using the API key token.</p>
+                <div class="code"><pre><code id="authentication"></code></pre></div>
+
+
+            </div>
+            <div id="teams" class="item">
+                <h1>Teams</h1>
+                <p>This API lets you access and manipulate teams</p>
+                <table class="index">
+                    <tr class="header"><td class="s50">Method</td><td class="s200">Resource</td><td>Description</td></tr>
+                    <tr><td>GET</td><td>teams</td><td><a href="get-teams">List existing teams</a></td></tr>
+                    <tr><td>POST</td><td>teams</td><td><a href="post-teams">Create a new team</a></td></tr>
+                    <tr><td>GET</td><td>teams/:id</td><td><a href="get-team">Show detailed information about a team</a></td></tr>
+                    <tr><td>PUT</td><td>teams/:id</td><td><a href="put-team">Update a team</a></td></tr>
+                    <tr><td>DELETE</td><td>teams/:id</td><td><a href="delete-team">Delete a team</a></td></tr>
+                </table>
+            </div>
+            <div id="get-teams" class="item">
+                <h1>GET teams</h1>
+                <p>List existing teams</p>
+                <h2>Resource URL</h2>
+                <p>GET https://*domain*/api/v1/teams</p>
+                <h2>Parameters</h2>
+                <table class="index">
+                    <tr class="header"><td class="s200">Name</td><td class="s50">Type</td><td class="s50">Required</td><td>Description</td></tr>
+                    <tr><td>lat</td><td>String</td><td>Yes</td><td>Latitude</td></tr>
+                    <tr><td>lat</td><td>String</td><td>Yes</td><td>Longitude</td></tr>
+                </table>
+                <h2>Response</h2>
+                <table class="index">
+                    <tr class="header"><td class="s200">Name</td><td class="s50">Type</td><td>Description</td></tr>
+                    <tr><td>aiq</td><td>String</td><td>Air quality index</td></tr>
+                </table>
+                <h2>Example</h2>
+                <div class="code"><pre><code></code></pre></div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        var codes = {};
+    </script>
+    <script>
+        $("#general-information").show();
+        $(".menu ul > li").css( "border-bottom", "1px dotted gray" ).click(function() {
+            $(".item").hide();
+            var id = "#" + $(this).text().toLowerCase().replace(/ /g,"-");
+            $(id).show();
+            $("ul > li").attr("class","");
+            $(this).attr("class","selected");
+
+        });
+        $("a").css( "border-bottom", "1px dotted gray" ).click(function(event) {
+            event.preventDefault();
+            $(".item").hide();
+            var id = "#" + $(this).attr("href");
+            $(id).show();
+            $("ul > li").attr("class","");
+            $(this).attr("class","selected");
+            return false;
+        });
+
+
+        function formatCode() {
+            return '<table>' + codes.authentication.split('\n').map(function(t, i) {
+                        return '<tr><td class="line">'+(i+1)+'</td><td>'+t+'</td></tr>';
+                    }).join('') +
+                   '</table>'
+        }
+    </script>
+
+</body>
+</html>

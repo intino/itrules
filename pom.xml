@@ -19,6 +19,7 @@
         <module>engine</module>
         <module>reader-itr</module>
         <module>reader-json</module>
+        <module>sherpa</module>
     </modules>
 
     <dependencies>

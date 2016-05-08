@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class LineCleaner {
 
     @Test
-    public void testName() throws Exception {
+    public void test() throws Exception {
         assertThat(cleanEmptyLines("asd"), is("asd"));
         assertThat(cleanEmptyLines("   asd"), is("   asd"));
         assertThat(cleanEmptyLines("   \\\n"), is(""));
@@ -24,6 +24,12 @@ public class LineCleaner {
         assertThat(cleanEmptyLines("asd\n\t  \t    \\\nqwe"), is("asd\nqwe"));
         assertThat(cleanEmptyLines("asd\n\t  \t    \\\n"), is("asd"));
 
+    }
+
+    @Test
+    public void cleanEmptyLines() throws Exception {
+        String expected =  "name = Pau\n" + "    name = Pau";
+        assertEquals(expected, new TemplateEngine(Locale.ENGLISH, LineSeparator.LF).add(createRules()).render(new Person(new Person())));
     }
 
     private String cleanEmptyLines(String text) {
@@ -37,21 +43,13 @@ public class LineCleaner {
         return line.replaceAll("^\\s*\\\\\n", "");
     }
 
-    @Test
-    public void cleanEmptyLines() throws Exception {
-        String expected =
-                "name = Pau\n" +
-                        "    name = Pau";
-        assertEquals(expected, new TemplateEngine(Locale.ENGLISH, LineSeparator.LF).add(createRules()).render(new Person(new Person())));
-    }
-
     private Rule createRules() {
         return new Rule()
                 .add(new Condition("type", "Person"))
                 .add(new Expression().add(new Literal("name = ")).add(new Mark("name")))
-                .add(new Literal("|:\n    "))
+                .add(new Literal("|>\n    "))
                 .add(new Mark("person").multiple("\n"))
-                .add(new Literal("|:"));
+                .add(new Literal("|>"));
     }
 
     class Person {

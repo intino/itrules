@@ -30,37 +30,46 @@ import org.siani.itrules.model.marks.Mark;
 
 import java.util.*;
 
+import static java.util.stream.Collectors.joining;
 import static org.siani.itrules.LineSeparator.CRLF;
 import static org.siani.itrules.LineSeparator.LF;
 
 public class TemplateEngine {
 
-    public static final String CutLine = "|:";
+    public static final String CutLine = "|>";
     private final LineSeparator lineSeparator;
     private final RuleSet ruleSet = new RuleSet();
     private final Stack<Buffer> buffers = new Stack<>();
-    private final FormatterStore formatterStore;
-    private final FunctionStore functionStore;
+    private final FormatterIndex formatterIndex;
+    private final FunctionIndex functionIndex;
     private final FrameBuilder frameBuilder;
 
     public TemplateEngine() {
-        this(Locale.getDefault(), LF);
+        this(Locale.getDefault());
+    }
+
+    public TemplateEngine(Locale locale) {
+        this(locale,LF);
     }
 
     public TemplateEngine(Locale locale, LineSeparator lineSeparator) {
         this.lineSeparator = lineSeparator;
         this.ruleSet.add(defaultRule());
-        this.formatterStore = new FormatterStore(locale);
-        this.functionStore = new FunctionStore();
+        this.formatterIndex = new FormatterIndex(locale);
+        this.functionIndex = new FunctionIndex();
         this.frameBuilder = new FrameBuilder();
     }
 
     private TemplateEngine(TemplateEngine engine) {
         this.lineSeparator = engine.lineSeparator;
         this.ruleSet.add(defaultRule());
-        this.formatterStore = engine.formatterStore;
-        this.functionStore = engine.functionStore;
+        this.formatterIndex = engine.formatterIndex;
+        this.functionIndex = engine.functionIndex;
         this.frameBuilder = engine.frameBuilder;
+    }
+
+    public static TemplateEngine with(String template) {
+        return new TemplateEngine().use(template);
     }
 
     public TemplateEngine use(String pathname) {
@@ -86,7 +95,7 @@ public class TemplateEngine {
     }
 
     public TemplateEngine add(String format, Formatter formatter) {
-        formatterStore.add(format, formatter);
+        formatterIndex.add(format, formatter);
         return this;
     }
 
@@ -106,7 +115,7 @@ public class TemplateEngine {
     }
 
     public TemplateEngine add(String name, Function function) {
-        functionStore.add(name, function);
+        functionIndex.add(name, function);
         return this;
     }
 
@@ -138,26 +147,18 @@ public class TemplateEngine {
     }
 
     private String cleanEmptyLines(String text) {
-        String[] lines = text.concat("\n" + "EOF").split("\n");
-        String result = "";
-        for (String line : lines) result += clean(line);
-        return result.endsWith("\n") ? result.substring(0, result.lastIndexOf("\n")) : result;
+        String EOF = "\n" + "EOF";
+        String[] lines = text.concat(EOF).split("\n");
+        String result = Arrays.stream(lines).filter(this::filter).map(this::clean).collect(joining());
+        return result.substring(0,result.indexOf((EOF)));
+    }
+
+    private boolean filter(String line) {
+        return !(line.contains(CutLine) && line.replace(CutLine,"").matches("^\\s*$"));
     }
 
     private String clean(String line) {
-        return
-                line.equals("EOF") ? "" :
-						line.endsWith(CutLine) ? process(trim(line, CutLine)) :
-								line + "\n";
-    }
-
-    private String trim(String line, String cutLine) {
-        while (line.contains(CutLine)) line = line.substring(0, line.length() - cutLine.length());
-        return line;
-    }
-
-    private String process(String line) {
-        return line.matches("^\\s*$") ? "" : line + "\n";
+        return line.replace(CutLine,"").replaceAll("^\\s*$","") + "\n";
     }
 
     private String encode(String string) {
@@ -191,7 +192,7 @@ public class TemplateEngine {
     }
 
     private boolean conditionMatchTrigger(Trigger trigger, Condition condition) {
-        return functionStore.get(condition).match(trigger, condition.parameter());
+        return functionIndex.get(condition).match(trigger, condition.parameter());
     }
 
     private Buffer buffer() {
@@ -261,7 +262,7 @@ public class TemplateEngine {
     private Object format(Object value, AbstractMark mark) {
         if (value instanceof PrimitiveFrame) value = ((PrimitiveFrame) value).value();
         for (String option : mark.options())
-            value = format(value, formatterStore.get(option));
+            value = format(value, formatterIndex.get(option));
         return value;
     }
 
@@ -277,8 +278,7 @@ public class TemplateEngine {
         boolean result = true;
         while (expression != null) {
             pushBuffer("");
-            if (isConstant(expression))
-                buffer().used();
+            if (isConstant(expression)) buffer().used();
             for (Token token : expression)
                 result &= execute(trigger, token);
             expression = expression.or();
@@ -338,7 +338,7 @@ public class TemplateEngine {
         public String[] options() {
             List<String> result = new ArrayList<>();
             for (String option : mark.options())
-                if (!formatterStore.exists(option)) result.add(option);
+                if (!formatterIndex.exists(option)) result.add(option);
             return result.toArray(new String[result.size()]);
         }
 

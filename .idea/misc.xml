@@ -8,6 +8,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/plugin/pom.xml" />
+        <option value="$PROJECT_DIR$/sherpa/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.siani.itrules.cases.templates.RosterTemplate;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class Template_ {
     }
 
     private String expected(String name) throws IOException {
-        return read("engine/test.res/" + name);
+        return read("test.res/" + name);
     }
 
     private String read(String filename) throws IOException {

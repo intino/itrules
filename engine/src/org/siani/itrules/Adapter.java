@@ -1,19 +1,8 @@
 package org.siani.itrules;
 
-import org.siani.itrules.model.AbstractFrame;
-import org.siani.itrules.model.Frame;
+import org.siani.itrules.engine.Context;
+import org.siani.itrules.engine.SlotSet;
 
 public interface Adapter<T> {
-    void execute(Frame frame, T source, FrameContext<T> context);
-
-    interface FrameContext<T> {
-        T source();
-
-        Frame frame();
-
-        AbstractFrame build(Object object);
-
-        <S> void register(Class<S> aClass, Adapter<S> adapter);
-
-    }
+    SlotSet slotsOf(T source, Context context);
 }

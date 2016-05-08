@@ -27,6 +27,7 @@
         <module name="plugin" />
         <module name="reader-itr" />
         <module name="reader-json" />
+        <module name="sherpa" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -35,6 +36,7 @@
       <module name="plugin" target="1.8" />
       <module name="reader-itr" target="1.8" />
       <module name="reader-json" target="1.8" />
+      <module name="sherpa" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

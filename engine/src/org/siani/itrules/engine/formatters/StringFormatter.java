@@ -24,6 +24,8 @@ package org.siani.itrules.engine.formatters;
 
 import org.siani.itrules.Formatter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +46,7 @@ public final class StringFormatter {
         add("FirstLowerCase", firstLowerCase());
         add("Camelcase", camelCase());
         add("LowerCamelCase", lowerCamelCase());
+        add("SnakeCase", snakeCase());
         add("Capitalize", capitalize());
         add("Length", length());
     }
@@ -63,20 +66,24 @@ public final class StringFormatter {
     private static Formatter camelCase() {
         return value -> {
             String[] parts = value.toString().split(" ");
-            String caseString = "";
-            for (String part : parts) caseString = caseString + capitalize().format(part);
-            return caseString;
+            String result = "";
+            for (String part : parts) result = result + capitalize().format(part);
+            return result;
         };
     }
 
     private static Formatter lowerCamelCase() {
         return value -> {
             String[] parts = value.toString().split(" ");
-            String caseString = "";
+            String result = "";
             for (String part : parts)
-                caseString = caseString + capitalize().format(part);
-            return caseString.substring(0, 1).toLowerCase() + caseString.substring(1);
+                result = result + capitalize().format(part);
+            return result.substring(0, 1).toLowerCase() + result.substring(1);
         };
+    }
+
+    private static Formatter snakeCase() {
+        return value -> value.toString().toLowerCase().replaceAll(" ", "-");
     }
 
     private static Formatter firstUpperCase() {
