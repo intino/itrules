@@ -5,9 +5,9 @@ import org.siani.itrules.engine.SlotSet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ExampleCustomAdapter {
+public class ProgrammingAdapter {
 
-    public static final String Template = "samples/templates/CustomAdapter.itr";
+    public static final String Template = "examples/templates/ProgrammingAdapter.itr";
 
     public static void main(String[] args) {
         String result = TemplateEngine.with(Template)

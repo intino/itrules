@@ -29,6 +29,16 @@
             <version>LATEST</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.siani.itrules</groupId>
+            <artifactId>engine</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.siani.itrules</groupId>
+            <artifactId>reader-itr</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 </project>

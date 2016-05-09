@@ -1,6 +1,6 @@
-def type(Module) slot(modules)
+def type(Module) attribute(modules)
 	<module name="$name">
-	[    $modules...[$NL]]
+	    $modules...[$NL]
     </module>
 end
 

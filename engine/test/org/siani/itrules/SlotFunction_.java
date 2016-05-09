@@ -2,7 +2,7 @@ package org.siani.itrules;
 
 import org.junit.Test;
 import org.siani.itrules.engine.Trigger;
-import org.siani.itrules.engine.functions.SlotFunction;
+import org.siani.itrules.engine.functions.AttributeFunction;
 import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.marks.Mark;
 
@@ -13,7 +13,7 @@ public class SlotFunction_ {
 
     @Test
     public void should_check_exists_slot_in_frame() throws Exception {
-        SlotFunction function = new SlotFunction();
+        AttributeFunction function = new AttributeFunction();
         assertThat("Matching a single slot exists", function.match(trigger(), "Y"), is(true));
         assertThat("Matching a single slot does not exist", function.match(trigger(), "T"), is(false));
         assertThat("Matching all slots without blank spaces exists", function.match(trigger(), "X&Y&Z"), is(true));
@@ -27,7 +27,7 @@ public class SlotFunction_ {
 
     @Test
     public void should_check_slot_has_value_in_frame() throws Exception {
-        SlotFunction function = new SlotFunction();
+        AttributeFunction function = new AttributeFunction();
         assertThat("Matching a single slot has value", function.match(trigger(), "Y:b"), is(true));
         assertThat("Matching a single slot has value", function.match(trigger(), "Y:a"), is(false));
         assertThat("Matching all slots without blank spaces exists", function.match(trigger(), "X:a&Y:b&Z:c"), is(true));

@@ -2,7 +2,7 @@ package sherpa;
 
 public class Platform {
     public String name;
-    public Api[] apis;
+    public Api[] apiList;
 
     public static class Api {
         public String name;
@@ -17,7 +17,7 @@ public class Platform {
             public String summary;
             public Method method;
             public String operation;
-            public Parameter[] parameters;
+            public Parameter[] parameterList;
             public Response response;
         }
 

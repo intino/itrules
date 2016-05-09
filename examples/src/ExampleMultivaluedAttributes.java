@@ -3,9 +3,9 @@ import org.siani.itrules.TemplateEngine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExampleMultivalue {
+public class ExampleMultivaluedAttributes {
 
-    public static final String Template = "samples/templates/Multivalue.itr";
+    public static final String Template = "examples/templates/ExampleMultivaluedAttributes.itr";
 
     public static void main(String[] args) {
         String result = TemplateEngine.with(Template).render(message());

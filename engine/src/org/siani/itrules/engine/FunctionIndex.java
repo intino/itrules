@@ -23,7 +23,7 @@
 package org.siani.itrules.engine;
 
 import org.siani.itrules.Function;
-import org.siani.itrules.engine.functions.SlotFunction;
+import org.siani.itrules.engine.functions.AttributeFunction;
 import org.siani.itrules.engine.functions.TriggerFunction;
 import org.siani.itrules.engine.functions.TypeFunction;
 import org.siani.itrules.model.Condition;
@@ -38,7 +38,7 @@ public final class FunctionIndex {
     public FunctionIndex() {
         add("Type", new TypeFunction());
         add("Trigger", new TriggerFunction());
-        add("Slot", new SlotFunction());
+        add("Attribute", new AttributeFunction());
         add("Primitive", primitiveFunction());
     }
 

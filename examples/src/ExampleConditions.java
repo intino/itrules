@@ -1,33 +1,23 @@
-import org.siani.itrules.Function;
 import org.siani.itrules.TemplateEngine;
-import org.siani.itrules.engine.Trigger;
 
 import java.util.Locale;
 
-public class ExampleSlotFunctions {
+public class ExampleConditions {
 
-    public static final String Template = "samples/templates/SlotFunction.itr";
+    public static final String Template = "examples/templates/ExampleConditions.itr";
 
     public static void main(String[] args) {
-        String result = new TemplateEngine(Locale.ENGLISH).use(Template)
-                .add("one", oneFunction())
-                .render(pau());
+        String result = new TemplateEngine(Locale.ENGLISH).use(Template).render(pau());
         System.out.println(result);
     }
 
     private static Person pau() {
-        return new Person("Roger Dickens",
+        return new Person("Pau Gasol",
                 new Person.Dog("Ruffo", 5),
                 new Person.Cat("Missy", 1),
                 new Person.Dog(3)
         );
     }
-
-    private static Function oneFunction() {
-        return (trigger, parameter) -> trigger.frame().isPrimitive() && trigger.frame().value().equals(1);
-    }
-
-
 
     public static class Person {
         private String name;

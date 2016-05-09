@@ -29,7 +29,7 @@ import org.siani.itrules.model.AbstractFrame;
 
 import java.util.Iterator;
 
-public final class SlotFunction implements Function {
+public final class AttributeFunction implements Function {
 
     @Override
     public boolean match(Trigger trigger, String parameter) {

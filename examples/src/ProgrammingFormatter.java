@@ -1,9 +1,8 @@
-import org.siani.itrules.Formatter;
 import org.siani.itrules.TemplateEngine;
 
-public class ExampleCustomFormatter {
+public class ProgrammingFormatter {
 
-    public static final String Template = "samples/templates/CustomFormatter.itr";
+    public static final String Template = "samples/templates/ProgrammingFormatter.itr";
 
     public static void main(String[] args) {
         String result = TemplateEngine.with(Template)

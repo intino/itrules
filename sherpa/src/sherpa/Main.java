@@ -27,7 +27,7 @@ public class Main {
     private static Platform platform() {
         return new Platform() {{
             name = "Sumus";
-            apis = new Api[] { simpleWeather() };
+            apiList = new Api[] { simpleWeather() };
         }};
     }
 
@@ -41,7 +41,7 @@ public class Main {
                     name = "Air Quality Index";
                     method = get;
                     summary = "Air Quality Index";
-                    parameters = new Parameter[] {
+                    parameterList = new Parameter[] {
                             new Parameter() {{
                                 id = "lat";
                                 name = "Latitude";
@@ -72,7 +72,7 @@ public class Main {
                     name = "check spelling";
                     method = get;
                     summary = "Checks for spelling errors";
-                    parameters = new Parameter[] {
+                    parameterList = new Parameter[] {
                             new Parameter() {{
                                 name = "text";
                                 type = "String";

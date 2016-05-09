@@ -1,9 +1,14 @@
+def type(Person) first-pet-is(Dog)
+    $Name loves dogs and has $PetsCount+Words pets:
+      $Pets...[$NL]
+end
+
 def type(Person)
     $Name has $PetsCount+Words pets:
       $Pets...[$NL]
 end
 
-def type(Dog) slot(Name)
+def type(Dog) attribute(Name)
     $Name, a $Age dog
 end
 
@@ -15,7 +20,7 @@ def type(Cat)
     $Name, a $Age+Age kitty
 end
 
-def trigger(Age) slot(value:1)
+def trigger(Age) attribute(value:1)
     one year old
 end
 

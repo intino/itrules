@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 public class ExampleOptionalAttributes {
 
-    public static final String Template = "samples/templates/OptionalAttributes.itr";
+    public static final String Template = "examples/templates/ExampleOptionalAttributes.itr";
 
     public static void main(String[] args) {
         String result = TemplateEngine.with(Template).render(roster());

@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 public class ExampleFormatting {
 
-    public static final String Template = "samples/templates/Formatting.itr";
+    public static final String Template = "examples/templates/ExampleFormatting.itr";
 
     public static void main(String[] args) {
         String result = TemplateEngine.with(Template).render(pau());

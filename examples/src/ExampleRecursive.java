@@ -1,8 +1,9 @@
 import org.siani.itrules.TemplateEngine;
+import org.siani.itrules.readers.ItrRuleSetReader;
 
 public class ExampleRecursive {
 
-    public static final String Template = "samples/templates/Recursive.itr";
+    public static final String Template = "examples/templates/ExampleRecursive.itr";
 
     public static void main(String[] args) {
         String result = TemplateEngine.with(Template).render(module());
