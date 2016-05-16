@@ -46,6 +46,7 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
+        <fileDocumentManagerListener implementation="org.siani.itrules.intellij.actions.ItrFileDocumentManagerListener"/>
         <applicationService serviceInterface="org.siani.itrules.intellij.sdk.ItrulesSdkManager"
                             serviceImplementation="org.siani.itrules.intellij.sdk.impl.ItrulesSdkManagerImpl"/>
         <facetType implementation="org.siani.itrules.intellij.facet.ItrulesFacetType"/>
