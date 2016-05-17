@@ -30,7 +30,7 @@ def type(condition) trigger(conditions)
 	$negated(condition($name+string, $parameter+string))
 end
 
-def trigger(negated) value(true)
+def trigger(negated) attribute(true)
 	not
 end
 

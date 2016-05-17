@@ -44,7 +44,7 @@ public class JavaItrulesTemplate extends Template {
                         add(expression().add(literal(".add(")).add(mark("conditions").multiple(", ")).add(literal(")"))).add(mark("tokens").multiple("")),
                 rule().add(condition("type", "condition"), condition("trigger", "conditions")).add(mark("negated")).add(literal("(condition(")).
                         add(mark("name", "string")).add(literal(", ")).add(mark("parameter", "string")).add(literal("))")),
-                rule().add(condition("trigger", "negated"), condition("value", "true")).add(literal("not")),
+                rule().add(condition("trigger", "negated"), condition("attribute", "true")).add(literal("not")),
                 rule().add(condition("trigger", "negated")),
                 rule().add(condition("type", "token"), condition("type", "literal"), condition("trigger", "tokens")).
                         add(literal(".add(literal(")).add(mark("text", "string")).add(literal("))")),

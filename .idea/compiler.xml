@@ -24,10 +24,16 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="engine" />
-        <module name="plugin" />
         <module name="reader-itr" />
         <module name="reader-json" />
         <module name="sherpa" />
+      </profile>
+      <profile default="false" name="Annotation profile for plugin" enabled="true">
+        <sourceOutputDir name="../out/build/plugin/generated-sources/annotations" />
+        <sourceTestOutputDir name="../out/build/plugin/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

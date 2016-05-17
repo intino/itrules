@@ -10,7 +10,6 @@
       <module fileurl="file://$PROJECT_DIR$/reader-json/reader-json.iml" filepath="$PROJECT_DIR$/reader-json/reader-json.iml" />
       <module fileurl="file://$PROJECT_DIR$/examples/samples.iml" filepath="$PROJECT_DIR$/examples/samples.iml" />
       <module fileurl="file://$PROJECT_DIR$/sherpa/sherpa.iml" filepath="$PROJECT_DIR$/sherpa/sherpa.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sherpa/sherpa.iml" filepath="$PROJECT_DIR$/sherpa/sherpa.iml" />
     </modules>
   </component>
 </project>

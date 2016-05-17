@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
-public class RunTemplateGeneration extends Task.Modal {
+public class TemplateGenerator extends Task.Modal {
 
     public static final Logger LOG = Logger.getInstance("RunItrulesOnRulesFile");
     private final Module module;
@@ -30,7 +30,7 @@ public class RunTemplateGeneration extends Task.Modal {
     private VirtualFile rulesFile;
     private ProgressIndicator indicator;
 
-    public RunTemplateGeneration(VirtualFile rulesFile, Module module, String title, File destiny, String aPackage) {
+    public TemplateGenerator(VirtualFile rulesFile, Module module, String title, File destiny, String aPackage) {
         super(module.getProject(), title, true);
         this.rulesFile = rulesFile;
         this.module = module;

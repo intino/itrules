@@ -10,9 +10,11 @@ import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import org.jetbrains.annotations.NotNull;
+import org.siani.itrules.intellij.lang.ItrulesIcons;
 
 import java.io.File;
 import java.util.HashSet;
@@ -25,9 +27,8 @@ public abstract class GenerationAction extends AnAction implements DumbAware {
 	public void update(@NotNull AnActionEvent e) {
 		ActionUtils.selectedFilesAreItrules(e);
 		ActionUtils.selectedFilesAreInItrulesModule(e);
+		e.getPresentation().setIcon(ItrulesIcons.ICON_13);
 	}
-
-	protected abstract String findDestiny(Project project, Module module, VirtualFile file) throws Exception;
 
 	protected List<VirtualFile> getVirtualFile(AnActionEvent e) {
 		List<VirtualFile> rulesFiles = ActionUtils.getItrulesFilesFromEvent(e);
@@ -47,7 +48,9 @@ public abstract class GenerationAction extends AnAction implements DumbAware {
 	protected void refreshFiles(File destiny) {
 		Set<File> generatedFiles = new HashSet<>();
 		generatedFiles.add(destiny);
-		LocalFileSystem.getInstance().refreshIoFiles(generatedFiles, true, true, null);
+		LocalFileSystem.getInstance().refreshIoFiles(generatedFiles, true, false, null);
+		final VirtualFile vFile = VfsUtil.findFileByIoFile(destiny, true);
+		if (vFile != null) VfsUtil.markDirtyAndRefresh(true, false, false, vFile);
 	}
 
 	protected boolean checkDocument(Project project, VirtualFile rulesFile) {

@@ -1,4 +1,4 @@
-package org.siani.itrules.intellij.module;
+package org.siani.itrules.intellij.project;
 
 import org.jetbrains.jps.model.JpsElement;
 import org.jetbrains.jps.model.module.JpsModule;
