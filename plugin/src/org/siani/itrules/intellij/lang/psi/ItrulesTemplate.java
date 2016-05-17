@@ -18,6 +18,8 @@ public interface ItrulesTemplate extends PsiFile {
 
     PsiDirectory getParent();
 
+    String getPresentableName();
+
     @NotNull
     Project getProject();
 

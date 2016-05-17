@@ -10,11 +10,9 @@
        These templates are a compound of rules that are activated basing on a set of conditions that the users define. The rules have marks that can trigger other rules that define what and how the text will be rendered in this point.
        Example:
 
-       defrule type(Person)
-
+       def type(Person)
           $Name was born in $Country on $Birthday+ShortDate
-
-       endrule
+       end
 
     ]]></description>
 
@@ -33,42 +31,34 @@
         </action>
 
         <group id="ItrulesMenu" text="Itrules" description="Itrules Menu">
-            <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="itrules.toClass" class="org.siani.itrules.intellij.actions.java.TemplateGeneration"
                     text="Generate Java Template"
                     description="Generates the corresponding Java representation of the template">
                 <keyboard-shortcut keymap="$default" first-keystroke="control shift G"/>
                 <add-to-group group-id="EditorPopupMenu" anchor="last"/>
-                <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+                <add-to-group group-id="ToolsMenu" anchor="last"/>
             </action>
         </group>
 
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
+        <fileDocumentManagerListener
+                implementation="org.siani.itrules.intellij.actions.ItrFileDocumentManagerListener"/>
         <applicationService serviceInterface="org.siani.itrules.intellij.sdk.ItrulesSdkManager"
                             serviceImplementation="org.siani.itrules.intellij.sdk.impl.ItrulesSdkManagerImpl"/>
         <facetType implementation="org.siani.itrules.intellij.facet.ItrulesFacetType"/>
         <framework.type implementation="org.siani.itrules.intellij.framework.ItrulesFrameworkType"/>
         <fileTypeFactory implementation="org.siani.itrules.intellij.lang.file.ItrulesFileTypeFactory"/>
         <lang.parserDefinition language="Itrules" implementationClass="org.siani.itrules.intellij.lang.parser.ItrulesParserDefinition"/>
-        <lang.syntaxHighlighterFactory key="Itrules"
+        <lang.syntaxHighlighterFactory language="Itrules"
                                        implementationClass="org.siani.itrules.intellij.highlighting.ItrulesSyntaxHighlighterFactory"/>
         <lang.braceMatcher language="Itrules"
                            implementationClass="org.siani.itrules.intellij.highlighting.ItrulesBraceMatcher"/>
-
+        <treeStructureProvider implementation="org.siani.itrules.intellij.project.view.ItrulesTreeStructureProvider"/>
     </extensions>
 
-    <application-components>
-        <!-- Add your application components here -->
-    </application-components>
-
-    <project-components>
-        <!-- Add your project components here -->
-    </project-components>
-
-    <actions>
-        <!-- Add your actions here -->
-    </actions>
+    <application-components/>
+    <project-components/>
 
 </idea-plugin>

@@ -44,8 +44,8 @@ public class Mark_ {
 
     private Frame createFrame() {
         Frame frame = new Frame().addTypes("Box");
-        frame.addFrame("name", "Monet");
-        frame.addFrame("namebox", "Form", "Field", "Text");
+        frame.addSlot("name", "Monet");
+        frame.addSlot("namebox", "Form", "Field", "Text");
         return frame;
     }
 

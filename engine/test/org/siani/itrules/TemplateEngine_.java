@@ -24,8 +24,8 @@ package org.siani.itrules;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.siani.itrules.engine.SlotSet;
 import org.siani.itrules.engine.Trigger;
-import org.siani.itrules.engine.adapters.ExcludeAdapter;
 import org.siani.itrules.model.*;
 import org.siani.itrules.model.marks.Mark;
 
@@ -42,17 +42,17 @@ public class TemplateEngine_ {
 
 	@Test
 	public void when_lines_end_in_remover_should_remove_empty_lines() throws Exception {
-		Assert.assertEquals("Hello world", engine().render("Hello world\n	|:"));
-		Assert.assertEquals("Hello world", engine().render("Hello world|:"));
-		Assert.assertEquals("Hello world\n", engine().render("Hello world\n	"));
 		Assert.assertEquals("Hello world\n", engine().render("Hello world\n"));
-		Assert.assertEquals("Hello world\n", engine().render("Hello world|:\n"));
-		Assert.assertEquals("Hello world\n", engine().render("Hello world|:\n	|:\n  "));
+		Assert.assertEquals("Hello world", engine().render("Hello world\n	|>"));
+		Assert.assertEquals("Hello world", engine().render("Hello world|>"));
+		Assert.assertEquals("Hello world\n", engine().render("Hello world\n  "));
+		Assert.assertEquals("Hello world\n", engine().render("Hello world|>\n"));
+		Assert.assertEquals("Hello world\n", engine().render("Hello world|>\n	|>\n  "));
 		Assert.assertEquals("Hello world\n\n", engine().render("Hello world\n	\n  "));
 		Assert.assertEquals("Hello world\n\n", engine().render("Hello world\n	\n"));
-		Assert.assertEquals("Hello world", engine().render("	|:\nHello world\n	|:"));
-		Assert.assertEquals("\nHello world", engine().render("	|:\n\nHello world\n	|:"));
-		Assert.assertEquals("\nHello world\n", engine().render("	|:\n\nHello world\n	|:\n"));
+		Assert.assertEquals("Hello world", engine().render("	|>\nHello world\n	|>"));
+		Assert.assertEquals("\nHello world", engine().render("	|>\n\nHello world\n	|>"));
+		Assert.assertEquals("\nHello world\n", engine().render("	|>\n\nHello world\n	|>\n"));
 	}
 
 	@Test
@@ -176,12 +176,6 @@ public class TemplateEngine_ {
 	}
 
 	@Test
-	public void should_render_person_excluding_a_field() throws Exception {
-		Assert.assertEquals("Pau Gasol was born in Spain on ",
-			renderPersonExcludingField(personRule()));
-	}
-
-	@Test
 	public void should_render_an_array_of_objects() throws Exception {
 		Assert.assertEquals("item1, item2, item3",
 			new TemplateEngine().add(collectionRule()).render(new String[]{"item1", "item2", "item3"}));
@@ -242,13 +236,12 @@ public class TemplateEngine_ {
 	}
 
 	private Adapter<Person> customAdapter() {
-		return (frame, source, context) -> {
-            frame.addFrame("name", context.build(source.name));
-            frame.addFrame("country", context.build(source.country));
-            frame.addFrame("birthday", context.build(source.birthday));
-            frame.addFrame("age", context.build(34));
-            frame.addFrame("sex", context.build(source.sex));
-        };
+		return (source, context) -> SlotSet.create()
+            .add("name", context.build(source.name))
+            .add("country", context.build(source.country))
+            .add("birthday", context.build(source.birthday))
+            .add("age", context.build(34))
+            .add("sex", context.build(source.sex));
 	}
 
 	private Function customConditionFunction() {
@@ -330,10 +323,6 @@ public class TemplateEngine_ {
 		return engine().add(Person.class, customAdapter()).add(rules).render(person());
 	}
 
-	private String renderPersonExcludingField(Rule... rules) {
-		return engine().add(Person.class, new ExcludeAdapter("birthday")).add(rules).render(person());
-	}
-
 	private class Person {
 		private final String name;
 		private final Date birthday;
@@ -359,19 +348,19 @@ public class TemplateEngine_ {
 
 	private Rule valueRule() {
 		return new Rule().
-			add(condition("value", "Pau Gasol")).
+			add(condition("slot", "Pau Gasol")).
 			add(literal("*"), mark("value"), literal("*"));
 	}
 
 	private Rule sexRule() {
 		return new Rule().
-			add(condition("type", "Sex"), condition("value", "Male")).
+			add(condition("type", "Sex"), condition("slot", "Male")).
 			add(literal("a man"));
 	}
 
 	private Rule negatedConditionRule() {
 		return new Rule().
-			add(not(condition("value", "Pau Gasol"))).
+			add(not(condition("slot", "Pau Gasol"))).
 			add(literal("-"));
 	}
 
@@ -419,7 +408,7 @@ public class TemplateEngine_ {
 	private Rule personRuleWithMarkInDirtyLine() {
 		return new Rule().
 			add(condition("type", "Person")).
-			add(new Mark("name"), literal(" was born in "), new Mark("country"), literal("\n\t   \t "), mark("dirty"), literal("|:\n"), literal("on "), mark("Birthday", "quoted", "ShortDate"));
+			add(new Mark("name"), literal(" was born in "), new Mark("country"), literal("\n\t   \t "), mark("dirty"), literal("|>\n"), literal("on "), mark("Birthday", "quoted", "ShortDate"));
 	}
 
 	private Rule personRuleWithExpressions() {

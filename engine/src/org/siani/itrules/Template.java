@@ -29,17 +29,12 @@ public abstract class Template {
     }
 
     public Template add(String format, final Template template) {
-        add(format, new Formatter() {
-            @Override
-            public Object format(Object value) {
-                return template.format(value);
-            }
-        });
+        add(format, template::format);
         return this;
     }
 
-    public Template add(Class class_, Adapter adapter) {
-        engine.add(class_, adapter);
+    public Template add(Class aClass, Adapter adapter) {
+        engine.add(aClass, adapter);
         return this;
     }
 

@@ -1,7 +1,7 @@
 package org.siani.itrules;
 
 import org.junit.Test;
-import org.siani.itrules.engine.FormatterStore;
+import org.siani.itrules.engine.FormatterIndex;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -83,11 +83,11 @@ public class FormatterStore_ {
     }
 
     private Formatter formatter(String name) {
-        return new FormatterStore(Locale.ENGLISH).get(name);
+        return new FormatterIndex(Locale.ENGLISH).get(name);
     }
 
     private Formatter spanishFormatter(String name) {
-        return new FormatterStore(new Locale("es", "Spain", "es_ES")).get(name);
+        return new FormatterIndex(new Locale("es", "Spain", "es_ES")).get(name);
     }
 
     private Date date(int year, int month, int day) {

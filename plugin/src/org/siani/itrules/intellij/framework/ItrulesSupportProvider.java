@@ -13,12 +13,10 @@ import com.intellij.openapi.module.JavaModuleType;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ContentEntry;
 import com.intellij.openapi.roots.ModifiableModelsProvider;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.ui.configuration.FacetsProvider;
 import com.intellij.openapi.startup.StartupManager;
-import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
@@ -28,9 +26,6 @@ import com.intellij.vcsUtil.VcsUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.idea.maven.project.MavenProjectsManager;
-import org.jetbrains.jps.model.java.JavaSourceRootProperties;
-import org.jetbrains.jps.model.java.JavaSourceRootType;
-import org.jetbrains.jps.model.java.JpsJavaExtensionService;
 import org.siani.itrules.intellij.facet.ItrulesFacet;
 import org.siani.itrules.intellij.facet.ItrulesFacetConfiguration;
 import org.siani.itrules.intellij.framework.maven.ModulePomTemplate;
@@ -69,9 +64,8 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	}
 
 	private void addSupport(final Module module,
-	                        final ModifiableRootModel rootModel,
-	                        Locale locale, String separator) {
-		createTemplateDirectory(rootModel.getContentEntries(), rootModel.getSourceRoots()[0].getParent());
+							final ModifiableRootModel rootModel,
+							Locale locale, String separator) {
 		if (rootModel.getProject().isInitialized()) addMavenToProject(module);
 		else startWithMaven(module);
 		FacetType<ItrulesFacet, ItrulesFacetConfiguration> facetType = ItrulesFacet.getFacetType();
@@ -197,7 +191,9 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		ApplicationManager.getApplication().runWriteAction(() -> {
 			File pomFile = getProjectPom(module);
 			VirtualFile directory = VcsUtil.getVcsRootFor(module.getProject(), VcsUtil.getFilePath(pomFile));
+			if (directory == null) return;
 			PsiDirectory root = PsiManager.getInstance(module.getProject()).findDirectory(directory);
+			if (root == null) return;
 			file[0] = findPom(root);
 			if (file[0] == null) file[0] = root.createFile("pom.xml");
 			createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module)));
@@ -208,35 +204,16 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 	private Frame createModuleFrame(Module module) {
 		Frame frame = new Frame().addTypes("pom");
-		frame.addFrame("project", module.getProject().getName());
-		frame.addFrame("module", module.getName());
+		frame.addSlot("project", module.getProject().getName());
+		frame.addSlot("module", module.getName());
 		return frame;
 	}
 
 	private Frame createProjectFrame(Module module) {
 		Project project = module.getProject();
 		Frame frame = new Frame().addTypes("pom");
-		frame.addFrame("project", project.getName());
+		frame.addSlot("project", project.getName());
 		return frame;
-	}
-
-	private void createTemplateDirectory(ContentEntry[] contentEntries, VirtualFile parent) {
-		try {
-			if (parent == null) return;
-			VirtualFile templates = VfsUtil.createDirectoryIfMissing(parent, "templates");
-			if (templates != null) {
-				JavaSourceRootProperties properties = JpsJavaExtensionService.getInstance().createSourceRootProperties("", false);
-				correspondingEntry(contentEntries, parent).addSourceFolder(templates, JavaSourceRootType.SOURCE, properties);
-			}
-		} catch (IOException ignored) {
-		}
-	}
-
-	private ContentEntry correspondingEntry(ContentEntry[] contentEntries, VirtualFile parent) {
-		for (ContentEntry contentEntry : contentEntries)
-			if (parent.equals(contentEntry.getFile()))
-				return contentEntry;
-		return contentEntries[0];
 	}
 
 	@NotNull
@@ -279,8 +256,8 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 		@Override
 		public void addSupport(@NotNull Module module,
-		                       @NotNull ModifiableRootModel rootModel,
-		                       @NotNull ModifiableModelsProvider modifiableModelsProvider) {
+							   @NotNull ModifiableRootModel rootModel,
+							   @NotNull ModifiableModelsProvider modifiableModelsProvider) {
 			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES"), getLineSeparator());
 		}
 

@@ -1,3 +1,0 @@
-def type(Person)
-    $Name was born in $Country+Capitalize in $Birthday+Year
-end

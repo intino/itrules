@@ -40,7 +40,7 @@ COMMENT                : .;
 
 mode SIGNATURE_MODE;
 	NOT                : '!';
-	FUNCTION           : LETTER(DIGIT|LETTER)*;
+	FUNCTION           : LETTER(DIGIT|LETTER|SCORE)*;
 	END_SIGNATURE      : (' '|'\t')* NL ('\t' | '    ')?        { setLastMode(SIGNATURE_MODE); setType(BEGIN_BODY);} -> mode(BODY_MODE);
 	WS                 : SP+                                    -> skip;
 	PARAMETERS         : ('(' ~(')')+ ')')| ('('')');
@@ -85,5 +85,6 @@ fragment
 	DIGIT           :[0-9];
 fragment
 	LETTER          : 'a'..'z' | 'A'..'Z';
-
+fragment
+	SCORE           : '-' | '_';
 

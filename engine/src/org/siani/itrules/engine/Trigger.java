@@ -37,7 +37,7 @@ public final class Trigger {
 
     @Override
     public String toString() {
-        return frame.toString();
+        return mark.toString();
     }
 
     public AbstractFrame frame() {

@@ -1,0 +1,9 @@
+def type(Module) attribute(modules)
+	<module name="$name">
+	    $modules...[$NL]
+    </module>
+end
+
+def type(Module)
+	<module name="$name"/>
+end
