@@ -10,11 +10,9 @@
        These templates are a compound of rules that are activated basing on a set of conditions that the users define. The rules have marks that can trigger other rules that define what and how the text will be rendered in this point.
        Example:
 
-       defrule type(Person)
-
+       def type(Person)
           $Name was born in $Country on $Birthday+ShortDate
-
-       endrule
+       end
 
     ]]></description>
 
