@@ -31,54 +31,39 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
-public final class FrameBuilder implements Context {
+public final class FrameBuilder {
 
-    private final Frame frame;
     private final Map<Class, Adapter> registers;
+    private Frame frame;
 
     public FrameBuilder() {
-        this(new Frame(), new HashMap<>());
+        this(new HashMap<>());
     }
 
-    private FrameBuilder(Frame frame, Map<Class,Adapter> registers) {
-        this.frame = frame;
+    private FrameBuilder(Map<Class,Adapter> registers) {
         this.registers = registers;
     }
 
-    @Override
     public AbstractFrame build(Object object) {
-        return (isPrimitive(object) ? primitiveFrame(object) :
-                isCollection(object) ? frame(new Collection(object)) : frame(object));
+        return (isPrimitive(object) ? primitiveFrameOf(object) :
+                isCollection(object) ? frameOf(new Collection(object)) : frameOf(object));
     }
 
-    @Override
     public <T> void register(Class<T> aClass, Adapter<T> adapter) {
         registers.put(aClass,adapter);
     }
 
-    private PrimitiveFrame primitiveFrame(Object object) {
+    private PrimitiveFrame primitiveFrameOf(Object object) {
         return new PrimitiveFrame(object);
     }
 
-    private Frame frame(Object object) {
-        if (object instanceof Frame) return (Frame) object;
-        frame.addTypes(typesOf(object)).addSlots(slotsOf(object));
-        return frame;
-    }
-
     @SuppressWarnings("unchecked")
-    private SlotSet slotsOf(Object object) {
-        return adapterFor(object).slotsOf(object, new Context() {
-            @Override
-            public AbstractFrame build(Object object) {
-                return new FrameBuilder(new Frame(),registers).build(object);
-            }
-
-            @Override
-            public <S> void register(Class<S> aClass, Adapter<S> adapter) {
-                FrameBuilder.this.register(aClass,adapter);
-            }
-        });
+    private Frame frameOf(Object object) {
+        if (object instanceof Frame) return (Frame) object;
+        frame = new Frame();
+        frame.addTypes(typesOf(object));
+        adapterFor(object).adapt(object, context());
+        return frame;
     }
 
     private Adapter adapterFor(Object object) {
@@ -97,6 +82,25 @@ public final class FrameBuilder implements Context {
 
     private List<Class> classesOf(Object object) {
         return classesOf(object.getClass());
+    }
+
+    private Context context() {
+        return new Context() {
+            @Override
+            public Frame frame() {
+                return frame;
+            }
+
+            @Override
+            public AbstractFrame build(Object object) {
+                return new FrameBuilder(registers).build(object);
+            }
+
+            @Override
+            public <S> void register(Class<S> aClass, Adapter<S> adapter) {
+                FrameBuilder.this.register(aClass,adapter);
+            }
+        };
     }
 
     private List<Class> classesOf(Class aClass) {

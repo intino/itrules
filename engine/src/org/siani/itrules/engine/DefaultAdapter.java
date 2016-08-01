@@ -28,8 +28,8 @@ public class DefaultAdapter<T> implements Adapter<T> {
     }
 
     @Override
-    public SlotSet slotsOf(T source, Context context) {
-        return new SlotBuilder(source, context).slots();
+    public void adapt(T source, Context context) {
+        context.frame().addSlots(new SlotBuilder(source, context).slots());
     }
 
     private static class Item {

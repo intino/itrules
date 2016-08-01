@@ -26,7 +26,6 @@ public class TemplateGeneration extends GenerationAction {
 		Project project = e.getData(PlatformDataKeys.PROJECT);
 		if (projectExists(e, project)) return;
 		List<VirtualFile> rulesFiles = getVirtualFile(e);
-		if (rulesFiles.isEmpty()) return;
 		rulesFiles.forEach(r -> {
 			final TemplateGenerator generator = createTemplate(project, r);
 			if (generator != null) notify(project, r);
@@ -64,7 +63,7 @@ public class TemplateGeneration extends GenerationAction {
 
 	private void notify(Project project, VirtualFile rulesFile) {
 		Notifications.Bus.notify(
-				new Notification("Itrules", "Template for " + rulesFile.getName() + " generated", "to " + getDestinyFile(rulesFile).getPath(), NotificationType.INFORMATION), project);
+				new Notification("Itrules", getDestinyFile(rulesFile).getName() + " generated", "", NotificationType.INFORMATION), project);
 	}
 
 	private VirtualFile find(Module module, String sourcePath) {

@@ -226,7 +226,7 @@ public class TemplateEngine_ {
 	}
 
 	private Rule collectionRule() {
-		return new Rule().add(new Condition("type", "Collection"), new Condition("slot", "items")).
+		return new Rule().add(new Condition("type", "Collection"), new Condition("attribute", "items")).
 			add(new Mark("items").multiple(", "));
 	}
 
@@ -236,12 +236,12 @@ public class TemplateEngine_ {
 	}
 
 	private Adapter<Person> customAdapter() {
-		return (source, context) -> SlotSet.create()
+		return (source, context) -> context.frame().addSlots(SlotSet.create()
             .add("name", context.build(source.name))
             .add("country", context.build(source.country))
             .add("birthday", context.build(source.birthday))
             .add("age", context.build(34))
-            .add("sex", context.build(source.sex));
+            .add("sex", context.build(source.sex)));
 	}
 
 	private Function customConditionFunction() {
@@ -348,19 +348,19 @@ public class TemplateEngine_ {
 
 	private Rule valueRule() {
 		return new Rule().
-			add(condition("slot", "Pau Gasol")).
+			add(condition("attribute", "Pau Gasol")).
 			add(literal("*"), mark("value"), literal("*"));
 	}
 
 	private Rule sexRule() {
 		return new Rule().
-			add(condition("type", "Sex"), condition("slot", "Male")).
+			add(condition("type", "Sex"), condition("attribute", "Male")).
 			add(literal("a man"));
 	}
 
 	private Rule negatedConditionRule() {
 		return new Rule().
-			add(not(condition("slot", "Pau Gasol"))).
+			add(not(condition("attribute", "Pau Gasol"))).
 			add(literal("-"));
 	}
 

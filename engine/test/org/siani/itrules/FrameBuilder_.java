@@ -3,6 +3,7 @@ package org.siani.itrules;
 import org.junit.Assert;
 import org.junit.Test;
 import org.siani.itrules.cases.framebuilder.*;
+import org.siani.itrules.engine.Context;
 import org.siani.itrules.engine.FrameBuilder;
 import org.siani.itrules.engine.SlotSet;
 import org.siani.itrules.model.AbstractFrame;
@@ -144,7 +145,7 @@ public class FrameBuilder_ {
     @Test
     public void should_render_with_custom_adapter() throws Exception {
         FrameBuilder builder = new FrameBuilder();
-        builder.register(TwoAttributesObject.class, (source, context) -> SlotSet.create().add("field1", context.build(source.getField1())));
+        builder.register(TwoAttributesObject.class, (source, context) -> context.frame().addSlots(SlotSet.create().add("field1", context.build(source.getField1()))));
         Frame frame = (Frame) builder.build(new TwoAttributesObject("test", 1.0));
         assertEquals("test", frame.frames("field1").next().value());
         assertFalse(frame.frames("field2").hasNext());
@@ -155,7 +156,7 @@ public class FrameBuilder_ {
         FrameBuilder builder = new FrameBuilder();
         builder.register(
                 ObjectWithList.class,
-                (source, context) -> SlotSet.create().add("object2", context.build(source.get(1))));
+                (source, context) -> context.frame().addSlots(SlotSet.create().add("object2", context.build(source.get(1)))));
 
 
         Frame frame = (Frame) builder.build(new ObjectWithList(
@@ -174,8 +175,8 @@ public class FrameBuilder_ {
     @Test
     public void should_allow_register_custom_adapters() throws Exception {
         FrameBuilder builder = new FrameBuilder();
-        builder.register(ObjectWithList.class, (source, context) -> SlotSet.create().add("object2", context.build(source.get(1))));
-        builder.register(TwoAttributesObject.class, (source1, context1) -> SlotSet.create().add("field1", context1.build(source1.getField1())));
+        builder.register(ObjectWithList.class, (source, context) -> context.frame().addSlots(SlotSet.create().add("object2", context.build(source.get(1)))));
+        builder.register(TwoAttributesObject.class, (source, context) -> context.frame().addSlots(SlotSet.create().add("field1", context.build(source.getField1()))));
 
         Frame frame = (Frame) builder.build(new ObjectWithList(
                 new TwoAttributesObject("test1", 1.0),
@@ -192,7 +193,7 @@ public class FrameBuilder_ {
     @Test
     public void testAdapterWithExclusionInside() throws Exception {
         FrameBuilder builder = new FrameBuilder();
-        builder.register(ObjectWithList.class, (source, context) -> SlotSet.create().add("object2", context.build(source.get(1))));
+        builder.register(ObjectWithList.class, (source, context) -> context.frame().addSlots(SlotSet.create().add("object2", context.build(source.get(1)))));
 
         Frame frame = (Frame) builder.build(new ObjectWithList(
                 new TransientAttributeObject("test1", 1.0),
