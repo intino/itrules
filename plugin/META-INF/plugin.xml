@@ -58,7 +58,11 @@
         <treeStructureProvider implementation="org.siani.itrules.intellij.project.view.ItrulesTreeStructureProvider"/>
     </extensions>
 
-    <application-components/>
+    <application-components>
+        <component>
+            <implementation-class>org.siani.itrules.intellij.project.FileListener</implementation-class>
+        </component>
+    </application-components>
     <project-components/>
 
 </idea-plugin>
