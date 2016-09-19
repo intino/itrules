@@ -1,3 +1,8 @@
+##1.9.0
+-	Improved engine.
+-   Added file listener to generate template on the fly.
+-	function names allows score and underscore.
+- 	Minor fixes.
 ##1.7.0
 -	On-save template generation.
 -   Deleted templates directory. Now the template is generated close to itr.
