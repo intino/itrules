@@ -77,7 +77,6 @@ public class TemplateRulesWriter {
 			slotSet.add("locale", context.build(locale));
 			slotSet.add("lineSeparator", context.build(lineSeparator));
 			for (Rule rule : rules) slotSet.add("rule", context.build(rule));
-			return slotSet;
 		};
 	}
 }

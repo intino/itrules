@@ -1,9 +1,7 @@
 uiDesigner.xml
-engine/target
-reader-itr/target
-reader-json/target
 out
 .idea/workspace.xml
+.idea/libraries
 .directory
 plugin/itrules/engine.jar
 plugin/itrules/reader-itr.jar
