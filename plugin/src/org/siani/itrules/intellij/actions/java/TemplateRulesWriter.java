@@ -29,6 +29,7 @@ import org.siani.itrules.LineSeparator;
 import org.siani.itrules.Template;
 import org.siani.itrules.engine.RuleSet;
 import org.siani.itrules.engine.SlotSet;
+import org.siani.itrules.model.Frame;
 import org.siani.itrules.model.Rule;
 
 import java.net.URISyntaxException;
@@ -71,12 +72,14 @@ public class TemplateRulesWriter {
 	@NotNull
 	private Adapter<RuleSet> buildRuleSetAdapter(final RuleSet rules) {
 		return (source, context) -> {
+			final Frame frame = context.frame();
 			final SlotSet slotSet = SlotSet.create();
 			if (!aPackage.isEmpty()) slotSet.add("package", context.build(aPackage));
 			slotSet.add("name", context.build(name));
 			slotSet.add("locale", context.build(locale));
 			slotSet.add("lineSeparator", context.build(lineSeparator));
 			for (Rule rule : rules) slotSet.add("rule", context.build(rule));
+			frame.addSlots(slotSet);
 		};
 	}
 }
