@@ -63,7 +63,7 @@ public class TemplateGeneration extends GenerationAction {
 
 	private void notify(Project project, VirtualFile rulesFile) {
 		Notifications.Bus.notify(
-				new Notification("Itrules", getDestinyFile(rulesFile).getName() + " generated", "", NotificationType.INFORMATION), project);
+				new Notification("Itrules", "Itrules", getDestinyFile(rulesFile).getName() + " generated", NotificationType.INFORMATION), project);
 	}
 
 	private VirtualFile find(Module module, String sourcePath) {
