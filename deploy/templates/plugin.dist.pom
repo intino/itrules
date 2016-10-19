@@ -16,6 +16,7 @@
         <vendor.url>http://www.siani.es</vendor.url>
         <vendor.email>support.itrules@siani.es</vendor.email>
         <vendor.name>Siani</vendor.name>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <!--  <dependencies>
@@ -44,6 +45,7 @@
             </resource>
         </resources>
         <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
 
         <plugins>
             <plugin>
