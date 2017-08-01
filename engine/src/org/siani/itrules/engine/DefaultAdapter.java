@@ -12,7 +12,7 @@ import static java.lang.reflect.Modifier.isTransient;
 
 public class DefaultAdapter<T> implements Adapter<T> {
 
-    private boolean isProcessable(Field field) {
+    protected boolean isProcessable(Field field) {
         return !isExcluded(field);
     }
 

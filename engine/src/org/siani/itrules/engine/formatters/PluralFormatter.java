@@ -29,7 +29,6 @@ public class PluralFormatter implements Formatter {
         return getInflector().plural(value.toString());
     }
 
-
     public PluralInflector getInflector() {
         return getInflector(locale.getLanguage());
     }

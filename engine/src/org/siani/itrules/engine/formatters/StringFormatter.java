@@ -24,83 +24,81 @@ package org.siani.itrules.engine.formatters;
 
 import org.siani.itrules.Formatter;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class StringFormatter {
 
-    private static Map<String, Formatter> map = null;
+	private static Map<String, Formatter> map = null;
 
-    public static Map<String, Formatter> get() {
-        if (map == null) createFormatters();
-        return map;
-    }
+	public static Map<String, Formatter> get() {
+		if (map == null) createFormatters();
+		return map;
+	}
 
-    private static void createFormatters() {
-        map = new HashMap<>();
-        add("UpperCase", upperCase());
-        add("LowerCase", lowerCase());
-        add("FirstUpperCase", firstUpperCase());
-        add("FirstLowerCase", firstLowerCase());
-        add("Camelcase", camelCase());
-        add("LowerCamelCase", lowerCamelCase());
-        add("SnakeCase", snakeCase());
-        add("Capitalize", capitalize());
-        add("Length", length());
-    }
+	private static void createFormatters() {
+		map = new HashMap<>();
+		add("UpperCase", upperCase());
+		add("LowerCase", lowerCase());
+		add("FirstUpperCase", firstUpperCase());
+		add("FirstLowerCase", firstLowerCase());
+		add("Camelcase", camelCase());
+		add("LowerCamelCase", lowerCamelCase());
+		add("SnakeCase", snakeCase());
+		add("Capitalize", capitalize());
+		add("Length", length());
+	}
 
-    private static void add(String name, Formatter formatter) {
-        map.put(name.toLowerCase(), formatter);
-    }
+	private static void add(String name, Formatter formatter) {
+		map.put(name.toLowerCase(), formatter);
+	}
 
-    private static Formatter upperCase() {
-        return value -> value.toString().toUpperCase();
-    }
+	public static Formatter upperCase() {
+		return value -> value.toString().toUpperCase();
+	}
 
-    private static Formatter lowerCase() {
-        return value -> value.toString().toLowerCase();
-    }
+	public static Formatter lowerCase() {
+		return value -> value.toString().toLowerCase();
+	}
 
-    private static Formatter camelCase() {
-        return value -> {
-            String[] parts = value.toString().split(" ");
-            String result = "";
-            for (String part : parts) result = result + capitalize().format(part);
-            return result;
-        };
-    }
+	public static Formatter camelCase() {
+		return value -> {
+			String[] parts = value.toString().split(" ");
+			String result = "";
+			for (String part : parts) result = result + capitalize().format(part);
+			return result;
+		};
+	}
 
-    private static Formatter lowerCamelCase() {
-        return value -> {
-            String[] parts = value.toString().split(" ");
-            String result = "";
-            for (String part : parts)
-                result = result + capitalize().format(part);
-            return result.substring(0, 1).toLowerCase() + result.substring(1);
-        };
-    }
+	public static Formatter lowerCamelCase() {
+		return value -> {
+			String[] parts = value.toString().split(" ");
+			String result = "";
+			for (String part : parts)
+				result = result + capitalize().format(part);
+			return result.substring(0, 1).toLowerCase() + result.substring(1);
+		};
+	}
 
-    private static Formatter snakeCase() {
-        return value -> value.toString().toLowerCase().replaceAll(" ", "-");
-    }
+	public static Formatter snakeCase() {
+		return value -> value.toString().toLowerCase().replaceAll(" ", "-");
+	}
 
-    private static Formatter firstUpperCase() {
-        return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
-    }
+	public static Formatter firstUpperCase() {
+		return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
+	}
 
-    private static Formatter firstLowerCase() {
-        return value -> value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
-    }
+	public static Formatter firstLowerCase() {
+		return value -> value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
+	}
 
-    private static Formatter capitalize() {
-        return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
-    }
+	public static Formatter capitalize() {
+		return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
+	}
 
-    private static Formatter length() {
-        return value -> String.valueOf(value.toString().length());
-    }
+	public static Formatter length() {
+		return value -> String.valueOf(value.toString().length());
+	}
 
 
 }
