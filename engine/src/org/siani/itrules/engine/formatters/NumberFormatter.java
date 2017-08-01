@@ -18,7 +18,7 @@ public class NumberFormatter {
         return map;
     }
 
-    private static Formatter separators(final Locale locale) {
+    public static Formatter separators(final Locale locale) {
         return value -> {
             if (!isNumber(value)) return value;
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(locale);
@@ -28,7 +28,7 @@ public class NumberFormatter {
         };
     }
 
-    private static Formatter twoDecimals(final Locale locale) {
+    public static Formatter twoDecimals(final Locale locale) {
         return value -> {
             if (!isNumber(value)) return value;
             double n = ((Number) value).doubleValue();
@@ -39,5 +39,4 @@ public class NumberFormatter {
     private static boolean isNumber(Object value) {
         return Number.class.isAssignableFrom(value.getClass());
     }
-
 }
