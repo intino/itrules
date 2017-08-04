@@ -53,10 +53,10 @@ public class Buffer {
     }
 
     private String indent(char[] data) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < data.length - 1; i++)
-            result += data[i] + (data[i] == NEW_LINE && data[i + 1] != NEW_LINE ? indentation : "");
-        return result;
+            result.append(data[i]).append(data[i] == NEW_LINE && data[i + 1] != NEW_LINE ? indentation : "");
+        return result.toString();
     }
 
     @Override
