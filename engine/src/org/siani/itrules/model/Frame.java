@@ -28,116 +28,115 @@ import java.util.*;
 
 public class Frame implements AbstractFrame {
 
-    private final Set<String> types;
-    private final SlotSet slots;
-
-    public Frame() {
-        this.types = createTypeSet();
-        this.slots = SlotSet.create();
-    }
+	private final Set<String> types;
+	private final SlotSet slots;
 
 
-    private static Set<String> createTypeSet() {
-        HashSet<String> result = new HashSet<String>() {
-            @Override
-            public boolean contains(Object o) {
-                return super.contains(o.toString().toLowerCase());
-            }
+	public Frame(String... types) {
+		this.types = createTypeSet();
+		this.slots = SlotSet.create();
+		addTypes(types);
+	}
 
-            @Override
-            public boolean add(String s) {
-                return super.add(s.toLowerCase());
-            }
-        };
-        return result;
-    }
+	private static Set<String> createTypeSet() {
+		return new HashSet<String>() {
+			@Override
+			public boolean contains(Object o) {
+				return super.contains(o.toString().toLowerCase());
+			}
 
-    public boolean is(String type) {
-        return this.types.contains(type);
-    }
+			@Override
+			public boolean add(String s) {
+				return super.add(s.toLowerCase());
+			}
+		};
+	}
 
-    public String[] types() {
-        return types.toArray(new String[types.size()]);
-    }
+	public boolean is(String type) {
+		return this.types.contains(type);
+	}
 
-    public String[] slots() {
-        return slots.names();
-    }
+	public String[] types() {
+		return types.toArray(new String[types.size()]);
+	}
 
-    public Iterator<AbstractFrame> frames(String slot) {
-        return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
-    }
+	public String[] slots() {
+		return slots.names();
+	}
 
-    public Frame addTypes(List<String> types) {
-        return addTypes(types.toArray(new String[types.size()]));
-    }
+	public Iterator<AbstractFrame> frames(String slot) {
+		return (slots.get(slot) != null) ? slots.get(slot).iterator() : Collections.<AbstractFrame>emptyList().iterator();
+	}
 
-    public Frame addTypes(String... types) {
-        Collections.addAll(this.types, types);
-        return this;
-    }
+	public Frame addTypes(List<String> types) {
+		return addTypes(types.toArray(new String[types.size()]));
+	}
 
-    public Frame addSlots(SlotSet slots) {
-        this.slots.add(slots);
-        return this;
-    }
+	public Frame addTypes(String... types) {
+		Collections.addAll(this.types, types);
+		return this;
+	}
 
-    public Frame addSlot(String slot, AbstractFrame... frames) {
-        for (AbstractFrame frame : frames) slots.get(slot).add(frame);
-        return this;
-    }
+	public Frame addSlots(SlotSet slots) {
+		this.slots.add(slots);
+		return this;
+	}
 
-    public Frame addSlot(String slot, Object... values) {
-        for (Object value : values) createSlot(slot, value.toString());
-        return this;
-    }
+	public Frame addSlot(String slot, AbstractFrame... frames) {
+		for (AbstractFrame frame : frames) slots.get(slot).add(frame);
+		return this;
+	}
 
-    public Frame addSlot(String slot, String... values) {
-        for (String value : values) createSlot(slot, value);
-        return this;
-    }
+	public Frame addSlot(String slot, Object... values) {
+		for (Object value : values) createSlot(slot, value.toString());
+		return this;
+	}
 
-    public Frame addSlot(String slot, Integer... values) {
-        for (Integer value : values) createSlot(slot, value);
-        return this;
-    }
+	public Frame addSlot(String slot, String... values) {
+		for (String value : values) createSlot(slot, value);
+		return this;
+	}
 
-    public Frame addSlot(String slot, Boolean... values) {
-        for (Boolean value : values) createSlot(slot, value);
-        return this;
-    }
+	public Frame addSlot(String slot, Integer... values) {
+		for (Integer value : values) createSlot(slot, value);
+		return this;
+	}
 
-    public Frame addSlot(String slot, Long... values) {
-        for (Long value : values) createSlot(slot, value);
-        return this;
-    }
+	public Frame addSlot(String slot, Boolean... values) {
+		for (Boolean value : values) createSlot(slot, value);
+		return this;
+	}
 
-    public Frame addSlot(String slot, Double... values) {
-        for (Double value : values) createSlot(slot, value);
-        return this;
-    }
+	public Frame addSlot(String slot, Long... values) {
+		for (Long value : values) createSlot(slot, value);
+		return this;
+	}
 
-    public Frame addSlot(String slot, Date... values) {
-        for (Date value : values) createSlot(slot, value);
-        return this;
-    }
+	public Frame addSlot(String slot, Double... values) {
+		for (Double value : values) createSlot(slot, value);
+		return this;
+	}
 
-    private Frame createSlot(String slot, Object value) {
-        slots.get(slot).add(new PrimitiveFrame(value));
-        return this;
-    }
+	public Frame addSlot(String slot, Date... values) {
+		for (Date value : values) createSlot(slot, value);
+		return this;
+	}
 
-    public boolean isPrimitive() {
-        return false;
-    }
+	private void createSlot(String slot, Object value) {
+		slots.get(slot).add(new PrimitiveFrame(value));
+	}
 
-    public Object value() {
-        return null;
-    }
+	public boolean isPrimitive() {
+		return false;
+	}
 
-    @Override
-    public String toString() {
-        return types.toString().replace(", object", "");
-    }
+	public Object value() {
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		return types.toString().replace(", object", "");
+	}
 
 }

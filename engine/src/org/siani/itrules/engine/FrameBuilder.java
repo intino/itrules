@@ -73,7 +73,7 @@ public final class FrameBuilder {
     }
 
     private Adapter adapterFor(Class aClass) {
-        return registers.containsKey(aClass) ? registers.get(aClass) : null;
+        return registers.getOrDefault(aClass, null);
     }
 
     private List<String> typesOf(Object object) {

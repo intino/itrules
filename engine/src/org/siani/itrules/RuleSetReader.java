@@ -27,6 +27,5 @@ import org.siani.itrules.engine.RuleSet;
 import java.nio.charset.Charset;
 
 public interface RuleSetReader {
-
     RuleSet read(Charset charset) throws Exception;
 }

@@ -12,7 +12,7 @@ public class FunctionEvaluator {
     }
 
     private Stream<String> stream() {
-        return Arrays.stream(parameter.replaceAll("\\s| ", "").split("\\||&"));
+        return Arrays.stream(parameter.replaceAll("\\s| ", "").split("[|&]"));
     }
 
     public boolean evaluate(Predicate<String> predicate) {

@@ -125,5 +125,4 @@ public class DefaultAdapter<T> implements Adapter<T> {
         }
 
     }
-
 }

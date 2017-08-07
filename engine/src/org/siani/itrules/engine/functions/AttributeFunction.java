@@ -69,7 +69,4 @@ public final class AttributeFunction implements Function {
         }
         return false;
     }
-
-
-
 }

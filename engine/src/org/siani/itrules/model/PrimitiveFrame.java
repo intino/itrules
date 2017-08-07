@@ -26,34 +26,34 @@ import java.util.Collections;
 import java.util.Iterator;
 
 public class PrimitiveFrame implements AbstractFrame {
-    private final Object value;
+	private final Object value;
 
-    public PrimitiveFrame(Object value) {
-        this.value = value;
-    }
+	public PrimitiveFrame(Object value) {
+		this.value = value;
+	}
 
-    @Override
-    public boolean is(String type) {
-        return type.equalsIgnoreCase(value.getClass().getSimpleName());
-    }
+	@Override
+	public boolean is(String type) {
+		return type.equalsIgnoreCase(value.getClass().getSimpleName());
+	}
 
-    @Override
-    public boolean isPrimitive() {
-        return true;
-    }
+	@Override
+	public boolean isPrimitive() {
+		return true;
+	}
 
-    @Override
-    public Iterator<AbstractFrame> frames(String slot) {
-        return Collections.<AbstractFrame>emptyList().iterator();
-    }
+	@Override
+	public Iterator<AbstractFrame> frames(String slot) {
+		return Collections.<AbstractFrame>emptyList().iterator();
+	}
 
-    @Override
-    public Object value() {
-        return value;
-    }
+	@Override
+	public Object value() {
+		return value;
+	}
 
-    @Override
-    public String toString() {
-        return value.toString();
-    }
+	@Override
+	public String toString() {
+		return value.toString();
+	}
 }

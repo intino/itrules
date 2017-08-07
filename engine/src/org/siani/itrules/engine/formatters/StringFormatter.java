@@ -85,20 +85,18 @@ public final class StringFormatter {
 	}
 
 	public static Formatter firstUpperCase() {
-		return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
+		return value -> value.toString().isEmpty() ? "" : value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
 	}
 
 	public static Formatter firstLowerCase() {
-		return value -> value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
+		return value -> value.toString().isEmpty() ? "" : value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
 	}
 
 	public static Formatter capitalize() {
-		return value -> value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
+		return value -> value.toString().isEmpty() ? "" : value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
 	}
 
 	public static Formatter length() {
 		return value -> String.valueOf(value.toString().length());
 	}
-
-
 }

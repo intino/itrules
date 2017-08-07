@@ -310,7 +310,6 @@ public class TemplateEngine {
         return pop.isUsed();
     }
 
-
     private static class CompositeMark extends DelegateMark {
         private String[] options;
 
@@ -326,7 +325,6 @@ public class TemplateEngine {
             System.arraycopy(options, 0, result, mark.options().length, options.length);
             return result;
         }
-
     }
 
     private class NonFormattingMark extends DelegateMark {
@@ -341,9 +339,5 @@ public class TemplateEngine {
                 if (!formatterIndex.exists(option)) result.add(option);
             return result.toArray(new String[result.size()]);
         }
-
-
     }
-
-
 }

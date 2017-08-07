@@ -25,7 +25,6 @@ package org.siani.itrules.engine.functions;
 import org.siani.itrules.Function;
 import org.siani.itrules.engine.FunctionEvaluator;
 import org.siani.itrules.engine.Trigger;
-import org.siani.itrules.model.AbstractFrame;
 
 public final class TypeFunction implements Function {
 
@@ -33,5 +32,4 @@ public final class TypeFunction implements Function {
     public boolean match(Trigger trigger, String parameter) {
         return new FunctionEvaluator(parameter).evaluate(type->trigger.frame().is(type));
     }
-
 }
