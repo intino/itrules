@@ -1,7 +1,7 @@
 def type(ruleset)
 	[package $package;]
 
-	import org.siani.itrules.*;
+	import io.intino.itrules.*;
 
 	public class $name+FirstUpperCase~Template extends Template {
 

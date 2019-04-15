@@ -1,6 +1,6 @@
-import org.siani.itrules.Adapter;
-import org.siani.itrules.TemplateEngine;
-import org.siani.itrules.engine.SlotSet;
+import io.intino.itrules.Adapter;
+import io.intino.itrules.TemplateEngine;
+import io.intino.itrules.engine.SlotSet;
 
 import java.util.HashMap;
 import java.util.Map;

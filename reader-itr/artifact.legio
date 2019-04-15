@@ -1,0 +1,11 @@
+dsl Legio
+
+Artifact("io.intino.itrules", "1.0.0") reader-itr
+	Imports
+		Compile("io.intino.itrules", "engine", "1.0.0")
+		Compile("org.antlr", "antlr4", "4.5")
+		Test("junit", "junit", "4.13-beta-2")
+	Package(mode = ModulesAndLibrariesLinkedByManifest)
+
+
+

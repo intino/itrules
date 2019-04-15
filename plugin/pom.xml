@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <version>1.0</version>
 
-    <groupId>org.siani.itrules</groupId>
+    <groupId>io.intino.itrules</groupId>
     <artifactId>plugin</artifactId>
 
     <properties>
@@ -22,14 +22,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.siani.itrules</groupId>
+            <groupId>io.intino.itrules</groupId>
             <artifactId>engine</artifactId>
-            <version>1.0</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>org.siani.itrules</groupId>
+            <groupId>io.intino.itrules</groupId>
             <artifactId>reader-itr</artifactId>
-            <version>1.0</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

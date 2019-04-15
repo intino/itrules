@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/plugin/plugin.iml" filepath="$PROJECT_DIR$/plugin/plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/reader-itr/reader-itr.iml" filepath="$PROJECT_DIR$/reader-itr/reader-itr.iml" />
       <module fileurl="file://$PROJECT_DIR$/reader-json/reader-json.iml" filepath="$PROJECT_DIR$/reader-json/reader-json.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sherpa/sherpa.iml" filepath="$PROJECT_DIR$/sherpa/sherpa.iml" />
     </modules>
   </component>
 </project>

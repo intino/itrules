@@ -1,8 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
-import org.siani.itrules.engine.RuleSet;
-import org.siani.itrules.intellij.actions.java.TemplateRulesWriter;
-import org.siani.itrules.readers.ItrRuleSetReader;
+import io.intino.itrules.engine.RuleSet;
+import io.intino.itrules.intellij.actions.java.TemplateRulesWriter;
+import io.intino.itrules.readers.ItrRuleSetReader;
 
 import java.nio.charset.Charset;
 
@@ -10,11 +10,11 @@ public class TemplateGeneration {
 
     String expected_roster = "package org.sample;\n" +
             "\n" +
-            "import org.siani.itrules.*;\n" +
+            "import io.intino.itrules.*;\n" +
             "\n" +
             "import java.util.Locale;\n" +
             "\n" +
-            "import static org.siani.itrules.LineSeparator.*;\n" +
+            "import static io.intino.itrules.LineSeparator.*;\n" +
             "\n" +
             "public class RosterTemplate extends Template {\n" +
             "\n" +
@@ -38,11 +38,11 @@ public class TemplateGeneration {
 
     String expected_morph = "package org.sample;\n" +
             "\n" +
-            "import org.siani.itrules.*;\n" +
+            "import io.intino.itrules.*;\n" +
             "\n" +
             "import java.util.Locale;\n" +
             "\n" +
-            "import static org.siani.itrules.LineSeparator.*;\n" +
+            "import static io.intino.itrules.LineSeparator.*;\n" +
             "\n" +
             "public class MorphTemplate extends Template {\n" +
             "\n" +
@@ -65,11 +65,11 @@ public class TemplateGeneration {
 
     String expected_rare_charachters = "package org.sample;\n" +
             "\n" +
-            "import org.siani.itrules.*;\n" +
+            "import io.intino.itrules.*;\n" +
             "\n" +
             "import java.util.Locale;\n" +
             "\n" +
-            "import static org.siani.itrules.LineSeparator.*;\n" +
+            "import static io.intino.itrules.LineSeparator.*;\n" +
             "\n" +
             "public class RareCharactersTemplate extends Template {\n" +
             "\n" +
@@ -91,11 +91,11 @@ public class TemplateGeneration {
 
     String expected_null_template = "package org.sample;\n" +
             "\n" +
-            "import org.siani.itrules.*;\n" +
+            "import io.intino.itrules.*;\n" +
             "\n" +
             "import java.util.Locale;\n" +
             "\n" +
-            "import static org.siani.itrules.LineSeparator.*;\n" +
+            "import static io.intino.itrules.LineSeparator.*;\n" +
             "\n" +
             "public class NullTemplate extends Template {\n" +
             "\n" +
@@ -117,11 +117,11 @@ public class TemplateGeneration {
 
     String expected_native_template = "package org.sample;\n" +
             "\n" +
-            "import org.siani.itrules.*;\n" +
+            "import io.intino.itrules.*;\n" +
             "\n" +
             "import java.util.Locale;\n" +
             "\n" +
-            "import static org.siani.itrules.LineSeparator.*;\n" +
+            "import static io.intino.itrules.LineSeparator.*;\n" +
             "\n" +
             "public class NativeTemplate extends Template {\n" +
             "\n" +
