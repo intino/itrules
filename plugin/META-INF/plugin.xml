@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>siani.dev.itrules</id>
     <name>Itrules</name>
-    <version>#version#</version>
+    <version>1.10.0</version>
     <vendor email="support.@intino.io" url="http://intino.io">Itrules: Intelligent Template Engine Rules Based
     </vendor>
 
