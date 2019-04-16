@@ -60,7 +60,7 @@ public class ItrulesSdkImpl implements ItrulesSdk {
     @Override
     @Nullable
     public String getVersion() {
-        return JarUtil.getJarAttribute(getItrulesCfgFile(), "org/siani/itrules/info/", Attributes.Name.SPECIFICATION_VERSION);
+        return JarUtil.getJarAttribute(getItrulesCfgFile(), " io/intino/itrules/info/", Attributes.Name.SPECIFICATION_VERSION);
     }
 
     public boolean isValid() {

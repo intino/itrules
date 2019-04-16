@@ -1,3 +1,6 @@
+##2.0.0
+-	Improved engine performance.
+- 	Migrated to io.intino
 ##1.9.0
 -	Improved engine.
 -   Added file listener to generate template on the fly.

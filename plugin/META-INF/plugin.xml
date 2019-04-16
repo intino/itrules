@@ -2,7 +2,7 @@
     <id>siani.dev.itrules</id>
     <name>Itrules</name>
     <version>#version#</version>
-    <vendor email="support.itrules@siani.es" url="http://www.siani.es">Itrules: Intelligent Template Engine Rules Based
+    <vendor email="support.@intino.io" url="http://intino.io">Itrules: Intelligent Template Engine Rules Based
     </vendor>
 
     <description><![CDATA[
@@ -16,9 +16,12 @@
 
     ]]></description>
 
-    <change-notes><![CDATA[
-      #change-notes#
-    ]]>
+    <change-notes>
+        <![CDATA[
+        <p>##2.0.0
+            -	Improved engine performance.
+            - 	Migrated to io.intino</p>
+        ]]>
     </change-notes>
 
     <idea-version since-build="131"/>

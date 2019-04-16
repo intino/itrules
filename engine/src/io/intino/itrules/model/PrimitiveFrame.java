@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 SIANI - ULPGC
+ * Copyright 2014
  * Octavio Roncal Andrés
  * José Juan Hernández Cabrera
  * José Évora Gomez
