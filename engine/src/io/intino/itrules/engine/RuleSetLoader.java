@@ -32,7 +32,7 @@ public class RuleSetLoader {
     }
 
     private static String of(Source source) {
-        return "org.siani.itrules.readers." + capitalize(extension(source.getName())) + "RuleSetReader";
+        return "io.intino.itrules.readers." + capitalize(extension(source.getName())) + "RuleSetReader";
     }
 
     private static String extension(String name) {

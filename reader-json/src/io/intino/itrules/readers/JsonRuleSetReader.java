@@ -70,7 +70,7 @@ public final class JsonRuleSetReader implements RuleSetReader {
             String type = jsonObject.get("tokenType").getAsString();
             JsonElement element = jsonObject.get("data");
             try {
-                return context.deserialize(element, Class.forName("org.siani.itrules.model." + type));
+                return context.deserialize(element, Class.forName("io.intino.itrules.model." + type));
             } catch (ClassNotFoundException cnfe) {
                 throw new JsonParseException("Unknown element type: " + type, cnfe);
             }

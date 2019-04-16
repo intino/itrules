@@ -4,9 +4,10 @@ Artifact("io.intino.itrules", "1.0.0") reader-json
 
 	Imports
 		Compile("io.intino.itrules", "engine", "1.0.0")
-		Compile("com.google.code.gson", "gson", "2.3.1")
+		Compile("com.google.code.gson", "gson", "2.8.0")
 		Test("junit", "junit", "4.13-beta-2")
 	Package(ModulesAndLibrariesLinkedByManifest)
+	Distribution(intino.releases)
 
-
-
+Repository("intino-maven") intino
+	Release("https://artifactory.intino.io/artifactory/release-libraries") releases
