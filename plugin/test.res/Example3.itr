@@ -1,0 +1,3 @@
+def type(newfeatures) trigger(new)
+	$workingPackage+[f-> f.is("a")? "aaa":"bbb"]
+end

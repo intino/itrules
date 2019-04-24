@@ -1,340 +1,309 @@
-/*
- * Copyright 2014
- * Octavio Roncal Andrés
- * José Juan Hernández Cabrera
- * José Évora Gomez
- *
- * This File is Part of itrules Project
- *
- * itrules Project is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * itrules Project is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package io.intino.itrules;
 
-import io.intino.itrules.engine.*;
-import io.intino.itrules.model.*;
-import io.intino.itrules.model.marks.AbstractMark;
-import io.intino.itrules.model.marks.DelegateMark;
-import io.intino.itrules.model.marks.Mark;
+import io.intino.itrules.Rule.Output;
+import io.intino.itrules.formatters.DateFormatters;
+import io.intino.itrules.formatters.NumberFormatters;
+import io.intino.itrules.formatters.StringFormatters;
+import io.intino.itrules.rules.output.Expression;
+import io.intino.itrules.rules.output.Literal;
+import io.intino.itrules.rules.output.Mark;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Stream;
 
+import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.CRLF;
+import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.LF;
+import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 
 public class TemplateEngine {
-    public static final String CutLine = "|>";
-    private final LineSeparator lineSeparator;
-    private final RuleSet ruleSet = new RuleSet();
-    private final Stack<Buffer> buffers = new Stack<>();
-    private final FormatterIndex formatterIndex;
-    private final FunctionIndex functionIndex;
-    private final FrameBuilder frameBuilder;
+	private static final int Flag = 0xFFF1;
+	private static final String Blanks = "  \t\n";
+	private final RuleSet ruleSet;
+	private final Writer writer;
+	private final Map<String, Formatter> formatters;
+	private final Map<Class, Adapter> adapters;
 
-    public TemplateEngine() {
-        this(Locale.getDefault());
-    }
+	public TemplateEngine(RuleSet ruleSet) {
+		this(ruleSet, new Configuration());
+	}
 
-    public TemplateEngine(Locale locale) {
-        this(locale, LineSeparator.LF);
-    }
+	public TemplateEngine(RuleSet ruleSet, Configuration configuration) {
+		this.ruleSet = ruleSet;
+		this.writer = writerFor(configuration);
+		this.formatters = formattersFor(configuration);
+		this.adapters = new HashMap<>();
+	}
 
-    public TemplateEngine(Locale locale, LineSeparator lineSeparator) {
-        this.lineSeparator = lineSeparator;
-        this.ruleSet.add(defaultRule());
-        this.formatterIndex = new FormatterIndex(locale);
-        this.functionIndex = new FunctionIndex();
-        this.frameBuilder = new FrameBuilder();
-    }
+	private static String indentOf(StringBuilder sb) {
+		int index = sb.lastIndexOf("\n");
+		return index >= 0 && index < sb.length() - 1 ? sb.substring(index + 1, sb.length()) : "";
+	}
 
-    private TemplateEngine(TemplateEngine engine) {
-        this.lineSeparator = engine.lineSeparator;
-        this.ruleSet.add(defaultRule());
-        this.formatterIndex = engine.formatterIndex;
-        this.functionIndex = engine.functionIndex;
-        this.frameBuilder = engine.frameBuilder;
-    }
+	private static boolean hasFlag(StringBuilder sb) {
+		return sb.codePoints().anyMatch(c -> c == Flag);
+	}
 
-    public static TemplateEngine with(String template) {
-        return new TemplateEngine().load(template);
-    }
+	private static String withoutFlags(StringBuilder sb) {
+		return sb.codePoints().filter(c -> c < Flag)
+				.collect(StringBuilder::new,
+						StringBuilder::appendCodePoint,
+						StringBuilder::append)
+				.toString();
+	}
 
-    public TemplateEngine load(String pathname) {
-        return load(new Source(pathname));
-    }
+	public TemplateEngine add(String name, Formatter formatter) {
+		formatters.put(name, formatter);
+		return this;
+	}
 
-    public TemplateEngine load(Source source) {
-        this.ruleSet.add(RuleSetLoader.load(source));
-        return this;
-    }
+	public <T> TemplateEngine add(Class<T> class_, Adapter<T> adapter) {
+		adapters.put(class_, adapter);
+		return this;
+	}
 
-    TemplateEngine add(Rule... rules) {
-        return add(Arrays.asList(rules));
-    }
+	public String render(Object object) {
+		return start(new Trigger("root").on(frameOf(object)));
+	}
 
-    TemplateEngine add(List<Rule> rules) {
-        this.ruleSet.add(rules);
-        return this;
-    }
+	private String start(Trigger trigger) {
+		return write(new Display(trigger).generate());
+	}
 
-    RuleSet ruleSet() {
-        return ruleSet;
-    }
+	private String write(StringBuilder sb) {
+		return writer.write(sb);
+	}
 
-    public TemplateEngine add(String format, io.intino.itrules.Formatter formatter) {
-        formatterIndex.add(format, formatter);
-        return this;
-    }
+	private Frame frameOf(Object object) {
+		if (object instanceof Frame) return (Frame) object;
+		return new FrameBuilder().put(adapters).add(object).toFrame();
+	}
 
-    public TemplateEngine add(String format, final TemplateEngine engine) {
-        add(format, engine::render);
-        return this;
-    }
+	private Frame format(Frame frame, String[] formatters) {
+		if (formatters.length == 0) return frame;
+		Object object = frame.value() != null ? frame.value() : frame;
+		for (String name : formatters)
+			object = formatter(name).format(object);
+		return frameOf(object);
+	}
 
-    public TemplateEngine add(String format, final String pathname) {
-        add(format, new TemplateEngine(this).load(pathname));
-        return this;
-    }
+	private Formatter formatter(String name) {
+		name = name.trim().toLowerCase();
+		return formatters.getOrDefault(name, Formatter.Null);
+	}
 
-    public TemplateEngine add(String format, final Source source) {
-        add(format, new TemplateEngine(this).load(source));
-        return this;
-    }
+	private Writer writerFor(Configuration configuration) {
+		return new Writer(configuration);
+	}
 
-    public TemplateEngine add(String name, Function function) {
-        functionIndex.add(name, function);
-        return this;
-    }
+	private Map<String, Formatter> formattersFor(Configuration configuration) {
+		Map<String, Formatter> map = new HashMap<>();
+		map.putAll(StringFormatters.get(configuration.locale));
+		map.putAll(NumberFormatters.get(configuration.locale));
+		map.putAll(DateFormatters.get(configuration.locale));
+		return map;
+	}
 
-    public <T> TemplateEngine add(final Class<T> class_, final Adapter<T> adapter) {
-        frameBuilder.register(class_, adapter);
-        return this;
-    }
+	public static class Trigger {
+		private final String name;
+		private Frame frame;
 
-    public String render(Object object) {
-        return render(frameBuilder.build(object));
-    }
+		Trigger(String name) {
+			this.name = name.toLowerCase();
+		}
 
-    private Rule defaultRule() {
-        return new Rule().add(new Condition("Primitive", "")).add(new Mark("value"));
-    }
+		Trigger on(Frame frame) {
+			this.frame = frame;
+			return this;
+		}
 
-    private String render(AbstractFrame frame) {
-        initBuffer();
-        execute(new Trigger(frame, new Mark("root")));
-        return documentOf(buffer());
-    }
+		public String name() {
+			return name;
+		}
 
-    private String documentOf(Buffer buffer) {
-        return encode(cleanEmptyLines(textOf(buffer)));
-    }
+		public Frame frame() {
+			return frame;
+		}
 
-    private String textOf(Buffer buffer) {
-        return String.valueOf(buffer);
-    }
+		Iterator<Frame> frames(String slot) {
+			return frame.frames(slot.toLowerCase());
+		}
 
-    private String cleanEmptyLines(String text) {
-        String EOF = "\n" + "EOF";
-        String[] lines = text.concat(EOF).split("\n");
-        String result = Arrays.stream(lines).filter(this::filter).map(this::clean).collect(joining());
-        return result.substring(0,result.indexOf((EOF)));
-    }
+		boolean check(Rule.Condition condition) {
+			return condition.check(this);
+		}
 
-    private boolean filter(String line) {
-        return !(line.contains(CutLine) && line.replace(CutLine,"").matches("^\\s*$"));
-    }
+	}
 
-    private String clean(String line) {
-        return line.replace(CutLine,"").replaceAll("^\\s*$","") + "\n";
-    }
+	private static class Writer {
+		private Configuration configuration;
 
-    private String encode(String string) {
-        return lineSeparator == LineSeparator.CRLF ? toCRLF(string) : string;
-    }
+		Writer(Configuration configuration) {
+			this.configuration = configuration;
+		}
 
-    private String toCRLF(String string) {
-        return string.replace("\n", "\r\n");
-    }
+		private String write(StringBuilder sb) {
+			return encode(clean(withoutFlags(sb)));
+		}
 
-    private void initBuffer() {
-        this.buffers.clear();
-        pushBuffer("");
-    }
+		private String encode(String str) {
+			return configuration.isCRLF() ? toCRLF(str) : str;
+		}
 
-    private boolean execute(Trigger trigger) {
-        Rule rule = ruleFor(trigger);
-        return rule != null && execute(trigger, rule);
-    }
+		private String clean(String str) {
+			return clean(str.split("\n"));
+		}
 
-    private Rule ruleFor(Trigger trigger) {
-        for (Rule rule : ruleSet)
-            if (match(rule, trigger)) return rule;
-        return null;
-    }
+		private String clean(String[] lines) {
+			return stream(lines).map(this::cleanLine).collect(joining("\n"));
+		}
 
-    private boolean match(Rule rule, Trigger trigger) {
-        for (Condition condition : rule.conditions())
-            if (!conditionMatchTrigger(trigger, condition)) return false;
-        return true;
-    }
+		private String toCRLF(String str) {
+			return str.replace("\n", "\r\n");
+		}
 
-    private boolean conditionMatchTrigger(Trigger trigger, Condition condition) {
-        return functionIndex.get(condition).match(trigger, condition.parameter());
-    }
+		private String cleanLine(String line) {
+			return line.replaceAll("^\\s*$", "");
+		}
 
-    private Buffer buffer() {
-        return buffers.peek();
-    }
+	}
 
-    private boolean execute(Trigger trigger, Rule rule) {
-        for (Token token : rule.tokens())
-            execute(trigger, token);
-        return true;
-    }
+	public static class Configuration {
+		private Locale locale;
+		private LineSeparator lineSeparator;
 
-    private boolean execute(Trigger trigger, Token token) {
-        if (token instanceof AbstractMark) return execute(trigger, token.as(AbstractMark.class));
-        if (token instanceof Expression) return execute(trigger, token.as(Expression.class));
-        write(token.toString());
-        return true;
-    }
+		public Configuration(Locale locale, LineSeparator lineSeparator) {
+			this.locale = locale;
+			this.lineSeparator = lineSeparator;
+		}
 
-    private void write(String text) {
-        buffer().write(text);
-    }
+		Configuration() {
+			this(Locale.ENGLISH, LF);
+		}
 
-    private boolean execute(Trigger trigger, AbstractMark mark) {
-        return renderFrame(trigger.frame(), composeMark(trigger, mark));
-    }
+		boolean isCRLF() {
+			return lineSeparator == CRLF;
+		}
 
-    private AbstractMark composeMark(Trigger trigger, AbstractMark mark) {
-        return trigger.frame().isPrimitive() ? new CompositeMark(mark, trigger.mark().options()) : mark;
-    }
+		public enum LineSeparator {
+			LF, CRLF
+		}
+	}
 
-    private boolean renderFrame(AbstractFrame frame, AbstractMark mark) {
-        return frame.isPrimitive() ?
-                renderPrimitiveFrame(frame, mark) :
-                renderCompositeFrame(frame, mark);
-    }
+	private class Display {
+		private final Trigger trigger;
+		private final StringBuilder sb;
 
-    private boolean renderPrimitiveFrame(AbstractFrame frame, AbstractMark mark) {
-        if (!mark.name().equalsIgnoreCase("value")) return false;
-        write(format(frame, mark).toString());
-        buffer().used();
-        return true;
-    }
+		Display(Trigger trigger) {
+			this.trigger = trigger;
+			this.sb = new StringBuilder();
+		}
 
-    private boolean renderCompositeFrame(AbstractFrame frame, AbstractMark mark) {
-        Iterator<AbstractFrame> frames = frame.frames(mark.name());
-        return frames != null && renderFrames(frames, mark);
-    }
+		StringBuilder generate() {
+			return generate(ruleFor(trigger).outputs());
+		}
 
-    private boolean renderFrames(Iterator<AbstractFrame> frames, AbstractMark mark) {
-        boolean rendered = false;
-        while (frames.hasNext()) {
-            pushBuffer(mark.indentation());
-            if (rendered && mark.isMultiple()) writeSeparator(mark);
-            rendered = rendered | trigger(format(frames.next(), mark), new NonFormattingMark(mark));
-            popBuffer();
-        }
-        return rendered;
-    }
+		private StringBuilder generate(Stream<Output> outputs) {
+			outputs.forEach(this::write);
+			return sb;
+		}
 
-    private boolean trigger(Object value, AbstractMark mark) {
-        if (!execute(new Trigger(frame(value), mark))) return false;
-        buffer().used();
-        return true;
-    }
+		private Rule ruleFor(Trigger trigger) {
+			for (Rule rule : ruleSet)
+				if (rule.conditions().allMatch(trigger::check)) return rule;
+			return defaultRule(trigger.frame);
+		}
 
-    private Object format(Object value, AbstractMark mark) {
-        if (value instanceof PrimitiveFrame) value = ((PrimitiveFrame) value).value();
-        for (String option : mark.options())
-            value = format(value, formatterIndex.get(option));
-        return value;
-    }
+		private Rule defaultRule(Frame frame) {
+			return frame.value() != null ?
+					new Rule().output(Mark.This) :
+					new Rule().output();
+		}
 
-    private AbstractFrame frame(Object value) {
-        return value instanceof AbstractFrame ? (AbstractFrame) value : new PrimitiveFrame(value);
-    }
+		private void write(Output output) {
+			if (output instanceof Literal) write((Literal) output);
+			if (output instanceof Mark) write((Mark) output);
+			if (output instanceof Expression) write((Expression) output);
+		}
 
-    private Object format(Object value, Formatter formatter) {
-        return formatter.format(value);
-    }
+		private void write(Literal literal) {
+			append(sb, literal.toString());
+		}
 
-    private boolean execute(Trigger trigger, Expression expression) {
-        boolean result = true;
-        while (expression != null) {
-            pushBuffer("");
-            if (isConstant(expression)) buffer().used();
-            for (Token token : expression)
-                result &= execute(trigger, token);
-            expression = expression.or();
-            if (popBuffer()) break;
-        }
-        return result;
-    }
+		private void write(Mark mark) {
+			append(sb, mark.isThis() ? evaluateThis(trigger.frame) : evaluate(mark));
+		}
 
-    private boolean isConstant(Expression expression) {
-        for (Token token : expression)
-            if (token instanceof Mark) return false;
-        return true;
-    }
+		private void write(Expression expression) {
+			append(sb, evaluate(expression));
+		}
 
-    private void writeSeparator(AbstractMark mark) {
-        write(mark.separator());
-    }
+		private StringBuilder evaluateThis(Frame frame) {
+			return new StringBuilder(valueOf(frame));
+		}
 
-    private void pushBuffer(String indentation) {
-        buffers.push(new Buffer(indentation));
-    }
+		private StringBuilder evaluate(Mark mark) {
+			return evaluate(mark, trigger.frames(mark.name()));
+		}
 
-    private boolean popBuffer() {
-        Buffer pop = buffers.pop();
-        if (pop.isUsed()) {
-            buffer().write(pop);
-            buffer().used();
-        }
-        return pop.isUsed();
-    }
+		private StringBuilder evaluate(Mark mark, Iterator<Frame> frames) {
+			StringBuilder sb = new StringBuilder();
+			while (frames.hasNext())
+				append(sb, evaluate(mark, frames.next()), mark.separator());
+			return sb;
+		}
 
-    private static class CompositeMark extends DelegateMark {
-        private String[] options;
+		private StringBuilder evaluate(Mark mark, Frame frame) {
+			return new Display(new Trigger(mark.fullName()).on(format(frame, mark.formatters()))).generate();
 
-        public CompositeMark(AbstractMark mark, String[] options) {
-            super(mark);
-            this.options = options;
-        }
+		}
 
-        @Override
-        public String[] options() {
-            String[] result = new String[mark.options().length + options.length];
-            System.arraycopy(mark.options(), 0, result, 0, mark.options().length);
-            System.arraycopy(options, 0, result, mark.options().length, options.length);
-            return result;
-        }
-    }
+		private StringBuilder evaluate(Expression expression) {
+			StringBuilder sb = new Display(trigger).generate(expression.outputs());
+			if (expression.isConstant()) sb.appendCodePoint(Flag);
+			return hasFlag(sb) ? sb : validate(expression.next());
+		}
 
-    private class NonFormattingMark extends DelegateMark {
-        public NonFormattingMark(AbstractMark mark) {
-            super(mark);
-        }
+		private StringBuilder validate(Expression expression) {
+			if (expression != null) return evaluate(expression);
+			backSpaces(sb);
+			return new StringBuilder();
+		}
 
-        @Override
-        public String[] options() {
-            List<String> result = new ArrayList<>();
-            for (String option : mark.options())
-                if (!formatterIndex.exists(option)) result.add(option);
-            return result.toArray(new String[result.size()]);
-        }
-    }
+		private void append(StringBuilder sb, String str) {
+			sb.append(str);
+		}
+
+		private void append(StringBuilder sb, StringBuilder o, String separator) {
+			if (o.length() == 0) return;
+			if (sb.length() > 0) sb.append(separator);
+			sb.append(o).appendCodePoint(Flag);
+		}
+
+		private void append(StringBuilder sb, StringBuilder o) {
+			if (o.length() == 0) return;
+			sb.append(indent(withoutFlags(o)));
+			if (hasFlag(o)) sb.appendCodePoint(Flag);
+		}
+
+		private String valueOf(Frame frame) {
+			return frame.value() != null ? frame.value().toString() : "";
+		}
+
+		private void backSpaces(StringBuilder sb) {
+			int index = sb.length() - 1;
+			while (index >= 0) {
+				if (Blanks.indexOf(sb.charAt(index)) < 0) break;
+				index--;
+			}
+			sb.delete(index + 1, sb.length());
+		}
+
+		private String indent(String str) {
+			return str.replace("\n", "\n" + indentOf(this.sb));
+		}
+	}
 }

@@ -1,58 +1,39 @@
 package io.intino.itrules.intellij.actions.java;
 
-import io.intino.itrules.LineSeparator;
+import io.intino.itrules.RuleSet;
 import io.intino.itrules.Template;
-
-import java.util.Locale;
 
 public class JavaItrulesTemplate extends Template {
 
 
-    protected JavaItrulesTemplate(Locale locale, LineSeparator separator) {
-        super(locale, separator);
-    }
+	protected RuleSet ruleSet() {
+		return new RuleSet().add(
+				rule().condition(type("ruleset")).output(expression().output(literal("package ")).output(mark("package")).output(literal(";"))).output(literal("\n" +
+						"\n" +
+						"import io.intino.itrules.RuleSet;\n" +
+						"import io.intino.itrules.Template;\n" +
+						"\n" +
+						"public class ")).output(mark("name", "FirstUpperCase")).output(literal("Template extends Template {\n\n" +
+						"\tpublic RuleSet ruleSet() {\n" +
+						"\t\treturn new RuleSet().add(\n" +
+						"\t\t\t")).output(mark("rule").multiple(",\n")).output(literal("\n" +
+						"\t\t);\n" +
+						"\t}\n" +
+						"}")),
+				rule().condition(trigger("rule")).output(literal("rule()")).
+						output(expression().output(literal(".condition(")).output(mark("conditions").multiple(", ")).output(literal(")"))).output(mark("outputs").multiple("")),
+				rule().condition(trigger("conditions")).output(mark("negated")).output(literal("(")).output(mark("any")).output(mark("name")).output(literal("("))
+						.output(mark("parameter")).output(literal("))")),
+				rule().condition(type("type"), trigger("parameter")).output(mark("value", "string").multiple(",")),
+				rule().condition(type("trigger"), trigger("parameter")).output(mark("value", "string")),
+				rule().condition(type("attribute"), trigger("parameter")).output(mark("attribute", "string"), expression().output(literal(", "), mark("value", "string"))),
 
-    public static Template create(Locale locale, LineSeparator separator) {
-        return new JavaItrulesTemplate(locale, separator).define();
-    }
+				rule().condition(type("output"), type("literal"), trigger("outputs")).
+						output(literal(".output(literal(")).output(mark("value", "string")).output(literal("))")),
+				rule().condition(type("output"), type("mark"), trigger("outputs")).
+						output(literal(".output(mark(")).output(mark("name", "string")).output(expression().output(literal(", ")).output(mark("formatters", "string").multiple(", "))).output(literal(")")).output(expression().output(literal(".multiple(")).output(mark("separator", "string")).output(literal(")"))).output(literal(")")),
+				rule().condition(type("output"), type("expression"), trigger("outputs")).output(literal(".output(expression()")).output(mark("outputs").multiple("")).output(expression().output(literal(".or(")).output(mark("or")).output(literal(")"))).output(literal(")")),
 
-    protected Template define() {
-        add(
-                rule().add(condition("type", "ruleset")).add(expression().add(literal("package ")).add(mark("package")).add(literal(";"))).add(literal("\n" +
-                        "\n" +
-                        "import io.intino.itrules.*;\n\n" +
-                        "import java.util.Locale;\n" +
-                        "\n" +
-                        "import static io.intino.itrules.LineSeparator.*;\n" +
-                        "\n" +
-                        "public class ")).add(mark("name", "FirstUpperCase")).add(literal("Template extends Template {\n" +
-                        "\n" +
-                        "\tprotected ")).add(mark("name", "FirstUpperCase")).add(literal("Template(Locale locale, LineSeparator separator) {\n" +
-                        "\t\tsuper(locale, separator);\n" +
-                        "\t}\n" +
-                        "\n" +
-                        "\tpublic static Template create() {\n" +
-                        "\t\treturn new ")).add(mark("name", "FirstUpperCase")).add(literal("Template(")).add(mark("locale")).add(literal(", ")).add(mark("lineSeparator")).add(literal(").define();\n")).add(literal("\t}\n\n" +
-                        "\tpublic Template define() {\n" +
-                        "\t\tadd(\n" +
-                        "\t\t\t")).add(mark("rule").multiple(",\n")).add(literal("\n" +
-                        "\t\t);\n" +
-                        "\t\treturn this;\n" +
-                        "\t}\n" +
-                        "}")),
-                rule().add(condition("type", "rule"), condition("trigger", "rule")).add(literal("rule()")).
-                        add(expression().add(literal(".add(")).add(mark("conditions").multiple(", ")).add(literal(")"))).add(mark("tokens").multiple("")),
-                rule().add(condition("type", "condition"), condition("trigger", "conditions")).add(mark("negated")).add(literal("(condition(")).
-                        add(mark("name", "string")).add(literal(", ")).add(mark("parameter", "string")).add(literal("))")),
-                rule().add(condition("trigger", "negated"), condition("attribute", "true")).add(literal("not")),
-                rule().add(condition("trigger", "negated")),
-                rule().add(condition("type", "token"), condition("type", "literal"), condition("trigger", "tokens")).
-                        add(literal(".add(literal(")).add(mark("text", "string")).add(literal("))")),
-                rule().add(condition("type", "token"), condition("type", "mark"), condition("trigger", "tokens")).
-                        add(literal(".add(mark(")).add(mark("name", "string")).add(expression().add(literal(", ")).add(mark("options", "string").multiple(", "))).add(literal(")")).add(expression().add(literal(".multiple(")).add(mark("separator", "string")).add(literal(")"))).add(literal(")")),
-                rule().add(condition("type", "token"), condition("type", "expression"), condition("trigger", "tokens")).add(literal(".add(expression()")).add(mark("tokens").multiple("")).add(expression().add(literal(".or(")).add(mark("or")).add(literal(")"))).add(literal(")")),
-
-                rule().add(condition("type", "token"), condition("type", "expression"), condition("trigger", "or")).add(literal("expression()")).add(mark("tokens").multiple("")).add(expression().add(literal(".or(")).add(mark("or")).add(literal(")"))));
-        return this;
-    }
+				rule().condition(type("output"), type("expression"), trigger("or")).output(literal("expression()")).output(mark("outputs").multiple("")).output(expression().output(literal(".or(")).output(mark("or")).output(literal(")"))));
+	}
 }

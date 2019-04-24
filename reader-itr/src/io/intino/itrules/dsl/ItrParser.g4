@@ -15,4 +15,5 @@ expressionBody  : text | mark | expression;
 
 text            : TEXT;
 mark            : TRIGGER ID option* (LIST SEPARATOR)?;
-option          : OPTION ID;
+option          : lambda | (OPTION ID);
+lambda          : OPTION_LAMBDA text* END_LAMBDA;

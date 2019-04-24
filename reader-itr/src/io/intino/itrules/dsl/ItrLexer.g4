@@ -59,6 +59,7 @@ mode BODY_MODE;
 
 mode MARK_MODE;
 	LIST               : '...';
+	OPTION_LAMBDA      : '+['                                   { setType(OPTION_LAMBDA);setMode(LAMBDA_MODE);};
 	OPTION             : '+'                                    { setType(OPTION);};
     NULL               : '~'                                    { setMode(lastMode); setLastMode(MARK_MODE);}-> skip;
 	SEPARATOR          : '[' (~']')* ']'                        { setMode(lastMode); setLastMode(MARK_MODE);};
@@ -76,6 +77,11 @@ mode EXPRESSION_MODE;
 	EXPRESSION_TEXT    : ~('?' |'$'| '[' | ']' | '\n')+         { setType(TEXT);};
 	EXPRESSION_NL      : NL ('\t' | '    ')?                    { setText("\n"); setType(TEXT);};
 	EXPRESSION_ERROR   : .;
+
+mode LAMBDA_MODE;
+	END_LAMBDA         : ']'                                    { setLastMode(LAMBDA_MODE);} -> mode(BODY_MODE);
+	LAMBDA_TEXT        : ~(']')+                                { setType(TEXT);};
+	LAMBDA_ERROR       : .;
 
 fragment
    	NL              : ('\r'? '\n' | '\n');

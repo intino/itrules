@@ -1,187 +1,204 @@
-import org.junit.Assert;
-import org.junit.Test;
-import io.intino.itrules.engine.RuleSet;
+import io.intino.itrules.RuleSet;
 import io.intino.itrules.intellij.actions.java.TemplateRulesWriter;
 import io.intino.itrules.readers.ItrRuleSetReader;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.nio.charset.Charset;
 
 public class TemplateGeneration {
 
-    String expected_roster = "package org.sample;\n" +
-            "\n" +
-            "import io.intino.itrules.*;\n" +
-            "\n" +
-            "import java.util.Locale;\n" +
-            "\n" +
-            "import static io.intino.itrules.LineSeparator.*;\n" +
-            "\n" +
-            "public class RosterTemplate extends Template {\n" +
-            "\n" +
-            "\tprotected RosterTemplate(Locale locale, LineSeparator separator) {\n" +
-            "\t\tsuper(locale, separator);\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic static Template create() {\n" +
-            "\t\treturn new RosterTemplate(English, LF).define();\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic Template define() {\n" +
-            "\t\tadd(\n" +
-            "\t\t\trule().add((condition(\"type\", \"Roster\"))).add(literal(\"<roster>\\n    \")).add(mark(\"Coach\")).add(literal(\"\\n    <players>\\n        \")).add(mark(\"Player\").multiple(\"\\n\")).add(literal(\"\\n    </players>\\n</roster>\")),\n" +
-            "\t\t\trule().add((condition(\"type\", \"Person\")), (condition(\"trigger\", \"Coach\"))).add(literal(\"<coach name=\\\"\")).add(mark(\"Name\")).add(literal(\"\\\" year=\\\"\")).add(mark(\"Birthday\", \"Year\")).add(literal(\"\\\" country=\\\"\")).add(mark(\"Country\")).add(literal(\"\\\" />\")),\n" +
-            "\t\t\trule().add((condition(\"type\", \"Person\")), (condition(\"trigger\", \"Player\"))).add(literal(\"<player name=\\\"\")).add(mark(\"Name\")).add(literal(\"\\\" year=\\\"\")).add(mark(\"Birthday\", \"Year\")).add(literal(\"\\\" country=\\\"\")).add(mark(\"Country\")).add(literal(\"\\\"\")).add(expression().add(literal(\" club=\\\"\")).add(mark(\"Club\")).add(literal(\"\\\"\"))).add(literal(\"/>\"))\n" +
-            "\t\t);\n" +
-            "\t\treturn this;\n" +
-            "\t}\n" +
-            "}";
+	String expected_roster = "package org.sample;\n" +
+			"\n" +
+			"import io.intino.itrules.RuleSet;\n" +
+			"import io.intino.itrules.Template;\n" +
+			"\n" +
+			"public class RosterTemplate extends Template {\n" +
+			"\n" +
+			"\tpublic RuleSet ruleSet() {\n" +
+			"\t\treturn new RuleSet().add(\n" +
+			"\t\t\trule().condition((type(\"roster\"))).output(literal(\"<roster>\\n    \")).output(mark(\"Coach\")).output(literal(\"\\n    <players>\\n        \")).output(mark(\"Player\").multiple(\"\\n\")).output(literal(\"\\n    </players>\\n</roster>\")),\n" +
+			"\t\t\trule().condition((type(\"person\")), (trigger(\"coach\"))).output(literal(\"<coach name=\\\"\")).output(mark(\"Name\")).output(literal(\"\\\" year=\\\"\")).output(mark(\"Birthday\", \"Year\")).output(literal(\"\\\" country=\\\"\")).output(mark(\"Country\")).output(literal(\"\\\" />\")),\n" +
+			"\t\t\trule().condition((type(\"person\")), (trigger(\"player\"))).output(literal(\"<player name=\\\"\")).output(mark(\"Name\")).output(literal(\"\\\" year=\\\"\")).output(mark(\"Birthday\", \"Year\")).output(literal(\"\\\" country=\\\"\")).output(mark(\"Country\")).output(literal(\"\\\"\")).output(expression().output(literal(\" club=\\\"\")).output(mark(\"Club\")).output(literal(\"\\\"\"))).output(literal(\"/>\"))\n" +
+			"\t\t);\n" +
+			"\t}\n" +
+			"}";
 
-    String expected_morph = "package org.sample;\n" +
-            "\n" +
-            "import io.intino.itrules.*;\n" +
-            "\n" +
-            "import java.util.Locale;\n" +
-            "\n" +
-            "import static io.intino.itrules.LineSeparator.*;\n" +
-            "\n" +
-            "public class MorphTemplate extends Template {\n" +
-            "\n" +
-            "\tprotected MorphTemplate(Locale locale, LineSeparator separator) {\n" +
-            "\t\tsuper(locale, separator);\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic static Template create() {\n" +
-            "\t\treturn new MorphTemplate(new Locale(\"es\", \"Spain\", \"es_ES\"), LF).define();\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic Template define() {\n" +
-            "\t\tadd(\n" +
-            "\t\t\trule().add((condition(\"type\", \"nodeimpl\"))).add(literal(\"public\\n    \")).add(expression().add(mark(\"aggregable\")).add(literal(\"\\n\")).add(literal(\"    public Definition\")).add(literal(\"[\")).add(literal(\"]\")).add(literal(\" aggregables() {\")).add(literal(\"\\n\")).add(literal(\"    }\"))),\n" +
-            "\t\t\trule().add(not(condition(\"type\", \"word\")), (condition(\"trigger\", \"node\"))).add(mark(\"name\", \"firstUpperCase\")).add(literal(\"Intention {\\n\")).add(mark(\"name\", \"firstUpperCase\")).add(literal(\"Intention[] extensions() {\"))\n" +
-            "\t\t);\n" +
-            "\t\treturn this;\n" +
-            "\t}\n" +
-            "}";
+	String expected_layer = "package org.sample;\n" +
+			"\n" +
+			"import io.intino.itrules.RuleSet;\n" +
+			"import io.intino.itrules.Template;\n" +
+			"\n" +
+			"public class LayerTemplate extends Template {\n" +
+			"\n" +
+			"\tpublic RuleSet ruleSet() {\n" +
+			"\t\treturn new RuleSet().add(\n" +
+			"\t\t\trule().condition((type(\"nodeimpl\"))).output(literal(\"public\\n    \")).output(expression().output(mark(\"aggregable\")).output(literal(\"\\n\")).output(literal(\"    public Definition\")).output(literal(\"[\")).output(literal(\"]\")).output(literal(\" aggregables() {\")).output(literal(\"\\n\")).output(literal(\"    }\"))),\n" +
+			"\t\t\trule().condition(not(type(\"word\")), (trigger(\"node\"))).output(mark(\"name\", \"firstUpperCase\")).output(literal(\"Intention {\\n\")).output(mark(\"name\", \"firstUpperCase\")).output(literal(\"Intention[] extensions() {\"))\n" +
+			"\t\t);\n" +
+			"\t}\n" +
+			"}";
 
-    String expected_rare_charachters = "package org.sample;\n" +
-            "\n" +
-            "import io.intino.itrules.*;\n" +
-            "\n" +
-            "import java.util.Locale;\n" +
-            "\n" +
-            "import static io.intino.itrules.LineSeparator.*;\n" +
-            "\n" +
-            "public class RareCharactersTemplate extends Template {\n" +
-            "\n" +
-            "\tprotected RareCharactersTemplate(Locale locale, LineSeparator separator) {\n" +
-            "\t\tsuper(locale, separator);\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic static Template create() {\n" +
-            "\t\treturn new RareCharactersTemplate(new Locale(\"es\", \"Spain\", \"es_ES\"), LF).define();\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic Template define() {\n" +
-            "\t\tadd(\n" +
-            "\t\t\trule().add((condition(\"type\", \"rare\"))).add(literal(\"Ñ ñ í ó\"))\n" +
-            "\t\t);\n" +
-            "\t\treturn this;\n" +
-            "\t}\n" +
-            "}";
+	String expected_rare_characters = "package org.sample;\n" +
+			"\n" +
+			"import io.intino.itrules.RuleSet;\n" +
+			"import io.intino.itrules.Template;\n" +
+			"\n" +
+			"public class RareCharactersTemplate extends Template {\n" +
+			"\n" +
+			"\tpublic RuleSet ruleSet() {\n" +
+			"\t\treturn new RuleSet().add(\n" +
+			"\t\t\trule().condition((type(\"rare\"))).output(literal(\"Ñ ñ í ó\"))\n" +
+			"\t\t);\n" +
+			"\t}\n" +
+			"}";
 
-    String expected_null_template = "package org.sample;\n" +
-            "\n" +
-            "import io.intino.itrules.*;\n" +
-            "\n" +
-            "import java.util.Locale;\n" +
-            "\n" +
-            "import static io.intino.itrules.LineSeparator.*;\n" +
-            "\n" +
-            "public class NullTemplate extends Template {\n" +
-            "\n" +
-            "\tprotected NullTemplate(Locale locale, LineSeparator separator) {\n" +
-            "\t\tsuper(locale, separator);\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic static Template create() {\n" +
-            "\t\treturn new NullTemplate(new Locale(\"es\", \"Spain\", \"es_ES\"), LF).define();\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic Template define() {\n" +
-            "\t\tadd(\n" +
-            "\t\t\trule().add((condition(\"type\", \"rare\")))\n" +
-            "\t\t);\n" +
-            "\t\treturn this;\n" +
-            "\t}\n" +
-            "}";
+	String expected_null_template = "package org.sample;\n" +
+			"\n" +
+			"import io.intino.itrules.RuleSet;\n" +
+			"import io.intino.itrules.Template;\n" +
+			"\n" +
+			"public class NullTemplate extends Template {\n" +
+			"\n" +
+			"\tpublic RuleSet ruleSet() {\n" +
+			"\t\treturn new RuleSet().add(\n" +
+			"\t\t\trule().condition((type(\"rare\")))\n" +
+			"\t\t);\n" +
+			"\t}\n" +
+			"}";
 
-    String expected_native_template = "package org.sample;\n" +
-            "\n" +
-            "import io.intino.itrules.*;\n" +
-            "\n" +
-            "import java.util.Locale;\n" +
-            "\n" +
-            "import static io.intino.itrules.LineSeparator.*;\n" +
-            "\n" +
-            "public class NativeTemplate extends Template {\n" +
-            "\n" +
-            "\tprotected NativeTemplate(Locale locale, LineSeparator separator) {\n" +
-            "\t\tsuper(locale, separator);\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic static Template create() {\n" +
-            "\t\treturn new NativeTemplate(new Locale(\"es\", \"Spain\", \"es_ES\"), LF).define();\n" +
-            "\t}\n" +
-            "\n" +
-            "\tpublic Template define() {\n" +
-            "\t\tadd(\n" +
-            "\t\t\trule().add((condition(\"type\", \"native\"))).add(literal(\"package \")).add(mark(\"projectGenerated\")).add(literal(\";\\n\\nimport \")).add(mark(\"project\")).add(literal(\".natives.*;\\nimport \")).add(mark(\"project\")).add(literal(\".*;\\nimport java.util.*;\\n\\npublic class \")).add(mark(\"qn\")).add(expression().add(literal(\"_\")).add(mark(\"variable\"))).add(literal(\" \")).add(expression().add(literal(\"extends \")).add(mark(\"parent\"))).add(literal(\" \")).add(expression().add(literal(\"implements \")).add(mark(\"interface\"))).add(literal(\" {\\n\\n\\t@Override\\n\\t\")).add(mark(\"signature\")).add(literal(\" {\")).add(literal(\"\\n\")).add(literal(\"\\t\")).add(literal(\"\\t\")).add(mark(\"return\"))\n" +
-            "\t\t);\n" +
-            "\t\treturn this;\n" +
-            "\t}\n" +
-            "}";
 
-    @Test
-    public void accept_generate_template_for_roster_itr() throws Exception {
-        ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Roster.itr"));
-        RuleSet read = reader.read(Charset.forName("UTF-8"));
-        Assert.assertEquals(expected_roster, new TemplateRulesWriter("Roster", "org.sample", "English", getLineSeparator("\n")).toJava(read));
-    }
+	String expected_native_template = "package org.sample;\n" +
+			"\n" +
+			"import io.intino.itrules.RuleSet;\n" +
+			"import io.intino.itrules.Template;\n" +
+			"\n" +
+			"public class NativeTemplate extends Template {\n" +
+			"\n" +
+			"\tpublic RuleSet ruleSet() {\n" +
+			"\t\treturn new RuleSet().add(\n" +
+			"\t\t\trule().condition((type(\"native\"))).output(literal(\"package \")).output(mark(\"projectGenerated\"))." +
+			"output(literal(\";\\n\\nimport \")).output(mark(\"project\")).output(literal(\".natives.*;\\nimport \"))." +
+			"output(mark(\"project\")).output(literal(\".*;\\nimport java.util.*;\\n\\npublic class \"))." +
+			"output(mark(\"qn\")).output(expression().output(literal(\"_\")).output(mark(\"variable\")))." +
+			"output(literal(\" \")).output(expression().output(literal(\"extends \")).output(mark(\"parent\")))." +
+			"output(literal(\" \")).output(expression().output(literal(\"implements \")).output(mark(\"interface\")))." +
+			"output(literal(\" {\\n\\n\\t@Override\\n\\t\")).output(mark(\"signature\")).output(literal(\" {\"))." +
+			"output(literal(\"\\n\")).output(literal(\"\\t\")).output(literal(\"\\t\")).output(mark(\"return\"))\n" +
+			"\t\t);\n" +
+			"\t}\n" +
+			"}";
 
-    @Test
-    public void accept_generate_template_for_morph_itr() throws Exception {
-        ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/morph.itr"));
-        RuleSet read = reader.read(Charset.forName("UTF-8"));
-        Assert.assertEquals(expected_morph, new TemplateRulesWriter("Morph", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
-    }
+	String expected_example1_template = "package org.sample;\n" +
+			"\n" +
+			"import io.intino.itrules.RuleSet;\n" +
+			"import io.intino.itrules.Template;\n" +
+			"\n" +
+			"public class Example1Template extends Template {\n" +
+			"\n" +
+			"\tpublic RuleSet ruleSet() {\n" +
+			"\t\treturn new RuleSet().add(\n" +
+			"\t\t\trule().condition((type(\"doublerule\")), (trigger(\"rule\"))).output(literal(\"new io.intino.tara.lang.model.rules.variable.DoubleRule(\")).output(mark(\"min\", \"cast\")).output(literal(\", \")).output(mark(\"max\", \"cast\")).output(literal(\", \\\"\")).output(mark(\"metric\")).output(literal(\"\\\")\")),\n" +
+			"\t\t\trule().condition((type(\"stringrule\")), (trigger(\"rule\"))).output(literal(\"new io.intino.tara.lang.model.rules.variable.StringRule(\")).output(mark(\"regex\", \"quoted\")).output(literal(\")\")),\n" +
+			"\t\t\trule().condition((attribute(\"infinity\")), (trigger(\"cast\"))).output(literal(\"Double.POSITIVE_INFINITY\")),\n" +
+			"\t\t\trule().condition((attribute(\"-infinity\")), (trigger(\"cast\"))).output(literal(\"Double.NEGATIVE_INFINITY\")),\n" +
+			"\t\t\trule().condition(not(attribute(\"-infinity\")), not(attribute(\"infinity\")), (trigger(\"cast\"))).output(mark(\"value\"))\n" +
+			"\t\t);\n" +
+			"\t}\n" +
+			"}";
 
-    @Test
-    public void accept_generate_template_for_rare_Characters_itr() throws Exception {
-        ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/RareCharacters.itr"));
-        RuleSet read = reader.read(Charset.forName("UTF-8"));
-        Assert.assertEquals(expected_rare_charachters, new TemplateRulesWriter("RareCharacters", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
-    }
+	String expected_example2_template = "package org.sample;\n" +
+			"\n" +
+			"import io.intino.itrules.RuleSet;\n" +
+			"import io.intino.itrules.Template;\n" +
+			"\n" +
+			"public class Example2Template extends Template {\n" +
+			"\n" +
+			"\tpublic RuleSet ruleSet() {\n" +
+			"\t\treturn new RuleSet().add(\n" +
+			"\t\t\trule().condition((type(\"function\",\"variable\",\"required\")), not(type(\"empty\")), not(attribute(\"values\")), not(attribute(\"wordvalues\")), (trigger(\"parameters\"))).output(mark(\"workingPackage\", \"LowerCase\")).output(literal(\".functions.\")).output(mark(\"rule\", \"interfaceClass\")).output(literal(\" \")).output(mark(\"name\", \"javaValidName\", \"FirstLowerCase\", \"javaValidWord\")),\n" +
+			"\t\t\trule().condition((type(\"variable\",\"required\")), not(anytype(\"multiple\",\"empty\")), not(attribute(\"values\")), not(attribute(\"wordvalues\")), (trigger(\"assign\"))).output(literal(\"newElement.core$().set(newElement, \\\"\")).output(mark(\"name\", \"FirstLowerCase\")).output(literal(\"\\\", java.util.Collections.singletonList(\")).output(mark(\"name\", \"javaValidName\", \"FirstLowerCase\", \"javaValidWord\")).output(literal(\"));\")),\n" +
+			"\t\t\trule().condition((type(\"reference\",\"owner\",\"concept\",\"variable\")), not(anytype(\"reactive\",\"inherited\",\"overriden\")), (trigger(\"set\"))).output(literal(\"if (name.equalsIgnoreCase(\\\"\")).output(mark(\"name\", \"FirstLowerCase\")).output(literal(\"\\\")) this.\")).output(mark(\"name\", \"javaValidName\", \"FirstLowerCase\", \"javaValidWord\")).output(literal(\" = (io.intino.tara.magritte.Concept) values.get(0);\"))\n" +
+			"\t\t);\n" +
+			"\t}\n" +
+			"}";
+	String expected_example3_template = "package org.sample;\n" +
+			"\n" +
+			"import io.intino.itrules.RuleSet;\n" +
+			"import io.intino.itrules.Template;\n" +
+			"\n" +
+			"public class Example3Template extends Template {\n" +
+			"\n" +
+			"\tpublic RuleSet ruleSet() {\n" +
+			"\t\treturn new RuleSet().add(\n" +
+			"\t\t\trule().condition((type(\"newfeatures\")), (trigger(\"new\"))).output(mark(\"workingPackage\", \"[f-> f.is(\\\"a\\\")? \\\"aaa\\\":\\\"bbb\\\"]\"))\n" +
+			"\t\t);\n" +
+			"\t}\n" +
+			"}";
 
-    @Test
-    public void null_template_itr() throws Exception {
-        ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/nullTemplate.itr"));
-        RuleSet read = reader.read(Charset.forName("UTF-8"));
-        Assert.assertEquals(expected_null_template, new TemplateRulesWriter("Null", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
-    }
+	@Test
+	public void accept_generate_template_for_roster_itr() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Roster.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_roster, new TemplateRulesWriter("Roster", "org.sample", "English", getLineSeparator("\n")).toJava(read));
+	}
 
-    @Test
-    public void native_template_itr() throws Exception {
-        ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/native.itr"));
-        RuleSet read = reader.read(Charset.forName("UTF-8"));
-        Assert.assertEquals(expected_native_template, new TemplateRulesWriter("Native", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
-    }
+	@Test
+	public void accept_generate_template_for_layer_itr() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Layer.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_layer, new TemplateRulesWriter("Layer", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
 
-    private String getLineSeparator(String separator) {
-        return separator.contains("\r") ? "CRLF" : "LF";
+	@Test
+	public void accept_generate_template_for_rare_Characters_itr() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/RareCharacters.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_rare_characters, new TemplateRulesWriter("RareCharacters", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
 
-    }
+	@Test
+	public void null_template_itr() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/nullTemplate.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_null_template, new TemplateRulesWriter("Null", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
 
-    private String getLocale(String locale) {
-        return locale.equals("English") ? "Locale.ENGLISH" : "new Locale(\"es\", \"Spain\", \"es_ES\")";
-    }
+	@Test
+	public void native_template_itr() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/native.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_native_template, new TemplateRulesWriter("Native", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
+
+
+	@Test
+	public void itr_example_1() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Example1.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_example1_template, new TemplateRulesWriter("Example1", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
+
+	@Test
+	public void itr_example_2() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Example2.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_example2_template, new TemplateRulesWriter("Example2", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
+
+	@Test
+	public void itr_example_3() throws Exception {
+		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Example3.itr"));
+		RuleSet read = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_example3_template, new TemplateRulesWriter("Example3", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+	}
+
+	private String getLineSeparator(String separator) {
+		return separator.contains("\r") ? "CRLF" : "LF";
+
+	}
+
+	private String getLocale(String locale) {
+		return locale.equals("English") ? "Locale.ENGLISH" : "new Locale(\"es\", \"Spain\", \"es_ES\")";
+	}
 }

@@ -1,4 +1,4 @@
-def type(Roster)
+def type(roster)
     <roster>
         $Coach
         <players>
@@ -7,10 +7,10 @@ def type(Roster)
     </roster>
 end
 
-def type(Person) trigger(Coach)
+def type(person) trigger(coach)
     <coach name="$Name" year="$Birthday+Year" country="$Country" />
 end
 
-def type(Person) trigger(Player)
+def type(person) trigger(player)
     <player name="$Name" year="$Birthday+Year" country="$Country"[ club="$Club"]/>
 end

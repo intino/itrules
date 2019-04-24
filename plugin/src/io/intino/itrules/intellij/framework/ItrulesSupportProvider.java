@@ -12,7 +12,6 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.JavaModuleType;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleType;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ModifiableModelsProvider;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.ui.configuration.FacetsProvider;
@@ -23,14 +22,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.vcsUtil.VcsUtil;
+import io.intino.itrules.Frame;
+import io.intino.itrules.FrameBuilder;
 import io.intino.itrules.intellij.facet.ItrulesFacet;
 import io.intino.itrules.intellij.facet.ItrulesFacetConfiguration;
+import io.intino.itrules.intellij.framework.maven.ModulePomTemplate;
+import io.intino.itrules.intellij.framework.maven.ProjectPomTemplate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.idea.maven.project.MavenProjectsManager;
-import io.intino.itrules.intellij.framework.maven.ModulePomTemplate;
-import io.intino.itrules.intellij.framework.maven.ProjectPomTemplate;
-import io.intino.itrules.model.Frame;
 
 import javax.swing.*;
 import java.io.File;
@@ -88,9 +88,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 	}
 
 	private List<VirtualFile> createPoms(Module module) {
-		List<VirtualFile> files = new ArrayList<>();
-		files.addAll(isProjectModule(module) ? projectModulePom(module) : modulePom(module));
-		return files;
+		return new ArrayList<>(isProjectModule(module) ? projectModulePom(module) : modulePom(module));
 	}
 
 	private Collection<VirtualFile> modulePom(final Module module) {
@@ -106,7 +104,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 
 			private void createPoms(PsiDirectory root) {
 				files[0] = root.createFile("pom.xml");
-				createPom(files[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
+				createPom(files[0].getVirtualFile().getPath(), new ModulePomTemplate().render(createModuleFrame(module)));
 				if (!getProjectPom(module).exists())
 					files[1] = createProjectPom(module);
 			}
@@ -138,7 +136,7 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 			file[0] = findPom(root);
 			if (file[0] == null) {
 				file[0] = root.createFile("pom.xml");
-				createPom(file[0].getVirtualFile().getPath(), ModulePomTemplate.create().format(createModuleFrame(module)));
+				createPom(file[0].getVirtualFile().getPath(), new ModulePomTemplate().render(createModuleFrame(module)));
 			} else updateModulePom(file[0]);
 		});
 		return new ArrayList<VirtualFile>() {{
@@ -174,16 +172,14 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		return null;
 	}
 
-	private File createPom(String path, String text) {
+	private void createPom(String path, String text) {
 		try {
 			File file = new File(path);
 			FileWriter writer = new FileWriter(file);
 			writer.write(text);
 			writer.close();
-			return file;
 		} catch (IOException ignored) {
 		}
-		return null;
 	}
 
 	private VirtualFile projectPom(final Module module) {
@@ -196,24 +192,18 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 			if (root == null) return;
 			file[0] = findPom(root);
 			if (file[0] == null) file[0] = root.createFile("pom.xml");
-			createPom(file[0].getVirtualFile().getPath(), ProjectPomTemplate.create().format(createProjectFrame(module)));
+			createPom(file[0].getVirtualFile().getPath(), new ProjectPomTemplate().render(createProjectFrame(module)));
 		});
 		return file[0].getVirtualFile();
 	}
 
 
 	private Frame createModuleFrame(Module module) {
-		Frame frame = new Frame().addTypes("pom");
-		frame.addSlot("project", module.getProject().getName());
-		frame.addSlot("module", module.getName());
-		return frame;
+		return new FrameBuilder("pom").add("project", module.getProject().getName()).add("module", module.getName()).toFrame();
 	}
 
 	private Frame createProjectFrame(Module module) {
-		Project project = module.getProject();
-		Frame frame = new Frame().addTypes("pom");
-		frame.addSlot("project", project.getName());
-		return frame;
+		return new FrameBuilder("pom").add("project", module.getProject().getName()).toFrame();
 	}
 
 	@NotNull
@@ -258,12 +248,12 @@ public class ItrulesSupportProvider extends FrameworkSupportInModuleProvider {
 		public void addSupport(@NotNull Module module,
 							   @NotNull ModifiableRootModel rootModel,
 							   @NotNull ModifiableModelsProvider modifiableModelsProvider) {
-			ItrulesSupportProvider.this.addSupport(module, rootModel, localeComboBox.getSelectedItem().equals("English") ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES"), getLineSeparator());
+			ItrulesSupportProvider.this.addSupport(module, rootModel, "English".equals(localeComboBox.getSelectedItem()) ? Locale.ENGLISH : new Locale("es", "Spain", "es_ES"), getLineSeparator());
 		}
 
 		private String getLineSeparator() {
 			String separator = (String) lineSeparatorBox.getSelectedItem();
-			return separator.substring(0, separator.indexOf(" ")).trim();
+			return separator != null ? separator.substring(0, separator.indexOf(" ")).trim() : null;
 		}
 
 		@Nullable

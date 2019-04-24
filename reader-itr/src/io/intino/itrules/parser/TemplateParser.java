@@ -22,56 +22,58 @@
 
 package io.intino.itrules.parser;
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import io.intino.itrules.Logger;
+import io.intino.itrules.Rule;
 import io.intino.itrules.dsl.ItrLexer;
 import io.intino.itrules.dsl.ItrParser;
-import io.intino.itrules.engine.logger.Logger;
-import io.intino.itrules.model.Rule;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.antlr.v4.runtime.CharStreams.fromString;
+
 public final class TemplateParser {
 
-    private final Logger logger = new Logger();
-    private final List<Rule> rules = new ArrayList<>();
+	private final Logger logger = new Logger();
+	private final List<Rule> rules = new ArrayList<>();
 
 
-    public List<Rule> parse(InputStream stream, Charset charset) throws ITRulesSyntaxError {
-        try {
-            parseTemplate(new ANTLRInputStream(new InputStreamReader(stream, charset)));
-            return rules;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return rules;
-        }
-    }
+	public List<Rule> parse(InputStream stream, Charset charset) throws ITRulesSyntaxError {
+		try {
+			parseTemplate(fromString(IOUtils.toString(stream, charset.name()).trim()));
+			return rules;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return rules;
+		}
+	}
 
-    private void parseTemplate(ANTLRInputStream input) throws ITRulesSyntaxError {
-        ItrLexer lexer = new ItrLexer(input);
-        lexer.reset();
-        lexer.setState(1);
-        ItrParser parser = new ItrParser(new CommonTokenStream(lexer));
-        parser.setErrorHandler(new TemplateErrorStrategy());
-        ItrParser.RootContext root = parse(parser);
-        parser.setErrorHandler(new TemplateErrorStrategy());
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(new Interpreter(rules, logger), root);
-    }
+	private void parseTemplate(CodePointCharStream stream) throws ITRulesSyntaxError {
+		ItrLexer lexer = new ItrLexer(stream);
+		lexer.reset();
+		lexer.setState(1);
+		ItrParser parser = new ItrParser(new CommonTokenStream(lexer));
+		parser.setErrorHandler(new TemplateErrorStrategy());
+		ItrParser.RootContext root = parse(parser);
+		parser.setErrorHandler(new TemplateErrorStrategy());
+		ParseTreeWalker walker = new ParseTreeWalker();
+		walker.walk(new Interpreter(rules, logger), root);
+	}
 
-    private ItrParser.RootContext parse(ItrParser parser) throws ITRulesSyntaxError {
-        try {
-            return parser.root();
-        } catch (RecognitionException e) {
-            org.antlr.v4.runtime.Token token = ((org.antlr.v4.runtime.Parser) e.getRecognizer()).getCurrentToken();
-            Token currentToken = ((Parser) e.getRecognizer()).getCurrentToken();
-            logger.log("Rules not well formed. Error in: " + token.getLine() + ": " + token.getCharPositionInLine());
-            throw new ITRulesSyntaxError("Template not well formed. Line:" + currentToken.getLine() + "; Column: " + currentToken.getCharPositionInLine() + ": " + e.getMessage());
-        }
-    }
+	private ItrParser.RootContext parse(ItrParser parser) throws ITRulesSyntaxError {
+		try {
+			return parser.root();
+		} catch (RecognitionException e) {
+			org.antlr.v4.runtime.Token token = ((org.antlr.v4.runtime.Parser) e.getRecognizer()).getCurrentToken();
+			Token currentToken = ((Parser) e.getRecognizer()).getCurrentToken();
+			logger.log("Rules not well formed. Error in: " + token.getLine() + ": " + token.getCharPositionInLine());
+			throw new ITRulesSyntaxError("Template not well formed. Line:" + currentToken.getLine() + "; Column: " + currentToken.getCharPositionInLine() + ": " + e.getMessage());
+		}
+	}
 }

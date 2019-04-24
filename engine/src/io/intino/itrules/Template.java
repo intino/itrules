@@ -1,85 +1,73 @@
 package io.intino.itrules;
 
-import io.intino.itrules.model.Condition;
-import io.intino.itrules.model.Expression;
-import io.intino.itrules.model.Literal;
-import io.intino.itrules.model.Rule;
-import io.intino.itrules.model.marks.Mark;
+import io.intino.itrules.Rule.Condition;
+import io.intino.itrules.rules.conditions.AttributeCondition;
+import io.intino.itrules.rules.conditions.NegatedCondition;
+import io.intino.itrules.rules.conditions.TriggerCondition;
+import io.intino.itrules.rules.conditions.TypeCondition;
+import io.intino.itrules.rules.output.Expression;
+import io.intino.itrules.rules.output.Literal;
+import io.intino.itrules.rules.output.Mark;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
+import static io.intino.itrules.rules.conditions.TypeCondition.Operator.All;
+import static io.intino.itrules.rules.conditions.TypeCondition.Operator.Any;
 
 public abstract class Template {
 
-	protected final TemplateEngine engine;
+    public String render(Object object) {
+        TemplateEngine engine = new TemplateEngine(ruleSet());
+        init(engine);
+        return engine.render(object);
+    }
 
-	protected Template(Locale locale, LineSeparator lineSeparator) {
-		this.engine = new TemplateEngine(locale, lineSeparator);
-	}
+    protected void init(TemplateEngine engine) {
+    }
 
-	public String format(Object object) {
-		return engine.render(object);
-	}
+    protected abstract RuleSet ruleSet();
 
-	public Template add(String format, Formatter formatter) {
-		engine.add(format, formatter);
-		return this;
-	}
+    protected Rule rule() {
+        return new Rule();
+    }
 
-	public Template add(String format, final Template template) {
-		add(format, template::format);
-		return this;
-	}
+    protected Condition not(Condition condition) {
+        return new NegatedCondition(condition);
+    }
 
-	public Template add(Class aClass, Adapter adapter) {
-		engine.add(aClass, adapter);
-		return this;
-	}
+    protected Condition attribute(String attribute) {
+        return new AttributeCondition(attribute);
+    }
 
-	public Template add(String name, Function function) {
-		engine.add(name, function);
-		return this;
-	}
+    protected Condition attribute(String attribute, Object value) {
+        return new AttributeCondition(attribute, value);
+    }
 
-	protected Rule rule() {
-		return new Rule();
-	}
+    protected Condition type(String type) {
+        return new TypeCondition(Any, type);
+    }
 
-	protected Condition condition(String id, String parameter) {
-		return new Condition(id, parameter);
-	}
+    protected Condition anyType(String... types) {
+        return new TypeCondition(Any, types);
+    }
 
-	protected Condition not(Condition condition) {
-		return new Condition.Negated(condition);
-	}
+    protected Condition allTypes(String... types) {
+        return new TypeCondition(All, types);
+    }
 
-	protected Literal literal(String literal) {
-		return new Literal(literal);
-	}
+    protected Condition trigger(String name) {
+        return new TriggerCondition(name);
+    }
 
-	protected Mark mark(String mark, String... options) {
-		return new Mark(mark, options);
-	}
+    protected Mark mark(String name, String... options) {
+        return new Mark(name, options);
+    }
 
-	protected Expression expression() {
-		return new Expression();
-	}
+    protected Literal literal(String text) {
+        return new Literal(text);
+    }
 
-	protected Template add(Rule... rules) {
-		engine.add(rules);
-		return this;
-	}
+    protected Expression expression(Rule.Output... outputs) {
+        return new Expression(outputs);
+    }
 
-	public Rule[] rules() {
-		return collectRules(engine.ruleSet().iterator());
-	}
 
-	private Rule[] collectRules(Iterator<Rule> iterator) {
-		List<Rule> rules = new ArrayList<>();
-		while (iterator.hasNext()) rules.add(iterator.next());
-		rules.remove(rules.size() - 1);
-		return rules.toArray(new Rule[rules.size()]);
-	}
 }

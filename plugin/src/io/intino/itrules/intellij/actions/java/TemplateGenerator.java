@@ -11,9 +11,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.encoding.EncodingManager;
+import io.intino.itrules.RuleSet;
 import io.intino.itrules.intellij.facet.ItrulesFacet;
 import org.jetbrains.annotations.NotNull;
-import io.intino.itrules.engine.RuleSet;
 import io.intino.itrules.parser.ITRulesSyntaxError;
 import io.intino.itrules.readers.ItrRuleSetReader;
 
@@ -67,7 +67,7 @@ public class TemplateGenerator extends Task.Modal {
 		return new ItrRuleSetReader(this.rulesFile.getInputStream()).read(rulesFile.getCharset());
 	}
 
-	private void toJava(RuleSet rules) throws IOException, URISyntaxException {
+	private void toJava(RuleSet rules) throws IOException {
 		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.destiny), Charset.forName("UTF-8"));
 		String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale(), lineSeparator()).toJava(rules);
 		writer.write(content);

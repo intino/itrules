@@ -22,18 +22,19 @@
 
 package io.intino.itrules.intellij.actions.java;
 
+import io.intino.itrules.*;
+import io.intino.itrules.Rule.Condition;
+import io.intino.itrules.TemplateEngine.Configuration;
+import io.intino.itrules.rules.conditions.AttributeCondition;
+import io.intino.itrules.rules.conditions.NegatedCondition;
+import io.intino.itrules.rules.conditions.TriggerCondition;
+import io.intino.itrules.rules.conditions.TypeCondition;
 import org.jetbrains.annotations.NotNull;
-import io.intino.itrules.Adapter;
-import io.intino.itrules.Formatter;
-import io.intino.itrules.LineSeparator;
-import io.intino.itrules.Template;
-import io.intino.itrules.engine.RuleSet;
-import io.intino.itrules.engine.SlotSet;
-import io.intino.itrules.model.Frame;
-import io.intino.itrules.model.Rule;
 
-import java.net.URISyntaxException;
 import java.util.Locale;
+
+import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator;
+import static io.intino.itrules.rules.conditions.TypeCondition.Operator.Any;
 
 public class TemplateRulesWriter {
 
@@ -50,11 +51,56 @@ public class TemplateRulesWriter {
 	}
 
 	@NotNull
-	public String toJava(final RuleSet rules) throws URISyntaxException {
-		Template template = JavaItrulesTemplate.create(Locale.getDefault(), lineSeparator.equals("LF") ? LineSeparator.LF : LineSeparator.CRLF);
-		template.add("string", buildStringFormatter());
-		template.add(RuleSet.class, buildRuleSetAdapter(rules));
-		return template.format(rules);
+	public String toJava(final RuleSet rules) {
+		TemplateEngine engine = new TemplateEngine(new JavaItrulesTemplate().ruleSet(), new Configuration(Locale.getDefault(), lineSeparator.equals("LF") ? LineSeparator.LF : LineSeparator.CRLF));
+		engine.add("string", buildStringFormatter());
+		engine.add(RuleSet.class, ruleSetAdapter());
+		engine.add(Condition.class, conditionAdapter());
+		return engine.render(rules);
+	}
+
+	@NotNull
+	private Adapter<RuleSet> ruleSetAdapter() {
+		return (source, context) -> {
+			context.slot("name", name);
+			context.slot("locale", locale);
+			context.slot("lineSeparator", lineSeparator);
+			if (!aPackage.isEmpty()) context.slot("package", aPackage);
+			source.forEach(r -> context.slot("rule", context.build(r)));
+		};
+	}
+
+	private Adapter<Condition> conditionAdapter() {
+		return (condition, context) -> {
+			String name = condition.getClass().getSimpleName();
+			if (condition instanceof NegatedCondition) {
+				name = ((NegatedCondition) condition).condition().getClass().getSimpleName();
+				context.slot("negated", "not");
+			}
+			name = name.replace("Condition", "").toLowerCase();
+			context.slot("parameter", parameter(condition));
+			context.slot("name", name);
+			addOperator(condition, context);
+		};
+	}
+
+	private void addOperator(Condition condition, FrameBuilder.Context context) {
+		if ((condition instanceof NegatedCondition)) condition = ((NegatedCondition) condition).condition();
+		if (condition instanceof TypeCondition && ((TypeCondition) condition).operator().equals(Any))
+			context.slot("any", "any");
+	}
+
+	private Frame parameter(Condition condition) {
+		if ((condition instanceof NegatedCondition)) condition = ((NegatedCondition) condition).condition();
+		if (condition instanceof AttributeCondition) {
+			Object value = ((AttributeCondition) condition).value();
+			FrameBuilder builder = new FrameBuilder("attribute").add("attribute", ((AttributeCondition) condition).attribute());
+			if (value != null) builder.add("value", value.toString());
+			return builder.toFrame();
+		}
+		if (condition instanceof TriggerCondition)
+			return new FrameBuilder("trigger").add("value", ((TriggerCondition) condition).name()).toFrame();
+		return new FrameBuilder("type").add("value", ((TypeCondition) condition).types().toArray(new String[0])).toFrame();
 	}
 
 	@NotNull
@@ -66,20 +112,6 @@ public class TemplateRulesWriter {
 			value = value.replace("\t", "\\t").replace("\"", "\\\"");
 			if (value.equals("\\")) value = value.replace("\\", "\\\\");
 			return '"' + value + '"';
-		};
-	}
-
-	@NotNull
-	private Adapter<RuleSet> buildRuleSetAdapter(final RuleSet rules) {
-		return (source, context) -> {
-			final Frame frame = context.frame();
-			final SlotSet slotSet = SlotSet.create();
-			if (!aPackage.isEmpty()) slotSet.add("package", context.build(aPackage));
-			slotSet.add("name", context.build(name));
-			slotSet.add("locale", context.build(locale));
-			slotSet.add("lineSeparator", context.build(lineSeparator));
-			for (Rule rule : rules) slotSet.add("rule", context.build(rule));
-			frame.addSlots(slotSet);
 		};
 	}
 }

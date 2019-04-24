@@ -1,0 +1,11 @@
+def type(variable & function & required) !type(empty) !attribute(values) !attribute(wordvalues) trigger(parameters)
+	$workingPackage+LowerCase.functions.$rule+interfaceClass $name+javaValidName+FirstLowerCase+javaValidWord
+end
+
+def	type(variable & required) !type(multiple | empty) !attribute(values) !attribute(wordvalues) trigger(assign)
+	newElement.core$$().set(newElement, "$name+FirstLowerCase", java.util.Collections.singletonList($name+javaValidName+FirstLowerCase+javaValidWord));
+end
+
+def type(variable & reference & concept & owner) !type(inherited | overriden | reactive) trigger(set)
+	if (name.equalsIgnoreCase("$name+FirstLowerCase")) this.$name+javaValidName+FirstLowerCase+javaValidWord = (io.intino.tara.magritte.Concept) values.get(0);
+end
