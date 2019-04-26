@@ -23,7 +23,6 @@
 package io.intino.itrules.parser;
 
 import io.intino.itrules.Logger;
-import io.intino.itrules.Rule;
 import io.intino.itrules.dsl.ItrLexer;
 import io.intino.itrules.dsl.ItrParser;
 import org.antlr.v4.runtime.*;
@@ -33,24 +32,22 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.antlr.v4.runtime.CharStreams.fromString;
 
 public final class TemplateParser {
 
 	private final Logger logger = new Logger();
-	private final List<Rule> rules = new ArrayList<>();
+	private final ParsedTemplate template = new ParsedTemplate();
 
 
-	public List<Rule> parse(InputStream stream, Charset charset) throws ITRulesSyntaxError {
+	public ParsedTemplate parse(InputStream stream, Charset charset) throws ITRulesSyntaxError {
 		try {
 			parseTemplate(fromString(IOUtils.toString(stream, charset.name()).trim()));
-			return rules;
+			return template;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return rules;
+			return template;
 		}
 	}
 
@@ -63,7 +60,7 @@ public final class TemplateParser {
 		ItrParser.RootContext root = parse(parser);
 		parser.setErrorHandler(new TemplateErrorStrategy());
 		ParseTreeWalker walker = new ParseTreeWalker();
-		walker.walk(new Interpreter(rules, logger), root);
+		walker.walk(new Interpreter(template, logger), root);
 	}
 
 	private ItrParser.RootContext parse(ItrParser parser) throws ITRulesSyntaxError {

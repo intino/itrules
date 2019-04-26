@@ -49,19 +49,19 @@ public final class Interpreter extends ItrParserBaseListener {
 	private static String NL_SEPARATOR = "$NL";
 	private static String TAB_SEPARATOR = "$TAB";
 	private final Logger logger;
-	private List<Rule> rules;
+	private ParsedTemplate template;
 	private Rule currentRule;
 	private StringBuilder currentText = new StringBuilder();
 
-	public Interpreter(List<Rule> rules, Logger logger) {
-		this.rules = rules;
+	public Interpreter(ParsedTemplate template, Logger logger) {
+		this.template = template;
 		this.logger = logger;
 	}
 
 	@Override
 	public void enterSignature(SignatureContext ctx) {
 		currentRule = new Rule();
-		rules.add(currentRule);
+		template.add(currentRule);
 	}
 
 	@Override
@@ -155,14 +155,20 @@ public final class Interpreter extends ItrParserBaseListener {
 	}
 
 	private Mark processAsMark(MarkContext child) {
-		String[] options = getOptions(child.option());
+		String[] options = options(child.option());
 		String separator = (child.SEPARATOR() != null) ? child.SEPARATOR().getText() : null;
 		if (separator != null) separator = format(separator);
 		return new Mark(child.ID().getText(), options).multiple(separator);
 	}
 
-	private String[] getOptions(List<OptionContext> option) {
-		return option.stream().map(optionContext -> optionContext.getText().substring(1)).toArray(String[]::new);
+	private String[] options(List<OptionContext> options) {
+		return options.stream().map(o -> {
+			if (o.lambda() != null) {
+				String lambda = o.lambda().getText().substring(2, o.lambda().getText().length() - 1);
+				return template.add(lambda);
+			}
+			return o.getText().substring(1);
+		}).toArray(String[]::new);
 	}
 
 	private String format(String separator) {

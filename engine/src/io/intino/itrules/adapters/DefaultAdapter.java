@@ -12,115 +12,114 @@ import static java.lang.reflect.Modifier.isTransient;
 
 public class DefaultAdapter<T> implements Adapter<T> {
 
-    @Override
-    public void adapt(T source, FrameBuilder.Context context) {
-        new SlotBuilder(source, context).create();
-    }
+	@Override
+	public void adapt(T source, FrameBuilder.Context context) {
+		new SlotBuilder(source, context).create();
+	}
 
-    private static class Item {
-        Object key;
-        Object value;
+	private boolean isExcluded(Field field) {
+		return isStatic(field.getModifiers()) ||
+				isTransient(field.getModifiers()) ||
+				isContextFieldOfInnerClass(field);
+	}
 
-        Item(Object key, Object value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	protected boolean isProcessable(Field field) {
+		return !isExcluded(field);
+	}
 
-    private class SlotBuilder {
-        private static final String Count = "Count";
-        private FrameBuilder.Context context;
-        private Object source;
+	private boolean isContextFieldOfInnerClass(Field field) {
+		return field.getName().startsWith("this$");
+	}
 
-        SlotBuilder(Object source, FrameBuilder.Context context) {
-            this.context = context;
-            this.source = source;
-        }
+	private static class Item {
+		Object key;
+		Object value;
 
-        void create() {
-            try {
-                execute(source.getClass());
-            }
-            catch (IllegalAccessException ignored) {
-            }
-        }
+		Item(Object key, Object value) {
+			this.key = key;
+			this.value = value;
+		}
+	}
 
-        private void execute(Class aClass) throws IllegalAccessException {
-            while (aClass != null) {
-                processClass(aClass);
-                aClass = aClass.getSuperclass();
-            }
-        }
+	private class SlotBuilder {
+		private static final String Count = "Count";
+		private FrameBuilder.Context context;
+		private Object source;
 
-        private void processClass(Class aClass) throws IllegalAccessException {
-            for (Field field : aClass.getDeclaredFields()) {
-                if (!isProcessable(field)) continue;
-                processField(field);
-            }
-        }
+		SlotBuilder(Object source, FrameBuilder.Context context) {
+			this.context = context;
+			this.source = source;
+		}
 
-        private void processField(Field field) throws IllegalAccessException {
-            boolean accessibility = field.isAccessible();
-            field.setAccessible(true);
-            if (field.get(source) != null) processField(field.getName(), field.get(source));
-            field.setAccessible(accessibility);
-        }
+		void create() {
+			try {
+				execute(source.getClass());
+			} catch (IllegalAccessException ignored) {
+			}
+		}
 
-        private void processField(String name, Object value) {
-            if (isArray(value.getClass())) processArray(name, value);
-            else if (isList(value.getClass())) processList(name, value);
-            else if (isMap(value.getClass())) processMap(name, value);
-            else context.slot(name, context.build(value));
-        }
+		private void execute(Class aClass) throws IllegalAccessException {
+			while (aClass != null) {
+				processClass(aClass);
+				aClass = aClass.getSuperclass();
+			}
+		}
 
-        private void processArray(String name, Object value) {
-            Object[] objects = (Object[]) value;
-            context.slot(name + Count, context.build(objects.length));
-            for (Object item : objects)
-                context.slot(name, context.build(item));
-        }
+		private void processClass(Class aClass) throws IllegalAccessException {
+			for (Field field : aClass.getDeclaredFields()) {
+				if (!isProcessable(field)) continue;
+				processField(field);
+			}
+		}
 
-        private void processList(String name, Object value) {
-            List list = (List) value;
-            context.slot(name + Count, context.build(list.size()));
-            for (Object item : list) {
-                context.slot(name, context.build(item));
-            }
-        }
+		private void processField(Field field) throws IllegalAccessException {
+			boolean accessibility = field.isAccessible();
+			field.setAccessible(true);
+			if (field.get(source) != null) processField(field.getName(), field.get(source));
+			field.setAccessible(accessibility);
+		}
 
-        private void processMap(String name, Object value) {
-            final Map map = (Map) value;
-            context.slot(name + Count, context.build(map.keySet().size()));
-            for (Object key : map.keySet())
-                context.slot(name, context.build(new Item(key, map.get(key))));
-        }
+		private void processField(String name, Object value) {
+			if (isArray(value.getClass())) processArray(name, value);
+			else if (isList(value.getClass())) processList(name, value);
+			else if (isMap(value.getClass())) processMap(name, value);
+			else context.add(name, value);
+		}
 
-        private boolean isMap(Class<?> aClass) {
-            return Map.class.isAssignableFrom(aClass);
-        }
+		private void processArray(String name, Object value) {
+			Object[] objects = (Object[]) value;
+			context.add(name + Count, objects.length);
+			for (Object item : objects)
+				context.add(name, item);
+		}
 
-        private boolean isList(Class<?> aClass) {
-            return List.class.isAssignableFrom(aClass);
-        }
+		private void processList(String name, Object value) {
+			List list = (List) value;
+			context.add(name + Count, list.size());
+			for (Object item : list) {
+				context.add(name, item);
+			}
+		}
 
-        private boolean isArray(Class<?> aClass) {
-            return aClass.isArray();
-        }
-    }
+		private void processMap(String name, Object value) {
+			final Map map = (Map) value;
+			context.add(name + Count, map.keySet().size());
+			for (Object key : map.keySet())
+				context.add(name, new Item(key, map.get(key)));
+		}
 
-    private boolean isExcluded(Field field) {
-        return isStatic(field.getModifiers()) ||
-               isTransient(field.getModifiers()) ||
-               isContextFieldOfInnerClass(field);
-    }
+		private boolean isMap(Class<?> aClass) {
+			return Map.class.isAssignableFrom(aClass);
+		}
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    protected boolean isProcessable(Field field) {
-        return !isExcluded(field);
-    }
+		private boolean isList(Class<?> aClass) {
+			return List.class.isAssignableFrom(aClass);
+		}
 
-    private boolean isContextFieldOfInnerClass(Field field) {
-        return field.getName().startsWith("this$");
-    }
+		private boolean isArray(Class<?> aClass) {
+			return aClass.isArray();
+		}
+	}
 
 }

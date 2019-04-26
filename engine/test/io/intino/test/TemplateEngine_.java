@@ -59,7 +59,7 @@ public class TemplateEngine_ {
     }
 
     private Adapter<Team.Person> customAdapter() {
-        return (source, context) -> context.slot("name", context.build("None")).slot("country", context.build("None"));
+        return (source, context) -> context.add("name", "None").add("country", "None");
     }
 
     @Test

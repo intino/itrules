@@ -8,7 +8,7 @@ def type(roster)
 end
 
 def type(person) trigger(coach)
-    <coach name="$Name" year="$Birthday+Year" country="$Country" />
+    <coach name="$Name" year="$Birthday+[f-> f.isBefore(2000, ChronoUnit.Year)? "Viejo": "Joven"]" country="$Country" />
 end
 
 def type(person) trigger(player)

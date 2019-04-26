@@ -25,6 +25,7 @@ package io.intino.itrules.intellij.actions.java;
 import io.intino.itrules.*;
 import io.intino.itrules.Rule.Condition;
 import io.intino.itrules.TemplateEngine.Configuration;
+import io.intino.itrules.parser.ParsedTemplate;
 import io.intino.itrules.rules.conditions.AttributeCondition;
 import io.intino.itrules.rules.conditions.NegatedCondition;
 import io.intino.itrules.rules.conditions.TriggerCondition;
@@ -42,6 +43,7 @@ public class TemplateRulesWriter {
 	private final String aPackage;
 	private final String locale;
 	private final String lineSeparator;
+	private ParsedTemplate template;
 
 	public TemplateRulesWriter(String name, String aPackage, String locale, String lineSeparator) {
 		this.name = name;
@@ -51,22 +53,23 @@ public class TemplateRulesWriter {
 	}
 
 	@NotNull
-	public String toJava(final RuleSet rules) {
-		TemplateEngine engine = new TemplateEngine(new JavaItrulesTemplate().ruleSet(), new Configuration(Locale.getDefault(), lineSeparator.equals("LF") ? LineSeparator.LF : LineSeparator.CRLF));
-		engine.add("string", buildStringFormatter());
-		engine.add(RuleSet.class, ruleSetAdapter());
-		engine.add(Condition.class, conditionAdapter());
-		return engine.render(rules);
+	public String toJava(final ParsedTemplate template) {
+		this.template = template;
+		return new JavaItrulesTemplate(new Configuration(Locale.getDefault(), lineSeparator.equals("LF") ? LineSeparator.LF : LineSeparator.CRLF))
+				.add("string", buildStringFormatter())
+				.add(RuleSet.class, ruleSetAdapter())
+				.add(Condition.class, conditionAdapter()).render(template.ruleset());
 	}
 
 	@NotNull
 	private Adapter<RuleSet> ruleSetAdapter() {
 		return (source, context) -> {
-			context.slot("name", name);
-			context.slot("locale", locale);
-			context.slot("lineSeparator", lineSeparator);
-			if (!aPackage.isEmpty()) context.slot("package", aPackage);
-			source.forEach(r -> context.slot("rule", context.build(r)));
+			context.add("name", name);
+			context.add("locale", locale);
+			context.add("lineSeparator", lineSeparator);
+			if (!aPackage.isEmpty()) context.add("package", aPackage);
+			source.forEach(r -> context.add("rule", r));
+			template.formatters().forEach((key, value) -> context.add("formatter", new FrameBuilder("formatter").add("name", key).add("value", value).toFrame()));
 		};
 	}
 
@@ -75,11 +78,11 @@ public class TemplateRulesWriter {
 			String name = condition.getClass().getSimpleName();
 			if (condition instanceof NegatedCondition) {
 				name = ((NegatedCondition) condition).condition().getClass().getSimpleName();
-				context.slot("negated", "not");
+				context.add("negated", "not");
 			}
 			name = name.replace("Condition", "").toLowerCase();
-			context.slot("parameter", parameter(condition));
-			context.slot("name", name);
+			context.add("parameter", parameter(condition));
+			context.add("name", name);
 			addOperator(condition, context);
 		};
 	}
@@ -87,7 +90,7 @@ public class TemplateRulesWriter {
 	private void addOperator(Condition condition, FrameBuilder.Context context) {
 		if ((condition instanceof NegatedCondition)) condition = ((NegatedCondition) condition).condition();
 		if (condition instanceof TypeCondition && ((TypeCondition) condition).operator().equals(Any))
-			context.slot("any", "any");
+			context.add("any", "any");
 	}
 
 	private Frame parameter(Condition condition) {

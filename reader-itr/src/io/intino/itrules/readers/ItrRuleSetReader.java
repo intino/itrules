@@ -22,8 +22,8 @@
 
 package io.intino.itrules.readers;
 
-import io.intino.itrules.RuleSet;
 import io.intino.itrules.parser.ITRulesSyntaxError;
+import io.intino.itrules.parser.ParsedTemplate;
 import io.intino.itrules.parser.TemplateParser;
 
 import java.io.InputStream;
@@ -32,13 +32,13 @@ import java.nio.charset.Charset;
 public final class ItrRuleSetReader {
 
 	private InputStream inputStream;
+	private ParsedTemplate template;
 
 	public ItrRuleSetReader(InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
 
-
-	public RuleSet read(Charset charset) throws ITRulesSyntaxError {
-		return new RuleSet(new TemplateParser().parse(inputStream, charset));
+	public ParsedTemplate read(Charset charset) throws ITRulesSyntaxError {
+		return new TemplateParser().parse(inputStream, charset);
 	}
 }

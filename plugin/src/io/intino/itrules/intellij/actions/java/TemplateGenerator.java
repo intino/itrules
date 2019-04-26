@@ -13,15 +13,16 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.encoding.EncodingManager;
 import io.intino.itrules.RuleSet;
 import io.intino.itrules.intellij.facet.ItrulesFacet;
-import org.jetbrains.annotations.NotNull;
 import io.intino.itrules.parser.ITRulesSyntaxError;
+import io.intino.itrules.parser.ParsedTemplate;
 import io.intino.itrules.readers.ItrRuleSetReader;
+import org.apache.velocity.runtime.directive.Parse;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
@@ -63,13 +64,13 @@ public class TemplateGenerator extends Task.Modal {
 	}
 
 	@NotNull
-	private RuleSet rules() throws IOException, ITRulesSyntaxError {
+	private ParsedTemplate rules() throws IOException, ITRulesSyntaxError {
 		return new ItrRuleSetReader(this.rulesFile.getInputStream()).read(rulesFile.getCharset());
 	}
 
-	private void toJava(RuleSet rules) throws IOException {
+	private void toJava(ParsedTemplate template) throws IOException {
 		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.destiny), Charset.forName("UTF-8"));
-		String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale(), lineSeparator()).toJava(rules);
+		String content = new TemplateRulesWriter(simpleFileName(), aPackage, locale(), lineSeparator()).toJava(template);
 		writer.write(content);
 		writer.close();
 	}

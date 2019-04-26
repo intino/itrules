@@ -1,5 +1,6 @@
 import io.intino.itrules.RuleSet;
 import io.intino.itrules.intellij.actions.java.TemplateRulesWriter;
+import io.intino.itrules.parser.ParsedTemplate;
 import io.intino.itrules.readers.ItrRuleSetReader;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,10 +16,14 @@ public class TemplateGeneration {
 			"\n" +
 			"public class RosterTemplate extends Template {\n" +
 			"\n" +
+			"\tprotected void init(io.intino.itrules.TemplateEngine engine) {\n" +
+			"\t\tadd(\"149bb07d\", f-> f.isBefore(2000, ChronoUnit.Year)? \"Viejo\": \"Joven\");\n" +
+			"\t}\n" +
+			"\n" +
 			"\tpublic RuleSet ruleSet() {\n" +
 			"\t\treturn new RuleSet().add(\n" +
 			"\t\t\trule().condition((type(\"roster\"))).output(literal(\"<roster>\\n    \")).output(mark(\"Coach\")).output(literal(\"\\n    <players>\\n        \")).output(mark(\"Player\").multiple(\"\\n\")).output(literal(\"\\n    </players>\\n</roster>\")),\n" +
-			"\t\t\trule().condition((type(\"person\")), (trigger(\"coach\"))).output(literal(\"<coach name=\\\"\")).output(mark(\"Name\")).output(literal(\"\\\" year=\\\"\")).output(mark(\"Birthday\", \"Year\")).output(literal(\"\\\" country=\\\"\")).output(mark(\"Country\")).output(literal(\"\\\" />\")),\n" +
+			"\t\t\trule().condition((type(\"person\")), (trigger(\"coach\"))).output(literal(\"<coach name=\\\"\")).output(mark(\"Name\")).output(literal(\"\\\" year=\\\"\")).output(mark(\"Birthday\", \"149bb07d\")).output(literal(\"\\\" country=\\\"\")).output(mark(\"Country\")).output(literal(\"\\\" />\")),\n" +
 			"\t\t\trule().condition((type(\"person\")), (trigger(\"player\"))).output(literal(\"<player name=\\\"\")).output(mark(\"Name\")).output(literal(\"\\\" year=\\\"\")).output(mark(\"Birthday\", \"Year\")).output(literal(\"\\\" country=\\\"\")).output(mark(\"Country\")).output(literal(\"\\\"\")).output(expression().output(literal(\" club=\\\"\")).output(mark(\"Club\")).output(literal(\"\\\"\"))).output(literal(\"/>\"))\n" +
 			"\t\t);\n" +
 			"\t}\n" +
@@ -129,9 +134,13 @@ public class TemplateGeneration {
 			"\n" +
 			"public class Example3Template extends Template {\n" +
 			"\n" +
+			"\tprotected void init(io.intino.itrules.TemplateEngine engine) {\n" +
+			"\t\tadd(\"7f220c57\", f-> f.is(\"a\")? \"aaa\":\"bbb\");\n" +
+			"\t}\n" +
+			"\n" +
 			"\tpublic RuleSet ruleSet() {\n" +
 			"\t\treturn new RuleSet().add(\n" +
-			"\t\t\trule().condition((type(\"newfeatures\")), (trigger(\"new\"))).output(mark(\"workingPackage\", \"[f-> f.is(\\\"a\\\")? \\\"aaa\\\":\\\"bbb\\\"]\"))\n" +
+			"\t\t\trule().condition((type(\"newfeatures\")), (trigger(\"new\"))).output(mark(\"workingPackage\", \"7f220c57\"))\n" +
 			"\t\t);\n" +
 			"\t}\n" +
 			"}";
@@ -139,58 +148,58 @@ public class TemplateGeneration {
 	@Test
 	public void accept_generate_template_for_roster_itr() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Roster.itr"));
-		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_roster, new TemplateRulesWriter("Roster", "org.sample", "English", getLineSeparator("\n")).toJava(read));
+		ParsedTemplate template = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_roster, new TemplateRulesWriter("Roster", "org.sample", "English", getLineSeparator("\n")).toJava(template));
 	}
 
 	@Test
 	public void accept_generate_template_for_layer_itr() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Layer.itr"));
-		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_layer, new TemplateRulesWriter("Layer", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+		ParsedTemplate template = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_layer, new TemplateRulesWriter("Layer", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(template));
 	}
 
 	@Test
 	public void accept_generate_template_for_rare_Characters_itr() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/RareCharacters.itr"));
-		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_rare_characters, new TemplateRulesWriter("RareCharacters", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+		ParsedTemplate template = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_rare_characters, new TemplateRulesWriter("RareCharacters", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(template));
 	}
 
 	@Test
 	public void null_template_itr() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/nullTemplate.itr"));
-		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_null_template, new TemplateRulesWriter("Null", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+		ParsedTemplate template = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_null_template, new TemplateRulesWriter("Null", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(template));
 	}
 
 	@Test
 	public void native_template_itr() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/native.itr"));
-		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_native_template, new TemplateRulesWriter("Native", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+		ParsedTemplate template = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_native_template, new TemplateRulesWriter("Native", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(template));
 	}
 
 
 	@Test
 	public void itr_example_1() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Example1.itr"));
-		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_example1_template, new TemplateRulesWriter("Example1", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+		ParsedTemplate template = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_example1_template, new TemplateRulesWriter("Example1", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(template));
 	}
 
 	@Test
 	public void itr_example_2() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Example2.itr"));
-		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_example2_template, new TemplateRulesWriter("Example2", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+		ParsedTemplate template = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_example2_template, new TemplateRulesWriter("Example2", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(template));
 	}
 
 	@Test
 	public void itr_example_3() throws Exception {
 		ItrRuleSetReader reader = new ItrRuleSetReader(TemplateGeneration.class.getResourceAsStream("/Example3.itr"));
-		RuleSet read = reader.read(Charset.forName("UTF-8"));
-		Assert.assertEquals(expected_example3_template, new TemplateRulesWriter("Example3", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(read));
+		ParsedTemplate template = reader.read(Charset.forName("UTF-8"));
+		Assert.assertEquals(expected_example3_template, new TemplateRulesWriter("Example3", "org.sample", getLocale("Español"), getLineSeparator("\n")).toJava(template));
 	}
 
 	private String getLineSeparator(String separator) {
