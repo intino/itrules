@@ -5,6 +5,7 @@ import io.intino.itrules.adapters.DefaultAdapter;
 import java.time.temporal.Temporal;
 import java.util.*;
 
+import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyIterator;
 import static java.util.stream.Collectors.toList;
@@ -53,6 +54,19 @@ public final class FrameBuilder {
 
 	private List<String> toLowerCase(List<String> list) {
 		return list.stream().map(String::toLowerCase).collect(toList());
+	}
+
+	public boolean is(String type) {
+		return types.contains(type.toLowerCase());
+	}
+
+	public FrameBuilder type(String type) {
+		types.add(type.toLowerCase());
+		return this;
+	}
+
+	public boolean contains(String slot) {
+		return slots.containsKey(slot);
 	}
 
 	public FrameBuilder add(String slot, Frame... frames) {
@@ -133,6 +147,16 @@ public final class FrameBuilder {
 		return slots.get(slot);
 	}
 
+	private Frame frameOf(Object object) {
+		if (isPrimitive(object)) return new Primitive(object);
+		if (object instanceof Frame) return (Frame) object;
+		return build(object);
+	}
+
+	private Frame build(Object object) {
+		return new FrameBuilder().put(adapters).add(object).toFrame();
+	}
+
 	@SuppressWarnings("unchecked")
 	private Adapter<Object> adapterFor(Object object) {
 		List<Adapter> adapters = classesOf(object).stream().map(this::adapterFor).collect(toList());
@@ -161,20 +185,27 @@ public final class FrameBuilder {
 			private final FrameBuilder builder = FrameBuilder.this;
 
 			@Override
-			public Context add(String name, Object object) {
-				get(name).add(frameOf(object));
+			public Context type(String type) {
+				builder.type(type);
 				return this;
 			}
 
-			private Frame frameOf(Object object) {
-				if (isPrimitive(object)) return new Primitive(object);
-				if (object instanceof Frame) return (Frame) object;
-				return build(object);
+			@Override
+			public boolean is(String type) {
+				return builder.is(type);
 			}
 
-			private Frame build(Object object) {
-				return new FrameBuilder().put(adapters).add(object).toFrame();
+			@Override
+			public Context add(String slot, Object object) {
+				builder.get(slot).add(frameOf(object));
+				return this;
 			}
+
+			@Override
+			public boolean contains(String slot) {
+				return builder.contains(slot);
+			}
+
 		};
 	}
 
@@ -195,7 +226,11 @@ public final class FrameBuilder {
 
 
 	public interface Context {
-		Context add(String name, Object object);
+		Context type(String type);
+		boolean is(String type);
+
+		Context add(String slot, Object object);
+		boolean contains(String slot);
 	}
 
 	private static class Composite implements Frame {
@@ -234,7 +269,7 @@ public final class FrameBuilder {
 
 		@Override
 		public String toString() {
-			return "Frame <...>";
+			return "Frame <"+ join(",", slots.keySet()) + ">";
 		}
 
 	}
