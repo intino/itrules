@@ -34,20 +34,20 @@ public class FrameBuilder_ {
 
 	@Test
 	public void should_create_frames_of_objects_with_a_single_attribute() {
-		Frame frame = new FrameBuilder().add(new SingleAttributeObject(1)).toFrame();
+		Frame frame = new FrameBuilder().append(new SingleAttributeObject(1)).toFrame();
 		assertThat((frame.frames("field1").next().value())).isEqualTo(1);
 	}
 
 	@Test
 	public void should_create_frames_of_objects_with_two_attributes() {
-		Frame frame = new FrameBuilder().add(new TwoAttributesObject("test", 1.0)).toFrame();
+		Frame frame = new FrameBuilder().append(new TwoAttributesObject("test", 1.0)).toFrame();
 		assertThat(frame.frames("field1").next().value()).isEqualTo("test");
 		assertThat(frame.frames("field2").next().value()).isEqualTo(1.0);
 	}
 
 	@Test
 	public void should_create_frames_of_objects_with_two_array_attributes() {
-		Frame frame = new FrameBuilder().add(
+		Frame frame = new FrameBuilder().append(
 				new ObjectWithArrays(
 						new String[]{"test1", "test2"},
 						new Double[]{1.0, 2.0})
@@ -66,7 +66,7 @@ public class FrameBuilder_ {
 
 	@Test
 	public void should_create_frames_of_objects_with_two_lists() {
-		Frame frame = new FrameBuilder().add(
+		Frame frame = new FrameBuilder().append(
 				new ObjectWithTwoList(
 						Arrays.asList("test1", "test2"),
 						Arrays.asList(1.0, 2.0))
@@ -86,7 +86,7 @@ public class FrameBuilder_ {
 
 	@Test
 	public void should_create_frames_of_objects_with_list_of_objects() {
-		Frame frame = new FrameBuilder().add(
+		Frame frame = new FrameBuilder().append(
 				new ObjectWithList(new TwoAttributesObject("t", 1.0))
 		).toFrame();
 		assertThat(frame.frames("field1").next().frames("field1").next().value()).isEqualTo("t");
@@ -95,7 +95,7 @@ public class FrameBuilder_ {
 
 	@Test
 	public void should_create_frames_of_objects_with_maps() {
-		Frame frame = new FrameBuilder().add(
+		Frame frame = new FrameBuilder().append(
 				new ObjectWithMap().add("test1", 1.0).add("test2", 2.0)
 		).toFrame();
 		Iterator<Frame> map = frame.frames("map");
@@ -110,7 +110,7 @@ public class FrameBuilder_ {
 
 	@Test
 	public void should_create_frames_of_objects_with_maps_of_objects() {
-		Frame frame = new FrameBuilder().add(
+		Frame frame = new FrameBuilder().append(
 				new ObjectWithMap().add(
 						new TwoAttributesObject("t", 1.0),
 						new TwoAttributesObject("t2", 2.0))
@@ -124,7 +124,7 @@ public class FrameBuilder_ {
 
 	@Test
 	public void should_create_frames_of_complex_objects() {
-		Frame frame = new FrameBuilder().add(
+		Frame frame = new FrameBuilder().append(
 				new ComplexObject(new TwoAttributesObject("test", 1.0))
 		).toFrame();
 		Frame field1 = frame.frames("field1").next();
@@ -134,7 +134,7 @@ public class FrameBuilder_ {
 
 	@Test
 	public void should_create_frames_of_polymorphic_objects() {
-		Frame frame = new FrameBuilder().add(new PolymorphicClass()).toFrame();
+		Frame frame = new FrameBuilder().append(new PolymorphicClass()).toFrame();
 		assertThat(frame.is("PolymorphicClass")).isTrue();
 		assertThat(frame.is("ClassA")).isTrue();
 		assertThat(frame.is("ClassB")).isTrue();
@@ -147,21 +147,21 @@ public class FrameBuilder_ {
 
 	@Test
 	public void testExcludeMap() {
-		Frame frame = new FrameBuilder().add(new TransientAttributeObject("test", 1.0)).toFrame();
+		Frame frame = new FrameBuilder().append(new TransientAttributeObject("test", 1.0)).toFrame();
 		assertThat(frame.frames("field1").next().value()).isEqualTo("test");
 		assertThat(frame.frames("field2").hasNext()).isFalse();
 	}
 
 	@Test
 	public void testRetrieveFieldsFromParentClasses() {
-		Frame frame = new FrameBuilder().add(new PolymorphicClass()).toFrame();
+		Frame frame = new FrameBuilder().append(new PolymorphicClass()).toFrame();
 		assertThat(frame.frames("field1").next().value()).isEqualTo(0.0);
 	}
 
 	@Test
 	public void testRetrieveSameFieldsInCurrentAndParentClasses() {
 		Frame frame = new FrameBuilder()
-				.add(new PolymorphicClass()).toFrame();
+				.append(new PolymorphicClass()).toFrame();
 		Iterator<Frame> field2 = frame.frames("field2");
 		assertThat(field2.next().value()).isEqualTo(0.0);
 		assertThat(field2.next().value()).isEqualTo(1.0);
@@ -170,7 +170,7 @@ public class FrameBuilder_ {
 	@Test
 	public void should_exclude_static_fields() {
 		Frame frame = new FrameBuilder()
-				.add(new SimpleObjectWithStaticField()).toFrame();
+				.append(new SimpleObjectWithStaticField()).toFrame();
 		assertThat(frame.frames("staticField").hasNext()).isFalse();
 	}
 
@@ -178,7 +178,7 @@ public class FrameBuilder_ {
 	public void should_render_with_custom_adapter() {
 		Frame frame = new FrameBuilder()
 				.put(TwoAttributesObject.class, (source, context) -> context.add("field1", source.getField1()))
-				.add(new TwoAttributesObject("test", 1.0)).toFrame();
+				.append(new TwoAttributesObject("test", 1.0)).toFrame();
 		assertThat(frame.frames("field1").next().value()).isEqualTo("test");
 		assertThat(frame.frames("field2").hasNext()).isFalse();
 	}
@@ -188,7 +188,7 @@ public class FrameBuilder_ {
 	public void testAdaptersWithComplexFields() {
 		Frame frame = new FrameBuilder()
 				.put(ObjectWithList.class, (source, context) -> context.add("object2", source.get(1)))
-				.add(
+				.append(
 						new ObjectWithList(
 								new TwoAttributesObject("test1", 1.0),
 								new TwoAttributesObject("test2", 2.0),
@@ -207,7 +207,7 @@ public class FrameBuilder_ {
 		Frame frame = new FrameBuilder()
 				.put(ObjectWithList.class, (source, context) -> context.add("object2", source.get(1)))
 				.put(TwoAttributesObject.class, (source, context) -> context.add("field1", source.getField1()))
-				.add(
+				.append(
 						new ObjectWithList(
 								new TwoAttributesObject("test1", 1.0),
 								new TwoAttributesObject("test2", 2.0),
@@ -224,7 +224,7 @@ public class FrameBuilder_ {
 	public void testAdapterWithExclusionInside() {
 		Frame frame = new FrameBuilder()
 				.put(ObjectWithList.class, (source, context) -> context.add("object2", source.get(1)))
-				.add(new ObjectWithList(
+				.append(new ObjectWithList(
 						new TransientAttributeObject("test1", 1.0),
 						new TransientAttributeObject("test2", 2.0),
 						new TransientAttributeObject("test3", 3.0)))

@@ -24,10 +24,9 @@ package io.intino.itrules.readers;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import io.intino.itrules.RuleSetReader;
-import io.intino.itrules.engine.RuleSet;
-import io.intino.itrules.model.Rule;
-import io.intino.itrules.model.Token;
+import io.intino.itrules.Rule;
+import io.intino.itrules.Rule.Output;
+import io.intino.itrules.RuleSet;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,7 +35,7 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.List;
 
-public final class JsonRuleSetReader implements RuleSetReader {
+public final class JsonRuleSetReader {
 
     private final InputStream stream;
 
@@ -55,7 +54,7 @@ public final class JsonRuleSetReader implements RuleSetReader {
 
     private GsonBuilder gsonBuilder() {
         GsonBuilder gb = new GsonBuilder();
-        gb.registerTypeAdapter(Token.class, new TokenAdapter());
+        gb.registerTypeAdapter(Output.class, new OutputAdapter());
         return gb;
     }
 
@@ -63,8 +62,8 @@ public final class JsonRuleSetReader implements RuleSetReader {
         return gb.create().fromJson(new InputStreamReader(stream, charset), getType());
     }
 
-    private static class TokenAdapter implements JsonDeserializer<Token> {
-        public Token deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    private static class OutputAdapter implements JsonDeserializer<Output> {
+        public Output deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             String type = jsonObject.get("tokenType").getAsString();
