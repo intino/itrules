@@ -7,10 +7,11 @@ import java.util.*;
 
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 import static java.util.Collections.emptyIterator;
 import static java.util.stream.Collectors.toList;
 
-public final class FrameBuilder {
+public final class FrameBuilder implements FrameBuilderContext {
 	private final List<String> types;
 	private final Map<String, List<Frame>> slots;
 	private Map<Class, Adapter> adapters;
@@ -28,28 +29,23 @@ public final class FrameBuilder {
 		this.adapters = new HashMap<>();
 	}
 
-	private static boolean isFrame(Object object) {
-		return object instanceof Frame;
-	}
-
 	private static boolean isPrimitive(Object object) {
 		return isPrimitive(object.getClass());
 	}
 
 	private static boolean isPrimitive(Class aClass) {
-		return
-				aClass.isPrimitive() ||
-						String.class.isAssignableFrom(aClass) ||
-						Byte.class.isAssignableFrom(aClass) ||
-						Short.class.isAssignableFrom(aClass) ||
-						Integer.class.isAssignableFrom(aClass) ||
-						Long.class.isAssignableFrom(aClass) ||
-						Float.class.isAssignableFrom(aClass) ||
-						Double.class.isAssignableFrom(aClass) ||
-						Boolean.class.isAssignableFrom(aClass) ||
-						Temporal.class.isAssignableFrom(aClass) ||
-						Enum.class.isAssignableFrom(aClass) ||
-						Character.class.isAssignableFrom(aClass);
+		return aClass.isPrimitive() ||
+				String.class.isAssignableFrom(aClass) ||
+				Byte.class.isAssignableFrom(aClass) ||
+				Short.class.isAssignableFrom(aClass) ||
+				Integer.class.isAssignableFrom(aClass) ||
+				Long.class.isAssignableFrom(aClass) ||
+				Float.class.isAssignableFrom(aClass) ||
+				Double.class.isAssignableFrom(aClass) ||
+				Boolean.class.isAssignableFrom(aClass) ||
+				Temporal.class.isAssignableFrom(aClass) ||
+				Enum.class.isAssignableFrom(aClass) ||
+				Character.class.isAssignableFrom(aClass);
 	}
 
 	private List<String> toLowerCase(List<String> list) {
@@ -69,48 +65,24 @@ public final class FrameBuilder {
 		return slots.containsKey(slot);
 	}
 
-	public FrameBuilder add(String slot, Frame... frames) {
-		for (Frame frame : frames) get(slot).add(frame);
+	@Override
+	public FrameBuilder add(String slot, Object... objects) {
+		stream(objects).forEach(o -> get(slot).add(frameOf(o)));
 		return this;
 	}
 
-	public FrameBuilder add(String slot, String... values) {
-		for (String value : values) get(slot).add(new Primitive(value));
-		return this;
-	}
-
-	public FrameBuilder add(String slot, Integer... values) {
-		for (Integer value : values) get(slot).add(new Primitive(value));
-		return this;
-	}
-
-	public FrameBuilder add(String slot, Boolean... values) {
-		for (Boolean value : values) get(slot).add(new Primitive(value));
-		return this;
-	}
-
-	public FrameBuilder add(String slot, Long... values) {
-		for (Long value : values) get(slot).add(new Primitive(value));
-		return this;
-	}
-
-	public FrameBuilder add(String slot, Double... values) {
-		for (Double value : values) get(slot).add(new Primitive(value));
-		return this;
-	}
-
-	public FrameBuilder add(String slot, Temporal... values) {
-		for (Temporal value : values) get(slot).add(new Primitive(value));
-		return this;
-	}
-
-	public FrameBuilder add(Object object) {
-		if (isFrame(object)) return this;
+	public FrameBuilder append(Object object) {
 		addValueOf(object);
 		addTypesOf(object);
 		addSlotsOf(object);
 		return this;
 	}
+
+	public FrameBuilder append(Frame frame) {
+		//TODO
+		return this;
+	}
+
 
 	public <T> FrameBuilder put(Class<T> aClass, Adapter<T> adapter) {
 		adapters.put(aClass, adapter);
@@ -154,7 +126,7 @@ public final class FrameBuilder {
 	}
 
 	private Frame build(Object object) {
-		return new FrameBuilder().put(adapters).add(object).toFrame();
+		return new FrameBuilder().put(adapters).append(object).toFrame();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -180,12 +152,12 @@ public final class FrameBuilder {
 		return classesOf(object.getClass());
 	}
 
-	private Context context() {
-		return new Context() {
+	private FrameBuilderContext context() {
+		return new FrameBuilderContext() {
 			private final FrameBuilder builder = FrameBuilder.this;
 
 			@Override
-			public Context type(String type) {
+			public FrameBuilderContext type(String type) {
 				builder.type(type);
 				return this;
 			}
@@ -196,8 +168,8 @@ public final class FrameBuilder {
 			}
 
 			@Override
-			public Context add(String slot, Object object) {
-				builder.get(slot).add(frameOf(object));
+			public FrameBuilderContext add(String slot, Object... objects) {
+				builder.add(slot, objects);
 				return this;
 			}
 
@@ -224,14 +196,6 @@ public final class FrameBuilder {
 		return interfaces;
 	}
 
-
-	public interface Context {
-		Context type(String type);
-		boolean is(String type);
-
-		Context add(String slot, Object object);
-		boolean contains(String slot);
-	}
 
 	private static class Composite implements Frame {
 
@@ -269,7 +233,7 @@ public final class FrameBuilder {
 
 		@Override
 		public String toString() {
-			return "Frame <"+ join(",", slots.keySet()) + ">";
+			return "Frame <" + join(",", slots.keySet()) + ">";
 		}
 
 	}

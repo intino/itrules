@@ -1,7 +1,7 @@
 package io.intino.itrules.adapters;
 
 import io.intino.itrules.Adapter;
-import io.intino.itrules.FrameBuilder;
+import io.intino.itrules.FrameBuilderContext;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -13,7 +13,7 @@ import static java.lang.reflect.Modifier.isTransient;
 public class DefaultAdapter<T> implements Adapter<T> {
 
 	@Override
-	public void adapt(T source, FrameBuilder.Context context) {
+	public void adapt(T source, FrameBuilderContext context) {
 		new SlotBuilder(source, context).create();
 	}
 
@@ -44,10 +44,10 @@ public class DefaultAdapter<T> implements Adapter<T> {
 
 	private class SlotBuilder {
 		private static final String Count = "Count";
-		private FrameBuilder.Context context;
+		private FrameBuilderContext context;
 		private Object source;
 
-		SlotBuilder(Object source, FrameBuilder.Context context) {
+		SlotBuilder(Object source, FrameBuilderContext context) {
 			this.context = context;
 			this.source = source;
 		}
