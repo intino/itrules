@@ -64,7 +64,7 @@ public abstract class Template {
 		return new TypeCondition(Any, type);
 	}
 
-	protected Condition anyType(String... types) {
+	protected Condition anyTypes(String... types) {
 		return new TypeCondition(Any, types);
 	}
 

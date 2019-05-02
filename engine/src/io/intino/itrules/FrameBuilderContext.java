@@ -6,4 +6,5 @@ public interface FrameBuilderContext {
 
 	FrameBuilderContext add(String slot, Object... objects);
 	boolean contains(String slot);
+	int slots();
 }

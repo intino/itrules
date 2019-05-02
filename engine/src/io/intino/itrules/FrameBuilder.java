@@ -66,6 +66,11 @@ public final class FrameBuilder implements FrameBuilderContext {
 	}
 
 	@Override
+	public int slots() {
+		return slots.size();
+	}
+
+	@Override
 	public FrameBuilder add(String slot, Object... objects) {
 		stream(objects).forEach(o -> get(slot).add(frameOf(o)));
 		return this;
@@ -178,6 +183,10 @@ public final class FrameBuilder implements FrameBuilderContext {
 				return builder.contains(slot);
 			}
 
+			@Override
+			public int slots() {
+				return builder.slots();
+			}
 		};
 	}
 
