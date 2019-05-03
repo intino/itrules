@@ -17,6 +17,13 @@ public final class FrameBuilder implements FrameBuilderContext {
 	private Map<Class, Adapter> adapters;
 	private Object value;
 
+	public static FrameBuilder from(FrameBuilderContext context) {
+		FrameBuilder builder = new FrameBuilder();
+		if (context instanceof FrameBuilder) builder.adapters = ((FrameBuilder) context).adapters;
+		if (context instanceof WrapBuilder) builder.adapters = ((WrapBuilder) context).builder.adapters;
+		return builder;
+	}
+
 	public FrameBuilder() {
 		this.types = new ArrayList<>();
 		this.slots = new HashMap<>();
@@ -158,36 +165,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 	}
 
 	private FrameBuilderContext context() {
-		return new FrameBuilderContext() {
-			private final FrameBuilder builder = FrameBuilder.this;
-
-			@Override
-			public FrameBuilderContext type(String type) {
-				builder.type(type);
-				return this;
-			}
-
-			@Override
-			public boolean is(String type) {
-				return builder.is(type);
-			}
-
-			@Override
-			public FrameBuilderContext add(String slot, Object... objects) {
-				builder.add(slot, objects);
-				return this;
-			}
-
-			@Override
-			public boolean contains(String slot) {
-				return builder.contains(slot);
-			}
-
-			@Override
-			public int slots() {
-				return builder.slots();
-			}
-		};
+		return new WrapBuilder();
 	}
 
 	private List<Class> classesOf(Class aClass) {
@@ -279,6 +257,37 @@ public final class FrameBuilder implements FrameBuilderContext {
 		@Override
 		public String toString() {
 			return "Frame <" + value + ": " + type + ">";
+		}
+	}
+
+	private class WrapBuilder implements FrameBuilderContext {
+		private final FrameBuilder builder = FrameBuilder.this;
+
+		@Override
+		public FrameBuilderContext type(String type) {
+			builder.type(type);
+			return this;
+		}
+
+		@Override
+		public boolean is(String type) {
+			return builder.is(type);
+		}
+
+		@Override
+		public FrameBuilderContext add(String slot, Object... objects) {
+			builder.add(slot, objects);
+			return this;
+		}
+
+		@Override
+		public boolean contains(String slot) {
+			return builder.contains(slot);
+		}
+
+		@Override
+		public int slots() {
+			return builder.slots();
 		}
 	}
 }
