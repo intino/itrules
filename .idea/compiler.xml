@@ -8,13 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="reader-itr" />
         <module name="engine" />
-        <module name="reader-json" />
       </profile>
       <profile name="Annotation profile for plugin" enabled="true">
         <sourceOutputDir name="../out/build/plugin/generated-sources/annotations" />
         <sourceTestOutputDir name="../out/build/plugin/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
