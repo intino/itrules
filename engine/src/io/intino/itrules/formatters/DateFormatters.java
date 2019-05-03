@@ -3,6 +3,7 @@ package io.intino.itrules.formatters;
 import io.intino.itrules.Formatter;
 
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.HashMap;
@@ -86,7 +87,10 @@ public class DateFormatters {
 	}
 
 	private static String format(Temporal value, String pattern, Locale locale) {
-		return DateTimeFormatter.ofPattern(pattern).withLocale(locale).withZone(ZoneId.systemDefault()).format(value);
+		return DateTimeFormatter.ofPattern(pattern).withLocale(locale).withZone(zoneOf(value)).format(value);
 	}
 
+	private static ZoneId zoneOf(Temporal value) {
+		return value instanceof ZonedDateTime ? ((ZonedDateTime) value).getZone() : ZoneId.systemDefault();
+	}
 }

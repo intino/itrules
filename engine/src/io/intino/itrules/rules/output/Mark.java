@@ -4,14 +4,17 @@ import io.intino.itrules.Rule;
 
 public class Mark implements Rule.Output {
     private static final String OptionSeparator = "+";
+    private static final String THIS = "this";
     public static final Rule.Output This = new Mark("");
 
-    private String name;
-    private String[] formatters;
+    private final boolean isThis;
+    private final String name;
+    private final String[] formatters;
     private String separator = null;
 
     public Mark(String name, String... formatters) {
-        this.name = name;
+        this.isThis = name.equals(THIS) || name.isEmpty();
+        this.name = this.isThis ? "" : name;
         this.formatters = formatters;
     }
 
@@ -28,7 +31,7 @@ public class Mark implements Rule.Output {
     }
 
     public boolean isThis() {
-        return name.isEmpty();
+        return isThis;
     }
 
     private boolean isMultiple() {

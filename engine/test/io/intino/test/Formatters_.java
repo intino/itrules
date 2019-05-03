@@ -134,7 +134,7 @@ public class Formatters_ {
 
     @Test
     public void should_format_zoned_datetime() {
-        assertThat(formatter("Time").format(LocalDateTime.of(1950, 1, 20, 10, 32).atZone(ZoneId.of("America/Montreal")))).isEqualTo("10:32");
+         assertThat(formatter("Time").format(LocalDateTime.of(1950, 1, 20, 10, 32).atZone(ZoneId.of("America/Montreal")))).isEqualTo("10:32");
     }
 
     @Test
