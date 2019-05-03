@@ -22,10 +22,12 @@
 
 package io.intino.itrules.dsl;
 
+import io.intino.itrules.Rule;
 import io.intino.itrules.RuleSet;
 import io.intino.itrules.parser.Interpreter;
 import io.intino.itrules.parser.ParsedTemplate;
 import io.intino.itrules.parser.TemplateErrorStrategy;
+import io.intino.itrules.rules.conditions.AttributeCondition;
 import io.intino.itrules.rules.output.Mark;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -33,6 +35,9 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.antlr.v4.runtime.CharStreams.fromString;
 
@@ -182,6 +187,40 @@ public class ParserTest {
 			Mark mark = (Mark) ruleset.iterator().next().outputs().filter(o -> o instanceof Mark).findFirst().orElse(null);
 			Assert.assertNotNull(mark);
 			Assert.assertNotNull(template.formatters().get(mark.formatters()[0]));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void test14() {
+		ItrParser parser = init(TestSources.SIGNATURE_WITH_ATTRIBUTES_1);
+		try {
+			RuleSet ruleset = parse(parser).ruleset();
+			Assert.assertNotNull(ruleset);
+			List<Rule.Condition> conditions = ruleset.iterator().next().conditions().collect(Collectors.toList());
+			Assert.assertEquals(2, conditions.size());
+			Assert.assertTrue(conditions.get(1) instanceof AttributeCondition);
+			Assert.assertEquals("a", ((AttributeCondition) conditions.get(1)).attribute());
+			Assert.assertEquals("b", ((AttributeCondition) conditions.get(1)).value());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void test15() {
+		ItrParser parser = init(TestSources.SIGNATURE_WITH_ATTRIBUTES_2);
+		try {
+			RuleSet ruleset = parse(parser).ruleset();
+			Assert.assertNotNull(ruleset);
+			List<Rule.Condition> conditions = ruleset.iterator().next().conditions().collect(Collectors.toList());
+			Assert.assertEquals(2, conditions.size());
+			Assert.assertTrue(conditions.get(1) instanceof AttributeCondition);
+			Assert.assertEquals("a", ((AttributeCondition) conditions.get(1)).attribute());
+			Assert.assertNull(((AttributeCondition) conditions.get(1)).value());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 			e.printStackTrace();
