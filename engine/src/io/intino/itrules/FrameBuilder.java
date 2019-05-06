@@ -4,6 +4,7 @@ import io.intino.itrules.adapters.DefaultAdapter;
 
 import java.time.temporal.Temporal;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
@@ -78,10 +79,18 @@ public final class FrameBuilder implements FrameBuilderContext {
 	}
 
 	@Override
-	public FrameBuilder add(String slot, Object... objects) {
-		stream(objects).forEach(o -> get(slot).add(frameOf(o)));
+	public FrameBuilder add(String slot, Object object) {
+		if (object.getClass().isArray())
+			objectsIn(object).forEach(o->get(slot).add(frameOf(o)));
+		else
+			get(slot).add(frameOf(object));
 		return this;
 	}
+
+	private Stream<Object> objectsIn(Object object) {
+		return stream((Object[]) object);
+	}
+
 
 	public FrameBuilder append(Object object) {
 		addValueOf(object);
@@ -274,7 +283,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 		}
 
 		@Override
-		public FrameBuilderContext add(String slot, Object... objects) {
+		public FrameBuilderContext add(String slot, Object objects) {
 			builder.add(slot, objects);
 			return this;
 		}

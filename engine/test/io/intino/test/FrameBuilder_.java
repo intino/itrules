@@ -14,6 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FrameBuilder_ {
 
 	@Test
+	public void name() {
+		Frame x = new FrameBuilder("").add("x", new String[]{"A", "B"}).toFrame();
+		System.out.println(x.toString());//TODO
+	}
+
+	@Test
 	public void should_create_frames_manually() {
 		Frame frame = new FrameBuilder("Ship", "Vessel")
 				.add("age", 5.4)

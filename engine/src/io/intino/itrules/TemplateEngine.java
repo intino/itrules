@@ -79,6 +79,7 @@ public class TemplateEngine {
 
 	private Frame frameOf(Object object) {
 		if (object instanceof Frame) return (Frame) object;
+		if (object instanceof FrameBuilder) return ((FrameBuilder) object).toFrame();
 		return new FrameBuilder().put(adapters).append(object).toFrame();
 	}
 
