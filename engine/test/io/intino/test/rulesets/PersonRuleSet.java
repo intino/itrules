@@ -92,7 +92,7 @@ public class PersonRuleSet extends RuleSet {
         add(rule().condition(type("Pet"))
                 .output(new Mark("name"))
         );
-        add(rule().condition(type("Integer"), trigger("PetsCount"), attribute("",0))
+        add(rule().condition(type("Integer"), trigger("PetsCount"), attribute("this",0))
                 .output(literal("no"))
         );
         return this;

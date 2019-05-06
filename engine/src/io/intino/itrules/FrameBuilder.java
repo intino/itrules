@@ -185,7 +185,6 @@ public final class FrameBuilder implements FrameBuilderContext {
 
 
 	private static class Composite implements Frame {
-
 		private final List<String> types;
 		private final Map<String, List<Frame>> slots;
 
@@ -227,11 +226,11 @@ public final class FrameBuilder implements FrameBuilderContext {
 
 	private static class Primitive implements Frame {
 		private final Object value;
-		String type;
+		private final String type;
 
 		public Primitive(Object value) {
 			this.value = value;
-			type = value.getClass().getSimpleName().toLowerCase();
+			this.type = value.getClass().getSimpleName().toLowerCase();
 		}
 
 		@Override
