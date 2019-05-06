@@ -56,7 +56,7 @@ public class TemplateEngine {
 	}
 
 	public TemplateEngine add(String name, Formatter formatter) {
-		formatters.put(name, formatter);
+		formatters.put(name.toLowerCase(), formatter);
 		return this;
 	}
 

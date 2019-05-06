@@ -69,7 +69,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 	}
 
 	public boolean contains(String slot) {
-		return slots.containsKey(slot);
+		return slots.containsKey(slot.toLowerCase());
 	}
 
 	@Override

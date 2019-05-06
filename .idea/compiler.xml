@@ -2,21 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+      <profile name="Annotation profile for engine" enabled="true">
+        <sourceOutputDir name="../out/build/engine/generated-sources/annotations" />
+        <sourceTestOutputDir name="../out/build/engine/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="reader-itr" />
         <module name="engine" />
-      </profile>
-      <profile name="Annotation profile for plugin" enabled="true">
-        <sourceOutputDir name="../out/build/plugin/generated-sources/annotations" />
-        <sourceTestOutputDir name="../out/build/plugin/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="engine" target="1.8" />
+      <module name="engine" target="8" />
       <module name="itrules" target="1.8" />
       <module name="plugin" target="1.8" />
       <module name="reader-itr" target="1.8" />
