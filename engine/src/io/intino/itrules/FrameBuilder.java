@@ -18,13 +18,6 @@ public final class FrameBuilder implements FrameBuilderContext {
 	private Map<Class, Adapter> adapters;
 	private Object value;
 
-	public static FrameBuilder from(FrameBuilderContext context) {
-		FrameBuilder builder = new FrameBuilder();
-		if (context instanceof FrameBuilder) builder.adapters = ((FrameBuilder) context).adapters;
-		if (context instanceof WrapBuilder) builder.adapters = ((WrapBuilder) context).builder.adapters;
-		return builder;
-	}
-
 	public FrameBuilder() {
 		this.types = new ArrayList<>();
 		this.slots = new HashMap<>();
@@ -35,6 +28,13 @@ public final class FrameBuilder implements FrameBuilderContext {
 		this.types = toLowerCase(asList(types));
 		this.slots = new HashMap<>();
 		this.adapters = new HashMap<>();
+	}
+
+	public static FrameBuilder from(FrameBuilderContext context) {
+		FrameBuilder builder = new FrameBuilder();
+		if (context instanceof FrameBuilder) builder.adapters = ((FrameBuilder) context).adapters;
+		if (context instanceof WrapBuilder) builder.adapters = ((WrapBuilder) context).builder.adapters;
+		return builder;
 	}
 
 	private static boolean isPrimitive(Object object) {
@@ -64,7 +64,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return types.contains(type.toLowerCase());
 	}
 
-	public FrameBuilder type(String type) {
+	public FrameBuilder add(String type) {
 		types.add(type.toLowerCase());
 		return this;
 	}
@@ -81,7 +81,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 	@Override
 	public FrameBuilder add(String slot, Object object) {
 		if (object.getClass().isArray())
-			objectsIn(object).forEach(o->get(slot).add(frameOf(o)));
+			objectsIn(object).forEach(o -> get(slot).add(frameOf(o)));
 		else
 			get(slot).add(frameOf(object));
 		return this;
@@ -143,6 +143,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 	private Frame frameOf(Object object) {
 		if (isPrimitive(object)) return new Primitive(object);
 		if (object instanceof Frame) return (Frame) object;
+		if (object instanceof FrameBuilder) return ((FrameBuilder) object).toFrame();
 		return build(object);
 	}
 
@@ -272,8 +273,8 @@ public final class FrameBuilder implements FrameBuilderContext {
 		private final FrameBuilder builder = FrameBuilder.this;
 
 		@Override
-		public FrameBuilderContext type(String type) {
-			builder.type(type);
+		public FrameBuilderContext add(String type) {
+			builder.add(type);
 			return this;
 		}
 

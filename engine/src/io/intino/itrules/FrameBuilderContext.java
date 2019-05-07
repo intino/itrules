@@ -1,7 +1,7 @@
 package io.intino.itrules;
 
 public interface FrameBuilderContext {
-	FrameBuilderContext type(String type);
+	FrameBuilderContext add(String type);
 	boolean is(String type);
 
 	FrameBuilderContext add(String slot, Object object);

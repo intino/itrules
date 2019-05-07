@@ -28,19 +28,19 @@ public final class StringFormatters {
 		return map;
 	}
 
-	private static Formatter onlyDigitsAndLetters() {
+	public static Formatter onlyDigitsAndLetters() {
 		return value -> value.toString().replaceAll("[^0-9A-Za-z]", "");
 	}
 
-	private static Formatter onlyLetters() {
+	public static Formatter onlyLetters() {
 		return value -> value.toString().replaceAll("[^A-Za-z]", "");
 	}
 
-	private static Formatter onlyDigits() {
+	public static Formatter onlyDigits() {
 		return value -> value.toString().replaceAll("[^0-9]", "");
 	}
 
-	private static HashMap<String, Formatter> map() {
+	public static HashMap<String, Formatter> map() {
         return new HashMap<String,Formatter>() {
             @Override
             public Formatter put(String key, Formatter value) {
@@ -49,15 +49,15 @@ public final class StringFormatters {
         };
     }
 
-    private static Formatter upperCase() {
+    public static Formatter upperCase() {
 		return value -> value.toString().toUpperCase();
 	}
 
-	private static Formatter lowerCase() {
+	public static Formatter lowerCase() {
 		return value -> value.toString().toLowerCase();
 	}
 
-	private static Formatter camelCase() {
+	public static Formatter camelCase() {
 		return value -> {
 			String[] parts = value.toString().split(" ");
 			String result = "";
@@ -66,7 +66,7 @@ public final class StringFormatters {
 		};
 	}
 
-	private static Formatter lowerCamelCase() {
+	public static Formatter lowerCamelCase() {
 		return value -> {
 			String[] parts = value.toString().split(" ");
 			String result = "";
@@ -76,23 +76,23 @@ public final class StringFormatters {
 		};
 	}
 
-	private static Formatter snakeCase() {
+	public static Formatter snakeCase() {
 		return value -> value.toString().toLowerCase().replaceAll(" ", "-");
 	}
 
-	private static Formatter firstUpperCase() {
+	public static Formatter firstUpperCase() {
 		return value -> value.toString().isEmpty() ? "" : value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1);
 	}
 
-	private static Formatter firstLowerCase() {
+	public static Formatter firstLowerCase() {
 		return value -> value.toString().isEmpty() ? "" : value.toString().substring(0, 1).toLowerCase() + value.toString().substring(1);
 	}
 
-	private static Formatter capitalize() {
+	public static Formatter capitalize() {
 		return value -> value.toString().isEmpty() ? "" : value.toString().substring(0, 1).toUpperCase() + value.toString().substring(1).toLowerCase();
 	}
 
-	private static Formatter length() {
+	public static Formatter length() {
 		return value -> String.valueOf(value.toString().length());
 	}
 
