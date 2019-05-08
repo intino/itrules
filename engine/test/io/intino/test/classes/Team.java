@@ -59,7 +59,7 @@ public class Team {
         }
 
         public static Person createSimple() {
-            return new Person("Pau Gasol", null, null, Gender.Male);
+            return new Person("Pau Gasol", null, "", Gender.Male);
         }
 
 

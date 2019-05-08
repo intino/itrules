@@ -243,7 +243,7 @@ public class TemplateEngine {
 		}
 
 		private StringBuilder evaluateThis(Frame frame) {
-			return new StringBuilder(valueOf(frame));
+			return new StringBuilder(valueOf(frame)).appendCodePoint(Flag);
 		}
 
 		private StringBuilder evaluate(Mark mark) {
@@ -252,14 +252,16 @@ public class TemplateEngine {
 
 		private StringBuilder evaluate(Mark mark, Iterator<Frame> frames) {
 			StringBuilder sb = new StringBuilder();
-			while (frames.hasNext())
+			while (frames.hasNext()) {
 				append(sb, evaluate(mark, frames.next()), mark.separator());
+			}
 			return sb;
 		}
 
 		private StringBuilder evaluate(Mark mark, Frame frame) {
-			return new Display(new Trigger(mark.fullName()).on(format(frame, mark.formatters()))).generate();
-
+			StringBuilder sb = new Display(new Trigger(mark.fullName()).on(format(frame, mark.formatters()))).generate();
+			if (sb.length() > 0) sb.appendCodePoint(Flag);
+			return sb;
 		}
 
 		private StringBuilder evaluate(Expression expression) {
@@ -279,15 +281,14 @@ public class TemplateEngine {
 		}
 
 		private void append(StringBuilder sb, StringBuilder o, String separator) {
-			if (o.length() == 0) return;
+			if (!hasFlag(o)) return;
 			if (sb.length() > 0) sb.append(separator);
 			sb.append(o).appendCodePoint(Flag);
 		}
 
 		private void append(StringBuilder sb, StringBuilder o) {
-			if (o.length() == 0) return;
-			sb.append(indent(withoutFlags(o)));
-			if (hasFlag(o)) sb.appendCodePoint(Flag);
+			if (!hasFlag(o)) return;
+			sb.append(indent(withoutFlags(o))).appendCodePoint(Flag);
 		}
 
 		private String valueOf(Frame frame) {

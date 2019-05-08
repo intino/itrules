@@ -14,6 +14,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FrameBuilder_ {
 
     @Test
+    public void should_create_frame_with_empty_strings() {
+        Frame frame = new FrameBuilder("t")
+                .add("s", "")
+                .add("s", "")
+                .toFrame();
+
+        assertThat(frame.contains("s")).isTrue();
+        assertThat(frame.frames("s").hasNext()).isTrue();
+        assertThat(frame.frames("s").next().value()).isEqualTo("");
+    }
+
+    @Test
     public void should_create_frame_from_object_with_a_single_attribute() {
         Frame frame = new FrameBuilder()
                 .append(new SingleAttributeObject(1))

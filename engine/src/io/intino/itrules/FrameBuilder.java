@@ -80,6 +80,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 
 	@Override
 	public FrameBuilder add(String slot, Object object) {
+		if (object == null) return this;
 		if (object.getClass().isArray())
 			objectsIn(object).forEach(o -> get(slot).add(frameOf(o)));
 		else

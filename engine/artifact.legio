@@ -9,6 +9,3 @@ Artifact("io.intino.itrules", "1.0.0") engine
 
 Repository("intino-maven") intino
 	Release("https://artifactory.intino.io/artifactory/release-libraries") releases
-
-
-

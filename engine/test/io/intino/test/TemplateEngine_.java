@@ -65,7 +65,7 @@ public class TemplateEngine_ {
     @Test
     public void should_render_object_with_null_attributes() {
         assertThat(engine(new PersonRuleSet().expression()).render(Team.Person.createSimple()))
-                .isEqualTo("Pau Gasol was born");
+                .isEqualTo("Pau Gasol was born in ");
     }
 
     @Test
