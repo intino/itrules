@@ -10,13 +10,13 @@ def type(Roster)
 	<roster>
 		[$Coach]
 		<players>
-			[$Players...[$NL]]
+			A[$Players...[$NL]]
 		</players>
     </roster>
 end
 
 def type(Person) trigger(Coach)
-    <coach name="$Name" year="$Birthday+Year" country="$Country"[ attribute=$NotExist>?/>]
+    <coach name="$Name" year="$Birthday+Year" country="$Country"[ attribute=$NotExist>?>]
 end
 
 def type(Person)

@@ -27,7 +27,7 @@ public class TemplateEngine_ {
     @Test
     public void should_render_object() {
         assertThat(engine(new PersonRuleSet().basic()).render(Team.Person.create()))
-                .isEqualTo("Pau Gasol was born in Spain on 06/07/1980");
+                .isEqualTo("PAU GASOL was born in Spain on 06/07/1980");
     }
 
     @Test
@@ -55,7 +55,7 @@ public class TemplateEngine_ {
     @Test
     public void should_render_object_using_custom_adapter() {
         assertThat(engine(new PersonRuleSet().basic()).add(Team.Person.class, customAdapter()).render(Team.Person.create()))
-                .isEqualTo("None was born in None on ");
+                .isEqualTo("NONE was born in None on ");
     }
 
     private Adapter<Team.Person> customAdapter() {

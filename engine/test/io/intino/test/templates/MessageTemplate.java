@@ -10,7 +10,7 @@ def type(Message)
     From: $from
     To: [$to...[, ]]
     ["$subject"?(No subject)]
-        $body...[$NL]
+        [$body...[$NL]
 end
  */
 
@@ -21,8 +21,8 @@ end
                     .condition(type("Message"))
                     .output(literal("From: "), mark("from"), literal("\n"))
                     .output(literal("To: "), expression(mark("to").multiple(", ")), literal("\n"))
-                    .output(expression(literal("\""),mark("subject"),literal("\"\n")).next(expression(literal("(No subject)\n"))))
-                    .output(literal("\t"),mark("body").multiple("\n")));
+                    .output(expression(literal("\""), mark("subject"),literal("\"\n")).next(expression(literal("(No subject)\n"))))
+                    .output(literal("\t"), expression(mark("body").multiple("\n"))));
     }
 }
 

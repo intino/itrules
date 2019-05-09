@@ -22,6 +22,7 @@ import static java.util.stream.Collectors.joining;
 public class TemplateEngine {
 	private static final int Flag = 0xFFF1;
 	private static final String Blanks = "  \t\n";
+	private static final String NewLine = "\n";
 	private final RuleSet ruleSet;
 	private final Writer writer;
 	private final Map<String, Formatter> formatters;
@@ -38,9 +39,8 @@ public class TemplateEngine {
 		this.adapters = new HashMap<>();
 	}
 
-	private static String indentOf(StringBuilder sb) {
-		int index = sb.lastIndexOf("\n");
-		return index >= 0 && index < sb.length() - 1 ? sb.substring(index + 1, sb.length()) : "";
+	private static boolean isBlank(char c) {
+		return Blanks.indexOf(c) >= 0;
 	}
 
 	private static boolean hasFlag(StringBuilder sb) {
@@ -155,15 +155,15 @@ public class TemplateEngine {
 		}
 
 		private String clean(String str) {
-			return clean(str.split("\n"));
+			return clean(str.split(NewLine));
 		}
 
 		private String clean(String[] lines) {
-			return stream(lines).map(this::cleanLine).collect(joining("\n"));
+			return stream(lines).map(this::cleanLine).collect(joining(NewLine));
 		}
 
 		private String toCRLF(String str) {
-			return str.replace("\n", "\r\n");
+			return str.replace(NewLine, "\r\n");
 		}
 
 		private String cleanLine(String line) {
@@ -219,7 +219,7 @@ public class TemplateEngine {
 		}
 
 		private Rule defaultRule(Frame frame) {
-			return frame.value() != null ?
+			return hasValue(frame) ?
 					new Rule().output(Mark.This) :
 					new Rule().output();
 		}
@@ -235,26 +235,33 @@ public class TemplateEngine {
 		}
 
 		private void write(Mark mark) {
-			append(sb, mark.isThis() ? evaluateThis(trigger.frame) : evaluate(mark));
+			append(sb, mark.isThis() ? evaluateThis(trigger.frame, mark.formatters()) : evaluate(mark));
 		}
 
 		private void write(Expression expression) {
 			append(sb, evaluate(expression));
 		}
 
-		private StringBuilder evaluateThis(Frame frame) {
-			return new StringBuilder(valueOf(frame)).appendCodePoint(Flag);
+		private StringBuilder evaluateThis(Frame frame, String[] formatters) {
+			return hasValue(frame) ? new StringBuilder(valueOf(format(frame, formatters))).appendCodePoint(Flag) : new StringBuilder();
 		}
 
 		private StringBuilder evaluate(Mark mark) {
-			return evaluate(mark, trigger.frames(mark.name()));
+			return hasContent(mark) ? evaluate(mark, trigger.frames(mark.name())).appendCodePoint(Flag) : new StringBuilder();
+		}
+
+		private boolean hasValue(Frame frame) {
+			return frame.value() != null;
+		}
+
+		private boolean hasContent(Mark mark) {
+			return trigger.frames(mark.name()).hasNext();
 		}
 
 		private StringBuilder evaluate(Mark mark, Iterator<Frame> frames) {
 			StringBuilder sb = new StringBuilder();
-			while (frames.hasNext()) {
+			while (frames.hasNext())
 				append(sb, evaluate(mark, frames.next()), mark.separator());
-			}
 			return sb;
 		}
 
@@ -283,7 +290,7 @@ public class TemplateEngine {
 		private void append(StringBuilder sb, StringBuilder o, String separator) {
 			if (!hasFlag(o)) return;
 			if (sb.length() > 0) sb.append(separator);
-			sb.append(o).appendCodePoint(Flag);
+			sb.append(withoutFlags(o)).appendCodePoint(Flag);
 		}
 
 		private void append(StringBuilder sb, StringBuilder o) {
@@ -292,20 +299,36 @@ public class TemplateEngine {
 		}
 
 		private String valueOf(Frame frame) {
-			return frame.value() != null ? frame.value().toString() : "";
+			return frame.value().toString();
 		}
 
 		private void backSpaces(StringBuilder sb) {
 			int index = sb.length() - 1;
-			while (index >= 0) {
-				if (Blanks.indexOf(sb.charAt(index)) < 0) break;
-				index--;
-			}
+			while ((index >= 0) && isBlank(sb.charAt(index))) index--;
 			sb.delete(index + 1, sb.length());
 		}
 
 		private String indent(String str) {
-			return str.replace("\n", "\n" + indentOf(this.sb));
+			return sb.indexOf(NewLine) >= 0 ? replaceNewLines(str) : str;
 		}
+
+		private String replaceNewLines(String str) {
+			return str.replace(NewLine, NewLine + indentOf(withoutFlags(this.sb)));
+		}
+
+		private String indentOf(String str) {
+			return onlyBlanks(str.substring(lastNewLine(str) + 1));
+		}
+
+		private int lastNewLine(String str) {
+			return str.lastIndexOf(NewLine);
+		}
+
+		private String onlyBlanks(String str) {
+			int index = 0;
+			while ((index < str.length()) && isBlank(str.charAt(index))) index++;
+			return str.substring(0,index);
+		}
+
 	}
 }

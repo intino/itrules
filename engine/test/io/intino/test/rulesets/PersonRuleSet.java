@@ -22,6 +22,8 @@ public class PersonRuleSet extends RuleSet {
     public PersonRuleSet basic() {
         add(rule().condition(type("Person"))
                 .output(mark("name"), literal(" was born in "), mark("country"), literal(" on "), mark("birthday", "quoted", "ShortDate")));
+        add(rule().condition(trigger("name"))
+                .output(mark("this","Uppercase")));
         return this;
     }
 
