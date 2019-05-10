@@ -12,10 +12,12 @@ import static java.util.Arrays.stream;
 public class TypeCondition implements Condition {
     private final Operator operator;
     private final Set<String> types;
+    private final String type;
 
     public TypeCondition(Operator operator, String... types) {
         this.operator = operator;
         this.types = setOf(types);
+        this.type = types.length == 1 ? types[0].toLowerCase() : null;
     }
 
     public Operator operator() {
@@ -28,6 +30,7 @@ public class TypeCondition implements Condition {
 
     @Override
     public boolean check(TemplateEngine.Trigger trigger) {
+        if (type != null) return trigger.frame().is(type);
         return operator == All ?
                 types.stream().allMatch(t->trigger.frame().is(t)) :
                 types.stream().anyMatch(t->trigger.frame().is(t));

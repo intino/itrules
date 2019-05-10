@@ -129,13 +129,13 @@ public class FrameBuilder_ {
         Frame frame = new FrameBuilder()
                 .append(new PolymorphicClass())
                 .toFrame();
-        assertThat(frame.is("PolymorphicClass")).isTrue();
-        assertThat(frame.is("ClassA")).isTrue();
-        assertThat(frame.is("ClassB")).isTrue();
-        assertThat(frame.is("Object")).isTrue();
-        assertThat(frame.is("InterfaceA")).isTrue();
-        assertThat(frame.is("InterfaceB")).isTrue();
-        assertThat(frame.is("InterfaceC")).isTrue();
+        assertThat(frame.is("PolymorphicClass".toLowerCase())).isTrue();
+        assertThat(frame.is("ClassA".toLowerCase())).isTrue();
+        assertThat(frame.is("ClassB".toLowerCase())).isTrue();
+        assertThat(frame.is("Object".toLowerCase())).isTrue();
+        assertThat(frame.is("InterfaceA".toLowerCase())).isTrue();
+        assertThat(frame.is("InterfaceB".toLowerCase())).isTrue();
+        assertThat(frame.is("InterfaceC".toLowerCase())).isTrue();
         assertThat(frame.frames("field1").next().value()).isEqualTo(0.0);
 
         Iterator<Frame> field2 = frame.frames("field2");
@@ -215,9 +215,9 @@ public class FrameBuilder_ {
                 )
                 .toFrame();
 
-        assertThat(frame.is("TypeA")).isTrue();
-        assertThat(frame.is("typeB")).isTrue();
-        assertThat(frame.contains("simple")).isTrue();
+        assertThat(frame.is("TypeA".toLowerCase())).isTrue();
+        assertThat(frame.is("typeB".toLowerCase())).isTrue();
+        assertThat(frame.contains("simple".toLowerCase())).isTrue();
         Iterator<Frame> array = frame.frames("array");
         assertThat(array.next().value()).isEqualTo("A");
         assertThat(array.next().value()).isEqualTo("B");
@@ -226,7 +226,7 @@ public class FrameBuilder_ {
         assertThat(frame.contains("composite")).isTrue();
         Iterator<Frame> composite = frame.frames("composite");
         assertThat(composite.hasNext()).isTrue();
-        assertThat(composite.next().is("subtypeA")).isTrue();
+        assertThat(composite.next().is("subtypeA".toLowerCase())).isTrue();
         assertThat(composite.hasNext()).isFalse();
 
         assertThat(frame.is("not_exists")).isFalse();

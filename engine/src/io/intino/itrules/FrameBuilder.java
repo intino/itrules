@@ -61,7 +61,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 	}
 
 	public boolean is(String type) {
-		return types.contains(type.toLowerCase());
+		return types.contains(type);
 	}
 
 	public FrameBuilder add(String type) {
@@ -197,16 +197,18 @@ public final class FrameBuilder implements FrameBuilderContext {
 
 	private static class Composite implements Frame {
 		private final List<String> types;
+		private final String type;
 		private final Map<String, List<Frame>> slots;
 
 		public Composite(List<String> types, Map<String, List<Frame>> slots) {
 			this.types = types;
+			this.type = types.size() == 1 ? types.get(0) : null;
 			this.slots = slots;
 		}
 
 		@Override
 		public boolean is(String type) {
-			return checkType(type.toLowerCase());
+			return this.type != null ? type.equals(this.type) : checkType(type);
 		}
 
 		private boolean checkType(String type) {
@@ -246,7 +248,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 
 		@Override
 		public boolean is(String type) {
-			return type.toLowerCase().equals(this.type);
+			return type.equals(this.type);
 		}
 
 		@Override
