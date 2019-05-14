@@ -10,6 +10,7 @@ import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static java.util.Collections.emptyIterator;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 public final class FrameBuilder implements FrameBuilderContext {
@@ -196,23 +197,17 @@ public final class FrameBuilder implements FrameBuilderContext {
 
 
 	private static class Composite implements Frame {
-		private final List<String> types;
 		private final String type;
 		private final Map<String, List<Frame>> slots;
 
 		public Composite(List<String> types, Map<String, List<Frame>> slots) {
-			this.types = types;
-			this.type = types.size() == 1 ? types.get(0) : null;
+			this.type = "+"+ types.stream().collect(joining("+"));
 			this.slots = slots;
 		}
 
 		@Override
 		public boolean is(String type) {
-			return this.type != null ? type.equals(this.type) : checkType(type);
-		}
-
-		private boolean checkType(String type) {
-			return types.stream().anyMatch(t -> t.equals(type));
+			return this.type.contains("+"+type);
 		}
 
 		@Override

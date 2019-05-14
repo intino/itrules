@@ -12,6 +12,44 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Templates_ {
 
+    private static Module composite() {
+        return new Module("X",
+                new Module("1",
+                        new Module("1.1"),
+                        new Module("1.2",
+                                new Module("1.2.1"),
+                                new Module("1.2.2"),
+                                new Module("1.2.3")
+                        ),
+                        new Module("1.3"),
+                        new Module("1.4")
+                ),
+                new Module("2",
+                        new Module("2.1"),
+                        new Module("2.2"),
+                        new Module("2.3"),
+                        new Module("2.4"),
+                        new Module("2.5"),
+                        new Module("2.6")
+
+                ),
+                new Module("3",
+                        new Module("3.1"),
+                        new Module("3.2"),
+                        new Module("3.3")
+                ),
+                new Module("4",
+                        new Module("4.1"),
+                        new Module("4.2")
+                ),
+                new Module("5")
+        );
+    }
+
+    private static String[] to(String... recipients) {
+        return recipients;
+    }
+
     @Test
     public void should_render_formatting_template() {
         assertThat(new FormattingTemplate().render(new Person("Pau Gasol"))).isEqualTo(
@@ -75,7 +113,7 @@ public class Templates_ {
     }
 
     @Test
-    public void should_render_roster_with_and_without_coach() {
+    public void should_render_roster_with_coach() {
         Roster roster = new Roster(
                 new Person("Juan Antonio Orenga"),
                 new Person("Pau Gasol"),
@@ -84,20 +122,69 @@ public class Templates_ {
         );
         assertThat(new RosterTemplate().render(roster)).isEqualTo(
                 "<roster>\n" +
-                "\t<coach name=\"Juan Antonio Orenga\"/>\n" +
+                "\t<coach name=\"Juan Antonio Orenga\">\n" +
+                "\t</coach>\n" +
                 "\t<players>\n" +
-                "\t\t<player name=\"Pau Gasol\"/>\n" +
-                "\t\t<player name=\"Rudy Fernandez\"/>\n" +
-                "\t\t<player name=\"Juan Carlos Navarro\"/>\n" +
+                "\t\t<player name=\"Pau Gasol\">\n" +
+                "\t\t</player>\n" +
+                "\t\t<player name=\"Rudy Fernandez\">\n" +
+                "\t\t</player>\n" +
+                "\t\t<player name=\"Juan Carlos Navarro\">\n" +
+                "\t\t</player>\n" +
                 "\t</players>\n" +
                 "</roster>");
-        roster.coach = null;
+    }
+
+    @Test
+    public void should_render_roster_without_coach() {
+        Roster roster = new Roster(
+                null,
+                new Person("Pau Gasol"),
+                new Person("Rudy Fernandez"),
+                new Person("Juan Carlos Navarro")
+        );
         assertThat(new RosterTemplate().render(roster)).isEqualTo(
                 "<roster>\n" +
                 "\t<players>\n" +
-                "\t\t<player name=\"Pau Gasol\"/>\n" +
-                "\t\t<player name=\"Rudy Fernandez\"/>\n" +
-                "\t\t<player name=\"Juan Carlos Navarro\"/>\n" +
+                "\t\t<player name=\"Pau Gasol\">\n" +
+                "\t\t</player>\n" +
+                "\t\t<player name=\"Rudy Fernandez\">\n" +
+                "\t\t</player>\n" +
+                "\t\t<player name=\"Juan Carlos Navarro\">\n" +
+                "\t\t</player>\n" +
+                "\t</players>\n" +
+                "</roster>");
+    }
+
+    @Test
+    public void should_render_roster_with_pets() {
+        Roster roster = new Roster(
+                new Person("Juan Antonio Orenga", "Toby"),
+                new Person("Pau Gasol", "Rex"),
+                new Person("Rudy Fernandez"),
+                new Person("Juan Carlos Navarro", "Alf", "Leo")
+        );
+        assertThat(new RosterTemplate().render(roster)).isEqualTo(
+                "<roster>\n" +
+                "\t<coach name=\"Juan Antonio Orenga\">\n" +
+                "\t\t<pets>\n" +
+                "\t\t\t<pet>Toby</pet>\n" +
+                "\t\t</pets>\n" +
+                "\t</coach>\n" +
+                "\t<players>\n" +
+                "\t\t<player name=\"Pau Gasol\">\n" +
+                "\t\t\t<pets>\n" +
+                "\t\t\t\t<pet>Rex</pet>\n" +
+                "\t\t\t</pets>\n" +
+                "\t\t</player>\n" +
+                "\t\t<player name=\"Rudy Fernandez\">\n" +
+                "\t\t</player>\n" +
+                "\t\t<player name=\"Juan Carlos Navarro\">\n" +
+                "\t\t\t<pets>\n" +
+                "\t\t\t\t<pet>Alf</pet>\n" +
+                "\t\t\t\t<pet>Leo</pet>\n" +
+                "\t\t\t</pets>\n" +
+                "\t\t</player>\n" +
                 "\t</players>\n" +
                 "</roster>");
     }
@@ -110,16 +197,18 @@ public class Templates_ {
             this.coach = coach;
             this.players = players;
         }
-    }    
+    }
 
     public static class Person {
         String name;
         LocalDate birthdate = LocalDate.of(1980, 10, 2);
         int height = 208;
         double Salary = 240000;
+        String[] pets;
 
-        public Person(String name) {
+        public Person(String name, String... pets) {
             this.name = name;
+            this.pets = pets;
         }
     }
 
@@ -137,40 +226,6 @@ public class Templates_ {
         }
     }
 
-    private static Module composite() {
-        return new Module("X",
-                new Module("1",
-                        new Module("1.1"),
-                        new Module("1.2",
-                                new Module("1.2.1"),
-                                new Module("1.2.2"),
-                                new Module("1.2.3")
-                        ),
-                        new Module("1.3"),
-                        new Module("1.4")
-                ),
-                new Module("2",
-                        new Module("2.1"),
-                        new Module("2.2"),
-                        new Module("2.3"),
-                        new Module("2.4"),
-                        new Module("2.5"),
-                        new Module("2.6")
-
-                ),
-                new Module("3",
-                        new Module("3.1"),
-                        new Module("3.2"),
-                        new Module("3.3")
-                ),
-                new Module("4",
-                        new Module("4.1"),
-                        new Module("4.2")
-                ),
-                new Module("5")
-        );
-    }
-
     public static class Module {
         private String name;
         private Module[] modules;
@@ -179,10 +234,6 @@ public class Templates_ {
             this.name = name;
             this.modules = modules;
         }
-    }
-
-    private static String[] to(String... recipients) {
-        return recipients;
     }
 
 

@@ -142,10 +142,12 @@ public class PersonRuleSet extends RuleSet {
 
     public RuleSet withNestedExpressions() {
         add(rule().condition(type("Person"))
-                .output(new Mark("name"), literal("\n\t"), expression(
-                        expression(literal("Pets\n\t"), mark("pets").multiple("\n"), literal("\n")),
-                        expression(literal("Teams\n\t"),mark("teams").multiple("\n"), literal("\n"))
-                )));
+                .output(new Mark("name"), literal("\n\t"),
+                        expression(
+                            expression(literal("Pets\n\t"), mark("pets").multiple("\n"), literal("\n")),
+                            expression(literal("Teams\n\t"),mark("teams").multiple("\n"), literal("\n"))
+                        )
+                ));
         add(rule().condition(anyType("Pet","Team"))
                 .output(new Mark("name"))
         );
