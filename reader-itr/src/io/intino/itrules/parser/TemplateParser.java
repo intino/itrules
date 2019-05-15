@@ -46,7 +46,7 @@ public final class TemplateParser {
 			parseTemplate(fromString(IOUtils.toString(stream, charset.name()).trim()));
 			return template;
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(e.getMessage());
 			return template;
 		}
 	}
