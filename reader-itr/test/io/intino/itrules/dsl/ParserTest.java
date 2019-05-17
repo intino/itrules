@@ -114,7 +114,8 @@ public class ParserTest {
 	public void test7() {
 		ItrParser parser = init(TestSources.LITTLE_BIG_TEST);
 		try {
-			Assert.assertNotNull(parse(parser).ruleset());
+			RuleSet ruleset = parse(parser).ruleset();
+			Assert.assertNotNull(ruleset);
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 			e.printStackTrace();
@@ -221,6 +222,18 @@ public class ParserTest {
 			Assert.assertTrue(conditions.get(1) instanceof AttributeCondition);
 			Assert.assertEquals("a", ((AttributeCondition) conditions.get(1)).attribute());
 			Assert.assertNull(((AttributeCondition) conditions.get(1)).value());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void test16() {
+		ItrParser parser = init(TestSources.LITTLE_BIG_TEST_2);
+		try {
+			RuleSet ruleset = parse(parser).ruleset();
+			Assert.assertNotNull(ruleset);
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 			e.printStackTrace();

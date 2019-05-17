@@ -87,6 +87,22 @@ public class TestSources {
 			"\t}\n" +
 			"end";
 
+	public static final String LITTLE_BIG_TEST_2 = "" +
+			"def type(Class)\n" +
+			"\tpublic class [$static ][$final ]$name [extends $SuperClass ][implements $Interface...[, ]]{\n" +
+			"\t\t[//attributes:\n" +
+			"\t\t\t$attribute+Const...[$NL]\n" +
+			"\t\t\t$attribute+Field...[$NL]\n" +
+			"\t\t//end_ttributes]\n" +
+			"\t\t$attribute+Getter...[$NL]\n" +
+			"\t\n" +
+			"\t\tpublic $Name($attribute+Injection...[,]) {\n" +
+			"\t\t\t$attribute+Initialize...[$NL]\n" +
+			"\t\t}\n" +
+			"\t}\n" +
+			"end";
+
+
 
 	public static final String XML_TARA = "def type(Theasurus)\n" +
 			"\t<thesaurus>\n" +

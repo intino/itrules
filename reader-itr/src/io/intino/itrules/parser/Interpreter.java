@@ -34,6 +34,8 @@ import io.intino.itrules.rules.conditions.TypeCondition;
 import io.intino.itrules.rules.output.Expression;
 import io.intino.itrules.rules.output.Literal;
 import io.intino.itrules.rules.output.Mark;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -112,11 +114,12 @@ public final class Interpreter extends ItrParserBaseListener {
 		Expression expression = new Expression();
 		Expression currentOr = null;
 		boolean orMode = false;
+		String indent = calculateExpressionIndent(ctx);
 		for (ParseTree child : ctx.children)
 			if (!orMode && child instanceof ExpressionBodyContext)
-				fillExpression((ExpressionBodyContext) child, expression);
+				fillExpression((ExpressionBodyContext) child, expression, indent);
 			else if (child instanceof ExpressionBodyContext)
-				fillExpression((ExpressionBodyContext) child, currentOr);
+				fillExpression((ExpressionBodyContext) child, currentOr, indent);
 			else if (child.getText().equals("?")) {
 				if (currentOr != null) expression.next(currentOr);
 				orMode = true;
@@ -126,14 +129,14 @@ public final class Interpreter extends ItrParserBaseListener {
 		currentRule.output(expression);
 	}
 
-	private void fillExpression(ExpressionBodyContext body, Expression expression) {
+	private void fillExpression(ExpressionBodyContext body, Expression expression, String indent) {
 		for (ParseTree token : body.children) {
 			if (token instanceof MarkContext) {
 				if (token.getText().equals(NL_SEPARATOR)) expression.output(new Literal("\n"));
 				else if (token.getText().equals(TAB_SEPARATOR)) expression.output(new Literal("\t"));
 				else expression.output(processAsMark(((MarkContext) token)));
 			} else if (token instanceof TextContext)
-				expression.output(new Literal(clean(token)));
+				expression.output(new Literal(clean(token).replaceFirst(indent, "")));
 		}
 	}
 
@@ -171,12 +174,23 @@ public final class Interpreter extends ItrParserBaseListener {
 		}).toArray(String[]::new);
 	}
 
+	private String calculateExpressionIndent(ExpressionContext ctx) {
+		CharStream inputStream = ctx.start.getInputStream();
+		int lnIndex = ctx.start.getStartIndex() - ctx.start.getCharPositionInLine();
+		String text = inputStream.getText(new Interval(lnIndex, ctx.start.getStartIndex() - 1)).substring(1);
+		int i = 0;
+		if (text.isEmpty()) return "";
+		StringBuilder indent = new StringBuilder();
+		while (text.length() > i && text.charAt(i) == '\t') {
+			indent.append("\t");
+			i++;
+		}
+		return indent.toString();
+	}
+
 	private String format(String separator) {
 		String s = separator.substring(1, separator.length() - 1);
-		s = s.replace(NL_SEPARATOR, "\n");
-		s = s.replace(TAB_SEPARATOR, "\t");
-		s = s.replace("~", "");
-		return s;
+		return s.replace(NL_SEPARATOR, "\n").replace(TAB_SEPARATOR, "\t").replace("~", "");
 	}
 
 	@Override
