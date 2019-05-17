@@ -5,7 +5,7 @@ import io.intino.itrules.TemplateEngine;
 
 import java.util.Set;
 
-import static io.intino.itrules.rules.conditions.TypeCondition.Operator.All;
+import static io.intino.itrules.rules.conditions.TypeCondition.Operator.Any;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toSet;
 
@@ -19,9 +19,9 @@ public class TypeCondition implements Condition {
     }
 
     private Checker setChecker(Operator operator, Set<String> types) {
-        return operator == All ?
-                createAllChecker(types) :
-                createAnyChecker(types);
+        return operator == Any ?
+                createAnyChecker(types) :
+                createAllChecker(types);
     }
 
     private Checker singleChecker(String type) {
