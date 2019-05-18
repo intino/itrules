@@ -226,19 +226,50 @@ public final class FrameBuilder implements FrameBuilderContext {
 		}
 
 		@Override
+		public int hashCode() {
+			int h = type != null ? type.hashCode() : 0;
+			for (String slot : sortedSlots())
+				h = (31 * h + hashCodeOf(slot)) >>> 1;
+			return h;
+		}
+
+		private List<String> sortedSlots() {
+			List<String> list = new ArrayList<>(slots.keySet());
+			list.sort(Comparator.naturalOrder());
+			return list;
+		}
+
+		private int hashCodeOf(String slot) {
+			Iterator<Frame> frames = frames(slot);
+			int h = slot.hashCode();
+			while (frames.hasNext()) {
+				Frame frame = frames.next();
+				h = (31 * h + frame.hashCode()) >>> 1;
+			}
+			return h;
+		}
+
+		@Override
 		public String toString() {
 			return "Frame <" + join(",", slots.keySet()) + ">";
 		}
 
 	}
 
-	private static class Primitive implements Frame {
+	static class Primitive implements Frame {
 		private final Object value;
 		private final String type;
+		private final static Map<Class, String> types = new HashMap<>();
 
 		public Primitive(Object value) {
 			this.value = value;
-			this.type = value.getClass().getSimpleName().toLowerCase();
+			this.type = typeOf(value.getClass());
+		}
+
+		private String typeOf(Class<?> aClass) {
+			if (!types.containsKey(aClass))
+				types.put(aClass, aClass.getSimpleName().toLowerCase());
+			return types.get(aClass);
 		}
 
 		@Override
@@ -262,9 +293,16 @@ public final class FrameBuilder implements FrameBuilderContext {
 		}
 
 		@Override
+		public int hashCode() {
+			return type.hashCode() + 31 * (value != null ? value.hashCode() : 0);
+		}
+
+		@Override
 		public String toString() {
 			return "Frame <" + value + ": " + type + ">";
 		}
+
+
 	}
 
 	private class WrapBuilder implements FrameBuilderContext {
