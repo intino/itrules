@@ -140,6 +140,16 @@ public class PersonRuleSet extends RuleSet {
         return this;
     }
 
+    public RuleSet withMarkThatMatchesNoRules() {
+        add(rule().condition(type("Person"))
+                .output(new Mark("name"), literal(" has "), mark("petsCount"), literal(" pets\n\t"), expression(mark("pets").multiple("\n\n")))
+        );
+        add(rule().condition(type("Pet"), trigger("x"))
+                .output(new Mark("name"),literal("\n\t"), new Mark("animal"))
+        );
+        return this;
+    }
+
     public RuleSet withNestedExpressions() {
         add(rule().condition(type("Person"))
                 .output(new Mark("name"), literal("\n\t"),

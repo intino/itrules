@@ -117,6 +117,13 @@ public class TemplateEngine_ {
     }
 
     @Test
+    public void should_render_object_with_multiple_attributes_that_matches_to_no_rules() {
+        assertThat(engine(new PersonRuleSet().withMarkThatMatchesNoRules()).render(Team.Person.create().withPets()))
+                .isEqualTo("Pau Gasol has 3 pets");
+    }
+
+
+    @Test
     public void should_render_object_with_empty_multiple_attributes_using_nested_expressions() {
         assertThat(engine(new PersonRuleSet().withNestedExpressions()).render(Team.Person.create()))
                 .isEqualTo("Pau Gasol");

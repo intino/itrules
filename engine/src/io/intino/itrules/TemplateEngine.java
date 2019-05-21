@@ -207,7 +207,7 @@ public class TemplateEngine {
 		}
 
 		private Canvas evaluate(Mark mark) {
-			return hasContent(mark) ? evaluate(mark, trigger.frames(mark.name())).touch() : new Canvas();
+			return hasContent(mark) ? evaluate(mark, trigger.frames(mark.name())) : new Canvas();
 		}
 
 		private Canvas evaluate(Mark mark, Iterator<Frame> frames) {
