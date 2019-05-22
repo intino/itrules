@@ -148,11 +148,7 @@ public class TemplateEngine {
 
 		private Canvas generate(Stream<Output> outputs) {
 			outputs.forEach(this::write);
-   			return filter(canvas);
-		}
-
-		private Canvas filter(Canvas canvas) {
-			return canvas;
+   			return canvas;
 		}
 
 		private Rule ruleFor(Trigger trigger) {
@@ -178,11 +174,13 @@ public class TemplateEngine {
 		}
 
 		private void write(Mark mark) {
-			appendMark(canvas, mark.isThis() ? evaluateThis(trigger.frame, mark.formatters()) : evaluate(mark));
+			append(canvas, mark.isThis() ? evaluateThis(trigger.frame, mark.formatters()) : evaluate(mark));
 		}
 
 		private void write(Expression expression) {
-			appendExpression(canvas, evaluate(expression));
+			Canvas o = evaluate(expression);
+			if (o.isNotTouched() || o.isEmpty()) canvas.backSpaces();
+			append(canvas, o);
 		}
 
 		private Canvas evaluateThis(Frame frame, String[] formatters) {
@@ -241,9 +239,7 @@ public class TemplateEngine {
 		}
 
 		private Canvas validate(Expression expression) {
-			if (expression != null) return evaluate(expression);
-			canvas.backSpaces();
-			return new Canvas();
+			return expression != null ? evaluate(expression) : new Canvas();
 		}
 
 		private void append(Canvas canvas, String str) {
@@ -256,12 +252,7 @@ public class TemplateEngine {
 			canvas.append(o.toString()).touch();
 		}
 
-		private void appendMark(Canvas canvas, Canvas o) {
-			if (o.isNotTouched()) return;
-			canvas.append(indent(o.toString())).touch();
-		}
-
-		private void appendExpression(Canvas canvas, Canvas o) {
+		private void append(Canvas canvas, Canvas o) {
 			if (o.isNotTouched()) return;
 			canvas.append(indent(o.toString())).touch();
 		}
@@ -328,7 +319,7 @@ public class TemplateEngine {
 		}
 
 
-		Canvas touch() {
+		Canvas 	touch() {
 			this.touched = true;
 			return this;
 		}
@@ -350,6 +341,10 @@ public class TemplateEngine {
 			return sb.codePoints()
 					.filter(c -> c != 0xFFFF)
 					.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append);
+		}
+
+		public boolean isEmpty() {
+			return sb.length() == 0;
 		}
 
 		public boolean isNotEmpty() {
