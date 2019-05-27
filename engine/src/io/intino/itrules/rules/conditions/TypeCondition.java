@@ -22,10 +22,12 @@ public class TypeCondition implements Condition {
 				single(types[0].toLowerCase());
 	}
 
+	@SuppressWarnings("unused")
 	public Operator operator() {
 		return operator;
 	}
 
+	@SuppressWarnings("unused")
 	public String[] types() {
 		return types;
 	}
