@@ -11,11 +11,23 @@ import static java.util.stream.Collectors.toSet;
 
 public class TypeCondition implements Condition {
 	private final Checker checker;
+	private final Operator operator;
+	private final String[] types;
 
 	public TypeCondition(Operator operator, String... types) {
+		this.operator = operator;
+		this.types = types;
 		this.checker = types.length > 1 ?
 				multiple(operator, setOf(types)) :
 				single(types[0].toLowerCase());
+	}
+
+	public Operator operator() {
+		return operator;
+	}
+
+	public String[] types() {
+		return types;
 	}
 
 	private Checker multiple(Operator operator, Set<String> types) {
