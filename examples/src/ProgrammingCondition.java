@@ -1,5 +1,5 @@
-import org.siani.itrules.Function;
-import org.siani.itrules.TemplateEngine;
+import io.intino.itrules.Function;
+import io.intino.itrules.TemplateEngine;
 
 import java.util.Locale;
 
@@ -8,7 +8,7 @@ public class ProgrammingCondition {
     public static final String Template = "examples/templates/ProgrammingCondition.itr";
 
     public static void main(String[] args) {
-        String result = new TemplateEngine(Locale.ENGLISH).use(Template)
+        String result = new TemplateEngine(Locale.ENGLISH).load(Template)
                 .add("first-pet-is", firstPet())
                 .render(pau());
         System.out.println(result);

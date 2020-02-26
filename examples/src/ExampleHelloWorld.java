@@ -1,4 +1,4 @@
-import org.siani.itrules.TemplateEngine;
+import io.intino.itrules.TemplateEngine;
 
 public class ExampleHelloWorld {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-import org.siani.itrules.TemplateEngine;
+import io.intino.itrules.TemplateEngine;
 
 import java.util.Locale;
 
@@ -7,7 +7,7 @@ public class ExampleConditions {
     public static final String Template = "examples/templates/ExampleConditions.itr";
 
     public static void main(String[] args) {
-        String result = new TemplateEngine(Locale.ENGLISH).use(Template).render(pau());
+        String result = new TemplateEngine(Locale.ENGLISH).load(Template).render(pau());
         System.out.println(result);
     }
 

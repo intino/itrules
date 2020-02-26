@@ -1,5 +1,4 @@
-import org.siani.itrules.TemplateEngine;
-import org.siani.itrules.readers.ItrRuleSetReader;
+import io.intino.itrules.TemplateEngine;
 
 public class ExampleRecursive {
 
