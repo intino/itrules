@@ -1,15 +1,15 @@
 dsl Legio
 
-Artifact("io.intino.itrules", "1.0.0") reader-itr
+Artifact("io.intino.itrules", "1.1,o") reader-itr
 	Imports
 		Compile("io.intino.itrules", "engine", "1.0.0")
-		Compile("io.intino.alexandria", "logger", "2.0.0")
-		Compile("org.antlr", "antlr4", "4.7.2")
-		Compile("commons-io","commons-io", "LATEST")
-		Test("junit", "junit", "4.12")
-	Package(mode = ModulesAndLibrariesLinkedByManifest)
-
-	Distribution(intino.releases)
+		Compile("io.intino.alexandria", "logger", "2.1.0")
+		Compile("org.antlr", "antlr4", "4.10.1")
+		Compile("commons-io","commons-io", "2.11.0")
+		Test("junit", "junit", "4.13")
+	Package(mode = ModulesAndLibrariesLinkedByManifest, attachSources = true)
+	Distribution > Artifactory("intino-maven")
+			Release("https://artifactory.intino.io/artifactory/release-libraries") releases
 
 Repository("intino-maven") intino
 	Release("https://artifactory.intino.io/artifactory/release-libraries") releases
