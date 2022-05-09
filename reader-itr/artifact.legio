@@ -1,6 +1,6 @@
 dsl Legio
 
-Artifact("io.intino.itrules", "1.1,o") reader-itr
+Artifact("io.intino.itrules", "1.1,0") reader-itr
 	Imports
 		Compile("io.intino.itrules", "engine", "1.0.0")
 		Compile("io.intino.alexandria", "logger", "2.1.0")
