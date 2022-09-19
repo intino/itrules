@@ -15,6 +15,7 @@ import static java.util.stream.Collectors.toList;
 public final class FrameBuilder implements FrameBuilderContext {
 	private final List<String> types;
 	private final Map<String, List<Frame>> slots;
+	private static Map<String, Primitive> cache;
 	private Map<Class, Adapter> adapters;
 	private Object value;
 
@@ -28,6 +29,19 @@ public final class FrameBuilder implements FrameBuilderContext {
 		this.types = toLowerCase(asList(types));
 		this.slots = new HashMap<>();
 		this.adapters = new HashMap<>();
+	}
+
+	public static void startCache() {
+		cache = new HashMap<>();
+	}
+
+	public static void clearCache() {
+		cache.clear();
+	}
+
+	public static void stopCache() {
+		if (cache != null) cache.clear();
+		cache = null;
 	}
 
 	public static FrameBuilder from(FrameBuilderContext context) {
@@ -142,7 +156,14 @@ public final class FrameBuilder implements FrameBuilderContext {
 	}
 
 	private Frame frameOf(Object object) {
-		if (isPrimitive(object)) return new Primitive(object);
+		if (isPrimitive(object)) {
+			if (cache != null) {
+				Primitive primitive = cache.get(object.toString());
+				if (primitive != null) return primitive;
+				cache.put(object.toString(), primitive = new Primitive(object));
+				return primitive;
+			} else return new Primitive(object);
+		}
 		if (object instanceof Frame) return (Frame) object;
 		if (object instanceof FrameBuilder) return ((FrameBuilder) object).toFrame();
 		return build(object);
@@ -206,7 +227,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 
 		@Override
 		public boolean is(String type) {
-			return this.types.stream().anyMatch(t->t.equals(type));
+			return this.types.stream().anyMatch(t -> t.equals(type));
 		}
 
 		@Override
