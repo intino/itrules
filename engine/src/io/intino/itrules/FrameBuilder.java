@@ -31,15 +31,15 @@ public final class FrameBuilder implements FrameBuilderContext {
 		this.adapters = new HashMap<>();
 	}
 
-	public static void startCache() {
+	public synchronized static void startCache() {
 		cache = new HashMap<>();
 	}
 
-	public static void clearCache() {
+	public synchronized static void clearCache() {
 		cache.clear();
 	}
 
-	public static void stopCache() {
+	public synchronized static void stopCache() {
 		if (cache != null) cache.clear();
 		cache = null;
 	}
