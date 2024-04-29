@@ -19,6 +19,7 @@ public final class StringFormatters {
 		map.put("Camelcase", camelCase());
 		map.put("LowerCamelCase", lowerCamelCase());
 		map.put("SnakeCase", snakeCase());
+		map.put("KebabCase", kebabCase());
 		map.put("Capitalize", capitalize());
 		map.put("Length", length());
 		map.put("OnlyDigits", onlyDigits());
@@ -41,15 +42,15 @@ public final class StringFormatters {
 	}
 
 	public static HashMap<String, Formatter> map() {
-        return new HashMap<String,Formatter>() {
-            @Override
-            public Formatter put(String key, Formatter value) {
-                return super.put(key.toLowerCase(), value);
-            }
-        };
-    }
+		return new HashMap<String, Formatter>() {
+			@Override
+			public Formatter put(String key, Formatter value) {
+				return super.put(key.toLowerCase(), value);
+			}
+		};
+	}
 
-    public static Formatter upperCase() {
+	public static Formatter upperCase() {
 		return value -> value.toString().toUpperCase();
 	}
 
@@ -77,6 +78,10 @@ public final class StringFormatters {
 	}
 
 	public static Formatter snakeCase() {
+		return value -> value.toString().toLowerCase().replaceAll(" ", "_");
+	}
+
+	public static Formatter kebabCase() {
 		return value -> value.toString().toLowerCase().replaceAll(" ", "-");
 	}
 
@@ -98,14 +103,14 @@ public final class StringFormatters {
 
 	private static Formatter plural(Locale locale) {
 		PluralInflector pluralInflector = (locale.getLanguage().equals("es")) ?
-				new SpanishPluralInflector():
+				new SpanishPluralInflector() :
 				new EnglishPluralInflector();
 		return value -> pluralInflector.plural(value.toString());
 	}
 
 	public abstract static class PluralInflector {
-		private Map<String, String> irregulars = new HashMap<>();
-		private Map<String, String> replaces = new HashMap<>();
+		private final Map<String, String> irregulars = new HashMap<>();
+		private final Map<String, String> replaces = new HashMap<>();
 
 		public PluralInflector() {
 			setIrregulars();
