@@ -32,6 +32,7 @@ public class BinaryExpression implements LogicalExpression {
 
 	private final BinaryOperator operator;
 	private final LogicalExpression right;
+
 	public BinaryExpression(LogicalExpression left, BinaryOperator operator, LogicalExpression right) {
 		this.left = left;
 		this.operator = operator;
@@ -60,18 +61,23 @@ public class BinaryExpression implements LogicalExpression {
 		return new BinaryExpression(left, AND, right);
 	}
 
-
-	public static BinaryExpression all(LogicalExpression one, LogicalExpression two, LogicalExpression three) {
-		return new BinaryExpression(new BinaryExpression(one, AND, two), AND, three);
+	public static LogicalExpression all(LogicalExpression... expressions) {
+		LogicalExpression root = expressions[0];
+		if (expressions.length == 1) return root;
+		for (int i = 0; i < expressions.length - 1; i++)
+			root = new BinaryExpression(root, AND, expressions[i + 1]);
+		return root;
 	}
-
 
 	public static BinaryExpression any(LogicalExpression left, LogicalExpression right) {
 		return new BinaryExpression(left, OR, right);
 	}
 
-
-	public static BinaryExpression any(LogicalExpression one, LogicalExpression two, LogicalExpression three) {
-		return new BinaryExpression(new BinaryExpression(one, OR, two), OR, three);
+	public static LogicalExpression any(LogicalExpression... expressions) {
+		LogicalExpression root = expressions[0];
+		if (expressions.length == 1) return root;
+		for (int i = 0; i < expressions.length - 1; i++)
+			root = new BinaryExpression(root, OR, expressions[i + 1]);
+		return root;
 	}
 }

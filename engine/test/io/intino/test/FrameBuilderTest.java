@@ -33,7 +33,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class FrameBuilder_ {
+public class FrameBuilderTest {
 
     @Test
     public void should_create_frame_with_empty_strings() {

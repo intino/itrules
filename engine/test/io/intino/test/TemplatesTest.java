@@ -32,7 +32,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class Templates_ {
+public class TemplatesTest {
 
     private static Module composite() {
         return new Module("X",

@@ -37,7 +37,7 @@ import java.util.Locale;
 import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.LF;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TemplateEngine_ {
+public class TemplateEngineTest {
 
 	@Test
 	public void should_render_primitive_values() {

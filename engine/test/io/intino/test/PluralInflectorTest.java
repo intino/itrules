@@ -30,7 +30,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class PluralInflector_ {
+public class PluralInflectorTest {
 
     private EnglishPluralInflector englishPluralInflector;
     private SpanishPluralInflector spanishPluralInflector;

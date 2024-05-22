@@ -37,7 +37,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-public class Formatters_ {
+public class FormattersTest {
 
     @Test
     public void should_format_in_uppercase() {

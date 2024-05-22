@@ -24,6 +24,8 @@ package io.intino.itrules;
 
 import io.intino.itrules.template.Output;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.condition.BinaryExpression;
+import io.intino.itrules.template.condition.LogicalExpression;
 import io.intino.itrules.template.condition.NotExpression;
 import io.intino.itrules.template.condition.Predicate;
 import io.intino.itrules.template.condition.predicates.AttributePredicate;
@@ -34,6 +36,9 @@ import io.intino.itrules.template.outputs.Literal;
 import io.intino.itrules.template.outputs.Placeholder;
 
 import java.util.List;
+
+import static io.intino.itrules.template.condition.BinaryOperator.AND;
+import static io.intino.itrules.template.condition.BinaryOperator.OR;
 
 public abstract class Template {
 	private final TemplateEngine engine;
@@ -92,6 +97,30 @@ public abstract class Template {
 
 	protected Predicate trigger(String name) {
 		return new TriggerPredicate(name);
+	}
+
+	public static BinaryExpression all(LogicalExpression left, LogicalExpression right) {
+		return new BinaryExpression(left, AND, right);
+	}
+
+	protected LogicalExpression all(LogicalExpression... expressions) {
+		LogicalExpression root = expressions[0];
+		if (expressions.length == 1) return root;
+		for (int i = 0; i < expressions.length - 1; i++)
+			root = new BinaryExpression(root, AND, expressions[i + 1]);
+		return root;
+	}
+
+	protected BinaryExpression any(LogicalExpression left, LogicalExpression right) {
+		return new BinaryExpression(left, OR, right);
+	}
+
+	protected LogicalExpression any(LogicalExpression... expressions) {
+		LogicalExpression root = expressions[0];
+		if (expressions.length == 1) return root;
+		for (int i = 0; i < expressions.length - 1; i++)
+			root = new BinaryExpression(root, OR, expressions[i + 1]);
+		return root;
 	}
 
 	protected Placeholder placeholder(String name, String... formatters) {

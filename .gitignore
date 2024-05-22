@@ -10,3 +10,4 @@ deploy/local
 deploy/tmp
 deploy/deployproject.xml
 plugin.zip
+gen
