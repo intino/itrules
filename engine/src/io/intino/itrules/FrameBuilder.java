@@ -1,3 +1,25 @@
+/*
+ * Copyright 2024
+ * Octavio Roncal Andrés
+ * José Juan Hernández Cabrera
+ * José Évora Gomez
+ *
+ * This File is Part of ItRules Project
+ *
+ * ItRules Project is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ItRules Project is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package io.intino.itrules;
 
 import io.intino.itrules.adapters.DefaultAdapter;
@@ -16,7 +38,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 	private final List<String> types;
 	private final Map<String, List<Frame>> slots;
 	private static Map<String, Primitive> cache;
-	private Map<Class, Adapter> adapters;
+	private Map<Class<?>, Adapter> adapters;
 	private Object value;
 
 	public FrameBuilder() {
@@ -55,7 +77,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return isPrimitive(object.getClass());
 	}
 
-	private static boolean isPrimitive(Class aClass) {
+	private static boolean isPrimitive(Class<?> aClass) {
 		return aClass.isPrimitive() ||
 				String.class.isAssignableFrom(aClass) ||
 				Byte.class.isAssignableFrom(aClass) ||
@@ -125,7 +147,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return this;
 	}
 
-	public FrameBuilder put(Map<Class, Adapter> adapters) {
+	public FrameBuilder put(Map<Class<?>, Adapter> adapters) {
 		this.adapters = adapters;
 		return this;
 	}
@@ -181,7 +203,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return new DefaultAdapter<>();
 	}
 
-	private Adapter adapterFor(Class aClass) {
+	private Adapter adapterFor(Class<?> aClass) {
 		return adapters.getOrDefault(aClass, null);
 	}
 
@@ -192,7 +214,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 				.collect(toList());
 	}
 
-	private List<Class> classesOf(Object object) {
+	private List<Class<?>> classesOf(Object object) {
 		return classesOf(object.getClass());
 	}
 
@@ -200,8 +222,8 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return new WrapBuilder();
 	}
 
-	private List<Class> classesOf(Class aClass) {
-		List<Class> types = new ArrayList<>();
+	private List<Class<?>> classesOf(Class<?> aClass) {
+		List<Class<?>> types = new ArrayList<>();
 		if (aClass == null) return types;
 		if (!aClass.getSimpleName().isEmpty()) types.add(aClass);
 		types.addAll(classesOf(aClass.getSuperclass()));
@@ -209,20 +231,22 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return types;
 	}
 
-	private List<Class> interfacesOf(Class aClass) {
-		List<Class> interfaces = new ArrayList<>();
-		for (Class aInterface : aClass.getInterfaces()) interfaces.addAll(classesOf(aInterface));
+	private List<Class<?>> interfacesOf(Class<?> aClass) {
+		List<Class<?>> interfaces = new ArrayList<>();
+		for (Class<?> aInterface : aClass.getInterfaces()) interfaces.addAll(classesOf(aInterface));
 		return interfaces;
 	}
 
 
 	private static class Composite implements Frame {
 		private final List<String> types;
+		private Frame container;
 		private final Map<String, List<Frame>> slots;
 
 		public Composite(List<String> types, Map<String, List<Frame>> slots) {
 			this.types = types;
 			this.slots = slots;
+			slots.values().forEach(s -> s.forEach(f -> f.container(Composite.this)));
 		}
 
 		@Override
@@ -233,6 +257,15 @@ public final class FrameBuilder implements FrameBuilderContext {
 		@Override
 		public boolean contains(String slot) {
 			return slots.containsKey(slot.toLowerCase());
+		}
+
+		@Override
+		public Frame container() {
+			return container;
+		}
+
+		public void container(Frame container) {
+			this.container = container;
 		}
 
 		@Override
@@ -279,7 +312,8 @@ public final class FrameBuilder implements FrameBuilderContext {
 	static class Primitive implements Frame {
 		private final Object value;
 		private final String type;
-		private final static Map<Class, String> types = new HashMap<>();
+		private Frame container;
+		private final static Map<Class<?>, String> types = new HashMap<>();
 
 		public Primitive(Object value) {
 			this.value = value;
@@ -305,6 +339,15 @@ public final class FrameBuilder implements FrameBuilderContext {
 		@Override
 		public boolean contains(String slot) {
 			return false;
+		}
+
+		public void container(Frame container) {
+			this.container = container;
+		}
+
+		@Override
+		public Frame container() {
+			return container;
 		}
 
 		@Override

@@ -1,0 +1,24 @@
+def type(Person)
+    $Name has $PetsCount+Words pets:
+      $Pets...[$NL]
+end
+
+def type(Dog) AND attribute(Name)
+    $Name, a $Age dog
+end
+
+def type(Dog)
+    A $Age dog
+end
+
+def type(Cat)
+    $Name, a $Age+Age kitty
+end
+
+def trigger(Age) AND attribute(this, 1)
+    one year old
+end
+
+def trigger(Age)
+    $this+Words years old
+end

@@ -1,20 +1,42 @@
+/*
+ * Copyright 2024
+ * Octavio Roncal Andrés
+ * José Juan Hernández Cabrera
+ * José Évora Gomez
+ *
+ * This File is Part of ItRules Project
+ *
+ * ItRules Project is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ItRules Project is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package io.intino.itrules;
 
-import io.intino.itrules.Rule.Condition;
-import io.intino.itrules.rules.conditions.AttributeCondition;
-import io.intino.itrules.rules.conditions.NegatedCondition;
-import io.intino.itrules.rules.conditions.TriggerCondition;
-import io.intino.itrules.rules.conditions.TypeCondition;
-import io.intino.itrules.rules.output.Expression;
-import io.intino.itrules.rules.output.Literal;
-import io.intino.itrules.rules.output.Mark;
+import io.intino.itrules.template.Output;
+import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.condition.NotExpression;
+import io.intino.itrules.template.condition.Predicate;
+import io.intino.itrules.template.condition.predicates.AttributePredicate;
+import io.intino.itrules.template.condition.predicates.TriggerPredicate;
+import io.intino.itrules.template.condition.predicates.TypePredicate;
+import io.intino.itrules.template.outputs.Expression;
+import io.intino.itrules.template.outputs.Literal;
+import io.intino.itrules.template.outputs.Placeholder;
 
-import static io.intino.itrules.rules.conditions.TypeCondition.Operator.All;
-import static io.intino.itrules.rules.conditions.TypeCondition.Operator.Any;
+import java.util.List;
 
 public abstract class Template {
-
-	private TemplateEngine engine;
+	private final TemplateEngine engine;
 
 	public Template() {
 		this(new TemplateEngine.Configuration());
@@ -42,51 +64,45 @@ public abstract class Template {
 	protected void init(TemplateEngine engine) {
 	}
 
-	protected abstract RuleSet ruleSet();
+	protected abstract List<Rule> ruleSet();
 
 	protected Rule rule() {
 		return new Rule();
 	}
 
-	protected Condition not(Condition condition) {
-		return new NegatedCondition(condition);
+	protected Predicate not(Predicate condition) {
+		return new NotExpression(condition);
 	}
 
-	protected Condition attribute(String attribute) {
-		return new AttributeCondition(attribute);
+	protected Predicate attribute(String attribute) {
+		return new AttributePredicate(attribute);
 	}
 
-	protected Condition attribute(String attribute, Object value) {
-		return new AttributeCondition(attribute, value);
+	protected Predicate attribute(String attribute, Object value) {
+		return new AttributePredicate(attribute, value);
 	}
 
-	protected Condition type(String type) {
-		return new TypeCondition(Any, type);
+	protected Predicate type(String type) {
+		return new TypePredicate(type);
 	}
 
-	protected Condition anyTypes(String... types) {
-		return new TypeCondition(Any, types);
+	protected Predicate allTypes(String... types) {
+		return new TypePredicate(types);
 	}
 
-	protected Condition allTypes(String... types) {
-		return new TypeCondition(All, types);
+	protected Predicate trigger(String name) {
+		return new TriggerPredicate(name);
 	}
 
-	protected Condition trigger(String name) {
-		return new TriggerCondition(name);
-	}
-
-	protected Mark mark(String name, String... formatters) {
-		return new Mark(name, formatters);
+	protected Placeholder placeholder(String name, String... formatters) {
+		return new Placeholder(name, formatters);
 	}
 
 	protected Literal literal(String text) {
 		return new Literal(text);
 	}
 
-	protected Expression expression(Rule.Output... outputs) {
+	protected Expression expression(Output... outputs) {
 		return new Expression(outputs);
 	}
-
-
 }

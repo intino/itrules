@@ -1,0 +1,62 @@
+def type(api, service)
+	public class $name+firstUpperCase+SnakeCaseToCamelCase~Service {
+		ModelSupplier supplier;
+
+		public void setup(int port) {
+			Javalin.create()
+				<<$resource...[$NL]>>
+				.start(port)
+		}
+
+		<<$schema...[$NL$NL]>>
+	}
+end
+
+def trigger(resource)
+    <<.$operation...[$NL.]>>
+end
+
+def trigger(operation)
+	$method+lowerCase("<<$<root>basePath>><<$path>>", ctx -> <<$response(>>new $<container>name+ClassName~Controller(ctx, supplier).$method+lowerCase($parameter...[, ])<<$response+closeMethod>>))
+end
+
+def trigger(schema)
+	public record $name($attribute+constructor...[, ]) {
+		public void check() {
+			try {
+			<<if ($attribute+checkNotNull...[ || ]) throw new io.javalin.http.BadRequestResponse("Malformed BookInput parameter");>>
+			<<$attribute+checkFormat>>
+			} catch (Exception e) {
+				throw new io.javalin.http.BadRequestResponse("Malformed BookInput parameter");
+			}
+		}
+	}
+end
+
+def type(attribute) AND trigger(constructor)
+	$type $name+firstLowerCase
+end
+
+def type(attribute) AND type(required) AND trigger(checkNotNull)
+	$name() == null
+end
+
+def type(attribute) AND attribute(type, date) AND trigger(checkFormat)
+	java.text.DateFormat.getInstance().parse($name());
+end
+
+def (attribute(in, path) OR attribute(in, query)) AND type(required) AND trigger(parameter)
+	ctx.$in~ParamAsClass("$name", $type.class).getOrThrow(e -> new io.javalin.http.BadRequestResponse("$name parameter not found"))
+end
+
+def (attribute(in,path) OR attribute(in, query)) AND trigger(parameter)
+	ctx.$in~ParamAsClass("$name", $type+ClassName.class)
+end
+
+def attribute(in, body) AND trigger(parameter)
+	check(ctx.bodyAsClass($type+ClassName.class))
+end
+
+def trigger(closeMethod)
+	)
+end

@@ -1,0 +1,7 @@
+def type(Message)
+    From: $from
+    To: $to...[, ]
+    $subject
+
+    $line...[$NL]
+end

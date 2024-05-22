@@ -1,0 +1,8 @@
+<roster>
+	<coach name="Juan Antonio Orenga" country="Spain"/>
+	<players>
+		<player name="Pau Gasol" year="" country="Spain" club="L.A. Lakers"/>
+		<player name="Rudy Fernandez" year="" country="Spain"/>
+		<player name="Juan Carlos Navarro" year="" country="Spain"/>
+	</players>
+</roster>

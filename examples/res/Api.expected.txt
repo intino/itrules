@@ -1,0 +1,32 @@
+public class Service {
+	ModelSupplier supplier;
+
+	public void setup(int port) {
+		Javalin.create()
+			.get("/api/books", ctx ->new booksController(ctx, supplier).get()))
+			.post("/api/books", ctx ->new booksController(ctx, supplier).post()))
+			.get("/api/book", ctx ->new booksController(ctx, supplier).get(ctx.pathParamAsClass("id", integer.class).getOrThrow(e -> new io.javalin.http.BadRequestResponse("id parameter not found")))))
+			.put("/api/book", ctx ->new booksController(ctx, supplier).put(ctx.pathParamAsClass("id", integer.class).getOrThrow(e -> new io.javalin.http.BadRequestResponse("id parameter not found")), check(ctx.bodyAsClass(BookInput.class)))))
+			.start(port)
+	}
+
+	public record BookInput(String title, Integer authorId, java.util.Date publicationDate, String genre) {
+		public void check() {
+			try {
+			if (title() == null || authorId() == null) throw new io.javalin.http.BadRequestResponse("Malformed BookInput parameter");
+			} catch (Exception e) {
+				throw new io.javalin.http.BadRequestResponse("Malformed BookInput parameter");
+			}
+		}
+	}
+
+	public record Book(Integer id, String title, Integer authorId, java.util.Date publicationDate, String genre) {
+		public void check() {
+			try {
+			if (id() == null || title() == null || authorId() == null || publicationDate() == null || genre() == null) throw new io.javalin.http.BadRequestResponse("Malformed BookInput parameter");
+			} catch (Exception e) {
+				throw new io.javalin.http.BadRequestResponse("Malformed BookInput parameter");
+			}
+		}
+	}
+}

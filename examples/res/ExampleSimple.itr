@@ -1,0 +1,7 @@
+def type(Publisher)
+	$name+camelcase($measurements...[, ])
+end
+
+def type(Measurement)
+	$datatype $value
+end

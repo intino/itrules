@@ -1,0 +1,7 @@
+dsl Legio
+
+Artifact("io.intino.itrules", "1.0.0") template
+	Imports
+		Test(groupId = "junit", artifactId = "junit", version = "4.13")
+	Package(mode = ModulesAndLibrariesLinkedByManifest)
+RunConfiguration local

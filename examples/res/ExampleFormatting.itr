@@ -1,0 +1,6 @@
+def type(Person)
+    Name: $Name+Uppercase
+
+    Height: $Height ($Height+Words) cm
+    Salary: $$$Salary+Separators
+end

@@ -1,17 +1,38 @@
+/*
+ * Copyright 2024
+ * Octavio Roncal Andrés
+ * José Juan Hernández Cabrera
+ * José Évora Gomez
+ *
+ * This File is Part of ItRules Project
+ *
+ * ItRules Project is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ItRules Project is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package io.intino.itrules;
 
-import io.intino.itrules.Rule.Output;
 import io.intino.itrules.formatters.DateFormatters;
 import io.intino.itrules.formatters.NumberFormatters;
 import io.intino.itrules.formatters.StringFormatters;
-import io.intino.itrules.rules.output.Expression;
-import io.intino.itrules.rules.output.Literal;
-import io.intino.itrules.rules.output.Mark;
+import io.intino.itrules.template.Output;
+import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.condition.Predicate;
+import io.intino.itrules.template.outputs.Expression;
+import io.intino.itrules.template.outputs.Literal;
+import io.intino.itrules.template.outputs.Placeholder;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.CRLF;
@@ -23,16 +44,16 @@ public class TemplateEngine {
 	private static final String Blanks = "  \t\n";
 	private static final String NewLine = "\n";
 
-	private final RuleSet ruleSet;
+	private final Iterable<Rule> ruleSet;
 	private final Configuration configuration;
 	private final Map<String, Formatter> formatters;
-	private final Map<Class, Adapter> adapters;
+	private final Map<Class<?>, Adapter> adapters;
 
-	public TemplateEngine(RuleSet ruleSet) {
+	public TemplateEngine(Iterable<Rule> ruleSet) {
 		this(ruleSet, new Configuration());
 	}
 
-	public TemplateEngine(RuleSet ruleSet, Configuration configuration) {
+	public TemplateEngine(Iterable<Rule> ruleSet, Configuration configuration) {
 		this.ruleSet = ruleSet;
 		this.configuration = configuration;
 		this.formatters = formattersFor(configuration);
@@ -75,9 +96,32 @@ public class TemplateEngine {
 		return map;
 	}
 
+	private static Frame resolve(Frame frame, String[] path) {
+		if (path == null || path.length == 0) return frame;
+		Frame current = frame;
+		for (String step : path)
+			if (step.equalsIgnoreCase("container")) current = current.container();
+			else if (step.equalsIgnoreCase("root")) current = root(current);
+			else {
+				Iterator<Frame> frames = frame.frames(step.toLowerCase());
+				if (frames.hasNext()) current = frames.next();
+				else return frame;
+			}
+		return current;
+	}
+
+	private static Frame root(Frame frame) {
+		Frame current = frame;
+		while (current != null) {
+			if (current.container() == null) return current;
+			current = current.container();
+		}
+		return current;
+	}
+
 	public static class Configuration {
-		private Locale locale;
-		private LineSeparator lineSeparator;
+		private final Locale locale;
+		private final LineSeparator lineSeparator;
 
 		public Configuration(Locale locale, LineSeparator lineSeparator) {
 			this.locale = locale;
@@ -95,37 +139,6 @@ public class TemplateEngine {
 		public enum LineSeparator {
 			LF, CRLF
 		}
-	}
-
-	public static class Trigger {
-		private final String name;
-		private Frame frame;
-
-		Trigger(String name) {
-			this.name = name.toLowerCase();
-		}
-
-		Trigger on(Frame frame) {
-			this.frame = frame;
-			return this;
-		}
-
-		public String name() {
-			return name;
-		}
-
-		public Frame frame() {
-			return frame;
-		}
-
-		Iterator<Frame> frames(String slot) {
-			return frame.frames(slot.toLowerCase());
-		}
-
-		boolean check(Rule.Condition condition) {
-			return condition.check(this);
-		}
-
 	}
 
 	private class Display {
@@ -148,24 +161,23 @@ public class TemplateEngine {
 
 		private Canvas generate(Stream<Output> outputs) {
 			outputs.forEach(this::write);
-   			return canvas;
+			return canvas;
 		}
 
 		private Rule ruleFor(Trigger trigger) {
-			for (Rule rule : ruleSet)
-				if (rule.conditions().allMatch(trigger::check)) return rule;
+			for (Rule rule : ruleSet) if (rule.condition().evaluate(trigger)) return rule;
 			return defaultRule(trigger.frame);
 		}
 
 		private Rule defaultRule(Frame frame) {
 			return hasValue(frame) ?
-					new Rule().output(Mark.This) :
+					new Rule().output(Placeholder.This) :
 					new Rule().output();
 		}
 
 		private void write(Output output) {
 			if (output instanceof Literal) write((Literal) output);
-			if (output instanceof Mark) write((Mark) output);
+			if (output instanceof Placeholder) write((Placeholder) output);
 			if (output instanceof Expression) write((Expression) output);
 		}
 
@@ -173,8 +185,8 @@ public class TemplateEngine {
 			append(canvas, literal.toString());
 		}
 
-		private void write(Mark mark) {
-			append(canvas, mark.isThis() ? evaluateThis(trigger.frame, mark.formatters()) : evaluate(mark));
+		private void write(Placeholder placeholder) {
+			append(canvas, placeholder.isThis() ? evaluateThis(trigger.frame, placeholder.formatters()) : evaluate(placeholder));
 		}
 
 		private void write(Expression expression) {
@@ -204,21 +216,21 @@ public class TemplateEngine {
 			return new Canvas().append(valueOf(frame)).touch();
 		}
 
-		private Canvas evaluate(Mark mark) {
-			return hasContent(mark) ? evaluate(mark, trigger.frames(mark.name())) : new Canvas();
+		private Canvas evaluate(Placeholder placeholder) {
+			return hasContent(placeholder) ? evaluate(placeholder, trigger.frames(placeholder)) : new Canvas();
 		}
 
-		private Canvas evaluate(Mark mark, Iterator<Frame> frames) {
+		private Canvas evaluate(Placeholder placeholder, Iterator<Frame> frames) {
 			Canvas canvas = new Canvas();
 			while (frames.hasNext()) {
 				Frame frame = frames.next();
-				append(canvas, evaluate(mark, frame), mark.separator());
+				append(canvas, evaluate(placeholder, frame), placeholder.separator());
 			}
 			return canvas;
 		}
 
-		private Canvas evaluate(Mark mark, Frame frame) {
-			Canvas canvas = new Display(new Trigger(mark.fullName()).on(format(frame, mark.formatters()))).generate();
+		private Canvas evaluate(Placeholder placeholder, Frame frame) {
+			Canvas canvas = new Display(new Trigger(placeholder.fullName()).on(format(frame, placeholder.formatters()))).generate();
 			if (canvas.isNotEmpty()) canvas.touch();
 			return canvas;
 		}
@@ -227,8 +239,9 @@ public class TemplateEngine {
 			return frame.value() != null;
 		}
 
-		private boolean hasContent(Mark mark) {
-			return trigger.frames(mark.name()).hasNext();
+		private boolean hasContent(Placeholder placeholder) {
+			Frame frame = resolve(trigger.frame, placeholder.targetPath());
+			return frame.frames(placeholder.name()).hasNext();
 		}
 
 		private Canvas evaluate(Expression expression) {
@@ -282,12 +295,12 @@ public class TemplateEngine {
 			int first = str.charAt(0) == '\uFFFF' ? 1 : 0;
 			int last = first;
 			while ((last < str.length()) && isBlank(str.charAt(last))) last++;
-			return str.substring(first,last);
+			return str.substring(first, last);
 		}
 	}
 
 	private static class Canvas {
-		private StringBuilder sb;
+		private final StringBuilder sb;
 		private boolean touched;
 
 		public Canvas() {
@@ -295,7 +308,7 @@ public class TemplateEngine {
 			touched = false;
 		}
 
-		Canvas append(String s){
+		Canvas append(String s) {
 			sb.append(s);
 			return this;
 		}
@@ -319,7 +332,7 @@ public class TemplateEngine {
 		}
 
 
-		Canvas 	touch() {
+		Canvas touch() {
 			this.touched = true;
 			return this;
 		}
@@ -344,11 +357,11 @@ public class TemplateEngine {
 		}
 
 		public boolean isEmpty() {
-			return sb.length() == 0;
+			return sb.isEmpty();
 		}
 
 		public boolean isNotEmpty() {
-			return sb.length() > 0;
+			return !sb.isEmpty();
 		}
 
 		private void backSpaces() {
@@ -372,5 +385,38 @@ public class TemplateEngine {
 	}
 
 
+	public static class Trigger {
+		private final String name;
+		private Frame frame;
 
+		Trigger(String name) {
+			this.name = name.toLowerCase();
+		}
+
+		Trigger on(Frame frame) {
+			this.frame = frame;
+			return this;
+		}
+
+		public String name() {
+			return name;
+		}
+
+		public Frame frame() {
+			return frame;
+		}
+
+		Iterator<Frame> frames(String slot) {
+			return frame.frames(slot.toLowerCase());
+		}
+
+		Iterator<Frame> frames(Placeholder placeholder) {
+			Frame frame = resolve(this.frame, placeholder.targetPath());
+			return frame.frames(placeholder.name().toLowerCase());
+		}
+
+		boolean check(Predicate condition) {
+			return condition.evaluate(this);
+		}
+	}
 }
