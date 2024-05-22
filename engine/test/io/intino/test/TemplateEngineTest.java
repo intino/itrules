@@ -22,11 +22,9 @@
 
 package io.intino.test;
 
-import io.intino.itrules.Adapter;
-import io.intino.itrules.Formatter;
-import io.intino.itrules.TemplateEngine;
-import io.intino.itrules.TemplateEngine.Configuration;
+import io.intino.itrules.*;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.Template;
 import io.intino.test.classes.Team;
 import io.intino.test.rulesets.PersonRuleSets;
 import org.junit.Test;
@@ -34,7 +32,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Locale;
 
-import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.LF;
+import static io.intino.itrules.template.Template.Configuration.LineSeparator.LF;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TemplateEngineTest {
@@ -194,8 +192,8 @@ public class TemplateEngineTest {
 				.isEqualTo("Pau Gasol has no dogs");
 	}
 
-	private TemplateEngine engine(List<Rule> ruleSet) {
-		return new TemplateEngine(ruleSet, new Configuration(Locale.ENGLISH, LF));
+	private Engine engine(List<Rule> ruleSet) {
+		return new Engine(ruleSet, new Template.Configuration(Locale.ENGLISH, LF));
 	}
 
 

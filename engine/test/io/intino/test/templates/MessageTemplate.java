@@ -22,8 +22,11 @@
 
 package io.intino.test.templates;
 
-import io.intino.itrules.Template;
+import io.intino.itrules.Engine;
+import io.intino.itrules.template.Template;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.condition.predicates.Predicates;
+import io.intino.itrules.template.outputs.Outputs;
 
 import java.util.List;
 
@@ -39,13 +42,16 @@ end
  */
 
 	@Override
-	protected List<Rule> ruleSet() {
+	public List<Rule> ruleSet() {
 		return List.of(rule()
-				.condition(type("Message"))
-				.output(literal("From: "), placeholder("from"), literal("\n"))
-				.output(literal("To: "), expression(placeholder("to").multiple(", ")), literal("\n"))
-				.output(expression(literal("\""), placeholder("subject"), literal("\"\n")).next(expression(literal("(No subject)\n"))))
-				.output(literal("\t"), expression(placeholder("body").multiple("\n"))));
+				.condition(Predicates.type("Message"))
+				.output(Outputs.literal("From: "), Outputs.placeholder("from"), Outputs.literal("\n"))
+				.output(Outputs.literal("To: "), Outputs.expression(Outputs.placeholder("to").multiple(", ")), Outputs.literal("\n"))
+				.output(Outputs.expression(Outputs.literal("\""), Outputs.placeholder("subject"), Outputs.literal("\"\n")).next(Outputs.expression(Outputs.literal("(No subject)\n"))))
+				.output(Outputs.literal("\t"), Outputs.expression(Outputs.placeholder("body").multiple("\n"))));
+	}
+	public String render(Object object) {
+		return new Engine(this).render(object);
 	}
 }
 

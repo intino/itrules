@@ -22,7 +22,7 @@
 
 package io.intino.itrules.template.condition;
 
-import io.intino.itrules.TemplateEngine;
+import io.intino.itrules.Trigger;
 
 import static io.intino.itrules.template.condition.BinaryOperator.AND;
 import static io.intino.itrules.template.condition.BinaryOperator.OR;
@@ -40,7 +40,7 @@ public class BinaryExpression implements LogicalExpression {
 	}
 
 	@Override
-	public boolean evaluate(TemplateEngine.Trigger trigger) {
+	public boolean evaluate(Trigger trigger) {
 		if (operator == AND) return left.evaluate(trigger) && right.evaluate(trigger);
 		return left.evaluate(trigger) || right.evaluate(trigger);
 	}

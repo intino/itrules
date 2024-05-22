@@ -22,8 +22,11 @@
 
 package io.intino.test.templates;
 
-import io.intino.itrules.Template;
+import io.intino.itrules.Engine;
+import io.intino.itrules.template.Template;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.condition.predicates.Predicates;
+import io.intino.itrules.template.outputs.Outputs;
 
 import java.util.List;
 
@@ -40,13 +43,17 @@ end
  */
 
 	@Override
-	protected List<Rule> ruleSet() {
-		return List.of(rule().condition(type("Person"))
-				.output(literal("Name: "), placeholder("Name", "Uppercase"), literal("\n"))
-				.output(literal("BirthYear: "), placeholder("BirthDate", "Year"), literal("\n"))
-				.output(literal("\n"))
-				.output(literal("Height: "), placeholder("Height", "Year"), literal(" ("), placeholder("Height", "words"), literal(") cm\n"))
-				.output(literal("Salary: $"), placeholder("Salary", "Separators")));
+	public List<Rule> ruleSet() {
+		return List.of(rule().condition(Predicates.type("Person"))
+				.output(Outputs.literal("Name: "), Outputs.placeholder("Name", "Uppercase"), Outputs.literal("\n"))
+				.output(Outputs.literal("BirthYear: "), Outputs.placeholder("BirthDate", "Year"), Outputs.literal("\n"))
+				.output(Outputs.literal("\n"))
+				.output(Outputs.literal("Height: "), Outputs.placeholder("Height", "Year"), Outputs.literal(" ("), Outputs.placeholder("Height", "words"), Outputs.literal(") cm\n"))
+				.output(Outputs.literal("Salary: $"), Outputs.placeholder("Salary", "Separators")));
+	}
+
+	public String render(Object object) {
+		return new Engine(this).render(object);
 	}
 }
 

@@ -20,30 +20,23 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import io.intino.itrules.Engine;
 import io.intino.itrules.FrameBuilder;
-import io.intino.itrules.TemplateEngine;
-import io.intino.itrules.TemplateEngine.Configuration;
 import io.intino.itrules.TemplateReader;
 import io.intino.itrules.parser.ITRulesSyntaxError;
-import io.intino.itrules.parser.Template;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 
-import java.io.IOException;
 import java.io.InputStream;
 
-import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.LF;
-import static java.util.Locale.ENGLISH;
-
 public class Simple {
-
 	public static final String Template = "ExampleSimple.itr";
 
-	public static void main(String[] args) throws ITRulesSyntaxError, IOException {
+	public static void main(String[] args) throws ITRulesSyntaxError {
 		TemplateReader reader = new TemplateReader(load(Template));
-		Template template = reader.read();
+		var template = reader.read();
 		Assert.assertNotNull(template);
-		String result = new TemplateEngine(template.rules(), new Configuration(ENGLISH, LF)).render(frame());
+		String result = new Engine(template).render(frame());
 		System.out.println(result);
 		Assertions.assertThat(result).isEqualTo("textpublisher(String text)");
 	}

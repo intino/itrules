@@ -22,12 +22,12 @@
 
 package io.intino.itrules.template.condition;
 
-import io.intino.itrules.TemplateEngine;
+import io.intino.itrules.Trigger;
 
 public record NotExpression(LogicalExpression expression) implements Predicate {
 
 	@Override
-	public boolean evaluate(TemplateEngine.Trigger trigger) {
+	public boolean evaluate(Trigger trigger) {
 		return !expression.evaluate(trigger);
 	}
 }

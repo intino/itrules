@@ -22,9 +22,9 @@
 package io.intino.itrules.dsl;
 
 import io.intino.itrules.parser.Interpreter;
-import io.intino.itrules.parser.Template;
 import io.intino.itrules.parser.TemplateErrorStrategy;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.Template;
 import io.intino.itrules.template.condition.BinaryExpression;
 import io.intino.itrules.template.condition.LogicalExpression;
 import io.intino.itrules.template.condition.predicates.AttributePredicate;
@@ -48,7 +48,7 @@ public class ParserTest {
 	public void test1() {
 		ItrParser parser = init(TestSources.OTHER_WITH_MARK);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -58,7 +58,7 @@ public class ParserTest {
 	public void test2() {
 		ItrParser parser = init(TestSources.RULE_WITH_MARKS);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -68,7 +68,7 @@ public class ParserTest {
 	public void test3() {
 		ItrParser parser = init(TestSources.ESCAPED_CHARACTERS);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -78,7 +78,7 @@ public class ParserTest {
 	public void test4() {
 		ItrParser parser = init(TestSources.SIGNATURE);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -88,7 +88,7 @@ public class ParserTest {
 	public void test5() {
 		ItrParser parser = init(TestSources.TWO_RULES);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -98,7 +98,7 @@ public class ParserTest {
 	public void test6() {
 		ItrParser parser = init(TestSources.XML_TARA);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -108,7 +108,7 @@ public class ParserTest {
 	public void test7() {
 		ItrParser parser = init(TestSources.LITTLE_BIG_TEST);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -118,7 +118,7 @@ public class ParserTest {
 	public void test8() {
 		ItrParser parser = init(TestSources.LARGE_XML);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -128,7 +128,7 @@ public class ParserTest {
 	public void test9() {
 		ItrParser parser = init(TestSources.MARK);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -138,7 +138,7 @@ public class ParserTest {
 	public void test10() {
 		ItrParser parser = init(TestSources.MARK_WITH_FORMAT);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -148,7 +148,7 @@ public class ParserTest {
 	public void test11() {
 		ItrParser parser = init(TestSources.EXPRESION_WITH_NEW_LINES);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -158,7 +158,7 @@ public class ParserTest {
 	public void test12() {
 		ItrParser parser = init(TestSources.RULE_WITH_OR_EXPRESSIONS);
 		try {
-			Assert.assertNotNull(parse(parser).rules());
+			Assert.assertNotNull(parse(parser).ruleSet());
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
@@ -168,7 +168,7 @@ public class ParserTest {
 	public void test13() {
 		ItrParser parser = init(TestSources.SIGNATURE_WITH_ATTRIBUTES_1);
 		try {
-			List<Rule> ruleset = parse(parser).rules();
+			List<Rule> ruleset = parse(parser).ruleSet();
 			Assert.assertNotNull(ruleset);
 			Assert.assertEquals(ruleset.size(), 1);
 			LogicalExpression condition = ruleset.getFirst().condition();
@@ -186,7 +186,7 @@ public class ParserTest {
 	public void test14() {
 		ItrParser parser = init(TestSources.SIGNATURE_WITH_ATTRIBUTES_2);
 		try {
-			List<Rule> rules = parse(parser).rules();
+			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
 			Assert.assertEquals(rules.size(), 1);
 			LogicalExpression condition = rules.getFirst().condition();
@@ -204,7 +204,7 @@ public class ParserTest {
 	public void test15() {
 		ItrParser parser = init(TestSources.LITTLE_BIG_TEST_2);
 		try {
-			List<Rule> rules = parse(parser).rules();
+			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -215,7 +215,7 @@ public class ParserTest {
 	public void test16() {
 		ItrParser parser = init(TestSources.MARK_WITH_TARGET);
 		try {
-			List<Rule> rules = parse(parser).rules();
+			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -226,7 +226,7 @@ public class ParserTest {
 	public void test17() {
 		ItrParser parser = init(TestSources.CONDITION_TEST);
 		try {
-			List<Rule> rules = parse(parser).rules();
+			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
 			LogicalExpression condition = rules.get(0).condition();
 			assertThat(condition).isNotNull();
@@ -239,7 +239,7 @@ public class ParserTest {
 	public void test18() {
 		ItrParser parser = init(TestSources.CONDITION_2_TEST);
 		try {
-			List<Rule> rules = parse(parser).rules();
+			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
 			LogicalExpression condition = rules.get(0).condition();
 			assertThat(condition).isNotNull();
@@ -252,7 +252,7 @@ public class ParserTest {
 	public void testFull() throws IOException {
 		ItrParser parser = init(new String(this.getClass().getResourceAsStream("/FullTemplate.itr").readAllBytes()));
 		try {
-			List<Rule> rules = parse(parser).rules();
+			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
 			LogicalExpression condition = rules.get(0).condition();
 			assertThat(condition).isInstanceOf(TypePredicate.class);
@@ -273,11 +273,11 @@ public class ParserTest {
 
 	private Template parse(ItrParser parser) throws RecognitionException {
 		try {
-			Template template = new Template();
 			ItrParser.RootContext root = parser.root();
 			ParseTreeWalker walker = new ParseTreeWalker();
-			walker.walk(new Interpreter(template, null), root);
-			return template;
+			Interpreter interpreter = new Interpreter(null);
+			walker.walk(interpreter, root);
+			return interpreter.template();
 		} catch (RecognitionException e) {
 			Token token = ((org.antlr.v4.runtime.Parser) e.getRecognizer()).getCurrentToken();
 			String message = "Syntax error in line " + token.getLine() + " at " + token.getCharPositionInLine() + ". " + token.getText() + " not recognized";

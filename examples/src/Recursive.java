@@ -20,7 +20,7 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import io.intino.itrules.TemplateEngine;
+import io.intino.itrules.Engine;
 import io.intino.itrules.TemplateReader;
 import io.intino.itrules.parser.ITRulesSyntaxError;
 import org.assertj.core.api.Assertions;
@@ -29,18 +29,14 @@ import org.junit.Assert;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.LF;
-import static java.util.Locale.ENGLISH;
-
 public class Recursive {
-
 	public static final String Template = "ExampleRecursive.itr";
 
 	public static void main(String[] args) throws ITRulesSyntaxError, IOException {
 		TemplateReader reader = new TemplateReader(load(Template));
 		var template = reader.read();
-		Assert.assertNotNull(template.rules());
-		String result = new TemplateEngine(template.rules(), new TemplateEngine.Configuration(ENGLISH, LF)).render(frame());
+		Assert.assertNotNull(template);
+		String result = new Engine(template).render(frame());
 		System.out.println(result);
 		Assertions.assertThat(result).isEqualTo(expected());
 	}

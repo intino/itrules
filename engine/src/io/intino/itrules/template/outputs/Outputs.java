@@ -20,21 +20,20 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.intino.itrules.parser;
+package io.intino.itrules.template.outputs;
 
-import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.Output;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Template {
-	private final List<Rule> rules = new ArrayList<>();
-
-	public void add(Rule rule) {
-		rules.add(rule);
+public class Outputs {
+	public static Placeholder placeholder(String name, String... formatters) {
+		return new Placeholder(name, formatters);
 	}
 
-	public List<Rule> rules() {
-		return rules;
+	public static Literal literal(String text) {
+		return new Literal(text);
+	}
+
+	public static Expression expression(Output... outputs) {
+		return new Expression(outputs);
 	}
 }

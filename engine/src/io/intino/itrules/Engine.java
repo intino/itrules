@@ -27,45 +27,49 @@ import io.intino.itrules.formatters.NumberFormatters;
 import io.intino.itrules.formatters.StringFormatters;
 import io.intino.itrules.template.Output;
 import io.intino.itrules.template.Rule;
-import io.intino.itrules.template.condition.Predicate;
+import io.intino.itrules.template.Template;
+import io.intino.itrules.template.Template.Configuration;
 import io.intino.itrules.template.outputs.Expression;
 import io.intino.itrules.template.outputs.Literal;
 import io.intino.itrules.template.outputs.Placeholder;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.stream.Stream;
 
-import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.CRLF;
-import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.LF;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 
-public class TemplateEngine {
+public class Engine {
 	private static final String Blanks = "  \t\n";
 	private static final String NewLine = "\n";
-
 	private final Iterable<Rule> ruleSet;
 	private final Configuration configuration;
 	private final Map<String, Formatter> formatters;
 	private final Map<Class<?>, Adapter> adapters;
 
-	public TemplateEngine(Iterable<Rule> ruleSet) {
+	public Engine(Template template) {
+		this(template.ruleSet(), template.configuration());
+	}
+
+	public Engine(Iterable<Rule> ruleSet) {
 		this(ruleSet, new Configuration());
 	}
 
-	public TemplateEngine(Iterable<Rule> ruleSet, Configuration configuration) {
+	public Engine(Iterable<Rule> ruleSet, Configuration configuration) {
 		this.ruleSet = ruleSet;
 		this.configuration = configuration;
 		this.formatters = formattersFor(configuration);
 		this.adapters = new HashMap<>();
 	}
 
-	public TemplateEngine add(String name, Formatter formatter) {
+	public Engine add(String name, Formatter formatter) {
 		formatters.put(name.toLowerCase(), formatter);
 		return this;
 	}
 
-	public <T> TemplateEngine add(Class<T> class_, Adapter<T> adapter) {
+	public <T> Engine add(Class<T> class_, Adapter<T> adapter) {
 		adapters.put(class_, adapter);
 		return this;
 	}
@@ -90,13 +94,13 @@ public class TemplateEngine {
 
 	private Map<String, Formatter> formattersFor(Configuration configuration) {
 		Map<String, Formatter> map = new HashMap<>();
-		map.putAll(StringFormatters.get(configuration.locale));
-		map.putAll(NumberFormatters.get(configuration.locale));
-		map.putAll(DateFormatters.get(configuration.locale));
+		map.putAll(StringFormatters.get(configuration.locale()));
+		map.putAll(NumberFormatters.get(configuration.locale()));
+		map.putAll(DateFormatters.get(configuration.locale()));
 		return map;
 	}
 
-	private static Frame resolve(Frame frame, String[] path) {
+	static Frame resolve(Frame frame, String[] path) {
 		if (path == null || path.length == 0) return frame;
 		Frame current = frame;
 		for (String step : path)
@@ -117,28 +121,6 @@ public class TemplateEngine {
 			current = current.container();
 		}
 		return current;
-	}
-
-	public static class Configuration {
-		private final Locale locale;
-		private final LineSeparator lineSeparator;
-
-		public Configuration(Locale locale, LineSeparator lineSeparator) {
-			this.locale = locale;
-			this.lineSeparator = lineSeparator;
-		}
-
-		Configuration() {
-			this(Locale.ENGLISH, LF);
-		}
-
-		boolean isCRLF() {
-			return lineSeparator == CRLF;
-		}
-
-		public enum LineSeparator {
-			LF, CRLF
-		}
 	}
 
 	private class Display {
@@ -166,7 +148,7 @@ public class TemplateEngine {
 
 		private Rule ruleFor(Trigger trigger) {
 			for (Rule rule : ruleSet) if (rule.condition().evaluate(trigger)) return rule;
-			return defaultRule(trigger.frame);
+			return defaultRule(trigger.frame());
 		}
 
 		private Rule defaultRule(Frame frame) {
@@ -186,7 +168,7 @@ public class TemplateEngine {
 		}
 
 		private void write(Placeholder placeholder) {
-			append(canvas, placeholder.isThis() ? evaluateThis(trigger.frame, placeholder.formatters()) : evaluate(placeholder));
+			append(canvas, placeholder.isThis() ? evaluateThis(trigger.frame(), placeholder.formatters()) : evaluate(placeholder));
 		}
 
 		private void write(Expression expression) {
@@ -240,7 +222,7 @@ public class TemplateEngine {
 		}
 
 		private boolean hasContent(Placeholder placeholder) {
-			Frame frame = resolve(trigger.frame, placeholder.targetPath());
+			Frame frame = resolve(trigger.frame(), placeholder.targetPath());
 			return frame.frames(placeholder.name()).hasNext();
 		}
 
@@ -382,41 +364,5 @@ public class TemplateEngine {
 
 	private static boolean isBlank(char c) {
 		return Blanks.indexOf(c) >= 0;
-	}
-
-
-	public static class Trigger {
-		private final String name;
-		private Frame frame;
-
-		Trigger(String name) {
-			this.name = name.toLowerCase();
-		}
-
-		Trigger on(Frame frame) {
-			this.frame = frame;
-			return this;
-		}
-
-		public String name() {
-			return name;
-		}
-
-		public Frame frame() {
-			return frame;
-		}
-
-		Iterator<Frame> frames(String slot) {
-			return frame.frames(slot.toLowerCase());
-		}
-
-		Iterator<Frame> frames(Placeholder placeholder) {
-			Frame frame = resolve(this.frame, placeholder.targetPath());
-			return frame.frames(placeholder.name().toLowerCase());
-		}
-
-		boolean check(Predicate condition) {
-			return condition.evaluate(this);
-		}
 	}
 }

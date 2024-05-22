@@ -22,12 +22,14 @@
 
 package io.intino.test.templates;
 
-import io.intino.itrules.Template;
+import io.intino.itrules.Engine;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.Template;
 
 import java.util.List;
 
-import static io.intino.itrules.template.condition.BinaryExpression.all;
+import static io.intino.itrules.template.condition.predicates.Predicates.*;
+import static io.intino.itrules.template.outputs.Outputs.*;
 
 public class RosterTemplate extends Template {
 
@@ -64,7 +66,7 @@ end
  */
 
 	@Override
-	protected List<Rule> ruleSet() {
+	public List<Rule> ruleSet() {
 		return List.of(rule().condition(type("Roster"))
 						.output(
 								literal("<roster>\n"),
@@ -93,9 +95,12 @@ end
 										literal("</pets>")),
 								literal("\n</player>")
 						),
-				rule()
-						.condition(trigger("Pets"))
+				rule().condition(trigger("Pets"))
 						.output(literal("<pet>"), placeholder("this"), literal("</pet>"))
 		);
+	}
+
+	public String render(Object object) {
+		return new Engine(this).render(object);
 	}
 }

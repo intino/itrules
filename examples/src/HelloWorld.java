@@ -20,14 +20,13 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import io.intino.itrules.TemplateEngine;
+import io.intino.itrules.Engine;
 
 import java.util.List;
 
 public class HelloWorld {
 	public static void main(String[] args) {
-		TemplateEngine engine = new TemplateEngine(List.of());
-		System.out.println(engine.render("Hello world!"));
+		System.out.println(new Engine(List.of()).render("Hello world!"));
 	}
 
 }

@@ -20,8 +20,7 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import io.intino.itrules.TemplateEngine;
-import io.intino.itrules.TemplateEngine.Configuration;
+import io.intino.itrules.Engine;
 import io.intino.itrules.TemplateReader;
 import io.intino.itrules.parser.ITRulesSyntaxError;
 import org.assertj.core.api.Assertions;
@@ -29,16 +28,13 @@ import org.assertj.core.api.Assertions;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.LF;
-import static java.util.Locale.ENGLISH;
-
 public class Conditions {
 	public static final String Template = "ExampleConditions.itr";
 
 	public static void main(String[] args) throws ITRulesSyntaxError, IOException {
 		TemplateReader reader = new TemplateReader(load(Template));
 		var template = reader.read();
-		String result = new TemplateEngine(template.rules(), new Configuration(ENGLISH, LF)).render(frame());
+		String result = new Engine(template).render(frame());
 		System.out.println(result);
 		Assertions.assertThat(result).isEqualTo(expected());
 	}

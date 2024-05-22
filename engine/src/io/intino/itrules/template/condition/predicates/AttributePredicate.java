@@ -23,8 +23,8 @@
 package io.intino.itrules.template.condition.predicates;
 
 import io.intino.itrules.Frame;
+import io.intino.itrules.Trigger;
 import io.intino.itrules.template.condition.Predicate;
-import io.intino.itrules.TemplateEngine;
 import io.intino.itrules.template.outputs.Placeholder;
 
 import java.util.Iterator;
@@ -53,7 +53,7 @@ public class AttributePredicate implements Predicate {
 	}
 
 	@Override
-	public boolean evaluate(TemplateEngine.Trigger trigger) {
+	public boolean evaluate(Trigger trigger) {
 		return checkAttribute(trigger.frame()) && checkValue(trigger.frame());
 	}
 

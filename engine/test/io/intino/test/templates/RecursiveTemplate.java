@@ -22,8 +22,11 @@
 
 package io.intino.test.templates;
 
-import io.intino.itrules.Template;
+import io.intino.itrules.Engine;
+import io.intino.itrules.template.Template;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.condition.predicates.Predicates;
+import io.intino.itrules.template.outputs.Outputs;
 
 import java.util.List;
 
@@ -44,15 +47,18 @@ end
  */
 
 	@Override
-	protected List<Rule> ruleSet() {
+	public List<Rule> ruleSet() {
 		return List.of(
-				rule().condition(all(type("Module"), attribute("modules")))
-						.output(literal("<module name=\""), placeholder("name"), literal("\">\n"))
-						.output(literal("\t"), placeholder("modules").multiple("\n"), literal("\n"))
-						.output(literal("</module>")),
-				rule().condition(type("Module"))
-						.output(literal("<module name=\""), placeholder("name"), literal("\"/>")));
+				rule().condition(Predicates.all(Predicates.type("Module"), Predicates.attribute("modules")))
+						.output(Outputs.literal("<module name=\""), Outputs.placeholder("name"), Outputs.literal("\">\n"))
+						.output(Outputs.literal("\t"), Outputs.placeholder("modules").multiple("\n"), Outputs.literal("\n"))
+						.output(Outputs.literal("</module>")),
+				rule().condition(Predicates.type("Module"))
+						.output(Outputs.literal("<module name=\""), Outputs.placeholder("name"), Outputs.literal("\"/>")));
 	}
 
+	public String render(Object object) {
+		return new Engine(this).render(object);
+	}
 }
 

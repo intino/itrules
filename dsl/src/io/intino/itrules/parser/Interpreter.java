@@ -25,6 +25,7 @@ import io.intino.itrules.Logger;
 import io.intino.itrules.dsl.ItrParser.*;
 import io.intino.itrules.dsl.ItrParserBaseListener;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.Template;
 import io.intino.itrules.template.condition.BinaryExpression;
 import io.intino.itrules.template.condition.LogicalExpression;
 import io.intino.itrules.template.condition.NotExpression;
@@ -41,6 +42,7 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.intino.itrules.template.condition.BinaryOperator.AND;
@@ -49,20 +51,24 @@ import static io.intino.itrules.template.condition.BinaryOperator.OR;
 public final class Interpreter extends ItrParserBaseListener {
 	private static final String NL_SEPARATOR = "$NL";
 	private static final String TAB_SEPARATOR = "$TAB";
+
+	private final List<Rule> collectedRules = new ArrayList<>();
+
 	private final Logger logger;
-	private final Template template;
 	private Rule currentRule;
 	private StringBuilder currentText = new StringBuilder();
-
-	public Interpreter(Template template, Logger logger) {
-		this.template = template;
+	public Interpreter(Logger logger) {
 		this.logger = logger;
+	}
+
+	public Template template() {
+		return Template.with(collectedRules);
 	}
 
 	@Override
 	public void enterSignature(SignatureContext ctx) {
 		currentRule = new Rule();
-		template.add(currentRule);
+		collectedRules.add(currentRule);
 		currentRule.condition(process(ctx.condition()));
 	}
 

@@ -20,35 +20,44 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.intino.itrules.template.condition.predicates;
+package io.intino.itrules;
 
 import io.intino.itrules.template.condition.Predicate;
-import io.intino.itrules.Trigger;
+import io.intino.itrules.template.outputs.Placeholder;
 
-import java.util.stream.Stream;
+import java.util.Iterator;
 
-import static java.util.Arrays.stream;
+public class Trigger {
+	private final String name;
+	private Frame frame;
 
-public record TriggerPredicate(String name) implements Predicate {
-	public TriggerPredicate(String name) {
+	Trigger(String name) {
 		this.name = name.toLowerCase();
 	}
 
-	@Override
-	public boolean evaluate(Trigger trigger) {
-		return trigger.name().equals(name) || formattersIn(trigger.name()).anyMatch(s -> s.equals(name));
+	Trigger on(Frame frame) {
+		this.frame = frame;
+		return this;
 	}
 
-	private Stream<String> formattersIn(String trigger) {
-		return stream(skipName(trigger).split("\\+"));
+	public String name() {
+		return name;
 	}
 
-	private String skipName(String trigger) {
-		return trigger.contains("+") ? trigger.substring(trigger.indexOf('+')) : "";
+	public Frame frame() {
+		return frame;
 	}
 
-	@Override
-	public String toString() {
-		return "trigger(" + name + ")";
+	Iterator<Frame> frames(String slot) {
+		return frame.frames(slot.toLowerCase());
+	}
+
+	Iterator<Frame> frames(Placeholder placeholder) {
+		Frame frame = Engine.resolve(this.frame, placeholder.targetPath());
+		return frame.frames(placeholder.name().toLowerCase());
+	}
+
+	boolean check(Predicate condition) {
+		return condition.evaluate(this);
 	}
 }

@@ -22,8 +22,8 @@
 
 package io.intino.itrules.template.condition;
 
-import io.intino.itrules.TemplateEngine;
+import io.intino.itrules.Trigger;
 
 public interface LogicalExpression {
-	boolean evaluate(TemplateEngine.Trigger trigger);
+	boolean evaluate(Trigger trigger);
 }

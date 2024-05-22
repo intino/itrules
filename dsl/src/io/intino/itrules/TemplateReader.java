@@ -23,8 +23,8 @@
 package io.intino.itrules;
 
 import io.intino.itrules.parser.ITRulesSyntaxError;
-import io.intino.itrules.parser.Template;
 import io.intino.itrules.parser.TemplateParser;
+import io.intino.itrules.template.Template;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;

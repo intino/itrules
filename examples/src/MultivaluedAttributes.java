@@ -21,7 +21,7 @@
  */
 
 import io.intino.alexandria.Json;
-import io.intino.itrules.TemplateEngine;
+import io.intino.itrules.Engine;
 import io.intino.itrules.TemplateReader;
 import io.intino.itrules.parser.ITRulesSyntaxError;
 import org.assertj.core.api.Assertions;
@@ -31,9 +31,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.intino.itrules.TemplateEngine.Configuration.LineSeparator.LF;
-import static java.util.Locale.ENGLISH;
-
 public class MultivaluedAttributes {
 	public static final String Template = "ExampleMultivaluedAttributes.itr";
 
@@ -41,8 +38,7 @@ public class MultivaluedAttributes {
 		Message message = message();
 		System.out.println(Json.toJson(message));
 		TemplateReader reader = new TemplateReader(load(Template));
-		var template = reader.read();
-		String result = new TemplateEngine(template.rules(), new TemplateEngine.Configuration(ENGLISH, LF)).render(message);
+		String result = new Engine(reader.read()).render(message);
 		System.out.println(result);
 		Assertions.assertThat(result).isEqualTo(expected());
 	}

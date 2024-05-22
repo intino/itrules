@@ -23,7 +23,7 @@
 package io.intino.itrules.template.condition.predicates;
 
 
-import io.intino.itrules.TemplateEngine.Trigger;
+import io.intino.itrules.Trigger;
 import io.intino.itrules.template.condition.Predicate;
 
 import java.util.Set;

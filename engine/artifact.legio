@@ -4,5 +4,5 @@ Artifact("io.intino.itrules", "2.0.0") engine
 	Imports
 		Test("junit", "junit", "4.13.2")
 		Test("org.assertj", "assertj-core", "3.25.3")
-	Package(mode = ModulesAndLibrariesLinkedByManifest, attachSources = true)
+	Package(mode = ModulesAndLibrariesLinkedByManifest, attachSources = true, createMavenPom = true)
 	Distribution > Artifactory("intino-maven") > Release("https://artifactory.intino.io/artifactory/release-libraries")
