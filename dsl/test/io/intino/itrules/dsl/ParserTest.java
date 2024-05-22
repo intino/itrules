@@ -228,7 +228,7 @@ public class ParserTest {
 		try {
 			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
-			LogicalExpression condition = rules.get(0).condition();
+			LogicalExpression condition = rules.getFirst().condition();
 			assertThat(condition).isNotNull();
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -241,7 +241,7 @@ public class ParserTest {
 		try {
 			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
-			LogicalExpression condition = rules.get(0).condition();
+			LogicalExpression condition = rules.getFirst().condition();
 			assertThat(condition).isNotNull();
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -254,7 +254,7 @@ public class ParserTest {
 		try {
 			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
-			LogicalExpression condition = rules.get(0).condition();
+			LogicalExpression condition = rules.getFirst().condition();
 			assertThat(condition).isInstanceOf(TypePredicate.class);
 			assertThat(((TypePredicate) condition).types()).isEqualTo(new String[]{"api", "service"});
 		} catch (Exception e) {
