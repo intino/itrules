@@ -85,6 +85,6 @@ public class Placeholder implements Output {
 
 	@Override
 	public String toString() {
-		return "[" + fullName() + (isMultiple() ? "..." : "") + "]";
+		return "$" + fullName() + (isMultiple() ? "...[" + (separator != null ? separator : ":") + "]" : "");
 	}
 }

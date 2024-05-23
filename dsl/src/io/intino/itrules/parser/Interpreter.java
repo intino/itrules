@@ -75,8 +75,8 @@ public final class Interpreter extends ItrParserBaseListener {
 	private LogicalExpression process(ConditionContext condition) {
 		List<LogicalExpression> terms = condition.term().stream().map(this::process).toList();
 		if (terms.isEmpty()) return null;
-		if (terms.size() == 1) return terms.getFirst();
-		LogicalExpression root = terms.getFirst();
+		if (terms.size() == 1) return terms.get(0);
+		LogicalExpression root = terms.get(0);
 		List<OperatorContext> operators = condition.operator();
 		for (int i = 0; i < operators.size(); i++) {
 			root = new BinaryExpression(root, operators.get(i).AND() != null ? AND : OR, terms.get(i + 1));

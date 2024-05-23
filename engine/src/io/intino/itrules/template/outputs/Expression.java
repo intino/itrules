@@ -27,6 +27,7 @@ import io.intino.itrules.template.Output;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Collections.addAll;
@@ -64,5 +65,10 @@ public class Expression implements Output {
 
 	public boolean isConstant() {
 		return outputs().allMatch(t -> t instanceof Literal);
+	}
+
+	@Override
+	public String toString() {
+		return "<<" + outputs.stream().map(o -> o.toString()).collect(Collectors.joining()) + ">>";
 	}
 }

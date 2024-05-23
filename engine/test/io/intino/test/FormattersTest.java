@@ -202,6 +202,6 @@ public class FormattersTest {
 	}
 
 	private Locale spanish() {
-		return Locale.of("es", "Spain", "es_ES");
+		return new Locale("es", "Spain", "es_ES");
 	}
 }

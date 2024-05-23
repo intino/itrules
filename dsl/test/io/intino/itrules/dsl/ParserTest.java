@@ -171,7 +171,7 @@ public class ParserTest {
 			List<Rule> ruleset = parse(parser).ruleSet();
 			Assert.assertNotNull(ruleset);
 			Assert.assertEquals(ruleset.size(), 1);
-			LogicalExpression condition = ruleset.getFirst().condition();
+			LogicalExpression condition = ruleset.get(0).condition();
 			Assert.assertTrue(condition instanceof BinaryExpression);
 			BinaryExpression expression = (BinaryExpression) condition;
 			Assert.assertTrue(expression.right() instanceof AttributePredicate);
@@ -189,7 +189,7 @@ public class ParserTest {
 			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
 			Assert.assertEquals(rules.size(), 1);
-			LogicalExpression condition = rules.getFirst().condition();
+			LogicalExpression condition = rules.get(0).condition();
 			Assert.assertTrue(condition instanceof BinaryExpression);
 			BinaryExpression expression = (BinaryExpression) condition;
 			Assert.assertTrue(expression.right() instanceof AttributePredicate);
@@ -228,7 +228,7 @@ public class ParserTest {
 		try {
 			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
-			LogicalExpression condition = rules.getFirst().condition();
+			LogicalExpression condition = rules.get(0).condition();
 			assertThat(condition).isNotNull();
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -241,7 +241,7 @@ public class ParserTest {
 		try {
 			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
-			LogicalExpression condition = rules.getFirst().condition();
+			LogicalExpression condition = rules.get(0).condition();
 			assertThat(condition).isNotNull();
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -254,7 +254,7 @@ public class ParserTest {
 		try {
 			List<Rule> rules = parse(parser).ruleSet();
 			Assert.assertNotNull(rules);
-			LogicalExpression condition = rules.getFirst().condition();
+			LogicalExpression condition = rules.get(0).condition();
 			assertThat(condition).isInstanceOf(TypePredicate.class);
 			assertThat(((TypePredicate) condition).types()).isEqualTo(new String[]{"api", "service"});
 		} catch (Exception e) {

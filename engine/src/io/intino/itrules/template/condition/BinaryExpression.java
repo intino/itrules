@@ -58,6 +58,11 @@ public class BinaryExpression implements LogicalExpression {
 
 	@Override
 	public String toString() {
-		return "(" + left.toString() + ") " + operator.name() + " (" + right.toString() + ")";
+		return embrace(left) + " " + operator.name() + " " + embrace(right);
+	}
+
+	private String embrace(LogicalExpression expression) {
+		String result = expression.toString();
+		return expression instanceof Predicate || expression instanceof NotExpression ? result : "(" + result + ")";
 	}
 }
