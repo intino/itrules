@@ -23,8 +23,8 @@
 package io.intino.test.templates;
 
 import io.intino.itrules.Engine;
-import io.intino.itrules.template.Template;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.Template;
 import io.intino.itrules.template.condition.predicates.Predicates;
 import io.intino.itrules.template.outputs.Outputs;
 
@@ -50,6 +50,7 @@ end
 				.output(Outputs.expression(Outputs.literal("\""), Outputs.placeholder("subject"), Outputs.literal("\"\n")).next(Outputs.expression(Outputs.literal("(No subject)\n"))))
 				.output(Outputs.literal("\t"), Outputs.expression(Outputs.placeholder("body").multiple("\n"))));
 	}
+
 	public String render(Object object) {
 		return new Engine(this).render(object);
 	}

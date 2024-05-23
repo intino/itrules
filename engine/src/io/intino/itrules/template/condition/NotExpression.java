@@ -30,4 +30,9 @@ public record NotExpression(LogicalExpression expression) implements Predicate {
 	public boolean evaluate(Trigger trigger) {
 		return !expression.evaluate(trigger);
 	}
+
+	@Override
+	public String toString() {
+		return "NOT " + expression.toString();
+	}
 }

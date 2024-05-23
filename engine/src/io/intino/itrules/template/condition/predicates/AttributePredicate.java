@@ -77,4 +77,9 @@ public class AttributePredicate implements Predicate {
 		if (o == null) return false;
 		return this == o || o.toString().equalsIgnoreCase(value.toString());
 	}
+
+	@Override
+	public String toString() {
+		return "attribute(" + attribute + (value != null ? ", " + value : "") + ")";
+	}
 }

@@ -25,7 +25,6 @@ package io.intino.itrules.template.condition;
 import io.intino.itrules.Trigger;
 
 import static io.intino.itrules.template.condition.BinaryOperator.AND;
-import static io.intino.itrules.template.condition.BinaryOperator.OR;
 
 public class BinaryExpression implements LogicalExpression {
 	private final LogicalExpression left;
@@ -57,27 +56,8 @@ public class BinaryExpression implements LogicalExpression {
 		return right;
 	}
 
-	public static BinaryExpression all(LogicalExpression left, LogicalExpression right) {
-		return new BinaryExpression(left, AND, right);
-	}
-
-	public static LogicalExpression all(LogicalExpression... expressions) {
-		LogicalExpression root = expressions[0];
-		if (expressions.length == 1) return root;
-		for (int i = 0; i < expressions.length - 1; i++)
-			root = new BinaryExpression(root, AND, expressions[i + 1]);
-		return root;
-	}
-
-	public static BinaryExpression any(LogicalExpression left, LogicalExpression right) {
-		return new BinaryExpression(left, OR, right);
-	}
-
-	public static LogicalExpression any(LogicalExpression... expressions) {
-		LogicalExpression root = expressions[0];
-		if (expressions.length == 1) return root;
-		for (int i = 0; i < expressions.length - 1; i++)
-			root = new BinaryExpression(root, OR, expressions[i + 1]);
-		return root;
+	@Override
+	public String toString() {
+		return "(" + left.toString() + ") " + operator.name() + " (" + right.toString() + ")";
 	}
 }

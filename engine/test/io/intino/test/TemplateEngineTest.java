@@ -22,7 +22,9 @@
 
 package io.intino.test;
 
-import io.intino.itrules.*;
+import io.intino.itrules.Adapter;
+import io.intino.itrules.Engine;
+import io.intino.itrules.Formatter;
 import io.intino.itrules.template.Rule;
 import io.intino.itrules.template.Template;
 import io.intino.test.classes.Team;

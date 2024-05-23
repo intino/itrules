@@ -31,8 +31,8 @@ import static io.intino.itrules.template.condition.BinaryOperator.AND;
 import static io.intino.itrules.template.condition.BinaryOperator.OR;
 
 public class Predicates {
-	public static Predicate not(Predicate condition) {
-		return new NotExpression(condition);
+	public static Predicate not(LogicalExpression expression) {
+		return new NotExpression(expression);
 	}
 
 	public static Predicate attribute(String attribute) {

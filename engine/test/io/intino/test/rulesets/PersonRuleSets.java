@@ -37,8 +37,9 @@ import io.intino.test.classes.Team;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.intino.itrules.template.condition.BinaryExpression.all;
-import static io.intino.itrules.template.condition.BinaryExpression.any;
+import static io.intino.itrules.template.condition.predicates.Predicates.all;
+import static io.intino.itrules.template.condition.predicates.Predicates.any;
+
 
 public class PersonRuleSets {
 	private PersonRuleSets() {

@@ -23,8 +23,8 @@
 package io.intino.test.templates;
 
 import io.intino.itrules.Engine;
-import io.intino.itrules.template.Template;
 import io.intino.itrules.template.Rule;
+import io.intino.itrules.template.Template;
 import io.intino.itrules.template.condition.predicates.Predicates;
 import io.intino.itrules.template.outputs.Outputs;
 
