@@ -39,9 +39,9 @@ BEGIN_BODY             : 'body'                          		-> skip;
 COMMENT                : .;
 
 mode SIGNATURE_MODE;
-	NOT                : 'NOT';
-	AND                : 'AND';
-	OR                 : 'OR';
+	NOT                : 'not';
+	AND                : 'and';
+	OR                 : 'or';
 	NAME      		   : LETTER(DIGIT|LETTER|SCORE)*;
 	END_SIGNATURE      : (' '|'\t')* NL ('\t' | '    ')?        { setLastMode(SIGNATURE_MODE); setType(BEGIN_BODY);} -> mode(BODY_MODE);
 	WS                 : SP+                                    -> skip;

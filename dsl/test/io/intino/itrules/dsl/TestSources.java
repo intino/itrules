@@ -34,7 +34,7 @@ public class TestSources {
 			end
 			""";
 	public static final String MARK_WITH_FORMAT = """
-			def type(Attribute) AND trigger(attribute+Const) AND type(Const)
+			def type(Attribute) and trigger(attribute+Const) and type(Const)
 				public static final $name+UPPERCASE;
 			end""";
 	public static final String OTHER_WITH_MARK = """
@@ -67,22 +67,22 @@ public class TestSources {
 
 			end""";
 	public static final String SIGNATURE_WITH_ATTRIBUTES_1 = """
-			def type(markca) AND attribute(a,b)
+			def type(markca) and attribute(a,b)
 
 
 			end""";
 	public static final String SIGNATURE_WITH_ATTRIBUTES_2 = """
-			def type(markca) AND attribute(a)
+			def type(markca) and attribute(a)
 
 
 			end""";
 	public static final String RULE_BEGIN = "\n\ndef";
 	public static final String RULE_WITH_MARKS = """
-			def type(Attribute) AND trigger(attribute+Field) AND type(Const) AND type(readonly)
+			def type(Attribute) and trigger(attribute+Field) and type(Const) and type(readonly)
 			public class $attri alalasda $other\s
 			end""";
 	public static final String RULE_WITH_OR_EXPRESSIONS = """
-			def type(Attribute) AND trigger(attribute+Field) AND type(Const) AND type(readonly)
+			def type(Attribute) and trigger(attribute+Field) and type(Const) and type(readonly)
 			<coach name="$Name" <<<NotExist $NotExist>?$None !!!?/>~>>
 			end""";
 	public static final String MARK_WITH_MODIFIERS = """
@@ -106,23 +106,23 @@ public class TestSources {
 				public class <<$static >>
 			end""";
 	public static final String RULE_WITH_EVAL = """
-			def type(Class) AND eval(Class == 'sasa')
+			def type(Class) and eval(Class == 'sasa')
 			public class <<$static >>
 			end
 			def type(class2)
 				public class <<$static >>
 			end""";
 	public static final String ITRULES_TEST = """
-			def type(token) AND type(mark) AND trigger(token)
+			def type(token) and type(mark) and trigger(token)
 				.add(mark("$name"<<, $options...[, ]>>)<<.multiple("$separator")>>)
 			end""";
 	public static final String CONDITION_TEST = """
-			def type(attribute) AND attribute(type, date) AND trigger(checkFormat)
+			def type(attribute) and attribute(type, date) and trigger(checkFormat)
 				java.text.DateFormat.getInstance().parse($name());
 			end
 			""";
 	public static final String CONDITION_2_TEST = """
-			def (attribute(in,path) OR attribute(in, query)) AND type(required) AND trigger(parameter)
+			def (attribute(in,path) or attribute(in, query)) and type(required) and trigger(parameter)
 				ctx.$in~ParamAsClass("$name", $type.class).getOrThrow(e -> new io.javalin.http.BadRequestResponse("$name parameter not found"))
 			end
 
@@ -175,7 +175,7 @@ public class TestSources {
 			\t\t$superclass+Superclass
 			\t\t$interface+Interface...[$NL]
 			end
-			def type(String) AND trigger(String+Interface)
+			def type(String) and trigger(String+Interface)
 			\t<interface name="$value" />
 			end""";
 	public static final String LARGE_XML = """
