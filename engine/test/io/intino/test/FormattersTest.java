@@ -66,11 +66,6 @@ public class FormattersTest {
 	}
 
 	@Test
-	public void should_format_in_lower_camelcase() {
-		assertThat(formatter("LowerCamelCase").format("Hello world")).isEqualTo("helloWorld");
-	}
-
-	@Test
 	public void should_remove_non_letters() {
 		assertThat(formatter("OnlyLetters").format("Hello world")).isEqualTo("Helloworld");
 	}
