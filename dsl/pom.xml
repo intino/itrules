@@ -137,7 +137,6 @@
 		</plugins>
 	</build>
 
-
 	<repositories>
 		<repository>
 			<id>intino-maven</id>

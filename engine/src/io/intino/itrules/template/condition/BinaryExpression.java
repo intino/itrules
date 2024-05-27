@@ -28,7 +28,6 @@ import static io.intino.itrules.template.condition.BinaryOperator.AND;
 
 public class BinaryExpression implements LogicalExpression {
 	private final LogicalExpression left;
-
 	private final BinaryOperator operator;
 	private final LogicalExpression right;
 

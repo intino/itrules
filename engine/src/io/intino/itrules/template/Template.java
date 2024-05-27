@@ -22,6 +22,7 @@
 
 package io.intino.itrules.template;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,6 +44,18 @@ public abstract class Template {
 
 	public Configuration configuration() {
 		return configuration;
+	}
+
+	public static Template compose(Template t, Template... templates) {
+		ArrayList<Rule> rules = new ArrayList<>(t.ruleSet());
+		for (Template template : templates)
+			rules.addAll(template.ruleSet());
+		return new Template() {
+			@Override
+			public List<Rule> ruleSet() {
+				return rules;
+			}
+		};
 	}
 
 	protected Rule rule() {

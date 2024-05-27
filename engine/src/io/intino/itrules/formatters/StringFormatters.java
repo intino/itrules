@@ -36,12 +36,12 @@ public final class StringFormatters {
 		Map<String, Formatter> map = map();
 		map.put("UpperCase", upperCase());
 		map.put("LowerCase", lowerCase());
-		map.put("FirstUpperCase", firstUpperCase());
-		map.put("FirstLowerCase", firstLowerCase());
-		map.put("Camelcase", camelCase());
-		map.put("LowerCamelCase", lowerCamelCase());
+		map.put("CamelCase", camelCase());
 		map.put("SnakeCase", snakeCase());
 		map.put("KebabCase", kebabCase());
+		map.put("PascalCase", pascalCase());
+		map.put("FirstUpperCase", firstUpperCase());
+		map.put("FirstLowerCase", firstLowerCase());
 		map.put("Capitalize", capitalize());
 		map.put("Length", length());
 		map.put("OnlyDigits", onlyDigits());
@@ -82,29 +82,36 @@ public final class StringFormatters {
 
 	public static Formatter camelCase() {
 		return value -> {
-			String[] parts = value.toString().split("[ _\\-]");
-			String result = "";
-			for (String part : parts) result = result + capitalize().format(part);
-			return firstLowerCase().format(result);
+			String source = value.toString();
+			String[] parts = source.split("[ _\\-]");
+			if (parts.length > 1) {
+				String result = "";
+				for (String part : parts) result = result + capitalize().format(part);
+				return result.substring(0, 1).toLowerCase() + result.substring(1);
+			}
+			return source.substring(0, 1).toLowerCase() + source.substring(1);
 		};
 	}
 
-	public static Formatter lowerCamelCase() {
+	public static Formatter pascalCase() {
 		return value -> {
-			String[] parts = value.toString().split(" ");
-			String result = "";
-			for (String part : parts)
-				result = result + capitalize().format(part);
-			return result.substring(0, 1).toLowerCase() + result.substring(1);
+			String source = value.toString();
+			String[] parts = source.split("[ _\\-]");
+			if (parts.length > 1) {
+				String result = "";
+				for (String part : parts) result = result + capitalize().format(part);
+				return result.substring(0, 1).toUpperCase() + result.substring(1);
+			}
+			return source.substring(0, 1).toUpperCase() + source.substring(1);
 		};
 	}
 
 	public static Formatter snakeCase() {
-		return value -> value.toString().toLowerCase().replaceAll(" ", "_");
+		return value -> value.toString().toLowerCase().replaceAll(" -", "_");
 	}
 
 	public static Formatter kebabCase() {
-		return value -> value.toString().toLowerCase().replaceAll(" ", "-");
+		return value -> value.toString().toLowerCase().replaceAll(" _", "-");
 	}
 
 	public static Formatter firstUpperCase() {
@@ -180,7 +187,5 @@ public final class StringFormatters {
 		private String removeEnding(String word, String ending) {
 			return word.substring(0, word.length() - ending.length());
 		}
-
-
 	}
 }

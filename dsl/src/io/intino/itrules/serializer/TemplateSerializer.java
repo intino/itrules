@@ -98,6 +98,7 @@ public class TemplateSerializer {
 		if (o instanceof Expression e) {
 			FrameBuilder builder = new FrameBuilder("output", "expression");
 			e.outputs().forEach(op -> builder.add("outputs", map(op)));
+			if (e.next() != null) builder.add("next", map(e.next()));
 			return builder.toFrame();
 		}
 		return null;
