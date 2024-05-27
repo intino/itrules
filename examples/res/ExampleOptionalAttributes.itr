@@ -7,7 +7,7 @@ def type(Roster)
     </roster>
 end
 
-def type(Person) AND trigger(Coach)
+def type(Person) and trigger(Coach)
     <coach name="$Name" <<year="$Birthday+Year">> country="$Country"<< club="$Club">>/>
 end
 

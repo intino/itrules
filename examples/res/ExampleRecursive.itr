@@ -1,4 +1,4 @@
-def type(Module) AND attribute(modules)
+def type(Module) and attribute(modules)
 	<module name="$name">
 	    $modules...[$NL]
     </module>
