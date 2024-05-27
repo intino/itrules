@@ -69,6 +69,11 @@ public class Engine {
 		return this;
 	}
 
+	public Engine addAll(Map<String, Formatter> formatters) {
+		this.formatters.putAll(formatters);
+		return this;
+	}
+
 	public <T> Engine add(Class<T> class_, Adapter<T> adapter) {
 		adapters.put(class_, adapter);
 		return this;

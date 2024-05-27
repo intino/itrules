@@ -60,6 +60,9 @@ public class JavaItrulesTemplate extends Template {
 								\n\tpublic String render(Object object) {
 								\t\treturn new io.intino.itrules.Engine(this).render(object);
 								\t}
+								\n\tpublic String render(Object object, java.util.Map<String, io.intino.itrules.Formatter> formatters) {
+								\t\treturn new io.intino.itrules.Engine(this).addAll(formatters).render(object);
+								\t}
 								}""")),
 				rule().condition(trigger("rule")).output(literal("rules.add(rule()"),expression().output(literal(".condition("), placeholder("condition"), literal(")")), placeholder("outputs").multiple("")).output(literal(");")),
 				rule().condition(all(type("output"), type("literal"), trigger("outputs"))).

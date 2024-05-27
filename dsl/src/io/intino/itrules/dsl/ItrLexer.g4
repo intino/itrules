@@ -65,7 +65,7 @@ mode BODY_MODE;
 
 mode MARK_MODE;
 	LIST               : '...';
-	TARGET            : '<' (~'>')* '>';
+	TARGET             : '<' (~'>')* '>';
 	OPTION             : '+'                                    { setType(OPTION);};
     NULL               : '~'                                    { setMode(lastMode); setLastMode(MARK_MODE);}-> skip;
 	SEPARATOR          : '[' (~']')* ']'                        { setMode(lastMode); setLastMode(MARK_MODE);};
