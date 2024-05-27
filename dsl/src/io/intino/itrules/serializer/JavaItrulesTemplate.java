@@ -43,8 +43,8 @@ public class JavaItrulesTemplate extends Template {
 								import io.intino.itrules.template.Rule;
 								import io.intino.itrules.template.Template;
 
-								import java.util.List;
 								import java.util.ArrayList;
+								import java.util.List;
 
 								import static io.intino.itrules.template.condition.predicates.Predicates.*;
 								import static io.intino.itrules.template.outputs.Outputs.*;
