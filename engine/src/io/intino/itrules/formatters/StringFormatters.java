@@ -39,6 +39,7 @@ public final class StringFormatters {
 		map.put("CamelCase", camelCase());
 		map.put("SnakeCase", snakeCase());
 		map.put("KebabCase", kebabCase());
+		map.put("PascalCase", pascalCase());
 		map.put("FirstUpperCase", firstUpperCase());
 		map.put("FirstLowerCase", firstLowerCase());
 		map.put("Capitalize", capitalize());
@@ -81,10 +82,27 @@ public final class StringFormatters {
 
 	public static Formatter camelCase() {
 		return value -> {
-			String[] parts = value.toString().split("[ _\\-]");
-			String result = "";
-			for (String part : parts) result = result + capitalize().format(part);
-			return result.substring(0, 1).toLowerCase() + result.substring(1);
+			String source = value.toString();
+			String[] parts = source.split("[ _\\-]");
+			if (parts.length > 1) {
+				String result = "";
+				for (String part : parts) result = result + capitalize().format(part);
+				return result.substring(0, 1).toLowerCase() + result.substring(1);
+			}
+			return source.substring(0, 1).toLowerCase() + source.substring(1);
+		};
+	}
+
+	public static Formatter pascalCase() {
+		return value -> {
+			String source = value.toString();
+			String[] parts = source.split("[ _\\-]");
+			if (parts.length > 1) {
+				String result = "";
+				for (String part : parts) result = result + capitalize().format(part);
+				return result.substring(0, 1).toUpperCase() + result.substring(1);
+			}
+			return source.substring(0, 1).toUpperCase() + source.substring(1);
 		};
 	}
 
@@ -169,7 +187,5 @@ public final class StringFormatters {
 		private String removeEnding(String word, String ending) {
 			return word.substring(0, word.length() - ending.length());
 		}
-
-
 	}
 }

@@ -47,8 +47,7 @@ public abstract class Template {
 	}
 
 	public static Template compose(Template t, Template... templates) {
-		ArrayList<Rule> rules = new ArrayList<>();
-		rules.addAll(rules);
+		ArrayList<Rule> rules = new ArrayList<>(t.ruleSet());
 		for (Template template : templates)
 			rules.addAll(template.ruleSet());
 		return new Template() {

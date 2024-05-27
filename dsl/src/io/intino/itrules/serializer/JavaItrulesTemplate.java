@@ -78,7 +78,6 @@ public class JavaItrulesTemplate extends Template {
 						.output(literal("expression()"))
 						.output(placeholder("outputs").multiple(""))
 						.output(expression().output(literal(".next(")).output(placeholder("next")).output(literal(")")))
-						.output(literal(")"))
 		);
 	}
 }
