@@ -70,7 +70,7 @@ public class Engine {
 	}
 
 	public Engine addAll(Map<String, Formatter> formatters) {
-		this.formatters.putAll(formatters);
+		formatters.forEach((k, v) -> add(k, v));
 		return this;
 	}
 
