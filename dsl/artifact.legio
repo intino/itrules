@@ -1,12 +1,12 @@
 dsl Legio
 
-Artifact("io.intino.itrules", "1.0.0") Dsl
+Artifact("io.intino.itrules", "1.1.0") Dsl
 	Imports
-		Compile("io.intino.itrules", "engine", "2.0.0")
+		Compile("io.intino.itrules", "engine", "2.0.1")
 		Compile("io.intino.alexandria", "logger", "2.1.0")
 		Compile("org.antlr", "antlr4", "4.13.1")
 		Compile("commons-io", "commons-io", "2.16.1")
 		Test("junit", "junit", "4.13.2")
-		Test("org.assertj", "assertj-core", "3.25.3")
+		Test("org.assertj", "assertj-core", "3.26.0")
 	Package(mode = ModulesAndLibrariesLinkedByManifest, attachSources = true, createMavenPom = true)
 	Distribution > Artifactory("intino-maven") > Release("https://artifactory.intino.io/artifactory/release-libraries")

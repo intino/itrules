@@ -24,7 +24,6 @@ package io.intino.itrules.dsl;
 
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Token;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class LexerTest {
 
 	@Test
 	public void ruleSignatureTest() {
-		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT", "END_RULE"};
+		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.SIGNATURE);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -57,14 +56,14 @@ public class LexerTest {
 
 	@Test
 	public void mark() {
-		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TRIGGER", "ID", "TEXT", "END_RULE"};
+		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TRIGGER", "ID", "TEXT", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.MARK);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
 	@Test
 	public void markWithTarget() {
-		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TRIGGER", "TARGET", "ID", "TEXT", "TEXT", "END_RULE"};
+		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TRIGGER", "TARGET", "ID", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.MARK_WITH_TARGET);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -74,8 +73,7 @@ public class LexerTest {
 		String[] expectedTypes = new String[]{
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT",
-				"TEXT", "TEXT", "TEXT",
-				"END_RULE"};
+				"TEXT", "TEXT", "TEXT", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.ESCAPED_CHARACTERS);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -86,8 +84,7 @@ public class LexerTest {
 		String[] expectedTypes = new String[]{
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TEXT", "BEGIN_EXPRESSION", "TRIGGER", "ID",
-				"TEXT", "TEXT", "TEXT", "TEXT", "END_EXPRESSION",
-				"END_RULE"};
+				"TEXT", "TEXT", "TEXT", "TEXT", "END_EXPRESSION", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.EXPRESION_WITH_NEW_LINES);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -97,7 +94,7 @@ public class LexerTest {
 		String[] expectedTypes = new String[]{
 				"BEGIN_RULE", "NAME", "LPAREN", "RPAREN", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT",
-				"END_RULE"};
+				"TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.FUNCTION_WITHOUT_PARAMETERS);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -105,7 +102,7 @@ public class LexerTest {
 	@Test
 	public void OtherWithMark() {
 		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT",
-				"TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "END_RULE"};
+				"TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.OTHER_WITH_MARK);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -113,7 +110,7 @@ public class LexerTest {
 	@Test
 	public void MarkWithCurlSeparator() {
 		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
-				"TRIGGER", "ID", "OPTION", "ID", "TEXT", "TEXT", "TEXT", "END_RULE"};
+				"TRIGGER", "ID", "OPTION", "ID", "TEXT", "TEXT", "TEXT", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.CURL_SEPARATOR);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -125,7 +122,7 @@ public class LexerTest {
 				"NAME", "LPAREN", "NAME", "OTHER", "NAME", "RPAREN", "AND",
 				"NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "TEXT",
-				"END_RULE"};
+				"TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.MARK_WITH_FORMAT);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -137,7 +134,7 @@ public class LexerTest {
 				"NAME", "LPAREN", "NAME", "OTHER", "NAME", "RPAREN", "AND",
 				"NAME", "LPAREN", "NAME", "RPAREN", "AND",
 				"NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
-				"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "END_RULE"};
+				"TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT"};
 		String[] receivedTypes = lexerTest(
 				TestSources.RULE_WITH_MARKS
 		);
@@ -150,7 +147,7 @@ public class LexerTest {
 		String[] expectedTypes = new String[]{"BEGIN_RULE",
 				"NAME", "LPAREN", "NAME", "RPAREN",
 				"BEGIN_BODY", "TEXT",
-				"TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "TRIGGER", "ID", "TEXT", "END_RULE"};
+				"TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.MARK_WITH_MODIFIERS);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -158,7 +155,7 @@ public class LexerTest {
 	@Test
 	public void mediumTest() {
 		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT",
-				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "END_RULE"};
+				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.MEDIUM_TEST);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -166,9 +163,9 @@ public class LexerTest {
 	@Test
 	public void twoRules() {
 		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT",
-				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "END_RULE",
+				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT",
-				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "END_RULE"};
+				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.TWO_RULES);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -177,9 +174,9 @@ public class LexerTest {
 	public void ruleWithEval() {
 		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "AND",
 				"NAME", "LPAREN", "NAME", "OTHER", "OTHER", "OTHER", "NAME", "OTHER", "RPAREN", "BEGIN_BODY", "TEXT",
-				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "END_RULE",
+				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT",
-				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "END_RULE"};
+				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.RULE_WITH_EVAL);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -192,7 +189,7 @@ public class LexerTest {
 				"NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TRIGGER", "ID", "TEXT", "BEGIN_EXPRESSION", "TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "END_EXPRESSION", "TEXT",
 				"BEGIN_EXPRESSION", "TEXT", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT",
-				"END_RULE"};
+				"TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.ITRULES_TEST);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -211,7 +208,7 @@ public class LexerTest {
 				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR", "TEXT",
 				"TEXT", "TEXT",
 				"TEXT",
-				"END_RULE"};
+				"TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.LITTLE_BIG_TEST);
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
@@ -223,12 +220,12 @@ public class LexerTest {
 				"TEXT", "TEXT",
 				"TEXT", "TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "TEXT",
 				"TEXT", "TEXT",
-				"END_RULE",
+				"TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT", "TEXT",
 				"TRIGGER", "ID", "LIST", "SEPARATOR", "TEXT", "TEXT",
 				"TEXT",
-				"END_RULE",
+				"TEXT",
 		};
 		String[] receivedTypes = lexerTest(
 				TestSources.XML_TARA);
@@ -242,11 +239,11 @@ public class LexerTest {
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT",
 				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "TEXT",
 				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR",
-				"END_RULE",
+				"TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "AND",
 				"NAME", "LPAREN", "NAME", "OTHER", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT",
-				"END_RULE"
+				"TEXT"
 		};
 		String[] receivedTypes = lexerTest(TestSources.XML_SMALL);
 		assertArrayEquals(expectedTypes, receivedTypes);
@@ -262,13 +259,13 @@ public class LexerTest {
 				"TEXT",
 				"TEXT",
 				"TEXT",
-				"END_RULE",
+				"TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "OTHER", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT",
-				"END_RULE",
+				"TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "OTHER", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT",
-				"END_RULE"};
+				"TEXT"};
 
 		String[] receivedTypes = lexerTest(TestSources.LARGE_XML);
 		assertArrayEquals(expectedTypes, receivedTypes);
@@ -295,12 +292,12 @@ public class LexerTest {
 			while (currentToken.getType() != Token.EOF) {
 				receivedToken = getRulesNameList(currentToken.getType() - 1);
 				receivedTypes.add(receivedToken);
-//				System.out.print(receivedToken + ": " + currentToken.getText() + ";");
+				System.out.println(receivedToken + ": " + currentToken.getText() + ";");
 				currentToken = lexer.nextToken();
 			}
-//			System.out.println();
-//			System.out.println();
-//			System.out.println(String.join(", ", receivedTypes));
+			System.out.println();
+			System.out.println();
+			System.out.println(String.join(", ", receivedTypes));
 			return receivedTypes.toArray(new String[0]);
 		} catch (RecognitionException error) {
 			System.err.println("Error on query: " + query);

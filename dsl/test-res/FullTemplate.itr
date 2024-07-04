@@ -1,4 +1,4 @@
-def type(api, service)
+rule type(api, service)
 	public class $name+firstUpperCase+SnakeCaseToCamelCase~Service {
 		ModelSupplier supplier;
 
@@ -10,17 +10,14 @@ def type(api, service)
 
 		<<$schema...[$NL$NL]>>
 	}
-end
 
-def trigger(resource)
+rule trigger(resource)
     <<.$operation...[$NL.]>>
-end
 
-def trigger(operation)
+rule trigger(operation)
 	$method+lowerCase("<<$<root>basePath>><<$path>>", ctx -> <<$response(>>new $<container>name+ClassName~Controller(ctx, supplier).$method+lowerCase($parameter...[, ])<<$response+closeMethod>>))
-end
 
-def trigger(schema)
+rule trigger(schema)
 	public record $name($attribute+constructor...[, ]) {
 		public void check() {
 			try {
@@ -31,32 +28,24 @@ def trigger(schema)
 			}
 		}
 	}
-end
 
-def type(attribute) and trigger(constructor)
+rule type(attribute) and trigger(constructor)
 	$type $name+firstLowerCase
-end
 
-def type(attribute, required) and trigger(checkNotNull)
+rule type(attribute, required) and trigger(checkNotNull)
 	$name() == null
-end
 
-def type(attribute) and attribute(type, date) and trigger(checkFormat)
+rule type(attribute) and attribute(type, date) and trigger(checkFormat)
 	java.text.DateFormat.getInstance().parse($name());
-end
 
-def (attribute(in,path) or attribute(in, query)) and type(required) and trigger(parameter)
+rule (attribute(in,path) or attribute(in, query)) and type(required) and trigger(parameter)
 	ctx.$in~ParamAsClass("$name", $type.class).getOrThrow(e -> new io.javalin.http.BadRequestResponse("$name parameter not found"))
-end
 
-def (attribute(in,path) or attribute(in,query)) and trigger(parameter)
+rule (attribute(in,path) or attribute(in,query)) and trigger(parameter)
 	ctx.$in~ParamAsClass("$name", $type+ClassName.class)
-end
 
-def attribute(in, body) and trigger(parameter)
+rule attribute(in, body) and trigger(parameter)
 	check(ctx.bodyAsClass($type+ClassName.class))
-end
 
-def trigger(closeMethod)
+rule trigger(closeMethod)
 	)
-end
