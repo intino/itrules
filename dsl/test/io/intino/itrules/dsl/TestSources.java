@@ -23,112 +23,104 @@ package io.intino.itrules.dsl;
 
 public class TestSources {
 	public static final String MARK = """
-			def type(Class) \t \t   \t\t
+			rule type(Class) \t \t   \t\t
 			$mark ññ end
-			end""";
+			""";
 
 	public static final String MARK_WITH_TARGET = """
-			def type(Class)
+			rule type(Class)
 				$<root>mark
-			~end
-			end
 			""";
 	public static final String MARK_WITH_FORMAT = """
-			def type(Attribute) and trigger(attribute+Const) and type(Const)
+			rule type(Attribute) and trigger(attribute+Const) and type(Const)
 				public static final $name+UPPERCASE;
-			end""";
+			""";
 	public static final String OTHER_WITH_MARK = """
-			def type(Class)
+			rule type(Class)
 				public class $attri alalasda $other
-			end
 			""";
 	public static final String ESCAPED_CHARACTERS = """
-			def type(Class)\s
+			rule type(Class)\s
 			\t \t   \t\t
 			\t] $$\s
-			end
 			""";
 
-	public static final String FUNCTION_WITHOUT_PARAMETERS = "def one() trigger(Age)\n" +
-			"    one year old\n" +
-			"end";
+	public static final String FUNCTION_WITHOUT_PARAMETERS = """
+			rule one() trigger(Age)
+			    one year old
+			""";
 
 	public static final String EXPRESION_WITH_NEW_LINES = """
-			def type(nodeimpl)
+			rule type(nodeimpl)
 			    public
 			        <<$aggregable
 			        public Definition[] aggregables() {
 			        }>>
-			end
 			""";
 	public static final String SIGNATURE = """
-			def type(markca)
+			rule type(markca)
 
 
-			end""";
+			""";
 	public static final String SIGNATURE_WITH_ATTRIBUTES_1 = """
-			def type(markca) and attribute(a,b)
+			rule type(markca) and attribute(a,b)
 
 
-			end""";
+			""";
 	public static final String SIGNATURE_WITH_ATTRIBUTES_2 = """
-			def type(markca) and attribute(a)
+			rule type(markca) and attribute(a)
 
 
-			end""";
-	public static final String RULE_BEGIN = "\n\ndef";
+			""";
+	public static final String RULE_BEGIN = "\n\nrule";
 	public static final String RULE_WITH_MARKS = """
-			def type(Attribute) and trigger(attribute+Field) and type(Const) and type(readonly)
+			rule type(Attribute) and trigger(attribute+Field) and type(Const) and type(readonly)
 			public class $attri alalasda $other\s
-			end""";
+			""";
 	public static final String RULE_WITH_OR_EXPRESSIONS = """
-			def type(Attribute) and trigger(attribute+Field) and type(Const) and type(readonly)
+			rule type(Attribute) and trigger(attribute+Field) and type(Const) and type(readonly)
 			<coach name="$Name" <<<NotExist $NotExist>?$None !!!?/>~>>
-			end""";
+			""";
 	public static final String MARK_WITH_MODIFIERS = """
-			def type(Class)
+			rule type(Class)
 			public class $attribute+Const...[$NL] alalasda $other\s
-			end""";
+			""";
 	public static final String CURL_SEPARATOR = """
-			def trigger(node)
+			rule trigger(node)
 			    $name+firstUpperCase~Intention<> a
-			end
 			""";
 	public static final String MEDIUM_TEST = """
-			def type(Class)
+			rule type(Class)
 				public class <<$static >>
-			end""";
+			""";
 	public static final String TWO_RULES = """
-			def type(Class)
+			rule type(Class)
 				public class <<$static~A >>
-			end
-			def type(class2)
+			
+			rule type(class2)
 				public class <<$static >>
-			end""";
+			""";
 	public static final String RULE_WITH_EVAL = """
-			def type(Class) and eval(Class == 'sasa')
+			rule type(Class) and eval(Class == 'sasa')
 			public class <<$static >>
-			end
-			def type(class2)
+			
+			rule type(class2)
 				public class <<$static >>
-			end""";
+			""";
 	public static final String ITRULES_TEST = """
-			def type(token) and type(mark) and trigger(token)
+			rule type(token) and type(mark) and trigger(token)
 				.add(mark("$name"<<, $options...[, ]>>)<<.multiple("$separator")>>)
-			end""";
+			""";
 	public static final String CONDITION_TEST = """
-			def type(attribute) and attribute(type, date) and trigger(checkFormat)
+			rule type(attribute) and attribute(type, date) and trigger(checkFormat)
 				java.text.DateFormat.getInstance().parse($name());
-			end
 			""";
 	public static final String CONDITION_2_TEST = """
-			def (attribute(in,path) or attribute(in, query)) and type(required) and trigger(parameter)
+			rule (attribute(in,path) or attribute(in, query)) and type(required) and trigger(parameter)
 				ctx.$in~ParamAsClass("$name", $type.class).getOrThrow(e -> new io.javalin.http.BadRequestResponse("$name parameter not found"))
-			end
-
 			""";
 	public static final String LITTLE_BIG_TEST = """
-			def type(Class)
+			rule type(Class)
 			\tpublic class <<$static >><<$final >>$name <<extends $SuperClass >><<implements $Interface...[, ]>>{
 			\t\t$attribute+Const...[$NL]
 			\t\t$attribute+Field...[$NL]
@@ -139,11 +131,11 @@ public class TestSources {
 			\t\t\t$attribute+Initialize...[$NL]
 			\t\t}
 			\t}
-			end""";
+			""";
 
 
 	public static final String LITTLE_BIG_TEST_2 = """
-			def type(Class)
+			rule type(Class)
 			\tpublic class <<$static >><<$final >>$name <<extends $SuperClass >><<implements $Interface...[, ]>>{
 			\t\t<<//attributes:
 			\t\t\t$attribute+Const...[$NL]
@@ -155,42 +147,41 @@ public class TestSources {
 			\t\t\t$attribute+Initialize...[$NL]
 			\t\t}
 			\t}
-			end""";
+			""";
 
 
 	public static final String XML_TARA = """
-			def type(Theasurus)
+			rule type(Theasurus)
 			\t<thesaurus>
 			\t\t$terms...[$NL]
 			\t</thesaurus>
-			end
-			def type(Term)
+			
+			rule type(Term)
 			\t<term code="$code" value="$value">
 			\t\t$terms...[$NL]
 			\t</term>
-			end""";
+			""";
 	public static final String XML_SMALL = """
-			def type(Class)
+			rule type(Class)
 			\t<class name="$Name" type="$Type">
 			\t\t$superclass+Superclass
 			\t\t$interface+Interface...[$NL]
-			end
-			def type(String) and trigger(String+Interface)
+			
+			rule type(String) and trigger(String+Interface)
 			\t<interface name="$value" />
-			end""";
+			""";
 	public static final String LARGE_XML = """
-			def type(Class)
+			rule type(Class)
 			\t<class name="$Name" type="$Type">
 			\t\t$superclass+Superclass
 			\t\t$interface+Interface...[$NL]
 
 			\t</class>
-			end
 
-			def trigger(String+Superclass)
+			rule trigger(String+Superclass)
 			\t<superclass name="$value" />
-			end
-			def trigger(String+Interface)
+			
+			rule trigger(String+Interface)
 			\t<interface name="$value" />
-			end""";
+			""";
 }

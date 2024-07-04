@@ -2,7 +2,7 @@ parser grammar ItrParser;
 options { tokenVocab=ItrLexer; }
 
 root            : COMMENT* (rule COMMENT*)+ EOF;
-rule      		: BEGIN_RULE signature body END_RULE;
+rule      		: BEGIN_RULE signature body;
 
 signature       : condition BEGIN_BODY;
 condition		: term (operator term)*;
