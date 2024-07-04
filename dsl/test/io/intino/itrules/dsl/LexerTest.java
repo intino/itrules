@@ -163,7 +163,7 @@ public class LexerTest {
 	@Test
 	public void twoRules() {
 		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT",
-				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT",
+				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT",
 				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.TWO_RULES);
@@ -174,7 +174,7 @@ public class LexerTest {
 	public void ruleWithEval() {
 		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "AND",
 				"NAME", "LPAREN", "NAME", "OTHER", "OTHER", "OTHER", "NAME", "OTHER", "RPAREN", "BEGIN_BODY", "TEXT",
-				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT",
+				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY", "TEXT",
 				"BEGIN_EXPRESSION", "TRIGGER", "ID", "TEXT", "END_EXPRESSION", "TEXT"};
 		String[] receivedTypes = lexerTest(TestSources.RULE_WITH_EVAL);
@@ -220,7 +220,6 @@ public class LexerTest {
 				"TEXT", "TEXT",
 				"TEXT", "TEXT", "TRIGGER", "ID", "LIST", "SEPARATOR", "TEXT",
 				"TEXT", "TEXT",
-				"TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT", "TEXT",
 				"TRIGGER", "ID", "LIST", "SEPARATOR", "TEXT", "TEXT",
@@ -239,7 +238,6 @@ public class LexerTest {
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT", "TRIGGER", "ID", "TEXT", "TEXT",
 				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "TEXT",
 				"TEXT", "TRIGGER", "ID", "OPTION", "ID", "LIST", "SEPARATOR",
-				"TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "AND",
 				"NAME", "LPAREN", "NAME", "OTHER", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT",
@@ -259,10 +257,8 @@ public class LexerTest {
 				"TEXT",
 				"TEXT",
 				"TEXT",
-				"TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "OTHER", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT",
-				"TEXT",
 				"BEGIN_RULE", "NAME", "LPAREN", "NAME", "OTHER", "NAME", "RPAREN", "BEGIN_BODY",
 				"TEXT", "TEXT", "TRIGGER", "ID", "TEXT",
 				"TEXT"};

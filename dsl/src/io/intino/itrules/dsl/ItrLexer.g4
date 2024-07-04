@@ -52,7 +52,7 @@ mode SIGNATURE_MODE;
 
 mode BODY_MODE;
 	END_RULE_SCAPPED   : '~rule'                                { setText("rule"); setType(TEXT);};
-	END_RULE           : NL? 'rule'                             { setType(BEGIN_RULE);setMode(SIGNATURE_MODE); setLastMode(BODY_MODE);};
+	END_RULE           : NL NL? 'rule'                             { setType(BEGIN_RULE);setMode(SIGNATURE_MODE); setLastMode(BODY_MODE);};
 	NEWLINE            : NL ('\t' | '    ')?                    { setText("\n"); setType(TEXT);};
 	DOLLAR             : '$$'                                   { setText("$"); setType(TEXT);};
 	LSB                : '$<<'                                  { setText("<<"); setType(TEXT);};
