@@ -31,11 +31,11 @@ rule type(Person)
 * `+Capitalize`and `+Year` are formatters that define how objects are transformed
 
 
-It is available a full list of [condition functions](reference#functions) and [formatters](reference#formatters) that can be used for defining rules.
+It is available a full list of [condition functions](doc/reference/_index#functions) and [formatters](doc/reference/_index#formatters) that can be used for defining rules.
 
 To escape characters, [system marks](reference#escape) are also available.
 
-In addition, new functions, formatters and class adapters can be programatically created. You can read about it in the [programming guide](programming).
+In addition, new functions, formatters and class adapters can be programatically created. You can read about it in the [programming guide](programming/_index).
 
 ## How it works ##
 
@@ -97,12 +97,12 @@ Optionally, it can be added trigger options to the marks. In the above example `
 
 Have a look to the following examples to learn more
 
-1. [Hello world!](examples/hello)
-2. [Formatting data](examples/formatting)
-3. [Multivalued attributes](examples/multivalued)
-4. [Multivalued and optional attributes](examples/optional)
-5. [Conditions on triggers and attributes](examples/conditions)
-6. [Recursive](examples/recursive)
+1. [Hello world!](doc/examples/hello)
+2. [Formatting data](doc/examples/formatting)
+3. [Multivalued attributes](doc/examples/multivalued)
+4. [Multivalued and optional attributes](doc/examples/optional)
+5. [Conditions on triggers and attributes](doc/examples/conditions)
+6. [Recursive](doc/examples/recursive)
 
 
 ## Download and use itrules ##
