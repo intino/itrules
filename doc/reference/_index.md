@@ -132,4 +132,4 @@ Returns true when the current object is primitive and has all the specified valu
 Returns true when the current object is primitive and has any the specified values.
 
 ### Custom functions ###
-New condition functions can be programatically created. Have a look on the [programming section](../programming)
+New condition functions can be programatically created. Have a look on the [programming section](../programming/_index.md)

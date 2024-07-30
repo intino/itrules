@@ -4,7 +4,7 @@ date: 2024-07-18T15:00:00Z
 draft: false
 ---
 
-itrules provides many condition functions. Have a look on the full list of [condition functions](/../reference#functions)
+itrules provides many condition functions. Have a look on the full list of [condition functions](/../reference/_index.md#functions)
 
 ## Template ##
 ```
