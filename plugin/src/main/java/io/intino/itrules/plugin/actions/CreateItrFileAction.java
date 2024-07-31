@@ -1,6 +1,7 @@
 package io.intino.itrules.plugin.actions;
 
 import com.intellij.ide.actions.CreateFileFromTemplateDialog;
+import com.intellij.ide.actions.JavaCreateTemplateInPackageAction;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.editor.Document;
