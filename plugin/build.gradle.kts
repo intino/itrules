@@ -12,18 +12,6 @@ sourceSets {
         java {
             srcDirs("src/main/java", "gen")
         }
-        resources {
-            srcDirs("src/main/resources")
-        }
-    }
-
-    val test by getting {
-        java {
-            srcDirs("src/test/java")
-        }
-        resources {
-            srcDirs("src/test/resources")
-        }
     }
 }
 

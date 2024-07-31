@@ -15,48 +15,48 @@ import io.intino.itrules.plugin.lang.psi.ItrulesTemplateImpl;
 import org.jetbrains.annotations.NotNull;
 
 public class ItrulesParserDefinition implements ParserDefinition {
-    public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-    public static final TokenSet COMMENTS = TokenSet.create();
+	public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
+	public static final TokenSet COMMENTS = TokenSet.create();
 
-    public static final IFileElementType FILE = new IFileElementType(Language.findInstance(ItrulesLanguage.class));
+	public static final IFileElementType FILE = new IFileElementType(Language.findInstance(ItrulesLanguage.class));
 
-    @NotNull
-    @Override
-    public com.intellij.lexer.Lexer createLexer(Project project) {
-        return new ItrulesLexerAdapter();
-    }
+	@NotNull
+	@Override
+	public com.intellij.lexer.Lexer createLexer(Project project) {
+		return new ItrulesLexerAdapter();
+	}
 
-    @NotNull
-    public TokenSet getWhitespaceTokens() {
-        return WHITE_SPACES;
-    }
+	@NotNull
+	public TokenSet getWhitespaceTokens() {
+		return WHITE_SPACES;
+	}
 
-    @NotNull
-    public TokenSet getCommentTokens() {
-        return COMMENTS;
-    }
+	@NotNull
+	public TokenSet getCommentTokens() {
+		return COMMENTS;
+	}
 
-    @NotNull
-    public TokenSet getStringLiteralElements() {
-        return TokenSet.EMPTY;
-    }
+	@NotNull
+	public TokenSet getStringLiteralElements() {
+		return TokenSet.EMPTY;
+	}
 
-    @NotNull
-    public com.intellij.lang.PsiParser createParser(final Project project) {
-        return new ItrulesParser();
-    }
+	@NotNull
+	public com.intellij.lang.PsiParser createParser(final Project project) {
+		return new ItrulesParser();
+	}
 
-    @Override
-    public IFileElementType getFileNodeType() {
-        return FILE;
-    }
+	@Override
+	public IFileElementType getFileNodeType() {
+		return FILE;
+	}
 
-    public PsiFile createFile(FileViewProvider viewProvider) {
-        return new ItrulesTemplateImpl(viewProvider);
-    }
+	public PsiFile createFile(FileViewProvider viewProvider) {
+		return new ItrulesTemplateImpl(viewProvider);
+	}
 
-    @NotNull
-    public com.intellij.psi.PsiElement createElement(ASTNode node) {
-        throw new AssertionError("Unknown element type: " + node.getElementType());
-    }
+	@NotNull
+	public com.intellij.psi.PsiElement createElement(ASTNode node) {
+		throw new AssertionError("Unknown element type: " + node.getElementType());
+	}
 }

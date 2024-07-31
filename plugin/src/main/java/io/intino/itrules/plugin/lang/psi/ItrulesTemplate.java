@@ -8,20 +8,20 @@ import org.jetbrains.annotations.NotNull;
 
 public interface ItrulesTemplate extends PsiFile {
 
-    @NotNull
-    PsiFile getContainingFile();
+	@NotNull
+	PsiFile getContainingFile();
 
-    @NotNull
-    String getName();
+	@NotNull
+	String getName();
 
-    VirtualFile getVirtualFile();
+	VirtualFile getVirtualFile();
 
-    PsiDirectory getParent();
+	PsiDirectory getParent();
 
-    String getPresentableName();
+	String getPresentableName();
 
-    @NotNull
-    Project getProject();
+	@NotNull
+	Project getProject();
 
-    String getText();
+	String getText();
 }

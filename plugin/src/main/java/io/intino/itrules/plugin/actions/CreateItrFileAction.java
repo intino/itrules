@@ -52,9 +52,9 @@ public class CreateItrFileAction extends JavaCreateTemplateInPackageAction<Itrul
 		final PsiFileFactory factory = PsiFileFactory.getInstance(directory.getProject());
 		String fileName = newName + "." + ItrulesFileType.instance().getDefaultExtension();
 		PsiFile file = factory.createFileFromText(fileName, ItrulesFileType.instance(), "def type()" +
-				"\n\t" +
-				"\n\t" +
-				"\nend");
+																						"\n\t" +
+																						"\n\t" +
+																						"\nend");
 		directory.add(file);
 		return (ItrulesTemplateImpl) file;
 	}

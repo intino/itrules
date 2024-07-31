@@ -1,17 +1,9 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-	<!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
 	<id>io.intino.itrules.plugin</id>
-
-	<!-- Public plugin name should be written in Title Case.
-		 Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-	<name>itrules</name>
-
-	<!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+	<name>Itrules</name>
 	<vendor email="support@intino.systems" url="http://www.intino.systems">Itrules: Intelligent Template Engine Rules
 		Based
 	</vendor>
-
 	<description><![CDATA[
        Itrules is a rule-based template engine. Itrules can generate HTML, XML, SQL, JSON or any other documents from templates.
        These templates are a compound of rules that are activated basing on a set of conditions that the users define. The rules have marks that can trigger other rules that define what and how the text will be rendered in this point.
@@ -21,8 +13,8 @@
           $Name was born in $Country on $Birthday+ShortDate
     ]]></description>
 
-
 	<depends>com.intellij.modules.platform</depends>
+
 	<actions>
 		<action id="NewItrFile" class="io.intino.itrules.plugin.actions.CreateItrFileAction">
 			<add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
@@ -39,10 +31,10 @@
 		</group>
 
 	</actions>
-<applicationListeners>
-	<listener class="io.intino.itrules.plugin.project.FileListener"
-			  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
-</applicationListeners>
+	<applicationListeners>
+		<listener class="io.intino.itrules.plugin.project.FileListener"
+				  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+	</applicationListeners>
 
 	<projectListeners>
 		<listener class="io.intino.itrules.plugin.actions.ItrFileDocumentManagerListener"
