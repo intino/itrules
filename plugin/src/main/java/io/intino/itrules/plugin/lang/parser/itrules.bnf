@@ -1,0 +1,31 @@
+{
+	parserClass='io.intino.itrules.plugin.lang.parser.ItrulesParser'
+	parserUtilClass="io.intino.itrules.plugin.lang.parser.ItrulesParserUtil"
+	psiVisitorName="ItrulesVisitor"
+	extends='com.intellij.extapi.psi.ASTWrapperPsiElement'
+	implements='io.intino.itrules.plugin.lang.psi.ItrulesPsiElement'
+	psiClassPrefix='Itrules'
+	psiImplClassSuffix='Impl'
+	psiPackage='io.intino.itrules.plugin.lang.psi'
+	psiImplPackage='io.intino.itrules.plugin.lang.psi.impl'
+
+	elementTypeHolderClass='io.intino.itrules.plugin.lang.psi.ItrulesTypes'
+	elementTypeClass='io.intino.itrules.plugin.lang.psi.ItrulesElementType'
+	tokenTypeClass='io.intino.itrules.plugin.lang.psi.ItrulesTokenType'
+
+}
+
+root ::= (SCAPED_CHAR
+         | DEFRULE
+         | DASH
+         | OR
+         | MULTIPLE
+         | AND
+         | NOT
+         | UNDERDASH
+         | PLACEHOLDER
+         | FORMATTER
+         | LEFT_EXPR
+         | RIGHT_EXPR
+         | IDENTIFIER_KEY
+         | TEXT)*;

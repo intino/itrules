@@ -1,5 +1,9 @@
 uiDesigner.xml
+.gradle
+gradle
+build
 out
+.run
 .idea/workspace.xml
 .idea/libraries
 .directory
@@ -11,3 +15,4 @@ deploy/tmp
 deploy/deployproject.xml
 plugin.zip
 gen
+octavioroncal.xml

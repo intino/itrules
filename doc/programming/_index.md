@@ -20,7 +20,7 @@ public interface Function {
 }
 ```
 
-[Example](function)
+[Example](function.md)
 
 
 ## Formaters
@@ -39,7 +39,7 @@ public interface Formatter {
 }
 ```
 
-[Example](formatter)
+[Example](formatter.md)
 
 
 ## Adapters
@@ -60,4 +60,4 @@ public interface Adapter<T> {
 }
 ```
 
-[Example](adapter)
+[Example](adapter.md)

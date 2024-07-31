@@ -4,7 +4,7 @@ date: 2024-07-18T15:00:00Z
 draft: false
 ---
 
-itrules provides many data formatters. Have a look on the full list of [formatters](../reference#formatters)
+itrules provides many data formatters. Have a look on the full list of [formatters](../reference/_index.md#formatters)
 ## Template ##
 ```
 #!Dylan

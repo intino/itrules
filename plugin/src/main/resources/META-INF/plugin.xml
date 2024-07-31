@@ -1,0 +1,54 @@
+<idea-plugin>
+	<id>io.intino.itrules.plugin</id>
+	<name>Itrules</name>
+	<vendor email="support@intino.systems" url="http://www.intino.systems">Itrules: Intelligent Template Engine Rules
+		Based
+	</vendor>
+	<description><![CDATA[
+       Itrules is a rule-based template engine. Itrules can generate HTML, XML, SQL, JSON or any other documents from templates.
+       These templates are a compound of rules that are activated basing on a set of conditions that the users define. The rules have marks that can trigger other rules that define what and how the text will be rendered in this point.
+       Example:
+
+       rule type(Person)
+          $Name was born in $Country on $Birthday+ShortDate
+    ]]></description>
+
+	<depends>com.intellij.modules.platform</depends>
+
+	<actions>
+		<action id="NewItrFile" class="io.intino.itrules.plugin.actions.CreateItrFileAction">
+			<add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewFile"/>
+		</action>
+		<group id="ItrulesMenu" text="Itrules" description="Itrules menu">
+			<action id="itrules.toClass" class="io.intino.itrules.plugin.actions.TemplateGeneration"
+					text="Generate Java Template"
+					description="Generates the corresponding Java representation of the template">
+				<keyboard-shortcut keymap="$default" first-keystroke="control shift G"/>
+				<add-to-group group-id="EditorPopupMenu" anchor="last"/>
+				<add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+				<add-to-group group-id="ToolsMenu" anchor="last"/>
+			</action>
+		</group>
+
+	</actions>
+	<applicationListeners>
+		<listener class="io.intino.itrules.plugin.project.FileListener"
+				  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>
+	</applicationListeners>
+
+	<projectListeners>
+		<listener class="io.intino.itrules.plugin.actions.ItrFileDocumentManagerListener"
+				  topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"/>
+
+	</projectListeners>
+	<extensions defaultExtensionNs="com.intellij">
+		<fileType name="Itrules" language="Itrules" extensions="itr" fieldName="INSTANCE"
+				  implementationClass="io.intino.itrules.plugin.file.ItrulesFileType"/>
+		<lang.parserDefinition language="Itrules"
+							   implementationClass="io.intino.itrules.plugin.lang.parser.ItrulesParserDefinition"/>
+		<lang.syntaxHighlighterFactory language="Itrules"
+									   implementationClass="io.intino.itrules.plugin.highlighting.ItrulesSyntaxHighlighterFactory"/>
+		<lang.braceMatcher language="Itrules"
+						   implementationClass="io.intino.itrules.plugin.highlighting.ItrulesBraceMatcher"/>
+	</extensions>
+</idea-plugin>

@@ -31,11 +31,11 @@ rule type(Person)
 * `+Capitalize`and `+Year` are formatters that define how objects are transformed
 
 
-It is available a full list of [condition functions](doc/reference/_index#functions) and [formatters](doc/reference/_index#formatters) that can be used for defining rules.
+It is available a full list of [condition functions](doc/reference/_index.md#condition-functions) and [formatters](doc/reference/_index.md#formatters) that can be used for defining rules.
 
-To escape characters, [system marks](reference#escape) are also available.
+To escape characters, [system marks](doc/reference/_index.md#escaped-characters) are also available.
 
-In addition, new functions, formatters and class adapters can be programatically created. You can read about it in the [programming guide](programming/_index).
+In addition, new functions, formatters and class adapters can be programatically created. You can read about it in the [programming guide](doc/programming/_index.md).
 
 ## How it works ##
 
@@ -97,12 +97,12 @@ Optionally, it can be added trigger options to the marks. In the above example `
 
 Have a look to the following examples to learn more
 
-1. [Hello world!](doc/examples/hello)
-2. [Formatting data](doc/examples/formatting)
-3. [Multivalued attributes](doc/examples/multivalued)
-4. [Multivalued and optional attributes](doc/examples/optional)
-5. [Conditions on triggers and attributes](doc/examples/conditions)
-6. [Recursive](doc/examples/recursive)
+1. [Hello world!](doc/examples/hello.md)
+2. [Formatting data](doc/examples/formatting.md)
+3. [Multivalued attributes](doc/examples/multivalued.md)
+4. [Multivalued and optional attributes](doc/examples/optional.md)
+5. [Conditions on triggers and attributes](doc/examples/conditions.md)
+6. [Recursive](doc/examples/recursive.md)
 
 
 ## Download and use itrules ##
