@@ -75,13 +75,14 @@ mode MARK_MODE;
 mode EXPRESSION_MODE;
 	ELSE			   : '?';
 	END_EXPRESSION     : '>>'                                   { setType(END_EXPRESSION);setLastMode(EXPRESSION_MODE);} -> mode(BODY_MODE);
+	EXPRESSION_QUESTION: '$?'                                   { setText("?"); setType(TEXT);};
 	EXPRESSION_DOLLAR  : '$$'                                   { setText("$"); setType(TEXT);};
     EXPRESSION_LSB     : '$<<'                                  { setText("<<"); setType(TEXT);};
     EXPRESSION_RSB     : '$>>'                                  { setText(">>"); setType(TEXT);};
-    EXPRESSION_GT      : '>'                                     { setText(">"); setType(TEXT);};
+    EXPRESSION_GT      : '>'                                    { setText(">"); setType(TEXT);};
 	EXPRESSION_NULL    : '~'                                    -> skip;
 	EXPRESSION_TRIGGER : '$'                                    { setType(TRIGGER); setLastMode(EXPRESSION_MODE);} -> mode(MARK_MODE);
-	EXPRESSION_TEXT    : ~('?' |'$'| '\n' | '>')+         			{ setType(TEXT);};
+	EXPRESSION_TEXT    : ~('?' |'$'| '\n' | '>')+         		{ setType(TEXT);};
 	EXPRESSION_NL      : NL ('\t' | '    ')?                    { setText("\n"); setType(TEXT);};
 	EXPRESSION_ERROR   : .;
 
