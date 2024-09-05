@@ -4,9 +4,10 @@ plugins {
 }
 
 group = "io.intino.itrules"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 sourceSets {
+
     val main by getting {
         java {
             srcDirs("src/main/java", "gen")
@@ -28,7 +29,6 @@ intellij {
 }
 
 tasks {
-    // Set the JVM compatibility versions
     withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
@@ -49,7 +49,7 @@ tasks {
         implementation("io.intino.itrules:dsl:1.1.0")
     }
 
-//    publishPlugin {
-//        token.set(System.getenv("PUBLISH_TOKEN"))
-//    }
+    publishPlugin {
+        token.set(System.getenv("PUBLISH_TOKEN"))
+    }
 }

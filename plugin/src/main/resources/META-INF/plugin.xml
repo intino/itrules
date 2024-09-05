@@ -1,8 +1,7 @@
 <idea-plugin>
 	<id>io.intino.itrules.plugin</id>
 	<name>Itrules</name>
-	<vendor email="support@intino.systems" url="http://www.intino.systems">Itrules: Intelligent Template Engine Rules
-		Based
+	<vendor email="support@intino.systems" url="http://www.intino.systems">ItRules
 	</vendor>
 	<description><![CDATA[
        Itrules is a rule-based template engine. Itrules can generate HTML, XML, SQL, JSON or any other documents from templates.
@@ -14,6 +13,7 @@
     ]]></description>
 
 	<depends>com.intellij.modules.platform</depends>
+	<depends>com.intellij.modules.java</depends>
 
 	<actions>
 		<action id="NewItrFile" class="io.intino.itrules.plugin.actions.CreateItrFileAction">
