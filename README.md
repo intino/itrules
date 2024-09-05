@@ -121,7 +121,7 @@ If you are using Maven, just add the following snippet to your POM:
 
 
 # License #
-`itrules` is licensed under the [LGPL](http://www.gnu.org/licenses/lgpl.html) v2.1. The LGPL guarantees that this library will stay open source, protecting your work.
+`itrules` is licensed under the [LGPL](http://www.gnu.org/licenses/lgpl.html) v3.0. The LGPL guarantees that this library will stay open source, protecting your work.
 
 # Getting help #
 Do you have a question, a problem, some feedback, or suggestions for `itrules`?
