@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.intino.itrules</groupId>
-	<artifactId>dsl</artifactId>
-	<name>dsl</name>
-	<version>1.1.1</version>
+	<artifactId>language</artifactId>
+	<name>language</name>
+	<version>1.1.2</version>
 	<packaging>jar</packaging>
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -16,9 +16,9 @@
 
 	<build>
 		<testSourceDirectory>test</testSourceDirectory>
-		<outputDirectory>../out/production/dsl</outputDirectory>
-		<testOutputDirectory>../out/test/dsl</testOutputDirectory>
-		<directory>../out/build/dsl</directory>
+		<outputDirectory>../out/production/language</outputDirectory>
+		<testOutputDirectory>../out/test/language</testOutputDirectory>
+		<directory>../out/build/language</directory>
 		<testResources>
 			<testResource><directory>test-res</directory></testResource>
 		</testResources>
@@ -170,13 +170,13 @@
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr4</artifactId>
 			<scope>compile</scope>
-			<version>4.13.1</version>
+			<version>4.13.2</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<scope>compile</scope>
-			<version>2.16.1</version>
+			<version>2.18.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -188,7 +188,7 @@
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
 			<scope>test</scope>
-			<version>3.26.0</version>
+			<version>3.26.3</version>
 		</dependency>
 	</dependencies>
 </project>

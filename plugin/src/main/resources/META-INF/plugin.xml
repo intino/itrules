@@ -1,6 +1,7 @@
 <idea-plugin>
 	<id>io.intino.itrules.plugin</id>
 	<name>Itrules</name>
+	<version>1.0.0</version>
 	<vendor email="support@intino.systems" url="http://www.intino.systems">ItRules
 	</vendor>
 	<description><![CDATA[
