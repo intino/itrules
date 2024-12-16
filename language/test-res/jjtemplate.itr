@@ -1,0 +1,130 @@
+rule type(main)
+	import json
+
+    from flask import Flask, request
+    from waitress import serve
+
+    from software.woven.api.API import API
+
+    api = API()
+    app = Flask(__name__)
+
+
+    @app.route('/local-models', methods=<<'GET'>>)
+    def list_docker_models():
+        return json.dumps({"models": api.list_local_models()})
+
+
+    @app.route('/repo-models', methods=<<'GET'>>)
+    def list_dockerhub_models():
+        pagesize = request.args.get("pagesize")
+        return json.dumps({"models": <<ob.__dict__ for ob in api.list_repo_models(pagesize)>>})
+
+
+    @app.route('/image_prefix', methods=<<'GET'>>)
+    def image_prefix():
+        return API.configuration.hub_configuration.image_prefix
+
+
+    @app.route('/project_namespace', methods=<<'GET'>>)
+    def project_namespace():
+        return API.configuration.deployment_configuration.project_namespace
+
+
+    @app.route('/deployment-models/<namespace>', methods=<<'GET'>>)
+    def list_gal2_models(namespace):
+        try:
+            if not namespace:
+                return json.dumps({'message': 'Parameter namespace is required.'}), 400
+            return json.dumps({"models": [ob.__dict__ for ob in api.list_models_in_deployment([namespace])]})
+        except Exception:
+            return json.dumps({
+                                  'message': 'Namespace not found, if you do not remember the name of the namespace try to list the namespaces.'}), 500
+
+
+    @app.route('/create-data-vault', methods=<<'POST'>>)
+    def build_data_vault():
+        try:
+            return json.dumps({'message': f'{api.build_data_vault()}'})
+        except Exception as e:
+            return json.dumps({'message': str(e)}), 500
+
+
+    @app.route('/namespaces-deployment', methods=<<'GET'>>)
+    def list_gal2_namespaces():
+        return json.dumps(<<ob.__dict__ for ob in api.list_namespaces_in_deployment()>>)
+
+
+    @app.route('/build/<model>', methods=<<'POST'>>)
+    def build_model(model):
+        try:
+            return json.dumps({'message': f'{api.build(model).replace("_", "-")}'})
+        except Exception as e:
+            return json.dumps({'message': str(e)}), 500
+
+
+    @app.route('/pack/<model>/<tag>', methods=<<'POST'>>)
+    def pack_model(model, tag):
+        try:
+            return json.dumps({'message': f'{api.pack(model.replace("-", "_"), model, tag).replace("_", "-")}'})
+        except Exception as e:
+            return json.dumps({'message': str(e)}), 500
+
+
+    @app.route('/dist/<model>/<tag>', methods=<<'POST'>>)
+    def dist_model(model, tag):
+        try:
+            return json.dumps({'message': f'{api.dist(model, tag).replace("_", "-")}'})
+        except Exception as e:
+            return json.dumps({'message': str(e)}), 500
+
+
+    @app.route('/deploy/<namespace>/<model>/<tag>', methods=<<'POST'>>)
+    def deploy_model(namespace, model, tag):
+        port = request.json.get("port") if "port" in request.json else 80
+        end_point = request.json.get("endpoint") if "endpoint" in request.json else None
+        input_template = request.json.get("input-template") if "input-template" in request.json else None
+        request_gpu = request.json.get("request-gpu") if "request-gpu" in request.json else False
+        tunnel_source_port = request.json.get("tunnel-source-port") if "tunnel-source-port" in request.json else None
+        tunnel_destination_host = request.json.get("tunnel-destination-host") if "tunnel-destination-host" in request.json else None
+        tunnel_destination_port = request.json.get("tunnel-destination-port") if "tunnel-destination-port" in request.json else None
+        image_pull_policy = request.json.get("image-pull-policy") if "image-pull-policy" in request.json else None
+        try:
+            return json.dumps({'message': f'{api.deploy(namespace, model, model, tag, port, end_point, input_template, request_gpu, tunnel_source_port, tunnel_destination_host, tunnel_destination_port, image_pull_policy)}'})
+        except Exception as e:
+            return json.dumps({'message': str(e)}), 500
+
+
+    @app.route('/deploy_init/<namespace>/<model>/<tag>', methods=<<'POST'>>)
+    def deploy_init_model(namespace, model, tag):
+        port = request.json.get("port") if "port" in request.json else 80
+        end_point = request.json.get("endpoint") if "endpoint" in request.json else None
+        input_template = request.json.get("input-template") if "input-template" in request.json else None
+        request_gpu = request.json.get("request-gpu") if "request-gpu" in request.json else False
+        tunnel_source_port = request.json.get("tunnel-source-port") if "tunnel-source-port" in request.json else None
+        tunnel_destination_host = request.json.get("tunnel-destination-host") if "tunnel-destination-host" in request.json else None
+        tunnel_destination_port = request.json.get("tunnel-destination-port") if "tunnel-destination-port" in request.json else None
+        image_pull_policy = request.json.get("image-pull-policy") if "image-pull-policy" in request.json else None
+        try:
+            return json.dumps({'message': f'{api.init_deploy(namespace, model, model, tag, port, end_point, input_template, request_gpu, tunnel_source_port, tunnel_destination_host, tunnel_destination_port, image_pull_policy)}'})
+        except Exception as e:
+            return json.dumps({'message': str(e)}), 500
+
+
+    @app.route('/status', methods=<<'GET'>>)
+    def status():
+        data = request.json
+
+
+	@app.route('/domains', methods=<<'GET'>>)
+	def domains():
+		return $domains
+
+
+	@app.route('/translators', methods=<<'GET'>>)
+    def translators():
+    	return $translators
+
+
+    if __name__ == "__main__":
+        serve(app, host='0.0.0.0', port=80)
