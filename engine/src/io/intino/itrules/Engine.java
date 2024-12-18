@@ -129,6 +129,8 @@ public class Engine {
 	}
 
 	private class Display {
+		private static final Rule THIS_OUTPUT = new Rule().output(Placeholder.This);
+		private static final Rule EMPTY_RULE = new Rule().output();
 		private final Trigger trigger;
 		private final Canvas canvas;
 
@@ -157,15 +159,13 @@ public class Engine {
 		}
 
 		private Rule defaultRule(Frame frame) {
-			return hasValue(frame) ?
-					new Rule().output(Placeholder.This) :
-					new Rule().output();
+			return hasValue(frame) ? THIS_OUTPUT : EMPTY_RULE;
 		}
 
 		private void write(Output output) {
 			if (output instanceof Literal) write((Literal) output);
-			if (output instanceof Placeholder) write((Placeholder) output);
-			if (output instanceof Expression) write((Expression) output);
+			else if (output instanceof Placeholder) write((Placeholder) output);
+			else if (output instanceof Expression) write((Expression) output);
 		}
 
 		private void write(Literal literal) {
