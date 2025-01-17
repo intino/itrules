@@ -29,6 +29,10 @@ public class Outputs {
 		return new Placeholder(name, formatters);
 	}
 
+	public static Placeholder placeholder(String name, String[] context, String... formatters) {
+		return new Placeholder(name, context, formatters);
+	}
+
 	public static Literal literal(String text) {
 		return new Literal(text);
 	}
