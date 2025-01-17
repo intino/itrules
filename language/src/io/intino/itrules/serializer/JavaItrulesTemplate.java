@@ -69,7 +69,7 @@ public class JavaItrulesTemplate extends Template {
 				rule().condition(all(type("output"), type("literal"), trigger("outputs"))).
 						output(literal(".output(literal(")).output(placeholder("value", "string")).output(literal("))")),
 				rule().condition(all(type("output"), type("placeholder"), trigger("outputs"))).
-						output(literal(".output(placeholder(")).output(placeholder("name", "string")).output(templatePath()).output(formatters()).output(literal(")")).output(expression().output(literal(".multiple(")).output(placeholder("separator", "string")).output(literal(")"))).output(literal(")")),
+						output(literal(".output(placeholder(")).output(templatePath()).output(placeholder("name", "string")).output(formatters()).output(literal(")")).output(expression().output(literal(".multiple(")).output(placeholder("separator", "string")).output(literal(")"))).output(literal(")")),
 				rule().condition(all(type("output"), type("expression"), trigger("outputs")))
 						.output(literal(".output(expression()"))
 						.output(placeholder("outputs").multiple(""))
@@ -83,7 +83,7 @@ public class JavaItrulesTemplate extends Template {
 	}
 
 	private Expression templatePath() {
-		return expression().output(literal(", new String[]{")).output(placeholder("targetPath", "string").multiple(", ")).output(literal("}"));
+		return expression().output(literal("new String[]{")).output(placeholder("targetPath", "string").multiple(", ")).output(literal("}, "));
 	}
 
 	private static Expression formatters() {
