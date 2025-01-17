@@ -93,6 +93,11 @@ public class TestSources {
 			rule type(Class)
 				public class <<$static >>
 			""";
+	public static final String CONTAINER_TEST = """
+			rule trigger(variable)
+				$<container>name.create("$name")
+			""";
+
 	public static final String TWO_RULES = """
 			rule type(Class)
 				public class <<$static~A >>

@@ -40,16 +40,16 @@ public class JavaItrulesTemplate extends Template {
 	public List<Rule> ruleSet() {
 		return List.of(rule().condition(type("template")).output(expression().output(
 								literal("package "), placeholder("package"), literal(";\n")), literal("""
-
+								
 								import io.intino.itrules.template.Rule;
 								import io.intino.itrules.template.Template;
-
+								
 								import java.util.ArrayList;
 								import java.util.List;
-
+								
 								import static io.intino.itrules.template.condition.predicates.Predicates.*;
 								import static io.intino.itrules.template.outputs.Outputs.*;
-
+								
 								public class\s"""), placeholder("name", "FirstUpperCase"), literal("Template extends Template {\n\n"),
 
 						literal("\tpublic List<Rule> ruleSet() {\n" +
@@ -65,7 +65,7 @@ public class JavaItrulesTemplate extends Template {
 								\t\treturn new io.intino.itrules.Engine(this).addAll(formatters).render(object);
 								\t}
 								}""")),
-				rule().condition(trigger("rule")).output(literal("rules.add(rule()"),expression().output(literal(".condition("), placeholder("condition"), literal(")")), placeholder("outputs").multiple("")).output(literal(");")),
+				rule().condition(trigger("rule")).output(literal("rules.add(rule()"), expression().output(literal(".condition("), placeholder("condition"), literal(")")), placeholder("outputs").multiple("")).output(literal(");")),
 				rule().condition(all(type("output"), type("literal"), trigger("outputs"))).
 						output(literal(".output(literal(")).output(placeholder("value", "string")).output(literal("))")),
 				rule().condition(all(type("output"), type("placeholder"), trigger("outputs"))).
@@ -83,7 +83,7 @@ public class JavaItrulesTemplate extends Template {
 	}
 
 	private Expression templatePath() {
-		return expression().output(literal(", ")).output(placeholder("templatePath", "string").multiple(", "));
+		return expression().output(literal(", new String[]{")).output(placeholder("targetPath", "string").multiple(", ")).output(literal("}"));
 	}
 
 	private static Expression formatters() {
