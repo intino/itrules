@@ -91,6 +91,7 @@ public class TemplateSerializer {
 		if (o instanceof Literal l) return new FrameBuilder("output", "literal").add("value", l.toString()).toFrame();
 		if (o instanceof Placeholder p) {
 			FrameBuilder builder = new FrameBuilder("output", "placeholder").add("name", p.name());
+			if (p.targetPath() != null) builder.add("targetPath", p.targetPath());
 			if (p.separator() != null) builder.add("separator", p.separator());
 			if (p.formatters() != null) builder.add("formatters", p.formatters());
 			return builder.toFrame();

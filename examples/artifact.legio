@@ -2,8 +2,9 @@ dsl Legio
 
 Artifact("io.intino.itrules", "1.0.0") examples
 	Imports
-		Compile("io.intino.itrules", "dsl", "1.0.0")
+		Compile("io.intino.itrules", "language", "1.1.2")
 		Compile("io.intino.alexandria", "json", "1.2.3")
 		Compile("junit", "junit", "4.13.2")
 		Compile("org.assertj", "assertj-core", "3.25.3")
-	Package(mode = ModulesAndLibrariesLinkedByManifest)
+		Compile(groupId = "io.intino.itrules", artifactId = "engine", version = "2.0.0")
+	Package(mode = ModulesAndLibrariesLinkedByManifest, attachSources = true, createMavenPom = true)

@@ -20,24 +20,26 @@
  * along with itrules Library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.intino.itrules.template.outputs;
+package io.intino.itrules.dsl;
 
-import io.intino.itrules.template.Output;
+import io.intino.itrules.TemplateReader;
+import io.intino.itrules.parser.ITRulesSyntaxError;
+import io.intino.itrules.serializer.TemplateSerializer;
+import io.intino.itrules.template.Template;
+import org.junit.Test;
 
-public class Outputs {
-	public static Placeholder placeholder(String[] context, String name, String... formatters) {
-		return new Placeholder(name, context, formatters);
-	}
+import java.io.ByteArrayInputStream;
+import java.util.Locale;
 
-	public static Placeholder placeholder(String name, String... formatters) {
-		return new Placeholder(name, formatters);
-	}
+public class TemplateGenerationTest {
 
-	public static Literal literal(String text) {
-		return new Literal(text);
-	}
 
-	public static Expression expression(Output... outputs) {
-		return new Expression(outputs);
+	@Test
+	public void should_serialize_java_representation() throws ITRulesSyntaxError {
+		TemplateSerializer serializer = new TemplateSerializer("containerTest", "io.intino", Locale.getDefault(), Template.Configuration.LineSeparator.LF);
+		TemplateReader reader = new TemplateReader(new ByteArrayInputStream(TestSources.CONTAINER_TEST.getBytes()));
+		Template template = reader.read();
+		System.out.println(serializer.toJava(template));
+
 	}
 }

@@ -1,7 +1,6 @@
-def type(Message)
+rule type(Message)
     From: $from
     To: $to...[, ]
     $subject
 
     $line...[$NL]
-end

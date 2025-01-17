@@ -1,7 +1,5 @@
-def type(Publisher)
+rule type(Publisher)
 	$name+camelcase($measurements...[, ])
-end
 
-def type(Measurement)
+rule type(Measurement)
 	$datatype $value
-end

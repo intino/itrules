@@ -17,11 +17,11 @@
     <orderEntry type="library" name="Intino: org.antlr:ST4:4.3.4" level="project" />
     <orderEntry type="library" name="Intino: com.ibm.icu:icu4j:72.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Intino: junit:junit:4.13.2" level="project" />
-    <orderEntry type="library" name="Intino: io.intino.itrules:engine:2.0.1" level="project" />
     <orderEntry type="library" name="Intino: org.antlr:antlr4:4.13.2" level="project" />
     <orderEntry type="library" name="Intino: org.antlr:antlr4-runtime:4.13.2" level="project" />
     <orderEntry type="library" name="Intino: commons-io:commons-io:2.18.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Intino: org.assertj:assertj-core:3.26.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Intino: net.bytebuddy:byte-buddy:1.14.18" level="project" />
+    <orderEntry type="library" name="Intino: io.intino.itrules:engine:2.0.2" level="project" />
   </component>
 </module>

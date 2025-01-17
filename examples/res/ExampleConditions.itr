@@ -1,24 +1,18 @@
-def type(Person)
+rule type(Person)
     $Name has $PetsCount+Words pets:
       $Pets...[$NL]
-end
 
-def type(Dog) and attribute(Name)
+rule type(Dog) and attribute(Name)
     $Name, a $Age dog
-end
 
-def type(Dog)
+rule type(Dog)
     A $Age dog
-end
 
-def type(Cat)
+rule type(Cat)
     $Name, a $Age+Age kitty
-end
 
-def trigger(Age) and attribute(this, 1)
+rule trigger(Age) and attribute(this, 1)
     one year old
-end
 
-def trigger(Age)
+rule trigger(Age)
     $this+Words years old
-end
