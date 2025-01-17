@@ -22,6 +22,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="engine" />
       </profile>
+      <profile name="Annotation profile for examples" enabled="true">
+        <sourceOutputDir name="../out/build/examples/generated-sources/annotations" />
+        <sourceTestOutputDir name="../out/build/examples/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="examples" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,9 +1,7 @@
-def type(Module) and attribute(modules)
+rule type(Module) and attribute(modules)
 	<module name="$name">
 	    $modules...[$NL]
     </module>
-end
 
-def type(Module)
+rule type(Module)
 	<module name="$name"/>
-end
