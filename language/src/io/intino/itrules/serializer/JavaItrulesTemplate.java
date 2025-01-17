@@ -24,6 +24,7 @@ package io.intino.itrules.serializer;
 
 import io.intino.itrules.template.Rule;
 import io.intino.itrules.template.Template;
+import io.intino.itrules.template.outputs.Expression;
 
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class JavaItrulesTemplate extends Template {
 				rule().condition(all(type("output"), type("literal"), trigger("outputs"))).
 						output(literal(".output(literal(")).output(placeholder("value", "string")).output(literal("))")),
 				rule().condition(all(type("output"), type("placeholder"), trigger("outputs"))).
-						output(literal(".output(placeholder(")).output(placeholder("name", "string")).output(expression().output(literal(", ")).output(placeholder("formatters", "string").multiple(", "))).output(literal(")")).output(expression().output(literal(".multiple(")).output(placeholder("separator", "string")).output(literal(")"))).output(literal(")")),
+						output(literal(".output(placeholder(")).output(placeholder("name", "string")).output(templatePath()).output(formatters()).output(literal(")")).output(expression().output(literal(".multiple(")).output(placeholder("separator", "string")).output(literal(")"))).output(literal(")")),
 				rule().condition(all(type("output"), type("expression"), trigger("outputs")))
 						.output(literal(".output(expression()"))
 						.output(placeholder("outputs").multiple(""))
@@ -79,5 +80,13 @@ public class JavaItrulesTemplate extends Template {
 						.output(placeholder("outputs").multiple(""))
 						.output(expression().output(literal(".next(")).output(placeholder("next")).output(literal(")")))
 		);
+	}
+
+	private Expression templatePath() {
+		return expression().output(literal(", ")).output(placeholder("templatePath", "string").multiple(", "));
+	}
+
+	private static Expression formatters() {
+		return expression().output(literal(", ")).output(placeholder("formatters", "string").multiple(", "));
 	}
 }
