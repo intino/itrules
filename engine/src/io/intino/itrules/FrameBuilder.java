@@ -248,7 +248,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 		public Composite(List<String> types, Map<String, List<Frame>> slots) {
 			this.types = types;
 			this.slots = slots;
-			slots.values().forEach(s -> s.forEach(f -> f.container(Composite.this)));
+			slots.values().forEach(s -> new ArrayList<>(s).forEach(f -> f.container(Composite.this)));
 		}
 
 		@Override
