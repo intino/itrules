@@ -1,3 +1,11 @@
+## 2.0.2
+-	Fixed template generation
+-   Added context to marks.
+-   Improved performance
+
+## 2.0.1
+-	Fixed template generation
+
 ## 2.0.0
 -	Improved engine performance.
 - 	Migrated to io.intino

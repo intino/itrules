@@ -128,7 +128,6 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return stream((Object[]) object);
 	}
 
-
 	public FrameBuilder append(Object object) {
 		addValueOf(object);
 		addTypesOf(object);
@@ -140,7 +139,6 @@ public final class FrameBuilder implements FrameBuilderContext {
 		//TODO
 		return this;
 	}
-
 
 	public <T> FrameBuilder put(Class<T> aClass, Adapter<T> adapter) {
 		adapters.put(aClass, adapter);
@@ -237,6 +235,10 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return interfaces;
 	}
 
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 
 	private static class Composite implements Frame {
 		private final List<String> types;
@@ -246,7 +248,7 @@ public final class FrameBuilder implements FrameBuilderContext {
 		public Composite(List<String> types, Map<String, List<Frame>> slots) {
 			this.types = types;
 			this.slots = slots;
-			slots.values().forEach(s -> s.forEach(f -> f.container(Composite.this)));
+			slots.values().forEach(s -> new ArrayList<>(s).forEach(f -> f.container(Composite.this)));
 		}
 
 		@Override
