@@ -115,6 +115,15 @@ public class LexerTest {
 		assertArrayEquals(expectedTypes, receivedTypes);
 	}
 
+
+	@Test
+	public void doubleCurlSeparator() {
+		String[] expectedTypes = new String[]{"BEGIN_RULE", "NAME", "LPAREN", "NAME", "RPAREN", "BEGIN_BODY",
+				"TEXT", "TEXT", "TEXT"};
+		String[] receivedTypes = lexerTest(TestSources.DOUBLE_CURL_SEPARATOR);
+		assertArrayEquals(expectedTypes, receivedTypes);
+	}
+
 	@Test
 	public void MarkWithFormat() {
 		String[] expectedTypes = new String[]{

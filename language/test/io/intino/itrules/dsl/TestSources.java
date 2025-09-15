@@ -89,6 +89,11 @@ public class TestSources {
 			rule trigger(node)
 			    $name+firstUpperCase~Intention<> a
 			""";
+	public static final String DOUBLE_CURL_SEPARATOR = """
+			rule trigger(node)
+			    $~ a
+			""";
+
 	public static final String MEDIUM_TEST = """
 			rule type(Class)
 				public class <<$static >>
