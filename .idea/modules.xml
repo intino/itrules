@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/engine/engine.iml" filepath="$PROJECT_DIR$/engine/engine.iml" />
       <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/itrules-cli/itrules-cli.iml" filepath="$PROJECT_DIR$/itrules-cli/itrules-cli.iml" />
       <module fileurl="file://$PROJECT_DIR$/language/language.iml" filepath="$PROJECT_DIR$/language/language.iml" />
     </modules>
   </component>
