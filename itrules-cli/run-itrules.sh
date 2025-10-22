@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# Check for help flag or incorrect number of arguments
 if [[ "$1" == "-h" || "$1" == "--help" || "$#" -ne 3 ]]; then
   echo "Usage: ./run-itrules.sh <template.itr> <json_string> <output.txt>"
   echo
@@ -20,7 +18,6 @@ JSON_STRING="$2"
 OUTPUT_FILE="$3"
 
 # You may need to adjust the path to the JAR file below
-JAR_FILE="itrules-cli.jar"
+JAR_FILE="~/.m2/repository/io/intino/itrules/itrules-cli/2.0.3/itrules-cli-2.0.3.jar"
 
-# Run the Java application
 java -jar "$JAR_FILE" "$TEMPLATE_FILE" "$JSON_STRING" "$OUTPUT_FILE"
