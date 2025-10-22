@@ -7,6 +7,7 @@ import io.intino.itrules.template.Template;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -18,8 +19,9 @@ public class Main {
 		else try {
 			FileInputStream templateStream = new FileInputStream(args[0]);
 			Template template = new TemplateReader(templateStream).read();
-			JsonObject object = new Gson().fromJson(args[1], JsonObject.class);
+			JsonObject object = new Gson().fromJson(new FileReader(args[1]), JsonObject.class);
 			File outputFile = new File(args[2]);
+			outputFile.getParentFile().mkdirs();
 			String result = new Engine(template).render(object);
 			Files.writeString(outputFile.toPath(), result);
 			System.out.println("File successfully generated at: " + outputFile.getAbsolutePath());

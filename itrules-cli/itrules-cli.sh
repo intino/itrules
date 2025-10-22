@@ -18,6 +18,6 @@ JSON_STRING="$2"
 OUTPUT_FILE="$3"
 
 # You may need to adjust the path to the JAR file below
-JAR_FILE="~/.m2/repository/io/intino/itrules/itrules-cli/2.0.3/itrules-cli-2.0.3.jar"
+JAR_FILE="$HOME/.m2/repository/io/intino/itrules/itrules-cli/2.0.3/itrules-cli-2.0.3.jar"
 
 java -jar "$JAR_FILE" "$TEMPLATE_FILE" "$JSON_STRING" "$OUTPUT_FILE"
