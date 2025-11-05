@@ -149,7 +149,7 @@
 			<groupId>io.intino.itrules</groupId>
 			<artifactId>language</artifactId>
 			<scope>compile</scope>
-			<version>1.1.2</version>
+			<version>1.1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>io.intino.alexandria</groupId>
@@ -168,12 +168,6 @@
 			<artifactId>assertj-core</artifactId>
 			<scope>compile</scope>
 			<version>3.25.3</version>
-		</dependency>
-		<dependency>
-			<groupId>io.intino.itrules</groupId>
-			<artifactId>engine</artifactId>
-			<scope>compile</scope>
-			<version>2.0.0</version>
 		</dependency>
 	</dependencies>
 </project>

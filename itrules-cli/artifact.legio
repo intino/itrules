@@ -1,0 +1,9 @@
+dsl Legio
+
+Artifact("io.intino.itrules", "2.0.3") itrules-cli
+	Imports
+		Compile("io.intino.itrules", "language", "1.1.4")
+		Compile("com.google.code.gson", "gson", "2.13.2")
+		Test("junit", "junit", "4.13")
+	Package(mode = ModulesAndLibrariesExtracted) as Runnable("io.intino.itrules.Main")
+RunConfiguration local
