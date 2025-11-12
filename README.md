@@ -1,6 +1,6 @@
 ---
 title: "ItRules engine"
-date: 2024-07-30T15:00:00Z
+date: 2025-11-12T15:00:00Z
 draft: false
 ---
 # What is itrules? #
@@ -114,8 +114,8 @@ If you are using Maven, just add the following snippet to your POM:
 #!xml
 <dependency>
     <groupId>io.intino.itrules</groupId>
-    <artifactId>dsl</artifactId>
-    <version>1.1.0/version>
+    <artifactId>language</artifactId>
+    <version>1.1.4/version>
 </dependency>
 ```
 
