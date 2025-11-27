@@ -31,11 +31,11 @@ public class Trigger {
 	private final String name;
 	private Frame frame;
 
-	Trigger(String name) {
+	public Trigger(String name) {
 		this.name = name.toLowerCase();
 	}
 
-	Trigger on(Frame frame) {
+	public Trigger on(Frame frame) {
 		this.frame = frame;
 		return this;
 	}

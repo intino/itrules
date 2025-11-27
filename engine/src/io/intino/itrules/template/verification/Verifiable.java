@@ -1,6 +1,7 @@
 package io.intino.itrules.template.verification;
 
 import io.intino.itrules.Frame;
+import io.intino.itrules.template.verification.verifiers.TerminationVerifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,12 @@ import static io.intino.itrules.template.verification.VerificationReport.ofIssue
 import static io.intino.itrules.template.verification.VerificationReport.ok;
 
 public interface Verifiable {
-	default boolean checkTermination(Frame frame){
-		return new TerminationChecker().check(frame);
+	default boolean checkTermination(Frame frame) {
+		try {
+			return new TerminationVerifier().verify(frame);
+		} catch (VerificationException e) {
+			return false;
+		}
 	}
 
 	boolean checkDeterminacy();

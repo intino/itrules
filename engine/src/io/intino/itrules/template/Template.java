@@ -22,6 +22,12 @@
 
 package io.intino.itrules.template;
 
+import io.intino.itrules.Frame;
+import io.intino.itrules.template.verification.Verifiable;
+import io.intino.itrules.template.verification.VerificationException;
+import io.intino.itrules.template.verification.verifiers.CompletenessVerifier;
+import io.intino.itrules.template.verification.verifiers.DeterminacyVerifier;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +35,7 @@ import java.util.Locale;
 import static io.intino.itrules.template.Template.Configuration.LineSeparator.CRLF;
 import static io.intino.itrules.template.Template.Configuration.LineSeparator.LF;
 
-public abstract class Template {
+public abstract class Template implements Verifiable {
 	private final Configuration configuration;
 
 	public Template() {
@@ -56,6 +62,26 @@ public abstract class Template {
 				return rules;
 			}
 		};
+	}
+
+	@Override
+	public boolean checkDeterminacy() {
+		return new DeterminacyVerifier().verify(this);
+	}
+
+	@Override
+	public boolean checkCompleteness(Frame frame) {
+		try {
+			return new CompletenessVerifier(this).verify(frame);
+		} catch (VerificationException e) {
+			System.err.println(e.getMessage());
+			return false;
+		}
+	}
+
+	@Override
+	public boolean checkReferentialConsistency(Frame frame) {
+		return false;
 	}
 
 	protected Rule rule() {

@@ -31,7 +31,6 @@ import java.util.stream.Stream;
 import static java.util.Arrays.asList;
 
 public class Rule {
-
 	private LogicalExpression condition;
 	private final List<Output> outputs = new ArrayList<>();
 

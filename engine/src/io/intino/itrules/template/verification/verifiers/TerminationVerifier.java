@@ -1,17 +1,14 @@
-package io.intino.itrules.template.verification;
+package io.intino.itrules.template.verification.verifiers;
 
 import io.intino.itrules.Frame;
 import io.intino.itrules.FrameBuilder;
+import io.intino.itrules.template.verification.VerificationException;
 
 import java.util.*;
 
-public class TerminationChecker {
-	public boolean check(Frame frame) {
-		try {
-			return isAcyclic(graphOf(frame));
-		} catch (VerificationException e) {
-			return false;
-		}
+public class TerminationVerifier implements Verifier<Frame> {
+	public boolean verify(Frame frame) throws VerificationException {
+		return isAcyclic(graphOf(frame));
 	}
 
 	private Map<Frame, List<Frame>> graphOf(Frame root) throws VerificationException {
