@@ -27,6 +27,7 @@ import io.intino.itrules.template.verification.Verifiable;
 import io.intino.itrules.template.verification.VerificationException;
 import io.intino.itrules.template.verification.verifiers.CompletenessVerifier;
 import io.intino.itrules.template.verification.verifiers.DeterminacyVerifier;
+import io.intino.itrules.template.verification.verifiers.ReferenceConsistencyVerifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,14 +75,17 @@ public abstract class Template implements Verifiable {
 		try {
 			return new CompletenessVerifier(this).verify(frame);
 		} catch (VerificationException e) {
-			System.err.println(e.getMessage());
 			return false;
 		}
 	}
 
 	@Override
 	public boolean checkReferentialConsistency(Frame frame) {
-		return false;
+		try {
+			return new ReferenceConsistencyVerifier(this).verify(frame);
+		} catch (VerificationException e) {
+			return false;
+		}
 	}
 
 	protected Rule rule() {
