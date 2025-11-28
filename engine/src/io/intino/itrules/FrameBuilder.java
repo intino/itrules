@@ -240,12 +240,12 @@ public final class FrameBuilder implements FrameBuilderContext {
 		return super.clone();
 	}
 
-	private static class Composite implements Frame {
+	public static class Composite implements Frame {
 		private final List<String> types;
 		private Frame container;
 		private final Map<String, List<Frame>> slots;
 
-		public Composite(List<String> types, Map<String, List<Frame>> slots) {
+		Composite(List<String> types, Map<String, List<Frame>> slots) {
 			this.types = types;
 			this.slots = slots;
 			slots.values().forEach(s -> new ArrayList<>(s).forEach(f -> f.container(Composite.this)));
@@ -273,6 +273,10 @@ public final class FrameBuilder implements FrameBuilderContext {
 		@Override
 		public Iterator<Frame> frames(String slot) {
 			return contains(slot) ? slots.get(slot.toLowerCase()).iterator() : emptyIterator();
+		}
+
+		public Map<String, List<Frame>> slots() {
+			return slots;
 		}
 
 		@Override
@@ -311,13 +315,13 @@ public final class FrameBuilder implements FrameBuilderContext {
 
 	}
 
-	static class Primitive implements Frame {
+	public static class Primitive implements Frame {
 		private final Object value;
 		private final String type;
 		private Frame container;
 		private final static Map<Class<?>, String> types = new HashMap<>();
 
-		public Primitive(Object value) {
+		Primitive(Object value) {
 			this.value = value;
 			this.type = typeOf(value.getClass());
 		}

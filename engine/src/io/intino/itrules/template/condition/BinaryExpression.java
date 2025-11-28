@@ -26,33 +26,12 @@ import io.intino.itrules.Trigger;
 
 import static io.intino.itrules.template.condition.BinaryOperator.AND;
 
-public class BinaryExpression implements LogicalExpression {
-	private final LogicalExpression left;
-	private final BinaryOperator operator;
-	private final LogicalExpression right;
-
-	public BinaryExpression(LogicalExpression left, BinaryOperator operator, LogicalExpression right) {
-		this.left = left;
-		this.operator = operator;
-		this.right = right;
-	}
-
+public record BinaryExpression(LogicalExpression left, BinaryOperator operator,
+							   LogicalExpression right) implements LogicalExpression {
 	@Override
 	public boolean evaluate(Trigger trigger) {
 		if (operator == AND) return left.evaluate(trigger) && right.evaluate(trigger);
 		return left.evaluate(trigger) || right.evaluate(trigger);
-	}
-
-	public LogicalExpression left() {
-		return left;
-	}
-
-	public BinaryOperator operator() {
-		return operator;
-	}
-
-	public LogicalExpression right() {
-		return right;
 	}
 
 	@Override
@@ -62,6 +41,6 @@ public class BinaryExpression implements LogicalExpression {
 
 	private String embrace(LogicalExpression expression) {
 		String result = expression.toString();
-		return expression instanceof Predicate || expression instanceof NotExpression ? result : "(" + result + ")";
+		return expression instanceof Predicate ? result : "(" + result + ")";
 	}
 }

@@ -26,7 +26,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ObjectWithMap {
-
 	private final Map<Object, Object> map = new LinkedHashMap<>();
 
 	public ObjectWithMap() {

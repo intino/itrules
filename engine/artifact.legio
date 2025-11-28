@@ -1,6 +1,6 @@
 dsl Legio
 
-Artifact("io.intino.itrules", "2.0.3") engine
+Artifact("io.intino.itrules", "2.1.0") engine
 	Imports
 		Test("junit", "junit", "4.13.2")
 		Test("org.assertj", "assertj-core", "3.25.3")
