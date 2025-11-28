@@ -1,8 +1,8 @@
 dsl Legio
 
-Artifact("io.intino.itrules", "1.1.4") language
+Artifact("io.intino.itrules", "1.2.0") language
 	Imports
-		Compile("io.intino.itrules", "engine", "2.0.4")
+		Compile("io.intino.itrules", "engine", "2.1.0")
 		Compile("io.intino.alexandria", "logger", "2.1.0")
 		Compile("org.antlr", "antlr4", "4.13.2")
 		Compile("commons-io", "commons-io", "2.18.0")
